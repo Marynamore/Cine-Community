@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: black;
+    background-color: #002b46;
+    box-sizing: border-box;
+   
+
+}
+.container{
+    max-width: 500px;
+    background-color: #002b46;
+    color: #fff;
+    box-shadow: 0 0 10px #08ef;
+    font-size: 15px;
+    padding: 2em;
+    margin: 2em;
+}
+
+.container form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container input, select, button{
+    background-color: #08ef;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 10px #08ef;
+    margin: 10px;
+    
+}
+
+.container input::placeholder{
+    color: #fff;
+}
+
+
+

@@ -1,0 +1,22 @@
+.tudo{
+    background-color:#000000 ;
+    background-image: url("movie.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.cabecalho{
+   color: #ffff;
+}
+ table{
+     width: 60%;
+     font-family:'Times New Roman', Times, serif;
+     background: #3095a7;
+     margin: 20px;
+     border: none;
+     font-weight: 800;
+    color: #ffffff;
+    border: #3095a7;
+     border-radius: 8px;
+      box-shadow: 0 0 20px rgb(255, 255, 255);
+}
+ 

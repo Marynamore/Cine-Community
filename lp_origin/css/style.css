@@ -1,0 +1,227 @@
+* {
+   /*TUDO*/
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+   background-color: #1f242d;
+   color: #fff;
+}
+
+/*Parte do cabeçalho*/
+
+
+
+.header {
+   /*TUDO QUE FICA NO CABEÇALHO*/
+   top: 0;
+   left: 0;
+   width: 100%;
+   padding: 20p 10%;
+   background: #1f242d;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   z-index: 100;
+}
+
+
+.logo img {
+   margin-top: 1.3em;
+   max-width: 8em;
+   animation: slideRight 1s ease forwards;
+}
+
+.header {
+   text-align: center;
+}
+
+.navbar a {
+   display: inline-block;
+   font-size: 18px;
+   color: #fff;
+   text-decoration: none;
+   font-weight: 500;
+   margin-left: 35px;
+   transition: -7s;
+   animation: slideTop 5s ease forwards;
+   animation-delay: calc(.2s * var(-i));
+}
+
+.navbar a:hover {
+   color: #08ef;
+}
+
+/* FIm parte do cabeçalho*/
+
+/*Parte do carrossel*/
+
+
+.inicio {
+   /*Tudo que fica entre o cabeçalho e os filmes*/
+   position: relative;
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+
+}
+
+.conteudo-do-inicio {
+   /*Texto que fica na esquerda*/
+   max-width: 600px;
+}
+
+.conteudo-do-inicio h3 {
+   font-size: 32px;
+   font-weight: 700;
+   color: #08ef;
+   opacity: 0;
+   animation: slideBotton 5s ease forwards;
+   animation-delay: .7s;
+}
+
+.conteudo-do-inicio h3:nth-of-type(2) {
+   margin-bottom: 30px;
+}
+
+.conteudo-do-inicio h1 {
+   font-size: 56px;
+   font-weight: 700;
+   margin: -3px 0;
+}
+
+.conteudo-do-inicio p {
+   font-size: 16px;
+}
+
+.foto-inicio img {
+   max-width: 300px;
+   opacity: 0;
+   animation: foto 1s ease forwards;
+   animation-delay: 1s;
+   box-shadow: 0 0 20px #08ef;
+}
+
+.redessociais a {
+   display: inline-flex;
+   justify-content: center;
+   align-items: center;
+   width: 40px;
+   height: 40px;
+   background: transparent;
+   border: 2px solid #08ef;
+   border-radius: 50%;
+   font-size: 20px;
+   color: #08ef;
+   text-decoration: none;
+   margin: 30 px 15px 30px 0;
+   transition: .5 ease;
+}
+
+.redessociais a:hover {
+   background: #08ef;
+   color: #1f242d;
+   box-shadow: 0 0 20px #08ef;
+}
+
+.banner {
+   display: flex;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+   box-shadow: 0 0 5px #08ef;
+}
+
+/* Fim parte do carrossel*/
+
+
+/*Parte dos filmes*/
+.h2 {
+    padding: 10px;
+}
+
+.container-galeria h2 {
+   padding: 10px;
+}
+
+.container-galeria {
+   display: flex;
+   flex-wrap: wrap;
+   padding: 20px;
+}
+
+.itens-galeria {
+   width: 220px;
+   height: 300px;
+   transition: .2s;
+   padding: 5px;
+}
+
+.itens-galeria img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   box-shadow: 0 0 10px #08ef;
+}
+
+.itens-galeria :hover {
+   transform: scale(1.1);
+}
+
+/*Fim parte dos filmes*/
+
+/*Animação*/
+
+@keyframes slideRight {
+   0% {
+      transform: translateX(-100px);
+      opacity: 0;
+   }
+
+   100% {
+      transform: translateX(0);
+      opacity: 10;
+   }
+}
+
+@keyframes slideTop {
+   0% {
+      transform: translateX(100px);
+      opacity: 0;
+   }
+
+   100% {
+      transform: translateX(0);
+      opacity: 10;
+   }
+}
+
+@keyframes slideBotton {
+   0% {
+      transform: translateX(-100px);
+      opacity: 0;
+   }
+
+   100% {
+      transform: translateX(0);
+      opacity: 10;
+   }
+}
+
+@keyframes foto {
+   0% {
+      transform: scale(0);
+      opacity: 0;
+   }
+
+   100% {
+      transform: scale(1);
+      opacity: 1;
+   }
+}

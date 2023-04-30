@@ -1,0 +1,194 @@
+body{
+    margin: 0;
+    font-family: 'Noto Sans', sans-serif;
+} 
+
+body * {
+box-sizing: border-box;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20p 10% ;
+    background: transparent;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo img{
+    margin-top: 1.3em;
+    max-width: 8em;
+    animation: slideRight  1s ease forwards;
+}
+
+.navbar a {
+    display:inline-block;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition:-7s;
+    animation: slideTop  5s ease forwards ;
+    animation-delay: calc(.2s * var(-i));
+}
+
+.navbar a:hover{
+    color: #08ef;
+}
+
+.main-login{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color:  #002b46;
+}
+.left-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+}
+.left-login > h1{
+    color: #ffffff;
+    font-size: 2vw;
+
+}
+
+.left-login-image{
+    width:35vw;
+    opacity: 0;
+     animation: imagem  1s ease forwards ;
+      animation-delay: 1s;
+}
+.right-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    color:#ffffff ;
+	
+}
+.card-login{
+    width: 60%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 35px;
+    background:#002b46  ;
+    border-radius: 20px;
+	  
+   
+}
+.card-login > h1{
+    color: #ffffff;
+    font-weight: 800;
+    margin: 0;
+	
+}
+.textfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0px;
+}
+.textfield > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #08ef;
+    color: #ffffff;
+    font-size: 12pt;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px #08ef;
+}
+.textfield > label{
+color: #00b6f2;
+margin: 10px;
+}
+.textfield > input::placeholder{
+    color:#002b46;
+}
+.btn-login{
+width:100%;
+padding: 16px 0px;
+margin: 25px;
+border: none;
+border-radius: 8px;
+outline: none;
+text-transform: uppercase;
+font-weight: 800;
+letter-spacing: 3px;
+color:#002b46;
+background: #08ef;
+box-shadow: 0 0 20px #08ef;
+text-emphasis-color:white;
+cursor:pointer;
+
+}
+
+@media only screen and(max-width:950px){
+    .card-login{
+        width:85%
+    }
+}
+@media only screen and(max-width:600px){
+.main-login{
+    flex-direction: column;
+}
+.left-login>h1{
+    display: none;
+}
+.left-login{
+    width: 100%;
+    height: auto;
+}
+.right-login{
+    width: 100%;
+    height: auto;
+}
+.left-login-image{
+    width: 50vw;
+}
+.card-login{
+    width: 90%;
+}
+}
+
+@keyframes imagem{
+    0%{
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 10	;
+    }
+ 
+}
+
+@keyframes slideRight{
+   0%{
+	   transform: translateX(-100px);
+	   opacity: 0;
+   }
+   100%{
+	   transform: translateX(0);
+	   opacity: 10	;
+   }
+}
