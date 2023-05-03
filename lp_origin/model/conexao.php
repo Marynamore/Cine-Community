@@ -23,6 +23,8 @@ class Conexao{
         return self::$conexao;
     }
 
+}
+
     function idUnico(){
         $characteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $tamanho_characteres = strlen($characteres); //retorna o tamanho de uma string
@@ -33,7 +35,11 @@ class Conexao{
         }
         return $characteres_aleatorios;
    }
-
-}
+   
+   if(isset($_COOKIE['id_usuario'])){
+      $id_usuario = $_COOKIE['id_usuario'];
+   }else{
+      $id_usuario = '';
+   }
 
 ?>

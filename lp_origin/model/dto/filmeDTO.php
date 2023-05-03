@@ -12,6 +12,7 @@ class FilmeDTO{
     private $capa_filme;
     private $trailer_filme;
     private $canal_filme;
+    private $fk_usuario_id_usuario;
     
 
 public function getId_filme(){
@@ -45,6 +46,9 @@ public function getCanal_filme() {
     return $this->canal_filme;
 }
 
+public function getFk_usuario_id_usuario() {
+    return $this->fk_usuario_id_usuario;
+}
 
 public function setId_filme($id_filme) {
     $this->id_filme = $id_filme;
@@ -78,10 +82,9 @@ public function setTrailer_filme($trailer_filme) {
 public function setCanal_filme($canal_filme) {
     $this->canal_filme = $canal_filme;
 }
-
-
-
-
+public function setFk_usuario_id_usuario($fk_usuario_id_usuario) {
+    $this->fk_usuario_id_usuario = $fk_usuario_id_usuario;
+}
 
 
 }

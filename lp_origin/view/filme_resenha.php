@@ -41,6 +41,9 @@
         <div class="heading">
             <h1>Resenhas:</h1> <a href="../resenhas/crud/cadastrar_resenha.php?id=<?= $id_filme; ?>" class="inline-btn" style="margin-top: 0;">Adicionar Resenha</a>
         </div>
+        <div>
+            
+        </div>
     </section>
 
 

@@ -22,18 +22,18 @@
             <input placeholder="Email" type="email" tabindex="3" name="email_usu" id="" required>
             <input placeholder="Senha" type="password" tabindex="4" name="senha_usu" id="" required>
 			<input placeholder="Confirmar Senha" type="password" tabindex="4" name="csenha_usu" id="" required>
-			<input type="text" name="dt_de_nasci_usu" id="" placeholder="Data de lançamento" required>
-			<p>Gênero:</p>
-			<select name="genero_usu" id="">
-				<option value="---">Selecione</option>
-				<option value="feminino">Feminino</option>
-				<option value="masculino">Masculino</option>
-			</select>
+			<input type="text" name="dt_de_nasci_usu" id="" placeholder="00/00/0000" required>
+           <p>Genero:</p>
+            <select name="fk_genero_usu_id_genero_usu" id="">
+                <option value="---">Selecione</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="naoBinario">Não Binário</option>
+                <option value="naoDeclarar">Prefiro não Declarar</option>
+            </select>
 			<p>Perfil:</p>
 			<input type="file" id="myfile" name="myfile">
-            <input type="hidden" name="perfil_usu" id="Administrador" value="administrador" selected>
-            <p>Sou Administrador</p>
-            <input type="hidden" name="perfil_usu" id="Usuario" value="usuario" >
+            <input type="hidden" name="perfil_usu" id="Usuario" value="usuario" selected>
             <input type="submit" value="Enviar">     
         </form>
                  <button onclick="javascript:history.go(-1)">Voltar</button>

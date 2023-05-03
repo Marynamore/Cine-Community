@@ -15,17 +15,17 @@ class FilmeDAO{
     
 public function CadastrarFilme(FilmeDTO $FilmeDTO){
     try{
-    $sql = "INSERT INTO  filme  (nome_filme, sinopse_filme, genero_filme, classificacao_filme,capa_filme, canal_filme) values (?,?,?,?,?,?)";
-     $stmt = $this->pdo->prepare($sql);
+    $sql = "INSERT INTO  filme  (nome_filme,dt_de_lancamento_filme,duracao_filme, sinopse_filme, genero_filme, classificacao_filme,capa_filme,trailer_filme, canal_filme) values (?,?,?,?,?,?,?,?,?)";
+    $stmt = $this->pdo->prepare($sql);
     $stmt->bindValue(1, $FilmeDTO->getNome_filme());
-    //$stmt->bindValue(2, $filmeDTO->getDt_de_lancamento_filme());
-    //$stmt->bindValue(3, $filmeDTO->getDuracao_filme());
-    $stmt->bindValue(2, $FilmeDTO->getSinopse_filme());
-    $stmt->bindValue(3, $FilmeDTO->getGenero_filme());
-    $stmt->bindValue(4, $FilmeDTO->getClassificacao_filme());
-    $stmt->bindValue(5, $FilmeDTO->getCapa_filme());
-    //$stmt->bindValue(8, $filmeDTO->getTrailer_filme());
-    $stmt->bindValue(6, $FilmeDTO->getCanal_filme());
+    $stmt->bindValue(2, $FilmeDTO->getDt_de_lancamento_filme());
+    $stmt->bindValue(3, $FilmeDTO->getDuracao_filme());
+    $stmt->bindValue(4, $FilmeDTO->getSinopse_filme());
+    $stmt->bindValue(5, $FilmeDTO->getGenero_filme());
+    $stmt->bindValue(6, $FilmeDTO->getClassificacao_filme());
+    $stmt->bindValue(7, $FilmeDTO->getCapa_filme());
+    $stmt->bindValue(8, $FilmeDTO->getTrailer_filme());
+    $stmt->bindValue(9, $FilmeDTO->getCanal_filme());
 
     return $stmt->execute();
     }catch(PDOException $exc) {
@@ -114,7 +114,7 @@ public function selecionarFilme($id_filme){
         $sql = "SELECT * FROM filme WHERE id_filme=? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, $id_filme);
-        $stmt->execute();
+        $stmt->execute([$id_filme]);
 
         if($stmt->rowCount() > 0){
             while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -134,6 +134,38 @@ public function selecionarFilme($id_filme){
             return $FilmeDTO;
         }else{
             echo '<p>Nenhum Filme adicionado ainda!</p>';
+        }
+        return null;
+    }catch(PDOException $exc){
+        echo $exc->getMessage();
+    }
+}
+
+public function selecionarResenha($id_filme){
+    try{
+        $sql = "SELECT * FROM resenha WHERE id_filme=?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id_filme);
+        $stmt->execute([$id_filme]);
+
+        if($stmt->rowCount() > 0){
+            while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $resenhaDTO = new FilmeDTO();
+                $resenhaDTO->setId_filme($resenhaFetch['id_filme']);
+                $resenhaDTO->setNome_filme($resenhaFetch['nome_filme']);
+                $resenhaDTO->setDt_de_lancamento_filme($resenhaFetch['dt_de_lancamento_filme']);
+                $resenhaDTO->setDuracao_filme($resenhaFetch['duracao_filme']);
+                $resenhaDTO->setSinopse_filme($resenhaFetch['sinopse_filme']);
+                $resenhaDTO->setGenero_filme($resenhaFetch['genero_filme']);
+                $resenhaDTO->setClassificacao_filme($resenhaFetch['classificacao_filme']);
+                $resenhaDTO->setCapa_filme($resenhaFetch['capa_filme']);
+                $resenhaDTO->setTrailer_filme($resenhaFetch['trailer_filme']);
+                $resenhaDTO->setCanal_filme($resenhaFetch['canal_filme']);
+            
+            }
+            return $resenhaDTO;
+        }else{
+            echo '<p>Nenhuma resenha adicionado ainda!</p>';
         }
         return null;
     }catch(PDOException $exc){

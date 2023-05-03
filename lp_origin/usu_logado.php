@@ -21,7 +21,7 @@
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
             <a href="login.php" style="-i:4;"><i class="fa-solid fa-user"><br><?=$_SESSION['nickname_usu'];?></i></a>
-            <a href="./pages/alterar_usuario.php"><i class="fa-solid fa-comment-dots"></i><br>COMENTÁRIOS</a>
+            <a href="./view/resenha.php"><i class="fa-solid fa-comment-dots"></i><br>COMENTÁRIOS</a>
             <a href="./pages/listausuario.php"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
             <a href="./pages/perfilusu.php"><i class="fa-solid fa-user"></i><br>PERFIL</a>
         </nav>
