@@ -25,9 +25,16 @@ DROP TABLE IF EXISTS `resenha_de_filme`.`genero_usu` ;
 
 CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`genero_usu` (
   `id_genero_usu` INT NOT NULL AUTO_INCREMENT,
-  `genero_usu` ENUM('masculino', 'feminino','naoBinario','naoDeclarar') NULL COMMENT 'masculino, feminino, naoBinario, naoDeclarar',
+  `genero_usu` ENUM('masculino', 'feminino','naoBinario','naoDeclarar') NOT NULL COMMENT 'masculino, feminino, naoBinario, naoDeclarar',
   PRIMARY KEY (`id_genero_usu`))
 ENGINE = InnoDB;
+
+--
+-- Despejando dados para a tabela `genero_usu`
+--
+
+INSERT INTO `genero_usu` (`id_genero_usu`, `genero_usu`) VALUES
+(1, 'masculino'),(2, 'feminino'),(3, 'naoBinario'),(4, 'naoDeclarar');
 
 
 -- -----------------------------------------------------
@@ -45,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`usuario` (
   `situacao_usu` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Ativo, Inativo ou Bloqueado\n',
   `perfil_usu` VARCHAR(15) NULL DEFAULT 'usuario' COMMENT 'usuario, administrador, moderador',
   `foto_usu` VARCHAR(500) NULL DEFAULT NULL,
-  `fk_genero_usu_id_genero_usu` INT NOT NULL DEFAULT,
+  `fk_genero_usu_id_genero_usu` INT NOT NULL,
   PRIMARY KEY (`id_usuario`, `fk_genero_usu_id_genero_usu`),
   INDEX `fk_usuario_genero_usu1_idx` (`fk_genero_usu_id_genero_usu` ASC) ,
   CONSTRAINT `fk_usuario_genero_usu1`
@@ -68,6 +75,14 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`genero_filme` (
 ENGINE = InnoDB;
 
 
+--
+-- Despejando dados para a tabela `genero_filme`
+--
+
+INSERT INTO `genero_filme` (`id_genero_filme`, `genero_filme`) VALUES
+(1, 'infantil'),(2, 'romance'),(3, 'acao'),(4, 'dorama'),(5, 'ficcao'),(6, 'terror'),(7, 'comedia'),(8, 'drama'),(9, 'faroeste'),(10, 'suspense');
+
+
 -- -----------------------------------------------------
 -- Table `resenha_de_filme`.`canal_filme`
 -- -----------------------------------------------------
@@ -79,6 +94,13 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`canal_filme` (
   PRIMARY KEY (`id_canal_filme`))
 ENGINE = InnoDB;
 
+
+--
+-- Despejando dados para a tabela `canal_filme`
+--
+
+INSERT INTO `canal_filme` (`id_canal_filme`, `canal_filme`) VALUES
+(1, 'infantil'),(2, 'romance'),(3, 'acao'),(4, 'dorama'),(5, 'ficcao'),(6, 'terror'),(7, 'comedia'),(8, 'drama'),(9, 'faroeste'),(10, 'suspense');
 
 -- -----------------------------------------------------
 -- Table `resenha_de_filme`.`filme`
