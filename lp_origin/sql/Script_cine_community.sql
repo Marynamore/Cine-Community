@@ -19,25 +19,6 @@ CREATE SCHEMA IF NOT EXISTS `resenha_de_filme` DEFAULT CHARACTER SET utf8 ;
 USE `resenha_de_filme` ;
 
 -- -----------------------------------------------------
--- Table `resenha_de_filme`.`genero_usu`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `resenha_de_filme`.`genero_usu` ;
-
-CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`genero_usu` (
-  `id_genero_usu` INT NOT NULL AUTO_INCREMENT,
-  `genero_usu` ENUM('masculino', 'feminino','naoBinario','naoDeclarar') NOT NULL COMMENT 'masculino, feminino, naoBinario, naoDeclarar',
-  PRIMARY KEY (`id_genero_usu`))
-ENGINE = InnoDB;
-
---
--- Despejando dados para a tabela `genero_usu`
---
-
-INSERT INTO `genero_usu` (`id_genero_usu`, `genero_usu`) VALUES
-(1, 'masculino'),(2, 'feminino'),(3, 'naoBinario'),(4, 'naoDeclarar');
-
-
--- -----------------------------------------------------
 -- Table `resenha_de_filme`.`usuario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `resenha_de_filme`.`usuario` ;
@@ -45,41 +26,44 @@ DROP TABLE IF EXISTS `resenha_de_filme`.`usuario` ;
 CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`usuario` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `nome_usu` VARCHAR(100) NOT NULL,
-  `nickname_usu` VARCHAR(100) NOT NULL,
+  `nickname_usu` VARCHAR(100) NULL,
   `dt_de_nasci_usu` DATE NULL DEFAULT NULL,
+  `genero_usu` ENUM('masculino','feminino','naoBinario','naoDeclarar') NOT NULL COMMENT 'masculino, feminino, naoBinario, naoDeclarar',
   `email_usu` VARCHAR(100) NOT NULL,
   `senha_usu` VARCHAR(60) NOT NULL,
   `situacao_usu` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Ativo, Inativo ou Bloqueado\n',
   `perfil_usu` VARCHAR(15) NULL DEFAULT 'usuario' COMMENT 'usuario, administrador, moderador',
   `foto_usu` VARCHAR(500) NULL DEFAULT NULL,
-  `fk_genero_usu_id_genero_usu` INT NOT NULL,
-  PRIMARY KEY (`id_usuario`, `fk_genero_usu_id_genero_usu`),
-  INDEX `fk_usuario_genero_usu1_idx` (`fk_genero_usu_id_genero_usu` ASC) ,
-  CONSTRAINT `fk_usuario_genero_usu1`
-    FOREIGN KEY (`fk_genero_usu_id_genero_usu`)
-    REFERENCES `resenha_de_filme`.`genero_usu` (`id_genero_usu`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB;
 
+--
+-- Despejando dados para a tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nome_usu`,`nickname_usu`,`dt_de_nasci_usu`,`genero_usu`,`email_usu`,`senha_usu`,`situacao_usu`,`perfil_usu`,`foto_usu`) 
+VALUES
+(1, 'Maryna',NULL,'1987-06-05','feminino','adm@email.com',MD5('123456'),'Ativo','administrador',NULL),
+(2, 'Maya','Mayalice','2000-12-08','feminino','maya@email.com',MD5('123'),'Ativo','usuario',NULL);
+
 
 -- -----------------------------------------------------
--- Table `resenha_de_filme`.`genero_filme`
+-- Table `resenha_de_filme`.`categoria_filme`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `resenha_de_filme`.`genero_filme` ;
+DROP TABLE IF EXISTS `resenha_de_filme`.`categoria_filme` ;
 
-CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`genero_filme` (
-  `id_genero_filme` INT NOT NULL AUTO_INCREMENT,
-  `genero_filme` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_genero_filme`))
+CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`categoria_filme` (
+  `id_categoria_filme` INT NOT NULL AUTO_INCREMENT,
+  `categoria_filme` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_categoria_filme`))
 ENGINE = InnoDB;
 
 
 --
--- Despejando dados para a tabela `genero_filme`
+-- Despejando dados para a tabela `categoria_filme`
 --
 
-INSERT INTO `genero_filme` (`id_genero_filme`, `genero_filme`) VALUES
+INSERT INTO `categoria_filme` (`id_categoria_filme`, `categoria_filme`) VALUES
 (1, 'infantil'),(2, 'romance'),(3, 'acao'),(4, 'dorama'),(5, 'ficcao'),(6, 'terror'),(7, 'comedia'),(8, 'drama'),(9, 'faroeste'),(10, 'suspense');
 
 
@@ -117,20 +101,20 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`filme` (
   `capa_filme` VARCHAR(50) NOT NULL,
   `trailer_filme` VARCHAR(50) NULL DEFAULT NULL,
   `fk_usuario_id_usuario` INT NOT NULL,
-  `fk_genero_filme_id_genero_filme` INT NOT NULL,
+  `fk_categoria_filme_id_categoria_filme` INT NOT NULL,
   `fk_canal_filme_id_canal_filme` INT NOT NULL,
-  PRIMARY KEY (`id_filme`, `fk_usuario_id_usuario`, `fk_genero_filme_id_genero_filme`, `fk_canal_filme_id_canal_filme`),
+  PRIMARY KEY (`id_filme`, `fk_usuario_id_usuario`, `fk_categoria_filme_id_categoria_filme`, `fk_canal_filme_id_canal_filme`),
   INDEX `fk_filme_usuario1_idx` (`fk_usuario_id_usuario` ASC),
-  INDEX `fk_filme_genero_filme1_idx` (`fk_genero_filme_id_genero_filme` ASC) ,
+  INDEX `fk_filme_categoria_filme1_idx` (`fk_categoria_filme_id_categoria_filme` ASC) ,
   INDEX `fk_filme_canal_filme1_idx` (`fk_canal_filme_id_canal_filme` ASC) ,
   CONSTRAINT `fk_filme_usuario1`
     FOREIGN KEY (`fk_usuario_id_usuario`)
     REFERENCES `resenha_de_filme`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_filme_genero_filme1`
-    FOREIGN KEY (`fk_genero_filme_id_genero_filme`)
-    REFERENCES `resenha_de_filme`.`genero_filme` (`id_genero_filme`)
+  CONSTRAINT `fk_filme_categoria_filme1`
+    FOREIGN KEY (`fk_categoria_filme_id_categoria_filme`)
+    REFERENCES `resenha_de_filme`.`categoria_filme` (`id_categoria_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filme_canal_filme1`
@@ -140,6 +124,25 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`filme` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = big5;
+
+--
+-- Despejando dados para a tabela `categoria_filme`
+--
+
+INSERT INTO `filme` (`id_filme`, `nome_filme`,`dt_de_lancamento_filme`,`duracao_filme`,`sinopse_filme`,`classificacao_filme`,`capa_filme`,`trailer_filme`,`fk_usuario_id_usuario`,`fk_categoria_filme_id_categoria_filme`,`fk_canal_filme_id_canal_filme`) VALUES
+(1, 'Menina de Ouro', '2005-02-11', '02:12:00', 'Frankie Dunne (Clint Eastwood) passou toda a sua vida no ringue, gerenciando e treinando boxeadores de elite. Frankie costuma passar para os lutadores com quem trabalha as mesmas li??es que seguiu ao longo de sua vida: acima de tudo, proteja-se. Feri', '12','americanpie1.jpg','',2,8, 2),
+(2, 'Um Dia de C?o', '1976-04-12', '02:10:00', 'Em agosto de 1972, um assalto a banco no Brooklyn chamou a aten??o da m?dia e se transformou em um show lotado. Este foi um roubo que duraria apenas dez minutos em teoria, mas algumas horas depois, os ladr?es Sonny (Al Pacino) e Sal (John Cazale) ain', '14','americanpie1.jpg','',2,8, 2),
+(3, 'Aftersun', '2022-12-01', '01:42:00', 'Em Aftersun, Sophie, de onze anos, e seu pai Callum est?o de f?rias em um clube na costa da Turquia no final dos anos 90. Eles tomam banho, jogam sinuca e desfrutam da companhia amig?vel um do outro. Callum era a melhor vers?o de si mesmo quando esta', '14','americanpie1.jpg','',2,8, 2),
+(4, 'Inc?ndios', '2010-09-17', '02:10:00', 'Nawal, uma mulher moribunda do Oriente M?dio que vive em Montreal, deixou cartas para seus filhos g?meos lerem quando ela morreu. Jenny deve dar seu pai a um pai que ela nunca conheceu, e Simon deve dar seu pai a um irm?o que ele nunca conheceu.', '14','americanpie1.jpg','',2,8, 2),
+(5, 'Druk - Mais uma Rodada', '2020-09-24', '01:57:00', '? um filme dinamarqu?s que conta a hist?ria de quatro amigos professores que decidem embarcar em um experimento arriscado: manter um n?vel constante de ?lcool no sangue todos os dias. O experimento come?a como uma tentativa de encontrar mais prazer n', '16','americanpie1.jpg','',2,8, 2),
+(6, 'A Ca?a', '2012-05-20', '01:55:00', '? um drama dinamarqu?s dirigido por Thomas Vinterberg e estrelado por Mads Mikkelsen. O filme conta a hist?ria de Lucas, um professor de jardim de inf?ncia que ? injustamente acusado de abusar sexualmente de uma crian?a. Apesar de sua inoc?ncia, Luca', '14','americanpie1.jpg','',2,8, 2),
+(7, 'Arctic', '2018-05-10', '01:37:00', 'O filme conta a hist?ria de um piloto de avi?o que fica preso em meio ao ?rtico ap?s um acidente a?reo. Ele tenta sobreviver em um ambiente hostil e desolado, lutando contra as condi??es adversas e a falta de recursos, enquanto espera pelo resgate.', '14','americanpie1.jpg','',2,8, 2),
+(8, 'Bastardos Ingl?rios', '2009-10-09', '02:33:00', '? um filme de guerra dirigido por Quentin Tarantino que se passa na Fran?a ocupada pelos nazistas durante a Segunda Guerra Mundial. O filme segue um grupo de soldados judeus americanos liderados pelo Tenente Aldo Raine (interpretado por Brad Pitt), q', '18','americanpie1.jpg','',2,8, 2),
+(9, 'A Baleia', '2023-02-26', '01:57:00', 'Segue a hist?ria de Charlie (interpretado por Brendan Fraser), um professor de ingl?s recluso que luta contra um transtorno de compuls?o alimentar e vive com obesidade severa. Ele d? aulas online, mas tem medo de ser visto e sempre deixa a webcam des','16','americanpie1.jpg','',2,8, 2),
+(10, 'Halloween - A noite do Terror', '1978-10-25', '01:31:00', 'Michael Myers (interpretado por Tony Moran) ? um psicopata que foi internado em uma institui??o h? 15 anos, ap?s ter assassinado brutalmente sua pr?pria irm?. Apesar de estar sob cust?dia, ele consegue escapar e volta para sua cidade natal com o intu', '16','americanpie1.jpg','',2,6, 2),
+(11, 'Halloween 2 - O Pesadelo Continua', '1981-10-30', '01:45:00', 'Em Haddonfield, Illinois, na noite de Halloween de 1978, Michael Myers matou tr?s estudantes e tentou assassinar Laurie Strode. Ele foi impedido pelo psiquiatra dele, Samuel Loomis, que o feriu com seis tiros. Myers conseguiu escapar mesmo ferido, e ', '18','americanpie1.jpg','',2,6, 2),
+(12, 'Halloween III - A Noite das Bruxas', '1982-10-22', '01:39:00', 'Um m?dico e uma jovem investigam uma empresa que fabrica m?scaras de Halloween que possuem um efeito estranho e fatal sobre as crian?as. Eles descobrem que o dono da empresa planeja us?-las em um ritual antigo para ressuscitar a era das bruxas de Sal', '16','americanpie1.jpg','',2,6,2);
+
 
 
 -- -----------------------------------------------------
@@ -170,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`resenha` (
   `id_resenha` INT NOT NULL AUTO_INCREMENT,
   `avaliacao_res` VARCHAR(50) NULL DEFAULT NULL,
   `descricao_res` VARCHAR(1500) NULL DEFAULT NULL,
-  `dt_hora_res` TIMESTAMP NULL DEFAULT NULL,
+  `dt_hora_res` TIMESTAMP NULL  DEFAULT NULL,
   `denuncia_res` VARCHAR(50) NULL DEFAULT NULL,
   `situacao_res` VARCHAR(50) NULL DEFAULT NULL COMMENT 'ativo, inativo ou bloqueado\n',
   `fk_filme_id_filme` INT NOT NULL,

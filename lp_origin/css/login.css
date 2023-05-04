@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 body{
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
@@ -8,12 +13,11 @@ box-sizing: border-box;
 }
 
 .header{
-    position: fixed;
+    background-color: #002b46;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20p 10% ;
-    background: transparent;
+    text-align: center;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -24,6 +28,7 @@ box-sizing: border-box;
     margin-top: 1.3em;
     max-width: 8em;
     animation: slideRight  1s ease forwards;
+    background: transparent;
 }
 
 .navbar a {
@@ -43,7 +48,6 @@ box-sizing: border-box;
 }
 
 .main-login{
-    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content:center;

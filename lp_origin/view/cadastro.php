@@ -24,7 +24,7 @@
 			<input placeholder="Confirmar Senha" type="password" tabindex="4" name="csenha_usu" id="" required>
 			<input type="text" name="dt_de_nasci_usu" id="" placeholder="00/00/0000" required>
            <p>Genero:</p>
-            <select name="fk_genero_usu_id_genero_usu" id="">
+            <select name="genero_usu" id="">
                 <option value="---">Selecione</option>
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>

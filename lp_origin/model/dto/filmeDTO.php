@@ -13,6 +13,8 @@ class FilmeDTO{
     private $trailer_filme;
     private $canal_filme;
     private $fk_usuario_id_usuario;
+    private $fk_categoria_filme_id_categoria_filme;
+    private $fk_canal_filme_id_canal_filme;
     
 
 public function getId_filme(){
@@ -50,6 +52,14 @@ public function getFk_usuario_id_usuario() {
     return $this->fk_usuario_id_usuario;
 }
 
+public function getFk_categoria_filme_id_categoria_filme() {
+    return $this->fk_categoria_filme_id_categoria_filme;
+}
+
+public function getFk_canal_filme_id_canal_filme(){
+    return $this->fk_canal_filme_id_canal_filme;
+}
+
 public function setId_filme($id_filme) {
     $this->id_filme = $id_filme;
 }
@@ -84,6 +94,14 @@ public function setCanal_filme($canal_filme) {
 }
 public function setFk_usuario_id_usuario($fk_usuario_id_usuario) {
     $this->fk_usuario_id_usuario = $fk_usuario_id_usuario;
+}
+
+public function setFk_categoria_filme_id_categoria_filme($fk_categoria_filme_id_categoria_filme) {
+    $this->fk_categoria_filme_id_categoria_filme = $fk_categoria_filme_id_categoria_filme;
+}
+
+public function setFk_canal_filme_id_canal_filme($fk_canal_filme_id_canal_filme){
+    $this->fk_canal_filme_id_canal_filme = $fk_canal_filme_id_canal_filme;
 }
 
 

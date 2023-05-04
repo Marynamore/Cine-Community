@@ -1,8 +1,8 @@
 <?php
-    if(isset($_GET['id'])){
-    $get_id = $_GET['id'];
+    if(isset($_GET['id_filme'])){
+    $id_filme = $_GET['id_filme'];
     }else{
-    $get_id = '';
+    $id_filme = '';
     header('location:../usu_logado.php');
     }
 ?> 
@@ -17,13 +17,15 @@
 
 <body>
     <div>
-        <div><h1>Filme</h1> <a href="../usu_logado.php?id=<?= $get_id; ?>" class="inline-btn" style="margin-top: 0;">Adicionar Filme</a></div>
-        <?php 
-            require_once '../model/dao/filmeDAO.php';
+        <div><h1>Resenha Filme</h1> <a href="../usu_logado.php?id=<?= $id_filme; ?>" class="inline-btn" style="margin-top: 0;">Filmes</a></div>
 
-            $id_filme = $_GET['id'];
-            $FilmeDAO = new FilmeDAO();
-            $filme = $FilmeDAO->selecionarFilme($id_filme);
+        <?php 
+            $sql = "SELECT * FROM filme WHERE id_filme=? LIMIT 1";
+            $selecione_filme = $this->pdo->prepare($sql);
+            $selecione_filme->execute([$id_filme]);
+
+            if($selecione_filme->rowCount() > 0){
+                while ($filmeFetch = $selecione_filme->fetch(PDO::FETCH_ASSOC)){
         ?>
         <div class="dados-filme">
             <img src="../upload/<?= $filme->getCapa_filme();?>" alt="">
@@ -42,7 +44,24 @@
             <h1>Resenhas:</h1> <a href="../resenhas/crud/cadastrar_resenha.php?id=<?= $id_filme; ?>" class="inline-btn" style="margin-top: 0;">Adicionar Resenha</a>
         </div>
         <div>
-            
+
+            <?php 
+                $sql = "SELECT * FROM resenha WHERE fk_filme_id_filme=?";
+                $selecione_resenha = $this->pdo->prepare($sql);
+                $selecione_resenha->execute([$id_filme]);
+
+                if($selecione_resenha->rowCount() > 0){
+                    while ($resenhaFetch = $selecione_resenha->fetch(PDO::FETCH_ASSOC)){
+            ?> 
+            <div class="box" <?php if($resenhaFetch['perfil_usu'] == $usuario){echo 'style="order: -1;"';}; ?>>
+        <?php
+            $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+            $selecione_usuario = $this->pdo->prepare($sql);
+            $selecione_usuario->execute([$resenhaFetch['usuario']]);
+
+            if($selecione_usuario->rowCount() > 0){
+                while ($resenhaFetch = $selecione_usuario->fetch(PDO::FETCH_ASSOC)){
+        ?>   
         </div>
     </section>
 

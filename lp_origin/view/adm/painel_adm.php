@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION["admin"])) {
-	header("Location: login.php");
+if(!isset($_SESSION["administrador"])) {
+	header("Location:../login.php");
 	exit();
 }
 ?>
@@ -13,6 +13,32 @@ if(!isset($_SESSION["admin"])) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header class="center">
+        <menu class="menu-wrapper flex">
+            <div class="logo">
+                <img src="assets/logoinicio.png" alt="logo">
+            </div><!--logo-->
+            <section class="input-search">
+                <div class="search-box">
+                    <input type="text" class="search-txt" placeholder="Pesquisar"><!--search-text-->
+                    <a href="#">
+                        <img src="./lp/img/loupe.png" alt="Lupa">
+                    </a>
+                </div><!--search-box-->                    
+                <form action="" method="POST">
+                </form><!--POST-->                    
+            </section><!--input-search-->        
+            <div class="information flex">
+                <a href="http://" target="_blank"><i class="fa-solid fa-headphones"><br>AJUDA</i></a><i class="fa-solid fa-grip-lines-vertical"></i><a href="./pages/login_cadastro/login.php"><i class="fa-solid fa-user"><br>LOGIN</i></a> 
+            </div><!--information center-->
+        </menu><!--menu-wrapper center-->
+        <nav class="nav-pages flex">
+            <li><a href="../index.php"><i class="fa-solid fa-house"></i><br>INICIO</a></li>
+            <li><a href="#"><i class="fa-sharp fa-solid fa-plane"></i><br>PASSAGENS AÉREAS</a></li>
+            <li><a href="../index.php"><i class="fa-solid fa-comment-dots"></i><br>COMENTÁRIOS</a></li>
+            <li><a href="../index.php"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a></li>
+        </nav><!--nav-page center-->
+    </header>
     <header>
         <h1>Painel de Administração</h1>
     </header>
@@ -26,7 +52,7 @@ if(!isset($_SESSION["admin"])) {
     </nav>
     <main>
         <h2>Bem-vindo à página de administração!</h2>
-        <p>Olá, <?php echo $_SESSION["admin"]; ?>!</p>
+        <p>Olá, <?php echo $_SESSION["administrador"]; ?>!</p>
 <?php
 
    require_once '../model/dao/UsuarioDAO.php';

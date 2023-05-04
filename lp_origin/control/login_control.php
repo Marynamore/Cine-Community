@@ -21,11 +21,11 @@ if (isset($usuarioLogado)) {
     
     
     if($_SESSION["perfil_usu"] == 'administrador'){
-        header("Location:../view/listausuario.php");
+        header("Location:../view/adm/painel_adm.php");
     }elseif($_SESSION["perfil_usu"] == 'moderador'){
-        header("Location:../view/listausuario.php");
+        header("Location:../adm_usu.php");
     }elseif($_SESSION["perfil_usu"] == 'usuario'){
-        header( "Location:../usu_logado.php");
+        header( "Location:../index.php");
     }
 } else {
     header( "location:../view/login.php?msg=usuário e/ou senha inválidos" );

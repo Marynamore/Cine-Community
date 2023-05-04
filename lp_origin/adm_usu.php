@@ -14,35 +14,20 @@
 </head>
 <body>
 <?php
-   session_start();
-   if(!isset($_SESSION["usuario"])) {
+   if(session_start()){
 ?>
     <header class="header" >
-        <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
+        <a href="index.html" class="logo"><img src="assets/logoinicio.png" alt=""></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
-            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>
-            <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
+            <a href="./pages/listausuario.php"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
+            <a href="login.php" style="-i:4;"><i class="fa-solid fa-user"><br><?=$_SESSION['nome_usu'];?></i></a>
+            <a href="./view/adm/painel_adm.php"><i class="fa-solid fa-user"></i><br>PERFIL</a>
         </nav>
     </header>
-    <?php 
-    }else{
-    echo '
-    <header class="header" >
-        <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
-        <nav class="navbar" style="-i:1;">
-            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="#about"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
-            <a href="./view/adm/painel_adm.php"><i class="fa-solid fa-user"></i><br>'.$_SESSION['nickname_usu'].'</a>
-            <a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>
-        </nav>
-    </header>
-    ';
-    }
-    ?>
+<?php }?>
     <div>
-        <img class="banner" src="assets/Banner.png" alt="">
+        <img class="banner"  src="assets/Banner.png" alt="">
         <br>
         <br>
     </div>
@@ -64,7 +49,7 @@
         <!-- Exibe a categoria do filme -->
         <h2 class="h2"><?php echo $filmeFech->getFk_categoria_filme_id_categoria_filme(); ?></h2>
         
-        <a href="./view/filme_resenha.php" class="itens-galeria">
+        <a href="./resenha/redesocial/form_resenha.php" class="itens-galeria">
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFech->getCapa_filme(); ?>" alt="Capa do filme <?=$filmeFech->getNome_filme(); ?>">
             <!-- Exibe o nome do filme -->
@@ -74,9 +59,7 @@
     
 <?php } ?>
 
-
   <!-- FIM SELEÇÃO DE FILMES -->
-
     <footer>
         <hr>
         <!--  INICIO RODAPE -->

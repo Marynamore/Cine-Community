@@ -26,7 +26,7 @@ class UsuarioDAO {
                 $usuario->setId_usuario($usuarioFetch["id_usuario"]);
                 $usuario->setNome_usu($usuarioFetch["nome_usu"]);
                 $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
-                $usuario->setFk_genero_usu_id_genero_usu($usuarioFetch["fk_genero_usu_id_genero_usu"]);
+                $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
                 $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
                 $usuario->setEmail_usu($usuarioFetch["email_usu"]);
                 $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
@@ -45,12 +45,12 @@ class UsuarioDAO {
 
     public function cadastrarUsuario(UsuarioDTO $UsuarioDTO){
         try{
-            $sql = "INSERT INTO usuario (nome_usu,nickname_usu,fk_genero_usu_id_genero_usu,dt_de_nasci_usu,email_usu,perfil_usu,situacao_usu,senha_usu) 
+            $sql = "INSERT INTO usuario (nome_usu,nickname_usu,genero_usu,dt_de_nasci_usu,email_usu,perfil_usu,situacao_usu,senha_usu) 
              VALUES (?, ?, ?, ?, ?, ?,?,?)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
             $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
-            $stmt->bindValue(3, $UsuarioDTO->getFk_genero_usu_id_genero_usu	());
+            $stmt->bindValue(3, $UsuarioDTO->getGenero_usu	());
             $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
             $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
             $stmt->bindValue(6, $UsuarioDTO->getPerfil_usu());
@@ -78,12 +78,12 @@ class UsuarioDAO {
     
     public function alterarUsuario(UsuarioDTO $UsuarioDTO){
         try{
-            $sql = "UPDATE usuario SET nome_usu=?,nickname_usu=?, fk_genero_usu_id_genero_usu=?,
+            $sql = "UPDATE usuario SET nome_usu=?,nickname_usu=?, genero_usu=?,
             dt_de_nasci_usu=?, email_usu=?, perfil_usu=?,senha_usu=? WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
             $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
-            $stmt->bindValue(3, $UsuarioDTO->getFk_genero_usu_id_genero_usu());
+            $stmt->bindValue(3, $UsuarioDTO->getGenero_usu());
             $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
             $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
             $stmt->bindValue(6, $UsuarioDTO->getPerfil_usu());
@@ -148,7 +148,7 @@ public function recuperarPorId($id) {
                 $usuario->setId_usuario($usuarioFetch["id_usuario"]);
                 $usuario->setNome_usu($usuarioFetch["nome_usu"]);
                 $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
-                $usuario->setFk_genero_usu_id_genero_usu($usuarioFetch["fk_genero_usu_id_genero_usu"]);
+                $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
                 $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
                 $usuario->setEmail_usu($usuarioFetch["email_usu"]);
                 $usuario->setSenha_usu($usuarioFetch["senha_usu"]);

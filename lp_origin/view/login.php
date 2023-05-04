@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
@@ -13,22 +14,26 @@
 </head>
 <body>
     <header class="header" >
-        <a href="index.php" class="logo"><img src="assets/Captura de tela 2023-03-17 164726.png" alt=""></a>
-    
+        <a href="../index.php" class="logo"><img src="../assets/logologin.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
-            <a href="../index.php" style="-i:2;">Inicio</a>
-            <a href="./cadastro.php" style="-i:3;">Cadastro</a>
-            <a href="./login.php" style="-i:4;">Login</a>
+            <a href="../index.php" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
+            <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
+            <a href="#comment"><i class="fa-solid fa-comment-dots"></i><br>COMENTÁRIOS</a>
+            <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
         </nav>
     </header>
     <div class="main-login">
         <div class="left-login">
+          
+            
             <h1>As melhores resenhas da comunidade estão aqui!</h1>
-          <img src="../assets/Captura de tela 2023-03-17 164726.png" class="left-login-image" alt="Cadastro">
+          <img src="../assets/pngwing.com.png" class="left-login-image" alt="Cadastro">
         </div>
         <form action="../control/login_control.php" method="post">
             <div class="right-login">
                 <div class="card-login">
+                <br>
+             
                     <h1>Login</h1>
                     <div class="textfield">
                     </div>
