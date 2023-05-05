@@ -18,8 +18,13 @@ public function listarCategoria(){
         $sql = "SELECT * FROM categoria_filme ORDER BY categoria_filme";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $categoria = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $categoria;
+        
+        while ($categoriaFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $CategoriaDTO = new categoriaFilmeDTO();
+            $CategoriaDTO->setId_categoria_filme($categoriaFetch['id_categoria_filme']);
+            $CategoriaDTO->setCategoria_filme($categoriaFetch['categoria_filme']);
+            $categoriaDTO[] = $categoriaFetch;
+        } return $categoriaDTO;
     }catch(PDOException $exc){
         echo $exc->getMessage();
     }

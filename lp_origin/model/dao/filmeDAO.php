@@ -80,31 +80,20 @@ public function excluirFilmeById($id_filme) {
 
 
 public function listarTodos(){
-    $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cf.nome_canal_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme JOIN canal_filme cf ON f.fk_canal_filme_id_canal_filme = cf.id_canal_filme";
+    $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme FROM filme f JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();   
+    
 
-    $resultado = $stmt->get_result();
-    $filmesDTO = array();
-
-while ($filmeFetch = $resultado->fetch_assoc()) {
-    $FilmeDTO = new FilmeDTO();
-    $FilmeDTO->setId_filme($filmeFetch['id_filme']);
-    $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
-    $FilmeDTO->setDt_de_lancamento_filme($filmeFetch['dt_de_lancamento_filme']);
-    $FilmeDTO->setDuracao_filme($filmeFetch['duracao_filme']);
-    $FilmeDTO->setSinopse_filme($filmeFetch['sinopse_filme']);
-    $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['categoria_filme']);
-    $FilmeDTO->setClassificacao_filme($filmeFetch['classificacao_filme']);
-    $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
-    $FilmeDTO->setTrailer_filme($filmeFetch['trailer_filme']);
-    $FilmeDTO->setFk_canal_filme_id_canal_filme($filmeFetch['fk_canal_filme_id_canal_filme']);
-
-  array_push($filmesDTO, $FilmeDTO);
-}
-
-return $filmesDTO;
+    while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $FilmeDTO = new FilmeDTO();
+        $FilmeDTO->setId_filme($filmeFetch['id_filme']);
+        $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
+        $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['categoria_filme']);
+        $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
+        $filmesDTO[] = $filmeFetch;
+    } return $filmesDTO;
 }
 
 public function listarTodosFilme(){

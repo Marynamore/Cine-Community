@@ -52,31 +52,35 @@
     require_once './model/dao/categoriaDAO.php';
     $categoriaDAO = new categoriaDAO();
     $categoria = $categoriaDAO->listarCategoria();
-    foreach ($categoria as $categoriaFetch) { 
+    $categoriaDTO = array();
+    foreach ($categoria as $categoriaDTO) { 
         
     //echo '<pre>';
     //print_r($categoriaFetch);
     //echo '</pre>';
-        echo '<input type="hidden" name='.$categoriaFetch['id_categoria_filme'].'>';
+        echo '<input type="hidden" name='.$categoriaDTO['id_categoria_filme'].'>';
         ?>
     <div class="container-galeria">
         <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$categoriaFetch['categoria_filme']; ?></h2>
+        <h2 class="h2"><?=$categoriaDTO['categoria_filme']; ?></h2>
     
     <?php 
-    foreach ($filme as $filmeFetch) { 
+    require_once './model/dao/filmeDAO.php';
+    $FilmeDAO = new FilmeDAO();
+    $filme = $FilmeDAO->listarTodos();
+    $filmesDTO = array();
     //echo '<pre>';
-    //print_r($filmeFetch);
+    //print_r($filme);
     //echo '</pre>';
-        echo '<input type="hidden" name='.$filmeFetch['fk_categoria_filme_id_categoria_filme'].'>';
+    foreach ($filme as $filmeFetch) { 
         ?>
         <a href="./view/filme_resenha.php" class="itens-galeria">
             <!-- Exibe a capa do filme -->
-            <img src="assets/<?=$filmeFetch['capa_filme']?>" alt="Capa do filme <?=$filmeFech['nome_filme']; ?>">
+            <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
             <h4><?= $filmeFetch['nome_filme']; ?></h4>
         </a>
-    <?php }?>
+        <?php }?>
     </div>
     
 <?php }?>
