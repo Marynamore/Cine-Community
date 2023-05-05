@@ -78,8 +78,9 @@ public function excluirFilmeById($id_filme) {
    }
 }
 
+
 public function listarTodos(){
-    $sql = "SELECT f.*, u.nome_usuario, c.categoria_filme, cf.nome_canal_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme JOIN canal_filme cf ON f.fk_canal_filme_id_canal_filme = cf.id_canal_filme";
+    $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cf.nome_canal_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme JOIN canal_filme cf ON f.fk_canal_filme_id_canal_filme = cf.id_canal_filme";
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();   
@@ -106,10 +107,21 @@ while ($filmeFetch = $resultado->fetch_assoc()) {
 return $filmesDTO;
 }
 
+public function listarTodosFilme(){
+    try{
+        $sql = "SELECT id_filme, nome_filme, capa_filme, fk_categoria_filme_id_categoria_filme FROM filme INNER JOIN categoria_filme ON filme.fk_categoria_filme_id_categoria_filme = categoria_filme.id_categoria_filme";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $filme = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $filme;
+    }catch(PDOException $exc){
+        echo $exc->getMessage();
+    }
+}
+
+
 public function listarFilmesComCategoria() {
-    $sql = "SELECT f.id_filme, f.nome_filme, f.dt_de_lancamento_filme, f.duracao_filme, f.sinopse_filme, f.classificacao_filme, f.capa_filme, f.trailer_filme, c.categoria_filme
-              FROM filme f
-              INNER JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
+    $sql = "SELECT f.id_filme, f.nome_filme, f.dt_de_lancamento_filme, f.duracao_filme, f.sinopse_filme, f.classificacao_filme, f.capa_filme, f.trailer_filme, c.categoria_filme FROM filme f INNER JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
     
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();
@@ -139,10 +151,10 @@ public function selecionarFilme($id_filme){
     try{
         $sql = "SELECT * FROM filme WHERE id_filme=? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $id_filme);
         $stmt->execute([$id_filme]);
-
-        if($stmt->rowCount() > 0){
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+        if($result->rowCount() > 0){
             while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)){
                 $FilmeDTO = new FilmeDTO();
                 $FilmeDTO->setId_filme($filmeFetch['id_filme']);
@@ -158,38 +170,6 @@ public function selecionarFilme($id_filme){
             
             }
             return $FilmeDTO;
-        }else{
-            echo '<p>Nenhum Filme adicionado ainda!</p>';
-        }
-        return null;
-    }catch(PDOException $exc){
-        echo $exc->getMessage();
-    }
-}
-
-public function selecionarResenha($id_filme){
-    try{
-        $sql = "SELECT * FROM resenha WHERE id_filme=?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $id_filme);
-        $stmt->execute([$id_filme]);
-
-        if($stmt->rowCount() > 0){
-            while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $resenhaDTO = new FilmeDTO();
-                $resenhaDTO->setId_filme($resenhaFetch['id_filme']);
-                $resenhaDTO->setNome_filme($resenhaFetch['nome_filme']);
-                $resenhaDTO->setDt_de_lancamento_filme($resenhaFetch['dt_de_lancamento_filme']);
-                $resenhaDTO->setDuracao_filme($resenhaFetch['duracao_filme']);
-                $resenhaDTO->setSinopse_filme($resenhaFetch['sinopse_filme']);
-                $resenhaDTO->setGenero_filme($resenhaFetch['genero_filme']);
-                $resenhaDTO->setClassificacao_filme($resenhaFetch['classificacao_filme']);
-                $resenhaDTO->setCapa_filme($resenhaFetch['capa_filme']);
-                $resenhaDTO->setTrailer_filme($resenhaFetch['trailer_filme']);
-                $resenhaDTO->setCanal_filme($resenhaFetch['canal_filme']);
-            
-            }
-            return $resenhaDTO;
         }else{
             echo '<p>Nenhuma resenha adicionado ainda!</p>';
         }
@@ -236,29 +216,3 @@ public function buscarPorID($id) {
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
