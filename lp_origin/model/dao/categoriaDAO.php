@@ -15,7 +15,7 @@ class categoriaDAO{
 public function listarCategoria(){
     try{
 
-        $sql = "SELECT * FROM genero_filme ORDER BY id_genero_filme";
+        $sql = "SELECT * FROM categoria_filme ORDER BY categoria_filme";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $categoria = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ public function listarCategoria(){
 
 public function selecionarCategoria($id_categoria){
     try{
-        $sql = "SELECT genero_filme FROM categoria_filme WHERE id_filme= $id_categoria";
+        $sql = "SELECT categoria_filme FROM categoria_filme WHERE id_filme= $id_categoria";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt;
@@ -39,25 +39,3 @@ public function selecionarCategoria($id_categoria){
 }
 }
 
-class categoriaFilmeDAO {
-    public $pdo;
-
-    public function __construct()
-    {
-        $this->pdo = Conexao::getInstance();
-    }
-
-    public function listar() {
-        $stmt = $this->pdo->prepare("SELECT * FROM categoria_filme");
-        $stmt->execute();
-
-        $categorias = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $categoria = new categoriaFilmeDTO($row['id_categoria_filme'], $row['categoria_filme']);
-            $categorias[] = $categoria;
-        }
-
-        return $categorias;
-    }
-}
