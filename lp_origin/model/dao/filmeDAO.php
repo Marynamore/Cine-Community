@@ -80,7 +80,8 @@ public function excluirFilmeById($id_filme) {
 
 
 public function listarTodos(){
-    $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cf.nome_canal_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme JOIN canal_filme cf ON f.fk_canal_filme_id_canal_filme = cf.id_canal_filme";
+    $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cf.nome_canal_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c 
+    ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme JOIN canal_filme cf ON f.fk_canal_filme_id_canal_filme = cf.id_canal_filme";
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();   
@@ -107,17 +108,17 @@ while ($filmeFetch = $resultado->fetch_assoc()) {
 return $filmesDTO;
 }
 
-public function listarTodosFilme(){
-    try{
-        $sql = "SELECT id_filme, nome_filme, capa_filme, fk_categoria_filme_id_categoria_filme FROM filme INNER JOIN categoria_filme ON filme.fk_categoria_filme_id_categoria_filme = categoria_filme.id_categoria_filme";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $filme = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $filme;
-    }catch(PDOException $exc){
-        echo $exc->getMessage();
+public function listarTodosFilme() {
+        try {
+            $sql  = "SELECT id_filme, nome_filme, capa_filme, duracao_filme, classificacao_filme, dt_de_lancamento_filme, sinopse_filme, fk_categoria_filme_id_categoria_filme FROM filme INNER JOIN categoria_filme ON filme.fk_categoria_filme_id_categoria_filme = categoria_filme.id_categoria_filme";
+            $stmt = $this->pdo->prepare( $sql );
+            $stmt->execute();
+            $filme = $stmt->fetchAll( PDO::FETCH_ASSOC );
+            return $filme;
+        } catch ( PDOException $exc ) {
+            echo $exc->getMessage();
+        }
     }
-}
 
 
 public function listarFilmesComCategoria() {

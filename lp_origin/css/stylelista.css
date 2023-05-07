@@ -1,104 +1,54 @@
 .tudo{
-    background-color:#000000 ;
-    background-image: url("movie.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color:#002b46 ;
+    
 }
+ 
 .cabecalho{
-   color: #ffff;
+     
+    color: #002b46;
+    height: 100px;
+    text-align: center;
+    color: white;
+    font-size: 3em;
 }
  table{
-     width: 60%;
-     font-family:'Times New Roman', Times, serif;
-     background: #3095a7;
+     width: 70%;
+     padding: 10px;
+     background: transparent;
      margin: 20px;
      border: none;
      font-weight: 800;
     color: #ffffff;
     border: #3095a7;
-     border-radius: 8px;
-      box-shadow: 0 0 20px rgb(255, 255, 255);
+     border-radius: 5px;
+     text-align: center;
+      
+}
+.tabela{
+    background-color: #08ef;
+    font-size: 1.2em;
+    
+}
+table td{
+    font-weight: 500;
+    font-size: 1.2em;
+    
+    color: #fff
+}
+button{
+    background-color: #08ef;
+    border-radius: 4px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    opacity: 0.9;
+     
+}
+button:hover{
+    cursor: pointer;
+    opacity: 1;
+    background-color: #1f242d ;
 }
  
-body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-nav {
-    background-color: #eee;
-    padding: 10px;
-}
-
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-nav ul li {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-nav ul li a {
-    color: #333;
-    text-decoration: none;
-    padding: 5px 10px;
-}
-
-nav ul li a:hover {
-    background-color: #333;
-}
-
-section {
-    padding: 20px;
-}
-
-h2 {
-    margin-top: 0;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-table th,
-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-table th {
-    background-color: #333;
-    color: #fff;
-}
-
-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-table tr:hover {
-    background-color: #ddd;
-}
-
-a {
-    color: #333;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}

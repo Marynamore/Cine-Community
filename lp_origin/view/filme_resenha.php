@@ -26,6 +26,7 @@
 
             if($selecione_filme->rowCount() > 0){
                 while ($filmeFetch = $selecione_filme->fetch(PDO::FETCH_ASSOC)){
+                }}
         ?>
         <div class="dados-filme">
             <img src="../upload/<?= $filme->getCapa_filme();?>" alt="">
@@ -52,7 +53,7 @@
 
                 if($selecione_resenha->rowCount() > 0){
                     while ($resenhaFetch = $selecione_resenha->fetch(PDO::FETCH_ASSOC)){
-            ?> 
+                    }}?> 
             <div class="box" <?php if($resenhaFetch['perfil_usu'] == $usuario){echo 'style="order: -1;"';}; ?>>
         <?php
             $sql = "SELECT * FROM usuario WHERE id_usuario=?";
@@ -61,6 +62,7 @@
 
             if($selecione_usuario->rowCount() > 0){
                 while ($resenhaFetch = $selecione_usuario->fetch(PDO::FETCH_ASSOC)){
+                }}
         ?>   
         </div>
     </section>

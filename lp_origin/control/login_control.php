@@ -25,7 +25,7 @@ if (isset($usuarioLogado)) {
     }elseif($_SESSION["perfil_usu"] == 'moderador'){
         header("Location:../adm_usu.php");
     }elseif($_SESSION["perfil_usu"] == 'usuario'){
-        header( "Location:../index.php");
+        header( "Location:../usuariologado.php");
     }
 } else {
     header( "location:../view/login.php?msg=usuário e/ou senha inválidos" );

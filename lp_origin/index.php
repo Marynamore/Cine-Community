@@ -48,7 +48,7 @@
     </div>
 
 <!-- Exibe a lista de filmes -->
-    <?php 
+<?php 
     require_once './model/dao/categoriaDAO.php';
     $categoriaDAO = new categoriaDAO();
     $categoria = $categoriaDAO->listarCategoria();
@@ -61,9 +61,12 @@
         ?>
     <div class="container-galeria">
         <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$categoriaFetch['categoria_filme']; ?></h2>
+        <h2 class="h2"><?=$categoriaFetch['id_categoria_filme']; ?></h2>
     
     <?php 
+        require_once './model/dao/filmeDAO.php';
+        $FilmeDAO = new FilmeDAO();
+        $filme = $FilmeDAO->listarTodosFilme();
     foreach ($filme as $filmeFetch) { 
     //echo '<pre>';
     //print_r($filmeFetch);
@@ -80,6 +83,7 @@
     </div>
     
 <?php }?>
+
 
 
 
