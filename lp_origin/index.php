@@ -15,7 +15,7 @@
 <body>
 <?php
    session_start();
-   if(!isset($_SESSION["usuario"])) {
+   if(isset($_SESSION["usuario"])) {
 ?>
     <header class="header" >
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
@@ -27,7 +27,7 @@
         </nav>
     </header>
     <?php 
-    }else{
+    }elseif(!isset($_SESSION["usuario"])) {
     echo '
     <header class="header" >
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
@@ -48,41 +48,30 @@
     </div>
 
 <!-- Exibe a lista de filmes -->
-<?php 
-    require_once './model/dao/categoriaDAO.php';
-    $categoriaDAO = new categoriaDAO();
-    $categoria = $categoriaDAO->listarCategoria();
-    foreach ($categoria as $categoriaFetch) { 
-        
-    //echo '<pre>';
-    //print_r($categoriaFetch);
-    //echo '</pre>';
-        echo '<input type="hidden" name='.$categoriaFetch['id_categoria_filme'].'>';
-        ?>
-    <div class="container-galeria">
-        <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$categoriaFetch['id_categoria_filme']; ?></h2>
-    
     <?php 
-        require_once './model/dao/filmeDAO.php';
-        $FilmeDAO = new FilmeDAO();
-        $filme = $FilmeDAO->listarTodosFilme();
-    foreach ($filme as $filmeFetch) { 
-    //echo '<pre>';
-    //print_r($filmeFetch);
-    //echo '</pre>';
-        echo '<input type="hidden" name='.$filmeFetch['fk_categoria_filme_id_categoria_filme'].'>';
-        ?>
-        <a href="./view/filme_resenha.php" class="itens-galeria">
+    require_once './model/dao/filmeDAO.php';
+    $FilmeDAO = new FilmeDAO();
+    $filme = $FilmeDAO->listarTodos();
+
+    ?>
+    <div class="container-galeria">
+        <?php foreach ($filme as $filmeFetch) {   ?>
+        <!-- Exibe a categoria do filme -->
+        <h2 class="h2"><?=$filmeFetch['categoria_filme']; ?></h2>
+        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" class="itens-galeria">
             <!-- Exibe a capa do filme -->
-            <img src="assets/<?=$filmeFetch['capa_filme']?>" alt="Capa do filme <?=$filmeFech['nome_filme']; ?>">
+            <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
             <h4><?= $filmeFetch['nome_filme']; ?></h4>
         </a>
-    <?php }?>
-    </div>
+      <?php 
+        //echo '<pre>';
+        //var_dump($filmeFetch);
+        //echo '</pre>'; 
     
-<?php }?>
+    }?>
+    </div>
+  
 
 
 

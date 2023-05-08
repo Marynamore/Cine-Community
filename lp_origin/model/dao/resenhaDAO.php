@@ -33,14 +33,35 @@ class ResenhaDAO {
         }
     }
 
-    public function verificarResenha(ResenhaDTO $resenhaDTO){
-        $sql = "SELECT * FROM resenha WHERE fk_filme_id_filme =? AND fk_usuario_id_usuario =?";
-        $resenha = $this->pdo->prepare($sql);   
-        $resenha->bindValue(1, $resenhaDTO->getFK_filme_id_filme());
-        $resenha->bindValue(2, $resenhaDTO->getFK_usuario_id_usuario());
-        $resenha->execute();
+    public function verificarResenha($get_id){
+    try{
+        $sql = "SELECT r.*, f.id_filme, u.id_usuario FROM resenha r INNER JOIN filme f 
+        ON f.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario filme WHERE f.id_filme=?";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$get_id]);
+
+        $resenhas = array();
+        if($stmt->rowCount() > 0){
+            while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $ResenhaDTO = new ResenhaDTO();
+                $ResenhaDTO->setId_resenha($resenhaFetch['id_resenha']);
+                $ResenhaDTO->setTitulo_res($resenhaFetch['titulo_res']);
+                $ResenhaDTO->setDescricao_res($resenhaFetch['descricao_res']);
+                $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
+                $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
+                $ResenhaDTO->setFk_filme_id_filme($resenhaFetch['fk_filme_id_filme']);
+                $ResenhaDTO->setFk_usuario_id_usuario($resenhaFetch['fk_usuario_id_usuario']);
+                $resenhas[] = $resenhaFetch;
+                return $ResenhaDTO;
+                
+            } return $resenhas;
+        }else{
+            echo '<p>Nenhum Filme adicionado ainda!</p>';
+        }
+        }catch(PDOException $exc){
+        echo $exc->getMessage();
     }
-
 }
-
+}
 ?>
