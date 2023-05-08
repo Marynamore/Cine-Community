@@ -1,16 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION["administrador"])) {
-	header("Location:../login.php");
-	exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Painel de Administração</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../css/stylelista.css">
 </head>
 <body>
     <header class="center">
@@ -44,7 +41,7 @@ if(!isset($_SESSION["administrador"])) {
     </header>
     <nav>
         <ul>
-            <li><a href="#usuarios">Usuários</a></li>
+            <li><a href="#usuario">Usuários</a></li>
             <li><a href="#filmes">Filmes</a></li>
 			<li><a href="#">Configurações</a></li>
 			<li><a href="#">Logout</a></li>
@@ -52,16 +49,16 @@ if(!isset($_SESSION["administrador"])) {
     </nav>
     <main>
         <h2>Bem-vindo à página de administração!</h2>
-        <p>Olá, <?php echo $_SESSION["administrador"]; ?>!</p>
+        <center><p><h2>Olá, <?php echo $_SESSION["perfil_usu"]; ?>!</h2></p></center>
 <?php
 
-   require_once '../model/dao/UsuarioDAO.php';
-   require_once '../model/dao/filmeDAO.php';
+   require_once '../../model/dao/UsuarioDAO.php';
+   require_once '../../model/dao/filmeDAO.php';
    $UsuarioDAO = new UsuarioDAO();
    $usuario = $UsuarioDAO->listarTodos();
 
    $FilmeDAO = new FilmeDAO();
-   $filme = $FilmeDAO->listarTodos();
+   $filme = $FilmeDAO->listarFilmesComCategoria();
 
 ?>
     <header>
@@ -96,6 +93,7 @@ if(!isset($_SESSION["administrador"])) {
                             foreach($usuario as $usuario ){
                         ?>
                         <tr>
+                            
                             <td><?php echo $usuario["id_usuario"]?></td>
                             <td><?=$usuario["nome_usu"]?></td>
                             <td><?=$usuario["nickname_usu"] ?></td>
@@ -121,9 +119,10 @@ if(!isset($_SESSION["administrador"])) {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Nome</th>
                             <th>Data de lançamento</th>
                             <th>Classificação</th>
-                            <th>Gênero</th>
+                            <th>Categoria</th>
                             <th>Duração</th>
                             <th>Sinopse</th>
                             <th>Capa</th>
@@ -142,7 +141,7 @@ if(!isset($_SESSION["administrador"])) {
                             <td><?=$filme["nome_filme"]?></td>
                             <td><?=$filme["dt_de_lancamento_filme"] ?></td>
                             <td><?=$filme["classificacao_filme"] ?></td>
-                            <td><?=$filme["genero_filme"]?></td>
+                            <td><?=$filme["categoria_filme"]?></td>
                             <td><?=$filme["duracao_filme"]?></td>
                             <td><?=$filme["sinopse_filme"]?></td>
                             <td><?=$filme["capa_filme"]?></td>
