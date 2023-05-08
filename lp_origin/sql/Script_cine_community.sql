@@ -174,9 +174,6 @@ INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duraca
 (43, 'Como Se Fosse a Primeira Vez', '2004-02-13', '01:39:00', '  Henry Roth ? um veterin?rio marinho que vive no Hava? e se apaixona por Lucy Whitmore, uma mulher que sofre de perda de mem?ria de curto prazo e acorda todas as manh?s sem se lembrar do dia anterior. Henry tem que conquist?-la todos os dias e faz?-', '10', 'comosefosseaprimeriavez.jpg', '', 1, 2, 2),
 (44, 'Os Segredos de Brokeback Mountain', '2005-12-02', '02:14:00', '  Ennis Del Mar e Jack Twist s?o contratados para trabalhar como pastores em Brokeback Mountain. Durante o isolamento e a solid?o do trabalho, eles se aproximam e se apaixonam, iniciando um relacionamento secreto que dura anos. Ap?s um longo per?odo ', '14', 'O-Segredo-de-Brokeback-Mountain.webp', '', 1, 2, 2);
 
--- --------------------------------------------------------
-
--- --------------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table `resenha_de_filme`.`favorito`

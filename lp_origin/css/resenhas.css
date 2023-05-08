@@ -1,0 +1,93 @@
+body{
+    margin: 50px 20px;
+    background-color: #1f242d;
+}
+ 
+.voltar:hover{
+    background-color: red;
+    color: black;
+}  
+.dados-filme{
+margin:none;
+margin-top: 30px;
+padding:10px 10px;
+display: flex;
+    gap: 20px;
+    color: #fff;
+    box-shadow: 0 0 10px #08ef;
+    border-radius:10px;
+    margin-bottom: 10px;
+}
+.titulo{
+
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.titulo_res{
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+h4{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.resenha{
+    margin-top: 20px;
+    margin:none;
+    padding:10px 10px;
+    box-shadow: 0 0 10px #08ef;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+     
+}
+
+h1{
+    color: #fff;
+}
+.poster{
+height: 300px;
+border-radius: 20px;
+}
+
+p{
+font-size: 17px;
+}
+a{
+color: #08ef;
+text-decoration: none;
+}
+a:hover{
+color: red;
+}
+
+.criar_resenha{
+background-color: #08ef;
+color: #fff;
+padding: 9px;
+border-radius: 10px;
+margin-top: 50px;
+text-align: right;
+}
+.edicao_resenha{
+ 
+background-color: #08ef;
+color: #fff;
+padding: 2px;
+border-radius: 5px;
+margin-right: 5px;
+}
+.edicao_resenha:hover{
+background-color: red;
+color: black;
+}
+.criar_resenha:hover{
+background-color: red;
+color: black;
+}  
