@@ -96,8 +96,6 @@ $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme FROM fi
     } return $filmesDTO;
 }
 
-return $filmesDTO;
-}
 
 public function listarTodosFilme(){
     try{
