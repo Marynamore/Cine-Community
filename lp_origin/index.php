@@ -13,10 +13,6 @@
     <title>Cine Community</title>
 </head>
 <body>
-<?php
-   session_start();
-   if(isset($_SESSION["usuario"])) {
-?>
     <header class="header" >
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
@@ -26,21 +22,6 @@
             <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
         </nav>
     </header>
-    <?php 
-    }elseif(!isset($_SESSION["usuario"])) {
-    echo '
-    <header class="header" >
-        <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
-        <nav class="navbar" style="-i:1;">
-            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="#about"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
-            <a href="./view/adm/painel_adm.php"><i class="fa-solid fa-user"></i><br>'.$_SESSION['nickname_usu'].'</a>
-            <a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>
-        </nav>
-    </header>
-    ';
-    }
-    ?>
     <div>
         <img class="banner" src="assets/Banner.png" alt="">
         <br>
@@ -65,7 +46,7 @@
             <h4><?= $filmeFetch['nome_filme']; ?></h4>
         </a>
       <?php 
-        //echo '<pre>';
+        //  echo '<pre>';
         //var_dump($filmeFetch);
         //echo '</pre>'; 
     

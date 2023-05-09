@@ -15,14 +15,14 @@
 <body>
 <?php
    session_start();
-   if(!isset($_SESSION["usuario"])) {
+   if(!isset($_SESSION["usuario"]) && empty($_SESSION["usuario"])) {
 ?>
     <header class="header" >
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
             <a href="#about"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
-            <a href="./view/adm/painel_adm.php"><i class="fa-solid fa-user"></i><br><?$_SESSION['nickname_usu']?></a>
+            <a href=""><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
             <a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>
         </nav>
     </header>
@@ -49,7 +49,7 @@
         ?>
     <div class="container-galeria">
         <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$categoriaFetch['id_categoria_filme']; ?></h2>
+        <h2 class="h2"><?=$categoriaFetch['categoria_filme']; ?></h2>
     
     <?php 
         require_once './model/dao/filmeDAO.php';
@@ -61,7 +61,7 @@
     //echo '</pre>';
         echo '<input type="hidden" name='.$filmeFetch['fk_categoria_filme_id_categoria_filme'].'>';
         ?>
-        <a href="./view/filme_resenha.php" class="itens-galeria">
+        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" class="itens-galeria">
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFetch['capa_filme']?>" alt="Capa do filme <?=$filmeFech['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->

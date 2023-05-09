@@ -202,6 +202,7 @@ DROP TABLE IF EXISTS `resenha_de_filme`.`resenha` ;
 CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`resenha` (
   `id_resenha` INT NOT NULL AUTO_INCREMENT,
   `avaliacao_res` VARCHAR(50) NULL DEFAULT NULL,
+  `titulo_res` VARCHAR(45) NULL DEFAULT NULL,
   `descricao_res` VARCHAR(1500) NULL DEFAULT NULL,
   `dt_hora_res` TIMESTAMP NULL  DEFAULT NULL,
   `denuncia_res` VARCHAR(50) NULL DEFAULT NULL,

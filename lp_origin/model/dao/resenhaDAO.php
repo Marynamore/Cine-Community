@@ -35,8 +35,8 @@ class ResenhaDAO {
 
     public function verificarResenha($get_id){
     try{
-        $sql = "SELECT r.*, f.id_filme, u.id_usuario FROM resenha r INNER JOIN filme f 
-        ON f.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario filme WHERE f.id_filme=?";
+        $sql = "SELECT r.*, f.id_filme, u.nome_usu, u.foto_usu FROM resenha r INNER JOIN filme f 
+        ON r.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario WHERE f.id_filme=?";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$get_id]);
@@ -50,14 +50,13 @@ class ResenhaDAO {
                 $ResenhaDTO->setDescricao_res($resenhaFetch['descricao_res']);
                 $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
                 $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
-                $ResenhaDTO->setFk_filme_id_filme($resenhaFetch['fk_filme_id_filme']);
-                $ResenhaDTO->setFk_usuario_id_usuario($resenhaFetch['fk_usuario_id_usuario']);
+                $ResenhaDTO->setFk_filme_id_filme($resenhaFetch['id_filme']);
+                $ResenhaDTO->setFk_usuario_id_usuario($resenhaFetch['id_usuario']);
                 $resenhas[] = $resenhaFetch;
-                return $ResenhaDTO;
                 
             } return $resenhas;
         }else{
-            echo '<p>Nenhum Filme adicionado ainda!</p>';
+            echo '<p>Nenhuma Resenha adicionada ainda!</p>';
         }
         }catch(PDOException $exc){
         echo $exc->getMessage();

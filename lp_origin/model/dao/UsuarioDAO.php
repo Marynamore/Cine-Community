@@ -136,28 +136,28 @@ class UsuarioDAO {
             return $chave;
         }
 }
-public function recuperarPorId($id) {
+public function dadosUsuarioPorId($id) {
     try {
         $sql = "SELECT * FROM usuario WHERE id_usuario=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1,$id);
         $stmt->execute();
         $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($usuarioFetch !=  NULL){
-                $usuario = new UsuarioDTO();
-                $usuario->setId_usuario($usuarioFetch["id_usuario"]);
-                $usuario->setNome_usu($usuarioFetch["nome_usu"]);
-                $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
-                $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
-                $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
-                $usuario->setEmail_usu($usuarioFetch["email_usu"]);
-                $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
-                $usuario->setPerfil_usu($usuarioFetch["perfil_usu"]);
-                $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
-                
-                return $usuario;
-            }
-            return null;
+        if($usuarioFetch !=  NULL){
+            $usuario = new UsuarioDTO();
+            $usuario->setId_usuario($usuarioFetch["id_usuario"]);
+            $usuario->setNome_usu($usuarioFetch["nome_usu"]);
+            $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
+            $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
+            $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
+            $usuario->setEmail_usu($usuarioFetch["email_usu"]);
+            $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
+            $usuario->setPerfil_usu($usuarioFetch["perfil_usu"]);
+            $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
+            $usuario->setFoto_usu($usuarioFetch["foto_usu"]);
+            return $usuario;
+        }
+        return null;
     } catch (PDOException $exc) {
         echo $exc->getMessage();
     }

@@ -13,6 +13,7 @@ class  UsuarioDTO {
     private $senha_usu;
     private $perfil_usu;
     private $situacao_usu;
+    private $foto_usu;
     
 
     public function getId_usuario() {
@@ -49,6 +50,9 @@ class  UsuarioDTO {
         return $this->situacao_usu;
     }
     
+    public function getFoto_usu() {
+        return $this->foto_usu;
+    }
 
     
     public function setId_usuario($id_usuario) {
@@ -85,6 +89,9 @@ class  UsuarioDTO {
         $this->situacao_usu = $situacao_usu;
     }
     
+    public function setFoto_usu($foto_usu) {
+        $this->foto_usu = $foto_usu;
+    }
 
     
 }

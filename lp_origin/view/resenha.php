@@ -16,7 +16,7 @@
             <textarea name="descricao_res" id="" cols="30" rows="10"></textarea>
         </div>
         <input type="submit" value="enviar" name='submit'>
-        <a href="filme_resenha.php?id_filme=<?= $id_filme; ?>">Voltar</a>
+        <a href="filme_resenha.php?get_id=<?= $get_id; ?>">Voltar</a>
     </form>
     </center>
    </body>

@@ -80,20 +80,26 @@ public function excluirFilmeById($id_filme) {
 
 
 public function listarTodos(){
-$sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme FROM filme f JOIN categoria_filme c 
-    ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme ORDER BY c.categoria_filme";
+    try{
+        $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme FROM filme f JOIN categoria_filme c 
+            ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
 
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute();   
-    
-    while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $FilmeDTO = new FilmeDTO();
-        $FilmeDTO->setId_filme($filmeFetch['id_filme']);
-        $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
-        $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['categoria_filme']);
-        $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
-        $filmesDTO[] = $filmeFetch;
-    } return $filmesDTO;
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();   
+
+        $filmesDTO = array();
+        while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $FilmeDTO = new FilmeDTO();
+            $FilmeDTO->setId_filme($filmeFetch['id_filme']);
+            $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
+            $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['categoria_filme']);
+            $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
+            $filmesDTO[] = $filmeFetch;
+        } 
+        return $filmesDTO;
+    }catch(PDOException $exc){
+        echo $exc->getMessage();
+    }  
 }
 
 

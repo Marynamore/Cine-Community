@@ -1,6 +1,7 @@
 <?php
 require_once '../model/dao/filmeDAO.php';
 require_once '../model/dao/resenhaDAO.php';
+require_once '../model/dao/UsuarioDAO.php';
 
 if(isset($_GET['get_id'])) {
     $get_id = $_GET['get_id'];
@@ -11,6 +12,7 @@ if(isset($_GET['get_id'])) {
 
 $FilmeDAO = new FilmeDAO();
 $ResenhaDAO = new ResenhaDAO();
+$UsuarioDAO = new UsuarioDAO(); 
 
 ?>
 <!DOCTYPE html>
@@ -18,25 +20,27 @@ $ResenhaDAO = new ResenhaDAO();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/resenhas.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Filme</title>
+    <link rel="stylesheet" href="../css/resenhas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Cine Community</title>
 </head>
-
 <body>
     <header class="header" >
-        <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
+        <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
-            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>
-            <a href="#comment"><i class="fa-solid fa-comment-dots"></i><br>COMENTÁRIOS</a>
-            <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
+            <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
+            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>
         </nav>
     </header>
-
-    <div>
-        <div><h1>Resenha Filme</h1><a href="../index.php" class="inline-btn" style="margin-top: 0;">Todos os Filmes</a></div>
+    <div id="all">
+        <div class="titulo"><h1>Resenha Filme</h1><a href="../index.php" class="criar_resenha">Voltar Filmes</a></div>
     <?php
     $filmeFetch = $FilmeDAO->selecionarFilmesComCategoria($get_id);
     if($filmeFetch) { ?>
@@ -64,7 +68,7 @@ $ResenhaDAO = new ResenhaDAO();
     <section class="resenha">
         <div class="titulo">
             <h1>Resenhas:</h1> 
-            <a href="../resenhas/crud/cadastrar_resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
+            <a href="resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
         </div>
         <div class="resenha">
 
@@ -75,18 +79,34 @@ $ResenhaDAO = new ResenhaDAO();
             </div>
         <?php
             $resenhas = $ResenhaDAO->verificarResenha($get_id);
+            if(!empty($resenhas)){
             foreach($resenhas as $resenha) {
+                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getId_usuario());
         ?>
-            <h4 <?php if($resenhaFetch['id_usuario'] == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
-        <?php }?>
+            <h4 <?php if($resenha->getId_usuario == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
+            <div>
+                <?php if(!empty($usuario->getFoto_usu())){ ?>
+                <img src="../assets/<?= $usuario->getFoto_usu(); ?>" alt="">
+                <?php }else{ ?>   
+                <h3><?= substr($usuario->getNome_usu(), 0, 1); ?></h3>
+                <?php }; ?>   
+                <div>
+                <p><?= $usuario->getNome_usu(); ?></p>
+                <span><?= $resenha->getDt_hora_res(); ?></span>
+                </div>
+            </div>
+            <h3 class="title"><?= $resenha->getTitulo_res(); ?></h3>
+            <?php if(!empty($resenha->getDescricao_res())){ ?>
+                <p><?= $resenha->getDescricao_res(); ?></p>
+            <?php } ?>  
+        </div>
+      <?php
+        }
+        }
+      ?>
+        
     </section>
 
 
-
-<!-- sweetalert cdn link  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-
-<?php include '../app/alers.php'; ?>
 </body>
 </html>
