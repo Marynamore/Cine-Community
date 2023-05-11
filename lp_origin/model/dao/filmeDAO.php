@@ -82,7 +82,7 @@ public function excluirFilmeById($id_filme) {
 public function listarTodos(){
     try{
         $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme FROM filme f JOIN categoria_filme c 
-            ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
+            ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme ORDER BY fk_categoria_filme_id_categoria_filme,f.nome_filme";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();   
