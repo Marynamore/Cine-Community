@@ -36,9 +36,14 @@
 
     ?>
     <div class="container-galeria">
-        <?php foreach ($filme as $filmeFetch) {   ?>
+        <?php 
+        $categoria='';  
+        foreach ($filme as $filmeFetch) {   ?>
         <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$filmeFetch['categoria_filme']; ?></h2>
+        <?php if($categoria != $filmeFetch['categoria_filme']){
+            $categoria = $filmeFetch['categoria_filme'];
+            echo '<h2 class="h2">'.$filmeFetch['categoria_filme'].'</h2>';
+        } ?>
         <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" class="itens-galeria">
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
