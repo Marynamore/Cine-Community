@@ -116,14 +116,13 @@ public function listarTodosFilme(){
 }
 
 
-public function selecionarFilmesComCategoria($id_filme) {
+public function listarFilmesComCategoria() {
     try{
         $sql = "SELECT f.*, u.nome_usu, c.categoria_filme FROM filme f JOIN usuario u ON f.fk_usuario_id_usuario = u.id_usuario JOIN categoria_filme c 
-        ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme WHERE f.id_filme=? LIMIT 1";
+        ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1,$id_filme);
-        $stmt->execute([$id_filme]);
+        $stmt->execute();
 
         $filmes = array();
         if($stmt->rowCount() > 0){
@@ -139,9 +138,8 @@ public function selecionarFilmesComCategoria($id_filme) {
                 $FilmeDTO->setClassificacao_filme($filmeFetch['classificacao_filme']);
                 $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
                 $FilmeDTO->setTrailer_filme($filmeFetch['trailer_filme']);
-                //$FilmeDTO->setFk_canal_filme_id_canal_filme($filmeFetch['fk_canal_filme_id_canal_filme']);
+                $FilmeDTO->setFk_canal_filme_id_canal_filme($filmeFetch['fk_canal_filme_id_canal_filme']);
                 $filmes[] = $filmeFetch;
-                return $FilmeDTO;
                 
             } return $filmes;
         }else{

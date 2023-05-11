@@ -21,7 +21,7 @@ if (isset($usuarioLogado)) {
     
     
     if($_SESSION["perfil_usu"] == 'administrador'){
-        header("Location:../view/adm/painel_adm.php");
+        header("Location:../view/adm/paineladmcomcss.php");
     }elseif($_SESSION["perfil_usu"] == 'moderador'){
         header("Location:../adm_usu.php");
     }elseif($_SESSION["perfil_usu"] == 'usuario'){
