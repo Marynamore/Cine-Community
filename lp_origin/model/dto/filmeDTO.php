@@ -7,7 +7,6 @@ class FilmeDTO{
     private $dt_de_lancamento_filme;
     private $duracao_filme;
     private $sinopse_filme;
-    private $genero_filme;
     private $classificacao_filme;
     private $capa_filme;
     private $trailer_filme;

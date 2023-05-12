@@ -16,7 +16,7 @@
     $filme = $FilmeDAO->recuperarPorID($get_id);
 
     echo'<pre>';
-    print_r($filme);
+    var_dump($filme);
     echo'</pre>';
 
 ?>

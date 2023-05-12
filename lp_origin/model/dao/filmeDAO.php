@@ -177,12 +177,12 @@ public function listarTodosFilme() {
  * busca um filme no banco de dados pelo seu id e retorna um objeto FilmeDTO com os dados do filme encontrado;
  */
 
-public function recuperarPorID($id) {
+public function recuperarPorID($get_id) {
     try {
         $sql = "SELECT f.*, cn.canal_filme, c.categoria_filme FROM filme f INNER JOIN canal_filme cn ON f.fk_canal_filme_id_canal_filme = cn.canal_filme INNER JOIN categoria_filme c 
-        ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme WHERE id_filme=?";
+        ON f.fk_categoria_filme_id_categoria_filme = c.id_categoria_filme WHERE f.id_filme=?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1,$get_id);
         $stmt->execute();
         $filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -193,11 +193,11 @@ public function recuperarPorID($id) {
             $FilmeDTO->setDt_de_lancamento_filme($filmeFetch["dt_de_lancamento_filme"]);
             $FilmeDTO->setDuracao_filme($filmeFetch ["duracao_filme"]);
             $FilmeDTO->setSinopse_filme($filmeFetch["sinopse_filme"]);
-            $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['categoria_filme']);
+            $FilmeDTO->setFk_categoria_filme_id_categoria_filme($filmeFetch['id_categoria_filme']);
             $FilmeDTO->setClassificacao_filme($filmeFetch["classificacao_filme"]);
             $FilmeDTO->setCapa_filme($filmeFetch["capa_filme"]);
             $FilmeDTO->setTrailer_filme($filmeFetch["trailer_filme"]);
-            $FilmeDTO->setFk_canal_filme_id_canal_filme($filmeFetch['fk_canal_filme_id_canal_filme']);
+            $FilmeDTO->setFk_canal_filme_id_canal_filme($filmeFetch['id_canal_filme']);
         return $FilmeDTO;
     }
         return null;
