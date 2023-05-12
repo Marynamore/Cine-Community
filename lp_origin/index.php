@@ -22,11 +22,26 @@
             <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
         </nav>
     </header>
-    <div>
-        <img class="banner" src="assets/Banner.png" alt="">
-        <br>
-        <br>
-    </div>
+    <section>
+        <div class="box">
+
+            <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
+            <div class="box-image"><img src='./assets/banner/avatar.jpeg'></div>
+            <div class="box-image"><img src='./assets/banner/creed3.jpg'></div>
+            <div class="box-image"><img src='./assets/banner/john-wick-4.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/guardians-galaxy.jpg"></div>
+            <div class="box-image"><img src='./assets/banner/supermario.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/Indiana-Jones.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/oppenheimer.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/Panico6.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/amortedodemonio.webp"></div>
+            <div class="box-image"><img src="./assets/banner/velozesefuriososx.png"></div>     
+        </div>
+        <div class="bolinhas">
+    
+        </div>
+    </section>
+    <div class="container">
 
 <!-- Exibe a lista de filmes -->
     <?php 
@@ -116,5 +131,7 @@
 
         <!-- FIM  RODAPE -->
     </footer>
+    </div>
+    <script src="./js/script.js"></script>
 </body>
 </html>
