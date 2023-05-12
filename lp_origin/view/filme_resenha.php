@@ -3,11 +3,13 @@ require_once '../model/dao/filmeDAO.php';
 require_once '../model/dao/resenhaDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 
+session_start();
+
 if(isset($_GET['get_id'])) {
     $get_id = $_GET['get_id'];
 } else {
     $get_id = '';
-    header('location:../index.php');
+    header('location:../usuariologado.php');
 }
 
 $FilmeDAO = new FilmeDAO();
@@ -36,7 +38,7 @@ $UsuarioDAO = new UsuarioDAO();
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
             <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
-            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>
+            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
         </nav>
     </header>
     <div id="all">
@@ -69,21 +71,22 @@ $UsuarioDAO = new UsuarioDAO();
         <div class="titulo">
             <h1>Resenhas:</h1> 
             <a href="resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
+            <input type="hidden" name="fk_usuario_id_usuario" value="<?=$id_usuario = $_SESSION['id_usuario'];?>">
         </div>
-        <div class="resenha">
 
+        <?php
+            $resenhas = $ResenhaDAO->verificarResenha($get_id,$id_usuario);
+            if(!empty($resenhas)){
+            foreach($resenhas as $resenha) {
+                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_usuario_id_usuario());
+        ?>        
+        <div class="resenha">
             <div class="titulo_res">
                 
                 <a class="edicao_resenha" href="">Editar</a>
                 <a class="edicao_resenha" href="">Excluir</a> 
             </div>
-        <?php
-            $resenhas = $ResenhaDAO->verificarResenha($get_id);
-            if(!empty($resenhas)){
-            foreach($resenhas as $resenha) {
-                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getId_usuario());
-        ?>
-            <h4 <?php if($resenha->getId_usuario == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
+            <h4 <?php if($resenha->getFK_usuario_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
             <div>
                 <?php if(!empty($usuario->getFoto_usu())){ ?>
                 <img src="../assets/<?= $usuario->getFoto_usu(); ?>" alt="">

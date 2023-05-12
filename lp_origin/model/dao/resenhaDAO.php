@@ -26,20 +26,18 @@ class ResenhaDAO {
             $cadastrarResenha->bindValue( 8, $resenhaDTO->getAvaliacao_res());
 
             return $cadastrarResenha->execute();
-
         } catch ( PDOException $e ) {
             echo $e->getMessage();
             die();
         }
     }
 
-    public function verificarResenha($get_id){
+    public function verificarResenha($get_id, $id_usuario){
     try{
-        $sql = "SELECT r.*, f.id_filme, u.nome_usu, u.foto_usu FROM resenha r INNER JOIN filme f 
-        ON r.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario WHERE f.id_filme=?";
+        $sql = "SELECT r.*, f.id_filme, u.nome_usu, u.foto_usu, u.id_usuario FROM resenha r INNER JOIN filme f ON r.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario WHERE f.id_filme=? AND u.id_usuario = ?";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$get_id]);
+        $stmt->execute([$get_id, $id_usuario]);
 
         $resenhas = array();
         if($stmt->rowCount() > 0){
@@ -52,7 +50,7 @@ class ResenhaDAO {
                 $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
                 $ResenhaDTO->setFk_filme_id_filme($resenhaFetch['id_filme']);
                 $ResenhaDTO->setFk_usuario_id_usuario($resenhaFetch['id_usuario']);
-                $resenhas[] = $resenhaFetch;
+                $resenhas[] = $ResenhaDTO;
                 
             } return $resenhas;
         }else{

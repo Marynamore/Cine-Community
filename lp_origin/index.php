@@ -42,20 +42,25 @@
         <!-- Exibe a categoria do filme -->
         <?php if($categoria != $filmeFetch['categoria_filme']){
             $categoria = $filmeFetch['categoria_filme'];
-            echo '<h2 class="h2">'.$filmeFetch['categoria_filme'].'</h2>';
+            echo '<div>';
+            echo '<h2>'.$filmeFetch['categoria_filme'].'</h2>';
+            echo '</div>';
         } ?>
-        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" class="itens-galeria">
+        <div class="itens-galeria">
+        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" >
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
             <h4><?= $filmeFetch['nome_filme']; ?></h4>
         </a>
+        </div>
       <?php 
         //  echo '<pre>';
         //var_dump($filmeFetch);
         //echo '</pre>'; 
     
     }?>
+
     </div>
   
 

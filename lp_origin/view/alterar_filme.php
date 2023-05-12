@@ -11,9 +11,9 @@
 <?php
     require_once '../model/dao/filmeDAO.php';
 
-    $id = $_GET["id"];
+    $get_id = $_GET["get_id"];
     $FilmeDAO = new FilmeDAO();
-    $filme = $FilmeDAO->recuperarPorID($id);
+    $filme = $FilmeDAO->recuperarPorID($get_id);
 
     echo'<pre>';
     print_r($filme);
@@ -30,25 +30,25 @@
             Nome do filme:
             <input type="text"  name="nome_filme" placeholder="Filme" value="<?=$filme->getNome_filme();?>"> <br>  <br>
             Data de lançamento: 
-          <!--  <input type="date"  name="Dt_de_lancamento_filme" placeholder="Data de lançamento" value="<?=$filme->getDt_de_lancamento_filme();?>"><br><br>-->
+          <input type="date"  name="Dt_de_lancamento_filme" placeholder="Data de lançamento" value="<?=$filme->getDt_de_lancamento_filme();?>"><br><br>
        
-            <label for="cars">Gênero:</label>
+            <label for="cars">Categoria:</label>
 
-            <select name="genero_filme" id="cars">
-                <option value="infantil">Infantil</option>
-                <option value="romance">Romance</option>
-                <option value="acao">Ação</option>
-                <option value="dorama">Dorama</option>
-                <option value="ficcao">Ficção</option>
-                <option value="terror">Terror</option>
-                <option value="comedia">Comédia</option>
-                <option value="drama">Drama</option>
-                <option value="faroeste">Faroeste</option>
-                <option value="suspense">Suspense</option>
+            <select name="categoria_filme" id="cars">
+                <option value="INFANTIL">Infantil</option>
+                <option value="ROMANCE">Romance</option>
+                <option value="AÇÃO">Ação</option>
+                <option value="DORAMA">Dorama</option>
+                <option value="FICÇÃO">Ficção</option>
+                <option value="TERROR">Terror</option>
+                <option value="COMÉDIA">Comédia</option>
+                <option value="DRAMA">Drama</option>
+                <option value="FAROESTE">Faroeste</option>
+                <option value="SUSPENSE">Suspense</option>
             </select>
            
             Duração: 
-          <!--  <input type="time" name="duracao_filme" placeholder="Duração" value="<?=$filme->getDuracao_filme();?>"> <br><br>   -->  
+          <input type="time" name="duracao_filme" placeholder="Duração" value="<?=$filme->getDuracao_filme();?>"> <br><br> 
             Classificação indicativa: 
             <input type="numb" name="classificacao_filme" placeholder="Classificação" value="<?=$filme->getClassificacao_filme();?>"><br><br>     
             Disponível em : 

@@ -65,7 +65,7 @@ class ResenhaDTO{
     }
 
     public function setDt_hora_res($dt_hora_res){
-        $this->$dt_hora_res = $dt_hora_res("d/m/Y H:i:s");
+        $this->$dt_hora_res = $dt_hora_res;
     }
 
     public function setDenuncia_res($denuncia_res){

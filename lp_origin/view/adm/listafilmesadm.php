@@ -12,7 +12,7 @@
    require_once '../../model/dao/filmeDAO.php';
 
    $FilmeDAO = new FilmeDAO();
-   $filme = $FilmeDAO->listarFilmesComCategoria();
+   $filme = $FilmeDAO->listarTodosFilme();
 
 ?>
  <a href="../adm/paineladmcomcss.php">Voltar</a> 
@@ -27,8 +27,8 @@
             <th>Categoria</th>
             <th>Classificação</th>
             <th>Capa</th>
-            <th>Trailer</th>
-            <th>Canal</th>
+<!--            <th>Trailer</th>
+            <th>Canal</th>-->
             <th>Ação</th>
 
           </tr>
@@ -46,12 +46,11 @@
             <td><?=$filmeFetch["categoria_filme"]?></td>
             <td><?=$filmeFetch["classificacao_filme"] ?></td>
             <td><?=$filmeFetch["capa_filme"]?></td>
-            <td><?=$filmeFetch["trailer_usu"]?></td>
-            <td><?=$filmeFetch["canal_filme"]?></td>
+
            
             <td>
-              <button class="editar"><a href="./alterar_filme.php?get_id=<?=$filme["id_filme"]?>"title="ALTERAR" class="editar"> Alterar<i class="bi bi-pencil"></i></a></button>
-              <button class="excluir"><a href="./excluir.php?get_id=<?=$filme["id_filme"]?>" title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a></button>
+              <button class="editar"><a href="../alterar_filme.php?get_id=<?=$filmeFetch["id_filme"]?>"title="ALTERAR" class="editar"> Alterar<i class="bi bi-pencil"></i></a></button>
+              <button class="excluir"><a href="../excluir.php?get_id=<?=$filmeFetch["id_filme"]?>" title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a></button>
             </td>
           </tr>
           <?php

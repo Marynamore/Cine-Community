@@ -22,7 +22,7 @@
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
             <a href="#about"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
-            <a href=""><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
+            <a href="./view/perfilusu.php"><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
             <a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>
         </nav>
     </header>
@@ -36,41 +36,39 @@
     </div>
 
 <!-- Exibe a lista de filmes -->
-<?php 
-    require_once './model/dao/categoriaDAO.php';
-    $categoriaDAO = new categoriaDAO();
-    $categoria = $categoriaDAO->listarCategoria();
-    foreach ($categoria as $categoriaFetch) { 
-        
-    //echo '<pre>';
-    //print_r($categoriaFetch);
-    //echo '</pre>';
-        echo '<input type="hidden" name='.$categoriaFetch['id_categoria_filme'].'>';
-        ?>
-    <div class="container-galeria">
-        <!-- Exibe a categoria do filme -->
-        <h2 class="h2"><?=$categoriaFetch['categoria_filme']; ?></h2>
-    
     <?php 
-        require_once './model/dao/filmeDAO.php';
-        $FilmeDAO = new FilmeDAO();
-        $filme = $FilmeDAO->listarTodosFilme();
-    foreach ($filme as $filmeFetch) { 
-    //echo '<pre>';
-    //print_r($filmeFetch);
-    //echo '</pre>';
-        echo '<input type="hidden" name='.$filmeFetch['fk_categoria_filme_id_categoria_filme'].'>';
-        ?>
-        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" class="itens-galeria">
+    require_once './model/dao/filmeDAO.php';
+    $FilmeDAO = new FilmeDAO();
+    $filme = $FilmeDAO->listarTodos();
+
+    ?>
+    <div class="container-galeria">
+        <?php 
+        $categoria='';  
+        foreach ($filme as $filmeFetch) {   ?>
+        <!-- Exibe a categoria do filme -->
+        <?php if($categoria != $filmeFetch['categoria_filme']){
+            $categoria = $filmeFetch['categoria_filme'];
+            echo '<div>';
+            echo '<h2>'.$filmeFetch['categoria_filme'].'</h2>';
+            echo '</div>';
+        } ?>
+        <div class="itens-galeria">
+        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>" >
             <!-- Exibe a capa do filme -->
-            <img src="assets/<?=$filmeFetch['capa_filme']?>" alt="Capa do filme <?=$filmeFech['nome_filme']; ?>">
+            <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
             <h4><?= $filmeFetch['nome_filme']; ?></h4>
         </a>
-    <?php }?>
-    </div>
+        </div>
+      <?php 
+        //  echo '<pre>';
+        //var_dump($filmeFetch);
+        //echo '</pre>'; 
     
-<?php }?>
+    }?>
+
+    </div>
 
 
 

@@ -5,33 +5,59 @@
  main{
      align-items: center;
  }
+
 .form{
     color: white;
     display: flex;
+    flex-direction: column;
     border: none;
     justify-content: center;
     border-radius: 20px;
     padding: 15px;
+    margin: 0 20em;
    
 }
-.form textarea{
 
+.titulo{
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #08ef;
+    background-color: #08ef;
+    color: white;
+    padding: 10px;
+}
+
+.form textarea{
     border: none;
     border-radius: 20px;
     box-shadow: 0 0 10px #08ef;
     background-color: #08ef;
     color: white;
     padding: 80px;
+    font-weight: bolder;
     
 }
-button{
-    border-radius: 20px;
+.button{
+    border-radius: 10px;
     background-color: #08ef;
     padding: 10px;
     border: none;
     box-shadow: 0 0 5px #08ef;
+    color: white;
 }
-p{
+
+a{
+    text-decoration: none;
+    color: white;
+    padding: 0;
+}
+
+h1{
 	color:white;
-    font-size: 20px;
+    font-size: 2.3em;
+    font-weight: 900;
+}
+h2{
+    color: #eee;
+    font-size: 1.6em;
 }
