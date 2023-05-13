@@ -22,7 +22,7 @@
             <a href="#about"><i class="fa-solid fa-users"></i><br>SOBRE NÓS</a>
         </nav>
     </header>
-    <section>
+    <section id="banner">
         <div class="box">
 
             <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>

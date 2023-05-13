@@ -19,15 +19,11 @@ body {
 
 .header {
    /*TUDO QUE FICA NO CABEÇALHO*/
-   top: 0;
-   left: 0;
-   width: 100%;
-   padding: 20p 10%;
+   width: 90%;
    background: #1f242d;
    display: flex;
    justify-content: space-around;
    align-items: center;
-   z-index: 100;
    flex-wrap: wrap;
 }
 
@@ -65,7 +61,7 @@ body {
    z-index: 1000;
 }
 
-section{
+#banner{
 	width: 100%;
 	height: 100vh; 
 	overflow: hidden;
@@ -79,17 +75,17 @@ section{
 }
 
 .box-image img{
-    width: 100em;
-    height: 500px;
-    animation: anima;
-    animation-duration: 800ms;
-
+   width: 90em;
+   height: 500px;
+   animation: anima;
+   animation-duration: 800ms;
+   box-shadow: 0 0 10px #21bbcc;
 }
 
 @keyframes anima{
 
-    from{transform: translate(-50px,00);}
-    to{transform: translate(0px,00);}
+   from{transform: translate(-50px,00);}
+   to{transform: translate(0px,00);}
 }
 
 body{

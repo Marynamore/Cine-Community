@@ -91,42 +91,30 @@ INSERT INTO `canal_filme` (`id_canal_filme`, `canal_filme`) VALUES
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `resenha_de_filme`.`filme` ;
 
-CREATE TABLE IF NOT EXISTS `resenha_de_filme`.`filme` (
-  `id_filme` INT NOT NULL AUTO_INCREMENT,
-  `nome_filme` VARCHAR(80) NOT NULL,
-  `dt_de_lancamento_filme` DATE NULL DEFAULT NULL,
-  `duracao_filme` TIME NULL DEFAULT NULL,
-  `sinopse_filme` VARCHAR(250) NOT NULL,
-  `classificacao_filme` VARCHAR(50) NOT NULL,
-  `capa_filme` VARCHAR(50) NOT NULL,
-  `trailer_filme` VARCHAR(50) NULL DEFAULT NULL,
-  `fk_usuario_id_usuario` INT NOT NULL,
-  `fk_categoria_filme_id_categoria_filme` INT NOT NULL,
-  `fk_canal_filme_id_canal_filme` INT NOT NULL,
-  PRIMARY KEY (`id_filme`, `fk_usuario_id_usuario`, `fk_categoria_filme_id_categoria_filme`, `fk_canal_filme_id_canal_filme`),
-  INDEX `fk_filme_usuario1_idx` (`fk_usuario_id_usuario` ASC),
-  INDEX `fk_filme_categoria_filme1_idx` (`fk_categoria_filme_id_categoria_filme` ASC) ,
-  INDEX `fk_filme_canal_filme1_idx` (`fk_canal_filme_id_canal_filme` ASC) ,
-  CONSTRAINT `fk_filme_usuario1`
-    FOREIGN KEY (`fk_usuario_id_usuario`)
-    REFERENCES `resenha_de_filme`.`usuario` (`id_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_filme_categoria_filme1`
-    FOREIGN KEY (`fk_categoria_filme_id_categoria_filme`)
-    REFERENCES `resenha_de_filme`.`categoria_filme` (`id_categoria_filme`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_filme_canal_filme1`
-    FOREIGN KEY (`fk_canal_filme_id_canal_filme`)
-    REFERENCES `resenha_de_filme`.`canal_filme` (`id_canal_filme`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = big5;
+--
+-- Estrutura da tabela `filme`
+--
+
+CREATE TABLE IF NOT EXISTS `filme` (
+  `id_filme` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_filme` varchar(80) NOT NULL,
+  `dt_de_lancamento_filme` date DEFAULT NULL,
+  `duracao_filme` time DEFAULT NULL,
+  `sinopse_filme` varchar(250) NOT NULL,
+  `classificacao_filme` varchar(50) NOT NULL,
+  `capa_filme` varchar(50) NOT NULL,
+  `trailer_filme` varchar(50) DEFAULT NULL,
+  `fk_usuario_id_usuario` int(11) NOT NULL,
+  `fk_categoria_filme_id_categoria_filme` int(11) NOT NULL,
+  `fk_canal_filme_id_canal_filme` int(11) NOT NULL,
+  PRIMARY KEY (`id_filme`,`fk_usuario_id_usuario`,`fk_categoria_filme_id_categoria_filme`,`fk_canal_filme_id_canal_filme`),
+  KEY `fk_filme_usuario1_idx` (`fk_usuario_id_usuario`),
+  KEY `fk_filme_categoria_filme1_idx` (`fk_categoria_filme_id_categoria_filme`),
+  KEY `fk_filme_canal_filme1_idx` (`fk_canal_filme_id_canal_filme`)
+) ENGINE=InnoDB  DEFAULT CHARSET=big5 AUTO_INCREMENT=66 ;
 
 --
--- Despejando dados para a tabela `filme`
+-- Extraindo dados da tabela `filme`
 --
 
 INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duracao_filme`, `sinopse_filme`, `classificacao_filme`, `capa_filme`, `trailer_filme`, `fk_usuario_id_usuario`, `fk_categoria_filme_id_categoria_filme`, `fk_canal_filme_id_canal_filme`) VALUES
@@ -147,15 +135,15 @@ INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duraca
 (15, 'Halloween 6: A ?ltima Vingan?a', '1995-10-29', '01:27:00', 'Seis anos ap?s os eventos do filme anterior, Michael Myers retorna a Haddonfield para perseguir Jamie Lloyd, agora uma m?e solteira, e seu filho rec?m-nascido. Enquanto isso, um culto misterioso liderado por um homem chamado Dr. Wynn est? envolvido e', '18', 'halloween6.jpg', '', 1, 6, 2),
 (16, 'Halloween H20: Vinte Anos Depois', '1998-08-05', '01:43:00', 'Vinte anos ap?s os eventos do filme original de Halloween, Laurie Strode (Jamie Lee Curtis), agora vivendo sob um nome falso, ? diretora de uma escola particular em um local isolado na Calif?rnia. Ela tenta levar uma vida normal com seu filho adolesc', '18', 'halloweenh20.jpg', '', 1, 6, 2),
 (17, 'Halloween – Ressurrei??o', '2002-07-12', '01:34:00', 'Um grupo de estudantes de uma universidade ? convidado para participar de um reality show transmitido ao vivo na internet em que eles precisam passar a noite na casa onde Michael Myers supostamente cresceu. Mas o que eles n?o sabem ? que Michael Myer', '18', 'halloweenre.jpg', '', 1, 6, 2),
-(18, 'Halloween – O In?cio', '2007-08-31', '02:01:00', 'Este filme ? um reboot da s?rie \"Halloween\" e conta a hist?ria de Michael Myers quando ele era crian?a, mostrando como ele se tornou um assassino em s?rie. O filme segue a inf?ncia de Michael Myers, que foi abusado pela m?e e pelo padrasto e passou p', '18', 'halloween1.jfif', '', 1, 6, 2),
+(18, 'Halloween – O In?cio', '2007-08-31', '02:01:00', 'Este filme ? um reboot da s?rie "Halloween" e conta a hist?ria de Michael Myers quando ele era crian?a, mostrando como ele se tornou um assassino em s?rie. O filme segue a inf?ncia de Michael Myers, que foi abusado pela m?e e pelo padrasto e passou p', '18', 'halloween1.jfif', '', 1, 6, 2),
 (19, 'Halloween II (remake)', '2009-08-28', '01:45:00', 'O filme continua a hist?ria de Michael Myers e Laurie Strode ap?s os eventos do filme anterior. Laurie tenta lidar com os traumas que sofreu e come?a a ter vis?es de Michael. Enquanto isso, Michael sobrevive ao tiroteio da pol?cia e segue sua jornada', '18', 'halloween-ii.jfif', '', 1, 6, 2),
-(20, 'Halloween(remake)', '2018-10-19', '01:46:00', 'O filme ? uma sequ?ncia direta do filme original de 1978 e ignora todos os outros filmes da franquia \"Halloween\". A hist?ria se passa 40 anos ap?s os eventos do filme original e mostra Laurie Strode (interpretada novamente por Jamie Lee Curtis) prepa', '18', 'halloween11.jfif', '', 1, 6, 2),
-(21, 'Halloween Kills: O Terror Continua', '2021-10-15', '01:45:00', 'O filme ? uma sequ?ncia direta de \"Halloween\" (remake) de 2018 e mostra a continua??o da hist?ria de Laurie Strode e sua fam?lia enquanto enfrentam novamente Michael Myers, que sobreviveu ao inc?ndio na casa de Laurie. A cidade de Haddonfield agora e', '18', 'kills.png', '', 1, 6, 2),
-(22, 'Halloween Ends', '2022-10-14', '01:51:00', 'O filme ? o terceiro e ?ltimo da trilogia iniciada com \"Halloween\" (2018) e seguida por \"Halloween Kills\" (2021). A trama acompanha Laurie Strode e sua fam?lia em um confronto final contra Michael Myers, que j? causou muitas mortes e destrui??o em Ha', '18', 'ends.jpg', '', 1, 6, 2),
+(20, 'Halloween(remake)', '2018-10-19', '01:46:00', 'O filme ? uma sequ?ncia direta do filme original de 1978 e ignora todos os outros filmes da franquia "Halloween". A hist?ria se passa 40 anos ap?s os eventos do filme original e mostra Laurie Strode (interpretada novamente por Jamie Lee Curtis) prepa', '18', 'halloween11.jfif', '', 1, 6, 2),
+(21, 'Halloween Kills: O Terror Continua', '2021-10-15', '01:45:00', 'O filme ? uma sequ?ncia direta de "Halloween" (remake) de 2018 e mostra a continua??o da hist?ria de Laurie Strode e sua fam?lia enquanto enfrentam novamente Michael Myers, que sobreviveu ao inc?ndio na casa de Laurie. A cidade de Haddonfield agora e', '18', 'kills.png', '', 1, 6, 2),
+(22, 'Halloween Ends', '2022-10-14', '01:51:00', 'O filme ? o terceiro e ?ltimo da trilogia iniciada com "Halloween" (2018) e seguida por "Halloween Kills" (2021). A trama acompanha Laurie Strode e sua fam?lia em um confronto final contra Michael Myers, que j? causou muitas mortes e destrui??o em Ha', '18', 'ends.jpg', '', 1, 6, 2),
 (23, 'Um Lugar Silencioso', '2018-04-05', '01:30:00', 'Em um futuro p?s-apocal?ptico, a humanidade ? dizimada por criaturas misteriosas que s?o cegas mas t?m um senso agu?ado de audi??o. Uma fam?lia tenta sobreviver em meio ao sil?ncio absoluto, enquanto tenta evitar chamar a aten??o das criaturas.', '14', 'umlugarsilencioso2.jpg', '', 1, 6, 2),
 (24, 'Um Lugar Silencioso - Parte II', '2021-05-28', '01:37:00', 'Na continua??o, a fam?lia Abbott continua a enfrentar as criaturas que ca?am pela audi??o, enquanto tenta sobreviver em um mundo p?s-apocal?ptico. O filme tamb?m explora a hist?ria de outros personagens, como um grupo de sobreviventes liderado por Em', '12', 'umlugarsilencioso.jpg', '', 1, 6, 2),
 (26, 'Os Imperdo?veis', '1992-08-07', '02:11:00', 'O filme conta a hist?ria de William Munny (Clint Eastwood), um antigo pistoleiro que agora vive como fazendeiro vi?vo com seus filhos. Quando uma jovem prostituta ? brutalmente espancada por um dos clientes em um bordel, outras prostitutas decidem co', '14', 'imperdoaveis.jfif', '', 1, 9, 2),
-(27, 'Tr?s Homens em Conflito', '1966-12-23', '02:41:00', ' A hist?ria come?a com \"O Bom\" (Clint Eastwood), um pistoleiro solit?rio que est? em busca de uma fortuna em ouro. \"O Mau\" (Lee Van Cleef), outro pistoleiro experiente, est? atr?s da mesma fortuna e se alia a \"O Feio\" (Eli Wallach), um ladr?o mexican', '14', 'treshomens.jfif', '', 1, 9, 2),
+(27, 'Tr?s Homens em Conflito', '1966-12-23', '02:41:00', ' A hist?ria come?a com "O Bom" (Clint Eastwood), um pistoleiro solit?rio que est? em busca de uma fortuna em ouro. "O Mau" (Lee Van Cleef), outro pistoleiro experiente, est? atr?s da mesma fortuna e se alia a "O Feio" (Eli Wallach), um ladr?o mexican', '14', 'treshomens.jfif', '', 1, 9, 2),
 (28, 'Django Livre', '2012-12-25', '02:45:00', ' Se passa no sul dos Estados Unidos, dois anos antes da Guerra Civil Americana. Django (Jamie Foxx) ? um escravo liberto que se une a um ca?ador de recompensas alem?o chamado Dr. King Schultz (Christoph Waltz) para encontrar e libertar sua esposa, Br', '16', 'django.jpg', '', 1, 9, 2),
 (29, 'O Regresso', '2015-12-25', '02:36:00', ' Conta a hist?ria do explorador Hugh Glass (Leonardo DiCaprio), que ? atacado por um urso e deixado para morrer por sua equipe. Apesar dos ferimentos graves, Glass sobrevive e inicia uma jornada ?pica de vingan?a contra seus companheiros, liderados p', '16', 'oregresso.png', '', 1, 9, 2),
 (30, 'A Salva??o', '2014-05-17', '01:40:00', ' A trama se passa na Am?rica do Norte do final do s?culo XIX e segue a hist?ria de Jon (Mads Mikkelsen), um imigrante dinamarqu?s que vive em uma comunidade de fazendeiros em terras ?ridas. Quando sua esposa e filho s?o brutalmente assassinados, Jon ', '16', 'asalvacao.png', '', 1, 9, 2),
@@ -172,7 +160,27 @@ INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duraca
 (41, 'Orgulho e Preconceito', '2005-09-16', '02:07:00', '  O filme conta a hist?ria das irm?s Bennet, que vivem na Inglaterra rural no final do s?culo XVIII. Quando o rico e misterioso Mr. Bingley aluga uma propriedade pr?xima, as irm?s se preparam para o baile que ser? realizado em sua honra. ? l? que Eli', '12', 'orgulho-e-preconceito-19.jpg', '', 1, 2, 2),
 (42, '10 Coisas que Eu Odeio em Voce', '1999-03-31', '01:37:00', '  Cameron James, um estudante novo na escola secund?ria Padua, se apaixona por Bianca Stratford. No entanto, o pai super protetor de Bianca estabeleceu uma regra que ela n?o pode namorar a menos que sua irm? mais velha, a durona Kat, tamb?m esteja na', '10', '10-coisas-que-eu-odeio-em-voce.png', '', 1, 2, 2),
 (43, 'Como Se Fosse a Primeira Vez', '2004-02-13', '01:39:00', '  Henry Roth ? um veterin?rio marinho que vive no Hava? e se apaixona por Lucy Whitmore, uma mulher que sofre de perda de mem?ria de curto prazo e acorda todas as manh?s sem se lembrar do dia anterior. Henry tem que conquist?-la todos os dias e faz?-', '10', 'comosefosseaprimeriavez.jpg', '', 1, 2, 2),
-(44, 'Os Segredos de Brokeback Mountain', '2005-12-02', '02:14:00', '  Ennis Del Mar e Jack Twist s?o contratados para trabalhar como pastores em Brokeback Mountain. Durante o isolamento e a solid?o do trabalho, eles se aproximam e se apaixonam, iniciando um relacionamento secreto que dura anos. Ap?s um longo per?odo ', '14', 'O-Segredo-de-Brokeback-Mountain.webp', '', 1, 2, 2);
+(44, 'Os Segredos de Brokeback Mountain', '2005-12-02', '02:14:00', '  Ennis Del Mar e Jack Twist s?o contratados para trabalhar como pastores em Brokeback Mountain. Durante o isolamento e a solid?o do trabalho, eles se aproximam e se apaixonam, iniciando um relacionamento secreto que dura anos. Ap?s um longo per?odo ', '14', 'O-Segredo-de-Brokeback-Mountain.webp', '', 1, 2, 2),
+(46, 'Alerta Maximo\r\n', '2023-01-23', '01:47:00', 'O piloto Brodie Torrance salva seus passageiros de um raio pousando em uma ilha. Os moradores rebeldes e perigosos do local fazem a tripulacao refem e Torrance procura ajuda de um passageiro acusado de assassinato.', '14', 'alertamaximo.jfif', 'https://www.youtube.com/watch?v=M25zXBIUVr0', 1, 3, 3),
+(48, 'Invas?o ao Servi?o Secreto\r\n', '2019-11-14', '02:01:00', 'Dedicado e sempre focado em seu trabalho, o agente do Servi?o Secreto Mike Banning v? sua vida mudar completamente da noite para o dia ao ser acusado de conspirar para o assassinato do presidente dos Estados Unidos. Quando percebe que todos est?o atr', '14', 'invasaoaoservicosecreto.jpg', 'https://www.youtube.com/watch?v=isVtXH7n9lI', 1, 3, 3),
+(49, 'A Cinco Passos de Voc?', '2019-03-21', '01:57:00', 'Stella passa muito tempo no hospital por causa de uma fibrose c?stica. L?, ela conhece Will, que sofre da mesma doen?a. Eles s?o obrigados a manter dist?ncia, mas mesmo assim se apaixonam.\r\n', '12', 'acincopassosdevoce.webp', 'https://www.youtube.com/watch?v=5cJ7MT1RTqs', 1, 2, 2),
+(50, 'Como Eu Era Antes de Voc?', '2016-06-16', '01:46:00', 'De origem modesta e sem grandes aspira??es, a peculiar Louisa Clark ? contratada para ser cuidadora de Will, um jovem tetrapl?gico depressivo e c?nico.\r\n', '12', 'comoeueraantesdevoce.jfif', 'https://www.youtube.com/watch?v=PnqUs3xiAVI', 1, 2, 2),
+(51, 'Ghosted: Sem Resposta', '2023-04-21', '01:56:00', 'Traduzido do ingl?s-Ghosted ? um filme americano de com?dia rom?ntica de a??o e aventura de 2023, dirigido por Dexter Fletcher e escrito por Rhett Reese, Paul Wernick, Chris McKenna e Erik Sommers, a partir de uma hist?ria de Reese e Wernick. O filme', '12', 'ghosted-sem-resposta-poster.jpg', 'https://www.youtube.com/watch?v=jCGTRg-T5vE', 3, 2, 2),
+(52, 'Ghost - Do Outro Lado da Vida', '1990-11-01', '02:02:00', 'Sam Wheat ? um jovem executivo apaixonado por sua namorada, Molly. Ele acaba morto em um assalto, mas seu esp?rito n?o vai para o outro plano e descobre que Molly tamb?m corre perigo. Para salv?-la, Sam pede ajuda a uma m?dium que consegue ouvi-lo.\r\n', '14', 'ghost.jfif', NULL, 3, 2, 2),
+(53, 'Atrav?s da Minha Janela', '2022-02-04', '01:52:00', 'Raquel ? apaixonada pelo seu vizinho, Ares, um rapaz frio que vive em um mundo completamente diferente do seu. Por?m, o acaso acaba unindo os dois, que se veem envolvidos em uma trama de desejo e amor.\r\n', '16', 'atravesdaminhajanela.jfif', NULL, 3, 2, 2),
+(54, 'Vizinhan?a do Barulho', '1996-01-12', '01:34:00', 'Ashtray retorna ? sua cidade natal e se reencontra com seu pai e os amigos com quem costumava jogar basquete. No entanto, a par?dia dos filmes afro-americanos rapidamente se desenrola, trazendo ? tona eventos estranhos e absurdos.', '16', 'vizinhancadobarulho.jpg', 'https://youtu.be/HlRsbr70yEs', 1, 6, 6),
+(55, 'As Branquelas\r\n', '2004-08-27', '01:49:00', 'Marcus e Kevin Copeland, irm?os e agentes do FBI, acabam inadvertidamente prejudicando uma opera??o de pris?o de criminosos envolvidos com drogas. Em consequ?ncia, s?o obrigados a escoltar duas socialites para os Hamptons. No entanto, quando as garot', '12', 'asbranquelas.jpg', 'https://youtu.be/seoJIPLLWp0', 1, 6, 6),
+(56, 'Norbit - Uma Comedia de Peso', '2007-02-09', '01:43:00', 'Norbit ? um homem solit?rio que cresceu em um orfanato e se casou com a terr?vel Rasputia, uma mulher rude e agressiva que o trata mal e o impede de realizar seus sonhos. Quando Norbit reencontra sua paix?o de inf?ncia, Kate, ele come?a a ter esperan', '12', 'norbit.jpg', 'https://youtu.be/kynaw8oQTPk', 1, 6, 6),
+(57, 'O Pequenino', '2006-07-14', '01:38:00', 'Calvin, um an?o que acabou de sair da pris?o, planeja um novo assalto a uma joalheria e acaba sendo perseguido pela pol?cia. Em sua fuga, esconde um valioso diamante na bolsa de Vanessa, cujo marido, Darryl, est? desesperado para ter um filho. Para r', '12', 'opequenino.jpg', 'https://youtu.be/GKm_RvCcrXw', 1, 6, 6),
+(58, 'Projeto X - Uma Festa Fora de Controle', '2012-03-16', '01:28:00', 'Projeto X ? um filme de com?dia e drama que segue tr?s amigos do ensino m?dio que decidem realizar a festa mais ?pica da hist?ria, na tentativa de se tornarem populares e impressionar suas paix?es. A festa come?a pequena, mas rapidamente sai do contr', '18', 'projetox.jpg', 'https://youtu.be/kFwGmQIe-rU', 1, 6, 6),
+(59, 'American Pie — A Primeira Vez e Inesquecivel\r\n', '1999-10-29', '01:35:00', 'Jim Levenstein, Kevin Myers, Oz Ostreicher e Paul Finch s?o quatro amigos que est?o prestes a se formar no ensino m?dio e ainda s?o virgens. Enquanto tentam de todas as formas poss?veis ter rela??es sexuais com suas namoradas, procuram por mulheres n', '14', 'americanpie.jpg', 'https://youtu.be/iUZ3Yxok6N8', 1, 6, 6),
+(60, 'American Pie 2 - A Segunda Vez e Ainda Melhor\r\n', '2001-12-21', '01:50:00', 'Depois de um ano separados - frequentando escolas diferentes e conhecendo pessoas diferentes - os rapazes alugam uma casa de praia e prometem que ser? o melhor ver?o de todos os tempos. Mas, para que isso aconte?a, vai depender das garotas. Entre fes', '14', 'americanpie2.jpg', 'https://youtu.be/cSGvEfL0qRM', 1, 6, 6),
+(61, 'Superbad - e Hoje', '2007-10-19', '01:59:00', 'Superbad ? uma com?dia americana que acompanha a hist?ria de dois amigos insepar?veis, Seth e Evan, que est?o prestes a se formar no ensino m?dio e se preparam para seguir caminhos diferentes na faculdade. Antes disso, eles decidem se divertir em uma', '14', 'superbad.jpg', 'https://youtu.be/LvKvus3vCEY', 1, 6, 6),
+(62, 'Sexta-Feira em Apuros', '1995-07-14', '01:37:00', '? uma com?dia americana de 1995, dirigida por F. Gary Gray. A hist?ria segue o personagem principal Craig Jones, um jovem de vinte e poucos anos que est? desempregado e passando o dia de folga com seu amigo Smokey em um bairro de Los Angeles. Quando ', '16', 'sextafeira.jpg', 'https://youtu.be/gKrcnZFmYUI', 1, 6, 6),
+(63, 'EuroTrip - Passaporte para a Confusao', '2004-02-20', '01:33:00', 'Eurotrip ? uma com?dia adolescente que conta a hist?ria de Scott Thomas, um jovem americano que, depois de se formar no ensino m?dio, ? dispensado pela namorada e decide viajar para a Europa com os amigos para esquecer os problemas. Juntos, eles emba', '16', 'eurotrip.jpg', 'https://youtu.be/yZSoJtFxP4A', 1, 6, 6),
+(64, 'Se Beber, Nao Case!\r\n', '2009-08-21', '01:40:00', '"Se Beber, N?o Case" ? uma com?dia americana que segue a hist?ria de quatro amigos que viajam para Las Vegas para celebrar a despedida de solteiro de um deles. Eles acordam na manh? seguinte sem mem?ria da noite anterior e descobrem que o noivo est? ', '14', 'sebebernaocase.jpg', 'https://youtu.be/jOQMBfWMMsU', 1, 6, 6),
+(65, 'Se Beber, Nao Case! Parte II', '2011-05-27', '01:42:00', 'Na sequ?ncia de "Se Beber, N?o Case", Phil, Stu, Alan e Doug viajam para a Tail?ndia para celebrar o casamento de Stu. No entanto, depois de uma noite de festa, eles acordam em um quarto de hotel sem lembrar do que aconteceu. Para piorar a situa??o, ', '16', 'sebebernaocase2_3.jpg', 'https://youtu.be/k-EBgeqViYs', 1, 6, 6);
+
 
 
 -- -----------------------------------------------------
