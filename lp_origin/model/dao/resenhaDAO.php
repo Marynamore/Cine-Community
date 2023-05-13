@@ -32,12 +32,12 @@ class ResenhaDAO {
         }
     }
 
-    public function verificarResenha($get_id, $id_usuario){
+    public function verificarResenha($get_id){
     try{
         $sql = "SELECT r.*, f.id_filme, u.nome_usu, u.foto_usu, u.id_usuario FROM resenha r INNER JOIN filme f ON r.fk_filme_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_usuario_id_usuario = u.id_usuario WHERE f.id_filme=?";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$get_id, $id_usuario]);
+        $stmt->execute([$get_id]);
 
         $resenhas = array();
         if($stmt->rowCount() > 0){
