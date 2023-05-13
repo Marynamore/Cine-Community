@@ -81,11 +81,14 @@ $UsuarioDAO = new UsuarioDAO();
                 $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_usuario_id_usuario());
         ?>        
         <div class="resenha">
-            <div class="titulo_res">
-                
-                <a class="edicao_resenha" href="">Editar</a>
-                <a class="edicao_resenha" href="">Excluir</a> 
-            </div>
+        <?php 
+            if($id_usuario == $resenha->getFk_usuario_id_usuario()){
+                echo '<div class="titulo_res">';
+                echo '<a class="edicao_resenha" href="">Editar</a>
+                <a class="edicao_resenha" href="">Excluir</a> ';
+                echo '</div>';
+        }
+        ?>
             <h4 <?php if($resenha->getFK_usuario_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
             <div>
                 <?php if(!empty($usuario->getFoto_usu())){ ?>
