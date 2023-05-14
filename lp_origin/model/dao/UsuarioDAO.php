@@ -144,7 +144,6 @@ public function dadosUsuarioPorId($id) {
         $stmt->execute();
         $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $usuarios = array();
         if($usuarioFetch !=  NULL){
             $usuario = new UsuarioDTO();
             $usuario->setId_usuario($usuarioFetch["id_usuario"]);
