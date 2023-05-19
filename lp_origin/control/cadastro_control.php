@@ -30,7 +30,7 @@ $usuarioDAO = new UsuarioDAO();
 $usuarioDAO->cadastrarUsuario( $usuarioDTO );
 
 if ( isset( $usuarioDAO ) ) {
-    header( "Location:../login.php" );
+    header( "Location:../index.php" );
     exit;
 } else {
     header( "Location:../view/cadastro.php" );

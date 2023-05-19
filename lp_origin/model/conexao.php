@@ -12,7 +12,7 @@ class Conexao{
                     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8;',
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 );
-                self::$conexao = new PDO('mysql:host=localhost;dbname=resenha_de_filme','root','', $options);
+                self::$conexao = new PDO('mysql:host=localhost;dbname=cine_community','root','', $options);
               
                 self::$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }catch(PDOException $exc){

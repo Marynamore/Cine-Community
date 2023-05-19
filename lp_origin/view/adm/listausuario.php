@@ -64,8 +64,8 @@
                 <td><?=$usuario["email_usu"]?></td>
                 <td><?=$usuario["senha_usu"]?></td>
                 <td>
-                    <a href="./alterar_usuario.php?id=<?=$usuario["id_usuario"]?>"title="ALTERAR"> Alterar<i class="bi bi-pencil"></i></a>
-                    <a href="../control/excluir.php?id=<?=$usuario["id_usuario"]?>" title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a>
+                    <a href="../alterar_usuario.php?id<?=$usuario["id_usuario"]?>"title="ALTERAR"> Alterar<i class="bi bi-pencil"></i></a>
+                    <a href="../../control/excluir.php?id=<?=$usuario["id_usuario"]?>" title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a>
             </td>
             </td>
             </tr>

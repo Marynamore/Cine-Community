@@ -44,7 +44,7 @@ session_start();
             <li><a href="#usuario">Usuários</a></li>
             <li><a href="#filmes">Filmes</a></li>
 			<li><a href="#">Configurações</a></li>
-			<li><a href="#">Logout</a></li>
+			<li><a href="../../">Logout</a></li>
         </ul>
     </nav>
     <main>

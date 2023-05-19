@@ -11,6 +11,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Cine Community</title>
+    <script>
+        function funcPerfil(){
+            alert('Em breve:\nFunção "Meu Perfil" disponível');
+        }
+        function funcFavorito(){
+            alert('Em breve:\nFunção "Favorito" disponível');
+        }
+    </script>
 </head>
 <body>
 <?php
@@ -21,20 +29,34 @@
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="#about"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
-            <a href="./view/perfilusu.php"><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
+            <a href="#about" onclick="funcFavorito()"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>
+            <a href="./view/alterar_usuario.php" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><br><?=($_SESSION["nickname_usu"]);?></a>
+            <a href="./view/alterar_usuario.php?id=<?=$usuario["id_usuario"]?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
             <a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>
         </nav>
     </header>
    <?php
    };
    ?> 
-   <div>
-        <img class="banner" src="assets/Banner.png" alt="">
-        <br>
-        <br>
-    </div>
+  <section>
+        <div class="box">
 
+            <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
+            <div class="box-image"><img src='./assets/banner/avatar.jpeg'></div>
+            <div class="box-image"><img src='./assets/banner/creed3.jpg'></div>
+            <div class="box-image"><img src='./assets/banner/john-wick-4.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/guardians-galaxy.jpg"></div>
+            <div class="box-image"><img src='./assets/banner/supermario.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/Indiana-Jones.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/oppenheimer.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/Panico6.jpg"></div>
+            <div class="box-image"><img src="./assets/banner/amortedodemonio.webp"></div>
+            <div class="box-image"><img src="./assets/banner/velozesefuriososx.png"></div>     
+        </div>
+        <div class="bolinhas">
+    
+        </div>
+    </section>
 <!-- Exibe a lista de filmes -->
     <?php 
     require_once './model/dao/filmeDAO.php';
@@ -58,7 +80,7 @@
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
-            <h4><?= $filmeFetch['nome_filme']; ?></h4>
+            
         </a>
         </div>
       <?php 
@@ -75,52 +97,26 @@
 
   <!-- FIM SELEÇÃO DE FILMES -->
 
+  <hr>
+  <!-- INICIO RODAPE -->
     <footer>
-        <hr>
-        <!--  INICIO RODAPE -->
-        <section class="main_tutor">
-            <div class="main_tutor_content">
-                <header>
-                    <h1>Conheça mais nosso trabalho</h1>
-                
-                </header>
-                <div class="main_tutor_content_img">
-                    <img src="../lp_origin/assets/logoinicio.png" width="100" title="Instrutor" alt="Instrutor">
-                </div>
-                <article class="main_tutor_content_history">
-                    <header>
-                        <h2>Formados em TI e apaixonados por filmes</h2>
-                    </header>
-                     
-                </article>
+    <center><h3>O lugar perfeito para os amantes do cinema!</h3></center>
+    <center><h5>Nos siga!</h5></center>
+    
+    <div class="rodapeinicio">
+      <div class="rodapesocial">
+       <button class="botaorodape"> <a href="https://www.youtube.com/watch?v=W4VTq0sa9yg" class="social">Instagram<i class="fab fa-instagram"></i></a></button>
+        <button class="botaorodape"><a href="https://www.youtube.com/watch?v=Sx86-18V3m8" class="social">Twitter<i class="fab fa-twitter"></i></a></button>
+        <button class="botaorodape"><a href="https://www.youtube.com/watch?v=YKdgcYZy1rQ" class="social">Facebook<i class="fab fa-facebook-f"></i></a></button>
+    </div>
 
-                <section class="main_tutor_social_media">
-                    <header>
-                        <h2 >Nos siga nas redes sociais</h2>
-                    </header>
-
-                    <article>
-                        <header>
-                            <h3 ><a href="#" class="icon-facebook"> Facebook</a></h3>
-                        </header>
-                    </article>
-
-                        <article>
-                            <header>
-                                <h3><a href="#" class="icon-instagram"> Instagram</a></h3>
-                            </header>
-                        </article>
-
-                        <article>
-                            <header>
-                                <h3><a href="#" class="icon-google-plus2"> Twitter</a></h3>
-                            </header>
-                        </article>
-                </section>
-            </div>
-        </section>
-
-        <!-- FIM  RODAPE -->
-    </footer>
+        <div class="rodapefim">
+            <p>Todos os direitos reservados &copy; 2023</p>
+          </div>
+      
+    </div>
+    <!-- FIM RODAPE -->
+  </footer>
+    <script src="./js/script.js"></script>
 </body>
 </html>

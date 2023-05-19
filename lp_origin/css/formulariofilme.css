@@ -44,3 +44,8 @@ button{
 	background:#08ef;
 	align-items:right;
 }
+.borda {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 100px;
+}

@@ -31,6 +31,16 @@ $UsuarioDAO = new UsuarioDAO();
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Cine Community</title>
+    <script>
+        function funcEditarRes()
+        {
+        alert("Em breve:\nA função EDITAR estará disponivel");
+        }
+
+        function funcExcluirRes(){
+            alert("Em breve:\nA função EXCLUIR estará disponivel")
+        }
+    </script>
 </head>
 <body>
     <header class="header" >
@@ -42,7 +52,7 @@ $UsuarioDAO = new UsuarioDAO();
         </nav>
     </header>
     <div id="all">
-        <div class="titulo"><h1>Resenha Filme</h1><a href="../index.php" class="criar_resenha">Voltar Filmes</a></div>
+        <div class="titulo"><h1>Resenha Filme</h1><a href="../usuariologado.php" class="criar_resenha">Voltar Filmes</a></div>
     <?php
     $filmeFetch = $FilmeDAO->selecionarFilmesComCategoria($get_id);
     if($filmeFetch) { ?>
@@ -54,7 +64,7 @@ $UsuarioDAO = new UsuarioDAO();
                 <h3>Duração: <?= $filmeFetch->getDuracao_filme();?></h3>
                 <h3>Categoria: <?= $filmeFetch->getFk_categoria_filme_id_categoria_filme();?></h3>
                 <h3>Classificação indicativa: <?= $filmeFetch->getClassificacao_filme();?></h3>            
-                <h3><a href="https://www.youtube.com/watch?v=SS6ABPkfmBE">Trailer</a><?= $filmeFetch->getTrailer_filme();?></h3>
+                <h3><a href="">Trailer</a><?= $filmeFetch->getTrailer_filme();?></h3>
                 <p>Sinopse: <?= $filmeFetch->getSinopse_filme();?></p>
             </div>
         </div>
@@ -84,25 +94,25 @@ $UsuarioDAO = new UsuarioDAO();
         <?php 
             if($id_usuario == $resenha->getFk_usuario_id_usuario()){
                 echo '<div class="titulo_res">';
-                echo '<a class="edicao_resenha" href="">Editar</a>
-                <a class="edicao_resenha" href="">Excluir</a> ';
+                echo '<a class="edicao_resenha" onclick="funcEditarRes()">Editar</a>
+                <a class="edicao_resenha" onclick="funcExcluirRes()">Excluir</a>';
                 echo '</div>';
         }
         ?>
             <h4 <?php if($resenha->getFK_usuario_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
             <div>
-                <?php if(!empty($usuario->getFoto_usu())){ ?>
-                <img src="../assets/<?= $usuario->getFoto_usu(); ?>" alt="">
+                <?php if(!empty($usuario)){ ?>
+                <img src="../assets/<?= $usuario['foto_usu']; ?>" alt="">
                 <?php }else{ ?>   
                 <h3><?= substr($usuario->getNome_usu(), 0, 1); ?></h3>
                 <?php }; ?>   
                 <div>
-                <p><?= $usuario->getNome_usu(); ?></p>
+                <p><?= $usuario['nome_usu']; ?></p>
                 <span><?= $resenha->getDt_hora_res(); ?></span>
                 </div>
             </div>
             <h3 class="title"><?= $resenha->getTitulo_res(); ?></h3>
-            <?php if(!empty($resenha->getDescricao_res())){ ?>
+            <?php if(empty($resenhas['descricao_res'])){ ?>
                 <p><?= $resenha->getDescricao_res(); ?></p>
             <?php } ?>  
         </div>

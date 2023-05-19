@@ -29,7 +29,7 @@ session_start();
             <a href="../adm/listausuarioadm.php">Usuários</a>
             <a href="../adm/listafilmesadm.php">Filmes</a>
 			<a href="#">Configurações</a>
-			<a href="#">Logout</a>
+			<a href="../../control/control_sairadm.php">Logout</a>
     </div>
 
     </nav>

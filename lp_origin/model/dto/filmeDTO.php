@@ -31,9 +31,6 @@ public function getDuracao_filme(){
 public function getSinopse_filme(){
     return $this->sinopse_filme;
 }
-public function getGenero_filme() {
-    return $this->genero_filme;
-}
 public function getClassificacao_filme() {
     return $this->classificacao_filme;
 }
@@ -75,9 +72,6 @@ public function setDuracao_filme($duracao_filme) {
 }
 public function setSinopse_filme($sinopse_filme){
     $this->sinopse_filme = $sinopse_filme;
-}
-public function setGenero_filme($genero_filme) {
-    $this->genero_filme = $genero_filme;
 }
 public function setClassificacao_filme($classificacao_filme) {
     $this->classificacao_filme = $classificacao_filme;

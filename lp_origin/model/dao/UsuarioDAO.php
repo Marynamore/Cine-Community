@@ -81,14 +81,14 @@ class UsuarioDAO {
             $sql = "UPDATE usuario SET nome_usu=?,nickname_usu=?, genero_usu=?,
             dt_de_nasci_usu=?, email_usu=?, perfil_usu=?,senha_usu=? WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
-            $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
-            $stmt->bindValue(3, $UsuarioDTO->getGenero_usu());
-            $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
-            $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
-            $stmt->bindValue(6, $UsuarioDTO->getPerfil_usu());
-            $stmt->bindValue(7, md5($UsuarioDTO->getSenha_usu()));
-            $stmt->bindValue(8, $UsuarioDTO->getId_usuario());
+            $stmt->bindValue(1, $UsuarioDTO->getId_usuario());
+            $stmt->bindValue(2, $UsuarioDTO->getNome_usu());
+            $stmt->bindValue(3, $UsuarioDTO->getNickname_usu());
+            $stmt->bindValue(4, $UsuarioDTO->getGenero_usu());
+            $stmt->bindValue(5, $UsuarioDTO->getDt_de_nasci_usu());
+            $stmt->bindValue(6, $UsuarioDTO->getEmail_usu());
+            $stmt->bindValue(7, $UsuarioDTO->getPerfil_usu());
+            $stmt->bindValue(8, md5($UsuarioDTO->getSenha_usu()));
             $UsuarioDAO = $stmt->execute();
             return $UsuarioDAO;
         }catch(PDOException $exc){
@@ -111,11 +111,11 @@ class UsuarioDAO {
 
 
     }
-    public function dadosUsuario(UsuarioDTO $UsuarioDTO) {
+    public function dadosUsuario($id_usuario) {
         try {
             $sql  = "SELECT * FROM usuario WHERE id_usuario=?";
             $stmt = $this->pdo->prepare( $sql );
-            $stmt->bindValue( 1, $UsuarioDTO->getId_usuario() );
+            $stmt->bindValue( 1, $id_usuario);
             $stmt->execute();
             $usuarios = $stmt->fetchAll( PDO::FETCH_ASSOC );
             return $usuarios;
@@ -144,8 +144,8 @@ public function dadosUsuarioPorId($id) {
         $stmt->execute();
         $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($usuarioFetch !=  NULL){
-            $usuario = new UsuarioDTO();
+        if($usuarioFetch){
+/*            $usuario = new UsuarioDTO();
             $usuario->setId_usuario($usuarioFetch["id_usuario"]);
             $usuario->setNome_usu($usuarioFetch["nome_usu"]);
             $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
@@ -156,7 +156,8 @@ public function dadosUsuarioPorId($id) {
             $usuario->setPerfil_usu($usuarioFetch["perfil_usu"]);
             $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
             $usuario->setFoto_usu($usuarioFetch["foto_usu"]);
-            return $usuario;
+*/
+            return $usuarioFetch;
         }
         return null;
     } catch (PDOException $exc) {
@@ -164,6 +165,37 @@ public function dadosUsuarioPorId($id) {
     }
 }//fim do recuperarPorID  
 
+public function recuperarPorID($id)
+{
+    try {
+        $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
+        $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuarioFetch != null) {
+            $usuario = new UsuarioDTO();
+            $usuario->setId_usuario($usuarioFetch["id_usuario"]);
+            $usuario->setNome_usu($usuarioFetch["nome_usu"]);
+            $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
+            $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
+            $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
+            $usuario->setEmail_usu($usuarioFetch["email_usu"]);
+            $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
+            $usuario->setPerfil_usu($usuarioFetch["perfil_usu"]);
+            $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
+
+            return $usuarioFetch;
+        }
+        return null;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        //die() = usado para parar a execução - retirar na versão de produção
+        die();
+    }
+}
 
 
 }

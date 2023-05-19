@@ -10,6 +10,13 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="../css/stylecadastrar.css">
     <title>Cadastrar</title>
+    <script>
+        function funCad()
+        {
+        alert("Sua inscrição foi concluída com sucesso.");
+        }
+
+    </script>
 </head>
 
 <body>
@@ -34,10 +41,10 @@
 			<p>Perfil:</p>
 			<input type="file" id="myfile" name="myfile">
             <input type="hidden" name="perfil_usu" id="Usuario" value="usuario" selected>
-            <input type="submit" value="Enviar">     
+            <input type="submit" onclick="funCad()" value="Enviar">     
         </form>
-                 <button onclick="javascript:history.go(-1)">Voltar</button>
-  </div>
+            <button onclick="javascript:history.go(-1)">Voltar</button>
+    </div>
     </center>
              
  </body>

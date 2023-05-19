@@ -17,11 +17,17 @@ if(isset($_GET['get_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/form_resenhastyle.css">
     <title>Resenha</title>
+    <script>
+       function funcResenha(){
+            alert("Resenha adicionada com Sucesso!");    
+        }
+    </script>
 </head>
 
 <body>
-
+    
     <center>
+    <section class="container">
     <h1>RESENHA</h1>
     <form action="../control/resenha_control.php" method="post">
         <br>
@@ -33,9 +39,10 @@ if(isset($_GET['get_id'])) {
         <input type="hidden" name="dt_hora_res" >
         <input type="hidden" name="fk_filme_id_filme" value="<?= $get_id;?>">
         <input type="hidden" name="fk_usuario_id_usuario" value="<?=$_SESSION['id_usuario'];?>">
-        <input type="submit" value="ENVIAR" class="button">
+        <input type="submit" onclick="funcResenha()" value="ENVIAR" class="button">
         <a href="filme_resenha.php?get_id=<?= $get_id; ?>" class="button">VOLTAR</a>
     </form>
+    </section>
     </center>
    </body>
 

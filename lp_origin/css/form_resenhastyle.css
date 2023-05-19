@@ -1,10 +1,22 @@
  body{
     background-color: #1f242d;
+    background-color: black;
+    box-sizing: border-box;
     align-items: center;
  }
  main{
-     align-items: center;
+    align-items: center;
  }
+
+.container{
+    max-width: 500px;
+    background-color: #002b46;
+    color: #fff;
+    box-shadow: 0 0 10px #08ef;
+    font-size: 15px;
+    padding: 2em;
+    margin: 2em;
+}
 
 .form{
     color: white;
@@ -14,7 +26,7 @@
     justify-content: center;
     border-radius: 20px;
     padding: 15px;
-    margin: 0 20em;
+   
    
 }
 
@@ -36,6 +48,7 @@
     padding: 80px;
     font-weight: bolder;
     
+    
 }
 .button{
     border-radius: 10px;
@@ -44,12 +57,19 @@
     border: none;
     box-shadow: 0 0 5px #08ef;
     color: white;
+    cursor: pointer;
+}
+.button:hover{
+    background-color: red;
 }
 
 a{
     text-decoration: none;
     color: white;
     padding: 0;
+}
+a:hover{
+    background-color: red;
 }
 
 h1{
