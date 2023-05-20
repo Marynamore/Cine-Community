@@ -1,3 +1,14 @@
+<?php
+   session_start();
+   if(!isset($_SESSION["id_usuario"])) {
+    $usuarioLogado = $_SESSION["nickname_usu"];
+    $id_usuarioLogado = $_SESSION["id_usuario"];
+    $id_perfil =  $_SESSION["id_perfil"];
+    //exit;  
+  } else {
+    $usuarioLogado = "";
+  } 
+?>  
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -38,10 +49,39 @@
                 <option value="naoBinario">Não Binário</option>
                 <option value="naoDeclarar">Prefiro não Declarar</option>
             </select>
-			<p>Perfil:</p>
+            <p>Perfil:</p>
 			<input type="file" id="myfile" name="myfile">
-            <input type="hidden" name="perfil_usu" id="Usuario" value="usuario" selected>
-            <input type="submit" onclick="funCad()" value="Enviar">     
+                
+            <?php
+                //testa se é o administrador 
+                if($id_perfil=="1"){
+                    //caso seja o usuário administrador, habilita o Perfil e a Situação do Usuário
+                    echo '<div class="inputBox">
+                    <select id="id_perfil" class="inputUser" name="id_perfil">
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Moderador</option>
+                        <option value="3">Colecionador</option>
+                        <option value="4">Usuario</option>
+                    </select>
+                    <label for="id_usuario" class="labelInput">Perfil do Usuário:</label>
+                    </div><br><br>
+                    <div class="inputBox">
+                    <select id="situacao_usu" class="inputUser" name="situacao_usu">
+                        <option value="Ativo" selected>Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                        <option value="Bloqueado">Bloqueado</option>
+                    </select>
+                    <label for="situacao_usu" class="labelInput">Situação do Usuário:</label>
+                    </div><br><br>';
+                    
+                } else {
+                    //caso NÃO seja o administrador, esconde o Perfil e a Situação do Usuário 
+                    echo '
+            <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
+            <input type="hidden" name="situacao_usu" value="Ativo">';
+                }
+            ?>
+            <input type="submit" onclick="funCad()" value="Enviar"> 
         </form>
             <button onclick="javascript:history.go(-1)">Voltar</button>
     </div>
@@ -49,3 +89,4 @@
              
  </body>
  </html>
+ 

@@ -9,8 +9,11 @@ class ResenhaDTO{
     private $dt_hora_res;
     private $denuncia_res;
     private $situacao_res;
-    private $fk_filme_id_filme;
-    private $fk_usuario_id_usuario;
+    private $fk_id_filme;
+    private $fk_id_usuario;
+    private $fk_id_perfil;
+    private $fk_id_categoria_filme;
+    private $fk_id_canal_filme;
 
     public function getId_resenha(){
         return $this->id_resenha;
@@ -40,12 +43,24 @@ class ResenhaDTO{
         return $this->situacao_res;
     }
 
-    public function getFK_usuario_id_usuario(){
-        return $this->fk_usuario_id_usuario;
+    public function getFk_id_filme(){
+        return $this->fk_id_filme;
     }
 
-    public function getFK_filme_id_filme(){
-        return $this->fk_filme_id_filme;
+    public function getFK_id_usuario(){
+        return $this->fk_id_usuario;
+    }
+
+    public function getFK_id_perfil(){
+        return $this->fk_id_perfil;
+    }
+
+    public function getFk_id_categoria_filme(){
+        return $this->fk_id_categoria_filme;
+    }
+
+    public function getFk_id_canal_filme(){
+        return $this->fk_id_canal_filme;
     }
 
     public function setId_resenha($id_resenha){
@@ -76,11 +91,23 @@ class ResenhaDTO{
         $this->situacao_res = $situacao_res;
     }
 
-    public function setFk_usuario_id_usuario($fk_usuario_id_usuario){
-        $this->fk_usuario_id_usuario = $fk_usuario_id_usuario;
+    public function setFk_id_filme($fk_id_filme){
+        $this->fk_id_filme = $fk_id_filme;
     }
 
-    public function setFk_filme_id_filme($fk_filme_id_filme){
-        $this->fk_filme_id_filme = $fk_filme_id_filme;
+    public function setFk_id_usuario($fk_id_usuario){
+        $this->fk_id_usuario = $fk_id_usuario;
+    }
+
+    public function setFk_id_perfil($fk_id_perfil){
+        $this->fk_id_perfil = $fk_id_perfil;
+    }
+
+    public function setFk_id_categoria_filme($fk_id_categoria_filme){
+        $this->fk_id_categoria_filme = $fk_id_categoria_filme;
+    }
+
+    public function setFk_id_canal_filme($fk_id_canal_filme){
+        $this->fk_id_canal_filme = $fk_id_canal_filme;
     }
 }

@@ -38,12 +38,12 @@
                     <div class="textfield">
                     </div>
                     <div class="textfield">
-                        <label for="email"></label>
+                        <label for="email_usu"></label>
                         <input  type="email" name="email_usu" placeholder="Email">
                     </div>
                     <div class="textfield">
                         <a href=""></a>
-                        <label for="senha"></label>
+                        <label for="senha_usu"></label>
                         <input type="password" name="senha_usu" placeholder="senha">
                     </div>
                     <input type="submit" value="Enviar" class="btn-login">

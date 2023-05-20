@@ -11,7 +11,7 @@ class  UsuarioDTO {
     private $dt_de_nasci_usu;
     private $email_usu;
     private $senha_usu;
-    private $perfil_usu;
+    private $fk_id_perfil;
     private $situacao_usu;
     private $foto_usu;
     
@@ -42,8 +42,8 @@ class  UsuarioDTO {
         return $this->senha_usu;
     }
 
-    public function getPerfil_usu() {
-        return $this->perfil_usu;
+    public function getFk_id_perfil() {
+        return $this->fk_id_perfil;
     }
 
     public function getSituacao_usu() {
@@ -81,8 +81,8 @@ class  UsuarioDTO {
         $this->senha_usu = $senha_usu;
     }
 
-    public function setPerfil_usu($perfil_usu) {
-        $this->perfil_usu = $perfil_usu;
+    public function setFk_id_perfil($fk_id_perfil) {
+        $this->fk_id_perfil = $fk_id_perfil;
     }
 
     public function setSituacao_usu($situacao_usu) {

@@ -10,10 +10,10 @@ class FilmeDTO{
     private $classificacao_filme;
     private $capa_filme;
     private $trailer_filme;
-    private $canal_filme;
-    private $fk_usuario_id_usuario;
-    private $fk_categoria_filme_id_categoria_filme;
-    private $fk_canal_filme_id_canal_filme;
+    private $fk_id_categoria_filme;
+    private $fk_id_canal_filme;
+    private $fk_id_usuario;
+    private $fk_id_perfil;
     
 
 public function getId_filme(){
@@ -40,20 +40,17 @@ public function getCapa_filme() {
 public function getTrailer_filme() {
     return $this->trailer_filme;
 }
-public function getCanal_filme() {
-    return $this->canal_filme;
+public function getFk_id_categoria_filme() {
+    return $this->fk_id_categoria_filme;
 }
-
-public function getFk_usuario_id_usuario() {
-    return $this->fk_usuario_id_usuario;
+public function getFk_id_canal_filme() {
+    return $this->fk_id_canal_filme;
 }
-
-public function getFk_categoria_filme_id_categoria_filme() {
-    return $this->fk_categoria_filme_id_categoria_filme;
+public function getFk_id_usuario() {
+    return $this->fk_id_usuario;
 }
-
-public function getFk_canal_filme_id_canal_filme(){
-    return $this->fk_canal_filme_id_canal_filme;
+public function getFk_id_perfil() {
+    return $this->fk_id_perfil;
 }
 
 public function setId_filme($id_filme) {
@@ -62,13 +59,11 @@ public function setId_filme($id_filme) {
 public function setNome_filme($nome_filme) {
     $this->nome_filme = $nome_filme;
 }
-//configure a area padrão da data
 public function setDt_de_lancamento_filme($dt_de_lancamento_filme) {
-    $this->dt_de_lancamento_filme = $dt_de_lancamento_filme;//d {dia numérico} e D {dia da Semana}
+    $this->dt_de_lancamento_filme = $dt_de_lancamento_filme;
 }
 public function setDuracao_filme($duracao_filme) {
-    // Timezone do Brazil GMT-3
-    $this->duracao_filme = $duracao_filme; // G{hora} i{minuto} s{segundos} T{timezone = facha de horario mundial} CET/UTC(dentre outras){configuração do servidor}
+    $this->duracao_filme = $duracao_filme; 
 }
 public function setSinopse_filme($sinopse_filme){
     $this->sinopse_filme = $sinopse_filme;
@@ -82,22 +77,18 @@ public function setCapa_filme($capa_filme) {
 public function setTrailer_filme($trailer_filme) {
     $this->trailer_filme = $trailer_filme;
 }
-public function setCanal_filme($canal_filme) {
-    $this->canal_filme = $canal_filme;
+public function setFk_id_categoria_filme($fk_id_categoria_filme) {
+    $this->fk_id_categoria_filme = $fk_id_categoria_filme;
 }
-public function setFk_usuario_id_usuario($fk_usuario_id_usuario) {
-    $this->fk_usuario_id_usuario = $fk_usuario_id_usuario;
+public function setFk_id_canal_filme($fk_id_canal_filme) {
+    $this->fk_id_canal_filme = $fk_id_canal_filme;
 }
-
-public function setFk_categoria_filme_id_categoria_filme($fk_categoria_filme_id_categoria_filme) {
-    $this->fk_categoria_filme_id_categoria_filme = $fk_categoria_filme_id_categoria_filme;
+public function setFk_id_usuario($fk_id_usuario){
+    $this->fk_id_usuario = $fk_id_usuario;
 }
-
-public function setFk_canal_filme_id_canal_filme($fk_canal_filme_id_canal_filme){
-    $this->fk_canal_filme_id_canal_filme = $fk_canal_filme_id_canal_filme;
+public function setFk_id_perfil($fk_id_perfil) {
+    $this->fk_id_perfil = $fk_id_perfil;
 }
-
-
 }
 
 ?>

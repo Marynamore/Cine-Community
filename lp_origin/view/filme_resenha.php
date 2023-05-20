@@ -1,15 +1,15 @@
 <?php
+session_start();
 require_once '../model/dao/filmeDAO.php';
 require_once '../model/dao/resenhaDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 
-session_start();
 
 if(isset($_GET['get_id'])) {
     $get_id = $_GET['get_id'];
 } else {
     $get_id = '';
-    header('location:../usuariologado.php');
+    header('location:../index.php');
 }
 
 $FilmeDAO = new FilmeDAO();
@@ -52,7 +52,7 @@ $UsuarioDAO = new UsuarioDAO();
         </nav>
     </header>
     <div id="all">
-        <div class="titulo"><h1>Resenha Filme</h1><a href="../usuariologado.php" class="criar_resenha">Voltar Filmes</a></div>
+        <div class="titulo"><h1>Resenha Filme</h1><a href="../index.php" class="criar_resenha">Voltar Filmes</a></div>
     <?php
     $filmeFetch = $FilmeDAO->selecionarFilmesComCategoria($get_id);
     if($filmeFetch) { ?>
@@ -60,12 +60,12 @@ $UsuarioDAO = new UsuarioDAO();
             <img src="../assets/<?= $filmeFetch->getCapa_filme();?>" alt="" class="poster">
             <div>
                 <h1><?= $filmeFetch->getNome_filme();?></h1>
-                <h3>Lançamento: <?= $filmeFetch->getDt_de_lancamento_filme();?></h3>
-                <h3>Duração: <?= $filmeFetch->getDuracao_filme();?></h3>
-                <h3>Categoria: <?= $filmeFetch->getFk_categoria_filme_id_categoria_filme();?></h3>
-                <h3>Classificação indicativa: <?= $filmeFetch->getClassificacao_filme();?></h3>            
+                <h3>Lançamento: <br><?= $filmeFetch->getDt_de_lancamento_filme();?></h3>
+                <h3>Duração: <br><?= $filmeFetch->getDuracao_filme();?></h3>
+                <h3>Categoria: <br><?= $filmeFetch->getFk_id_categoria_filme();?></h3>
+                <h3>Classificação indicativa: <br><?= $filmeFetch->getClassificacao_filme();?></h3>            
                 <h3><a href="">Trailer</a><?= $filmeFetch->getTrailer_filme();?></h3>
-                <p>Sinopse: <?= $filmeFetch->getSinopse_filme();?></p>
+                <h3>Sinopse: <br><?= $filmeFetch->getSinopse_filme();?></h3>
             </div>
         </div>
     </div>
@@ -81,25 +81,26 @@ $UsuarioDAO = new UsuarioDAO();
         <div class="titulo">
             <h1>Resenhas:</h1> 
             <a href="resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
-            <input type="hidden" name="fk_usuario_id_usuario" value="<?=$id_usuario = $_SESSION['id_usuario'];?>">
+            <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
+            <input type="hidden" name="fk_id_usuario" value="<?=$id_usuario = $_SESSION['id_usuario'];?>">
         </div>
 
         <?php
             $resenhas = $ResenhaDAO->verificarResenha($get_id,$id_usuario);
             if(!empty($resenhas)){
             foreach($resenhas as $resenha) {
-                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_usuario_id_usuario());
+                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_id_usuario());
         ?>        
         <div class="resenha">
         <?php 
-            if($id_usuario == $resenha->getFk_usuario_id_usuario()){
+            if($id_usuario == $resenha->getFk_id_usuario()){
                 echo '<div class="titulo_res">';
                 echo '<a class="edicao_resenha" onclick="funcEditarRes()">Editar</a>
                 <a class="edicao_resenha" onclick="funcExcluirRes()">Excluir</a>';
                 echo '</div>';
         }
         ?>
-            <h4 <?php if($resenha->getFK_usuario_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
+            <h4 <?php if($resenha->getFK_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
             <div>
                 <?php if(!empty($usuario)){ ?>
                 <img src="../assets/<?= $usuario['foto_usu']; ?>" alt="">

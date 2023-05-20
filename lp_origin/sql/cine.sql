@@ -97,11 +97,11 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`usuario` (
   `senha_usu` VARCHAR(60) NOT NULL,
   `situacao_usu` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Ativo, Inativo ou Bloqueado\n',
   `foto_usu` VARCHAR(500) NULL DEFAULT NULL,
-  `id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_usuario`, `id_perfil`),
-  INDEX `fk_usuario_perfil_usu1_idx` (`id_perfil` ASC),
+  `fk_id_perfil` INT NOT NULL,
+  PRIMARY KEY (`id_usuario`, `fk_id_perfil`),
+  INDEX `fk_usuario_perfil_usu1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_usuario_perfil_usu1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -112,7 +112,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Despejando dados para a tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nome_usu`,`nickname_usu`,`dt_de_nasci_usu`,`genero_usu`,`email_usu`,`senha_usu`,`situacao_usu`,`foto_usu`,`id_perfil`) 
+INSERT INTO `usuario` (`id_usuario`, `nome_usu`,`nickname_usu`,`dt_de_nasci_usu`,`genero_usu`,`email_usu`,`senha_usu`,`situacao_usu`,`foto_usu`,`fk_id_perfil`) 
 VALUES
 (1, 'Rafaela Medeiros da Silva',NULL,'1987-06-05','naoBinario','adm@email.com',MD5('123456'),'Ativo',NULL,1),
 (2, 'Maya','Mayalice','2000-12-08','feminino','maya@email.com',MD5('123'),'Ativo',NULL,2),
@@ -133,32 +133,32 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`filme` (
   `classificacao_filme` VARCHAR(50) NOT NULL,
   `capa_filme` VARCHAR(50) NOT NULL,
   `trailer_filme` VARCHAR(50) NULL DEFAULT NULL,
-  `id_categoria_filme` INT(11) NOT NULL,
-  `id_canal_filme` INT(11) NOT NULL,
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_filme`, `id_categoria_filme`, `id_canal_filme`, `id_usuario`, `id_perfil`),
-  INDEX `fk_filme_categoria_filme1_idx` (`id_categoria_filme` ASC),
-  INDEX `fk_filme_canal_filme1_idx` (`id_canal_filme` ASC),
-  INDEX `fk_filme_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_filme_perfil1_idx` (`id_perfil` ASC),
+  `fk_id_categoria_filme` INT(11) NOT NULL,
+  `fk_id_canal_filme` INT(11) NOT NULL,
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  PRIMARY KEY (`id_filme`, `fk_id_categoria_filme`, `fk_id_canal_filme`, `fk_id_usuario`, `fk_id_perfil`),
+  INDEX `fk_filme_categoria_filme1_idx` (`fk_id_categoria_filme` ASC),
+  INDEX `fk_filme_canal_filme1_idx` (`fk_id_canal_filme` ASC),
+  INDEX `fk_filme_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_filme_perfil1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_filme_canal_filme1`
-    FOREIGN KEY (`id_canal_filme`)
+    FOREIGN KEY (`fk_id_canal_filme`)
     REFERENCES `cine_community`.`canal_filme` (`id_canal_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filme_categoria_filme1`
-    FOREIGN KEY (`id_categoria_filme`)
+    FOREIGN KEY (`fk_id_categoria_filme`)
     REFERENCES `cine_community`.`categoria_filme` (`id_categoria_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filme_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filme_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -169,7 +169,7 @@ DEFAULT CHARACTER SET = big5;
 -- Despejando dados para a tabela `filme`
 --
 
-INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duracao_filme`, `sinopse_filme`, `classificacao_filme`, `capa_filme`, `trailer_filme`, `id_canal_filme`, `id_categoria_filme`, `id_usuario`,`id_perfil`) VALUES
+INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duracao_filme`, `sinopse_filme`, `classificacao_filme`, `capa_filme`, `trailer_filme`, `fk_id_canal_filme`, `fk_id_categoria_filme`, `fk_id_usuario`,`fk_id_perfil`) VALUES
 (1, 'Menina de Ouro', '2005-02-11', '02:12:00', 'Frankie Dunne (Clint Eastwood) passou toda a sua vida no ringue, gerenciando e treinando boxeadores de elite. Frankie costuma passar para os lutadores com quem trabalha as mesmas li??es que seguiu ao longo de sua vida: acima de tudo, proteja-se. Feri', '12', 'meninadeouro.jfif', '', 1, 3, 1,2),
 (2, 'Um Dia de C?o', '1976-04-12', '02:10:00', 'Em agosto de 1972, um assalto a banco no Brooklyn chamou a aten??o da m?dia e se transformou em um show lotado. Este foi um roubo que duraria apenas dez minutos em teoria, mas algumas horas depois, os ladr?es Sonny (Al Pacino) e Sal (John Cazale) ain', '14', 'umdiadecao.jfif', '', 1, 8, 1,2),
 (3, 'Aftersun', '2022-12-01', '01:42:00', 'Em Aftersun, Sophie, de onze anos, e seu pai Callum est?o de f?rias em um clube na costa da Turquia no final dos anos 90. Eles tomam banho, jogam sinuca e desfrutam da companhia amig?vel um do outro. Callum era a melhor vers?o de si mesmo quando esta', '14', 'Aftersun.jfif', '', 1, 8, 1,2),
@@ -241,40 +241,40 @@ DROP TABLE IF EXISTS `cine_community`.`favorito` ;
 CREATE TABLE IF NOT EXISTS `cine_community`.`favorito` (
   `id_favorito` INT(11) NOT NULL AUTO_INCREMENT,
   `favorito` TINYINT(2) NULL DEFAULT NULL COMMENT 'inativo\nativo',
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  `id_filme` INT(11) NOT NULL,
-  `id_categoria_filme` INT(11) NOT NULL,
-  `id_canal_filme` INT(11) NOT NULL,
- PRIMARY KEY (`id_favorito`,`id_filme`, `id_usuario`,`id_perfil`,`id_categoria_filme`,`id_canal_filme`),
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  `fk_id_filme` INT(11) NOT NULL,
+  `fk_id_categoria_filme` INT(11) NOT NULL,
+  `fk_id_canal_filme` INT(11) NOT NULL,
+ PRIMARY KEY (`id_favorito`,`fk_id_filme`, `fk_id_usuario`,`fk_id_perfil`,`fk_id_categoria_filme`,`fk_id_canal_filme`),
   INDEX `fk_favorito_favorito1_idx` (`id_favorito` ASC),
-  INDEX `fk_favorito_filme1_idx` (`id_filme` ASC),
-  INDEX `fk_favorito_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_favorito_perfil1_idx` (`id_perfil` ASC),
-  INDEX `fk_favorito_categoria_filme1_idx` (`id_categoria_filme` ASC),
-  INDEX `fk_favorito_canal_filme1_idx` (`id_canal_filme` ASC),
+  INDEX `fk_favorito_filme1_idx` (`fk_id_filme` ASC),
+  INDEX `fk_favorito_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_favorito_perfil1_idx` (`fk_id_perfil` ASC),
+  INDEX `fk_favorito_categoria_filme1_idx` (`fk_id_categoria_filme` ASC),
+  INDEX `fk_favorito_canal_filme1_idx` (`fk_id_canal_filme` ASC),
   CONSTRAINT `fk_favorito_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_favorito_filme1`
-    FOREIGN KEY (`id_filme`)
+    FOREIGN KEY (`fk_id_filme`)
     REFERENCES `cine_community`.`filme` (`id_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_favorito_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_favorito_categoria__filme1`
-    FOREIGN KEY (`id_categoria_filme`)
+    FOREIGN KEY (`fk_id_categoria_filme`)
     REFERENCES `cine_community`.`categoria_filme` (`id_categoria_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_favorito_canal_filme1`
-    FOREIGN KEY (`id_canal_filme`)
+    FOREIGN KEY (`fk_id_canal_filme`)
     REFERENCES `cine_community`.`canal_filme` (`id_canal_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -295,40 +295,26 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`resenha` (
   `dt_hora_res` TIMESTAMP NULL DEFAULT NULL,
   `denuncia_res` VARCHAR(50) NULL DEFAULT NULL,
   `situacao_res` VARCHAR(50) NULL DEFAULT NULL COMMENT 'ativo, inativo ou bloqueado\n',
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  `id_filme` INT(11) NOT NULL,
-  `id_categoria_filme` INT(11) NOT NULL,
-  `id_canal_filme` INT(11) NOT NULL,
-  PRIMARY KEY (`id_resenha`, `id_usuario`, `id_perfil`, `id_filme`, `id_categoria_filme`, `id_canal_filme`),
-  INDEX `fk_resenha_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_resenha_filme1_idx` (`id_filme` ASC),
-  INDEX `fk_resenha_perfil1_idx` (`id_perfil` ASC),
-  INDEX `fk_resenha_categoria_filme1_idx` (`id_categoria_filme` ASC),
-  INDEX `fk_resenha_canal_filme1_idx` (`id_canal_filme` ASC),
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  `fk_id_filme` INT(11) NOT NULL,
+  PRIMARY KEY (`id_resenha`, `fk_id_usuario`, `fk_id_perfil`, `fk_id_filme`),
+  INDEX `fk_resenha_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_resenha_filme1_idx` (`fk_id_filme` ASC),
+  INDEX `fk_resenha_perfil1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_resenha_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_resenha_filme1`
-    FOREIGN KEY (`id_filme`)
+    FOREIGN KEY (`fk_id_filme`)
     REFERENCES `cine_community`.`filme` (`id_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_resenha_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resenha_categoria__filme1`
-    FOREIGN KEY (`id_categoria_filme`)
-    REFERENCES `cine_community`.`categoria_filme` (`id_categoria_filme`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resenha_canal_filme1`
-    FOREIGN KEY (`id_canal_filme`)
-    REFERENCES `cine_community`.`canal_filme` (`id_canal_filme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -338,9 +324,9 @@ DEFAULT CHARACTER SET = utf8;
 -- Despejando dados para a tabela `resenha`
 --
 
-INSERT INTO `resenha` (`id_resenha`, `avaliacao_res`, `titulo_res`, `descricao_res`, `dt_hora_res`, `denuncia_res`, `situacao_res`, `id_filme`, `id_usuario`, `id_perfil`,`id_categoria_filme`,`id_canal_filme`) VALUES
-(1, NULL, 'comédia romântica', 'Acho que me pareço com a Kat que é uma jovem inteligente e independente que odeia o colégio e tem uma personalidade forte. Muito eu!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 3,1,2,2),
-(2, NULL, 'comédia romântica', 'E eu pareço com a  Bianca!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 4,1,2,2);
+INSERT INTO `resenha` (`id_resenha`, `avaliacao_res`, `titulo_res`, `descricao_res`, `dt_hora_res`, `denuncia_res`, `situacao_res`, `fk_id_filme`, `fk_id_usuario`, `fk_id_perfil`) VALUES
+(1, NULL, 'comédia romântica', 'Acho que me pareço com a Kat que é uma jovem inteligente e independente que odeia o colégio e tem uma personalidade forte. Muito eu!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 3,1),
+(2, NULL, 'comédia romântica', 'E eu pareço com a  Bianca!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 4,1);
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`categoria_item`
@@ -366,25 +352,25 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`item` (
   `preco_item` VARCHAR(45) NOT NULL,
   `foto_item` VARCHAR(45) NOT NULL,
   `total_item` VARCHAR(45) NOT NULL,
-  `id_categoria_item` INT NOT NULL,
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_item`, `id_categoria_item`, `id_usuario`, `id_perfil`),
-  INDEX `fk_item_categoria_item1_idx` (`id_categoria_item` ASC),
-  INDEX `fk_item_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_item_perfil1_idx` (`id_perfil` ASC),
+  `fk_id_categoria_item` INT NOT NULL,
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  PRIMARY KEY (`id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
+  INDEX `fk_item_categoria_item1_idx` (`fk_id_categoria_item` ASC),
+  INDEX `fk_item_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_item_perfil1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_item_categoria_item1`
-    FOREIGN KEY (`id_categoria_item`)
+    FOREIGN KEY (`fk_id_categoria_item`)
     REFERENCES `cine_community`.`categoria_item` (`id_categoria_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_item_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_item_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -400,32 +386,32 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`carrinho_de_compra` (
   `id_carrinho_de_compra` INT NOT NULL AUTO_INCREMENT,
   `quantidade_compra` VARCHAR(2) NOT NULL,
   `dt_e_hora` TIMESTAMP NOT NULL,
-  `id_item` INT NOT NULL,
-  `id_categoria_item` INT NOT NULL,
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_carrinho_de_compra`, `id_item`, `id_categoria_item`, `id_usuario`, `id_perfil`),
-  INDEX `fk_carrinho_de_compra_item1_idx` (`id_item` ASC),
-  INDEX `fk_carrinho_de_compra_categoria_item1_idx` (`id_categoria_item` ASC),
-  INDEX `fk_carrinho_de_compra_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_carrinho_de_compra_peril1_idx` (`id_perfil` ASC),
+  `fk_id_item` INT NOT NULL,
+  `fk_id_categoria_item` INT NOT NULL,
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  PRIMARY KEY (`id_carrinho_de_compra`, `fk_id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
+  INDEX `fk_carrinho_de_compra_item1_idx` (`fk_id_item` ASC),
+  INDEX `fk_carrinho_de_compra_categoria_item1_idx` (`fk_id_categoria_item` ASC),
+  INDEX `fk_carrinho_de_compra_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_carrinho_de_compra_peril1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_carrinho_de_compra_item1`
-    FOREIGN KEY (`id_item`)
+    FOREIGN KEY (`fk_id_item`)
     REFERENCES `cine_community`.`item` (`id_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_carrinho_de_compra_categoria_item1`
-    FOREIGN KEY (`id_categoria_item`)
+    FOREIGN KEY (`fk_id_categoria_item`)
     REFERENCES `cine_community`.`categoria_item` (`id_categoria_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_carrinho_de_compra_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_carrinho_de_compra_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -443,39 +429,39 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`transacao` (
   `dt_e_hora` TIMESTAMP NOT NULL,
   `status_transacao` ENUM('pendente', 'concluida', 'cancelada') NOT NULL,
   `valor_total` VARCHAR(45) NOT NULL,
-  `id_carrinho_de_compra` INT NOT NULL,
-  `id_item` INT NOT NULL,
-  `id_categoria_item` INT NOT NULL,
-  `id_usuario` INT(11) NOT NULL,
-  `id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_transacao`, `id_carrinho_de_compra`, `id_item`, `id_categoria_item`, `id_usuario`, `id_perfil`),
-  INDEX `fk_transacao_carrinho_de_compra1_idx` (`id_carrinho_de_compra` ASC),
-  INDEX `fk_transacao_item1_idx` (`id_item` ASC),
-  INDEX `fk_transacao_categoria_item1_idx` (`id_categoria_item` ASC),
-  INDEX `fk_transacao_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_transacao_peril1_idx` (`id_perfil` ASC),
+  `fk_id_carrinho_de_compra` INT NOT NULL,
+  `fk_id_item` INT NOT NULL,
+  `fk_id_categoria_item` INT NOT NULL,
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT NOT NULL,
+  PRIMARY KEY (`id_transacao`, `fk_id_carrinho_de_compra`, `fk_id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
+  INDEX `fk_transacao_carrinho_de_compra1_idx` (`fk_id_carrinho_de_compra` ASC),
+  INDEX `fk_transacao_item1_idx` (`fk_id_item` ASC),
+  INDEX `fk_transacao_categoria_item1_idx` (`fk_id_categoria_item` ASC),
+  INDEX `fk_transacao_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_transacao_peril1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_transacao_carrinho_de_compra1`
-    FOREIGN KEY (`id_carrinho_de_compra`)
+    FOREIGN KEY (`fk_id_carrinho_de_compra`)
     REFERENCES `cine_community`.`carrinho_de_compra` (`id_carrinho_de_compra`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_item1`
-    FOREIGN KEY (`id_item`)
+    FOREIGN KEY (`fk_id_item`)
     REFERENCES `cine_community`.`item` (`id_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_categoria_item1`
-    FOREIGN KEY (`id_categoria_item`)
+    FOREIGN KEY (`fk_id_categoria_item`)
     REFERENCES `cine_community`.`categoria_item` (`id_categoria_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_usuario1`
-    FOREIGN KEY (`id_usuario`)
+    FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_perfil1`
-    FOREIGN KEY (`id_perfil`)
+    FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

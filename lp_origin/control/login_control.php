@@ -1,35 +1,37 @@
 <?php
 session_start();
-require_once __DIR__ . '/../model/dao/UsuarioDAO.php';
-require_once __DIR__ . '/../model/dto/UsuarioDTO.php';
 
-$email_usu = trim(filter_input(INPUT_POST, 'email_usu', FILTER_VALIDATE_EMAIL));
-$senha_usu = trim(filter_input(INPUT_POST, 'senha_usu'));
+require_once '../model/conexao.php';
+require_once '../model/dto/UsuarioDTO.php';
+require_once '../model/dao/UsuarioDAO.php';
 
-$usuarioDTO = new UsuarioDTO();
-$usuarioDTO->setEmail_usu($email_usu);
-$usuarioDTO->setSenha_usu($senha_usu);
 
-$usuarioDAO    = new UsuarioDAO();
-$usuarioLogado = $usuarioDAO->logar($usuarioDTO);
+$email_usu = strip_tags($_POST["email_usu"]);
+$senha_usu = $_POST["senha_usu"];
 
-if ($usuarioLogado !== null) {
-    $_SESSION['id_usuario']     = $usuarioLogado->getId_usuario();
-    $_SESSION['nickname_usu']   = $usuarioLogado->getNickname_usu();
-    $_SESSION['perfil_usu']     = $usuarioLogado->getPerfil_usu();
-    $_SESSION['nome_usu']       = $usuarioLogado->getNome_usu();
+$UsuarioDAO    = new UsuarioDAO();
+$usuarioLogado = $UsuarioDAO->logar($email_usu,$senha_usu);
+
+//var_dump($UsuarioDAO);
+
+if (!empty($usuarioLogado)) {
+    $_SESSION['id_usuario']     = $usuarioLogado['id_usuario'];
+    $_SESSION['nickname_usu']   = $usuarioLogado['nickname_usu'];
+    $_SESSION['nome_usu']       = $usuarioLogado['nome_usu'];
+    $_SESSION['fk_id_perfil']     = $usuarioLogado['fk_id_perfil'];
     
-    if ($_SESSION['perfil_usu'] === 'administrador') {
+    if ($_SESSION['fk_id_perfil'] === 1) {
         header('Location:../view/adm/paineladmcomcss.php');
         exit();
-    } elseif ($_SESSION['perfil_usu'] === 'moderador') {
+    } elseif ($_SESSION['fk_id_perfil'] === 2) {
         header('Location:../moderador_usu.php');
         exit();
-    } elseif ($_SESSION['perfil_usu'] === 'usuario') {
-        header('Location:../usuariologado.php');
+    } elseif ($_SESSION['fk_id_perfil'] === 4) {
+        header('Location:../index.php');
         exit();
     }
-} else {
-    header('Location:../view/login.php?msg=usuário e/ou senha inválidos');
-    exit();
+}else {
+    header("Location:../index.php?msg=Usuário e/ou senha inválidos");
+    exit;
 }
+

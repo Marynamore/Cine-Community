@@ -1,3 +1,14 @@
+<?php
+   session_start();
+   if(isset($_SESSION["id_usuario"])) {
+    $usuarioLogado = $_SESSION["nickname_usu"];
+    $id_usuarioLogado = $_SESSION["id_usuario"];
+    $id_perfil =  $_SESSION["id_perfil"];
+    //exit;  
+  } else {
+    $usuarioLogado = "";
+  } 
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,7 +27,12 @@
         {
         alert("Esta função requer o login do usuario!");
         }
-
+        function funcPerfil(){
+            alert('Em breve:\nFunção "Meu Perfil" disponível');
+        }
+        function funcFavorito(){
+            alert('Em breve:\nFunção "Favorito" disponível');
+        }
     </script>
 </head>
 <body>
@@ -24,8 +40,16 @@
         <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
-            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>
+        <?php
+            if(!empty($usuarioLogado)){
+            echo  '<a href="#about" onclick="funcFavorito()"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>';     
+            echo  '<a href="./view/alterar_usuario.php?id_usuario='.$id_usuarioLogado.'" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><br>'.$usuarioLogado.'</a>';
+            echo  '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i><br>SAIR</a>';                         
+            } else {   
+                echo  '<a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
+            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br>LOGIN</a>';
+            } 
+        ?>
         </nav>
     </header>
     <section>
@@ -68,7 +92,7 @@
             echo '</div>';
         } ?>
         <div class="itens-galeria">
-        <a href="" onclick="funImg()">
+        <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme'];?>">
             <!-- Exibe a capa do filme -->
             <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
             <!-- Exibe o nome do filme -->
@@ -76,9 +100,7 @@
         </a>
         </div>
       <?php 
-        //  echo '<pre>';
-        //var_dump($filmeFetch);
-        //echo '</pre>'; 
+
     
     }?>
 
