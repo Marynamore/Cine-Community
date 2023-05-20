@@ -248,7 +248,7 @@ ENGINE = InnoDB;
 -- Despejando dados para a tabela `filme`
 --
 
-INSERT INTO `resenha` (`id_resenha`, `avaliacao_res`, `titulo_res`, `descricao_res`, `dt_hora_res`, `denuncia_res`, `situacao_res`, `fk_filme_id_filme`, `fk_usuario_id_usuario`) VALUES
+INSERT INTO `resenha` (`id_resenha`, `avaliacao_res`, `titulo_res`, `descricao_res`, `dt_hora_res`, `denuncia_res`, `situacao_res`, `id_filme`, `id_usuario`) VALUES
 (1, NULL, 'comédia romântica', 'Acho que me pareço com a Kat que é uma jovem inteligente e independente que odeia o colégio e tem uma personalidade forte. Muito eu!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 3),
 (2, NULL, 'comédia romântica', 'E eu pareço com a  Bianca!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 4);
 
