@@ -34,8 +34,7 @@ session_start();
 
     </nav>
     <main>
-        <center><p><h2>Olá, <?php echo $_SESSION["perfil_usu"]; ?>!</h2></p></center>
-
+        <center><p><h2>Olá, <?php echo $_SESSION["nome_usu"]; ?>!</h2></p></center>
 
 </body>
 </html>

@@ -20,13 +20,13 @@ if (!empty($usuarioLogado)) {
     $_SESSION['nome_usu']       = $usuarioLogado['nome_usu'];
     $_SESSION['fk_id_perfil']     = $usuarioLogado['fk_id_perfil'];
     
-    if ($_SESSION['fk_id_perfil'] === 1) {
+    if ($_SESSION['fk_id_perfil'] == 1) {
         header('Location:../view/adm/paineladmcomcss.php');
         exit();
-    } elseif ($_SESSION['fk_id_perfil'] === 2) {
+    } elseif ($_SESSION['fk_id_perfil'] == 2) {
         header('Location:../moderador_usu.php');
         exit();
-    } elseif ($_SESSION['fk_id_perfil'] === 4) {
+    } elseif ($_SESSION['fk_id_perfil'] == 4) {
         header('Location:../index.php');
         exit();
     }

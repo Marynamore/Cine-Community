@@ -11,10 +11,10 @@ $dt_de_nasci_usu  =  $_POST['dt_de_nasci_usu'];
  $mes = $Result[1];
  $ano = $Result[2];
 $dt_de_nasci_usu = $ano.'-'.$mes.'-'.$dia;
-$genero_usu  = $_POST['genero_usu'];
+$genero_usu   = $_POST['genero_usu'];
 $email_usu    = $_POST['email_usu'];
 $senha_usu    = $_POST['senha_usu'];
-$perfil_usu   = $_POST['perfil_usu'];
+$id_perfil    = $_POST['fk_id_perfil'];
 
 $usuarioDTO = new UsuarioDTO();
 
@@ -24,7 +24,7 @@ $usuarioDTO->setDt_de_nasci_usu( $dt_de_nasci_usu );
 $usuarioDTO->setGenero_usu( $genero_usu );
 $usuarioDTO->setEmail_usu( $email_usu );
 $usuarioDTO->setSenha_usu( $senha_usu );
-$usuarioDTO->setPerfil_usu($perfil_usu);
+$usuarioDTO->setFk_id_perfil($id_perfil);
 
 $usuarioDAO = new UsuarioDAO();
 $usuarioDAO->cadastrarUsuario( $usuarioDTO );

@@ -52,8 +52,6 @@
         } else {
             echo "Usuário não encontrado.";
         }
-    } else {
-        echo "ID de usuário não especificado.";
     }
     ?>
 </body>

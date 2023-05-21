@@ -62,26 +62,24 @@ class UsuarioDAO {
         
     }
     
-    public function alterarUsuario(UsuarioDTO $UsuarioDTO){
-        try{
-            $sql = "UPDATE usuario SET nome_usu=?,nickname_usu=?, genero_usu=?,
-            dt_de_nasci_usu=?, email_usu=?, fk_id_perfil=?,senha_usu=? WHERE id_usuario=?";
+    public function alterarUsuario(UsuarioDTO $UsuarioDTO) {
+        try {
+            $sql = "UPDATE usuario SET nome_usu=?, nickname_usu=?, genero_usu=?, dt_de_nasci_usu=?, email_usu=?, senha_usu=? WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $UsuarioDTO->getId_usuario());
-            $stmt->bindValue(2, $UsuarioDTO->getNome_usu());
-            $stmt->bindValue(3, $UsuarioDTO->getNickname_usu());
-            $stmt->bindValue(4, $UsuarioDTO->getGenero_usu());
-            $stmt->bindValue(5, $UsuarioDTO->getDt_de_nasci_usu());
-            $stmt->bindValue(6, $UsuarioDTO->getEmail_usu());
-            $stmt->bindValue(7, $UsuarioDTO->getfk_id_perfil());
-            $stmt->bindValue(8, md5($UsuarioDTO->getSenha_usu()));
-            $UsuarioDAO = $stmt->execute();
-            return $UsuarioDAO;
-        }catch(PDOException $exc){
-        echo $exc->getMessage();
+            $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
+            $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
+            $stmt->bindValue(3, $UsuarioDTO->getGenero_usu());
+            $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
+            $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
+            $stmt->bindValue(6, md5($UsuarioDTO->getSenha_usu()));
+            $stmt->bindValue(7, $UsuarioDTO->getId_usuario());
+            $stmt->execute();
+            return true;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
             die();
-    }  
-}
+        }
+    }
 
     public function excluirUsuarioById($id_usuario){
         try{

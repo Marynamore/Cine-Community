@@ -17,7 +17,6 @@ $ano = $Result[2];
 $dt_de_nasci_usu = $ano . '-' . $mes . '-' . $dia;
 
 $email_usu = filter_input(INPUT_POST, 'email_usu', FILTER_VALIDATE_EMAIL);
-$perfil_usu = filter_input(INPUT_POST, 'perfil_usu');
 $senha_usu = md5(filter_input(INPUT_POST, 'senha_usu'));
 
 // Criando um objeto UsuarioDTO e definindo os valores dos atributos
@@ -28,7 +27,6 @@ $UsuarioDTO->setNickname_usu($nickname_usu);
 $UsuarioDTO->setGenero_usu($genero_usu);
 $UsuarioDTO->setDt_de_nasci_usu($dt_de_nasci_usu);
 $UsuarioDTO->setEmail_usu($email_usu);
-$UsuarioDTO->setPerfil_usu($perfil_usu);
 $UsuarioDTO->setSenha_usu($senha_usu);
 
 // Criando um objeto UsuarioDAO e chamando o método para alterar o usuário
@@ -37,5 +35,5 @@ $UsuarioDAO->alterarUsuario($UsuarioDTO);
 
 // Redirecionando para a página de perfil com uma mensagem de sucesso
 $msg = "Usuário alterado com sucesso!";
-header("location:../view/perfilusu.php?msg=$msg");
+header("location:../view/adm/listausuarioadm.php?msg=$msg");
 ?>
