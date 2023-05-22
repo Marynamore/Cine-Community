@@ -18,62 +18,49 @@ body {
 
 
 .header {
-   /*TUDO QUE FICA NO CABEÇALHO*/
-   top: 0;
-   left: 0;
-   width: 100%;
-   padding: 20p 10%;
+   width: 100% auto;
+   padding: 20px 10%;
    background: #1f242d;
    display: flex;
    justify-content: space-between;
    align-items: center;
-   z-index: 100;
-   flex-wrap: wrap;
- 
-}
-
-
-.logo img {
-   margin-top: 1.3em;
-   max-width: 8em;
-   animation: slideRight 1s ease forwards;
-   flex-wrap: wrap;
-      margin: 20px auto;
-      margin-left: 100px;
-      max-width: 150px;
-      border-radius: 50%;
-      -moz-border-radius: 50%;
-      -webkit-border-radius: 50%;
-      padding: 3px;
-      background-color: #08ef;
-     
-}
-
-.header {
    text-align: center;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+   animation: slideRight 1s ease forwards;
+   max-width: 150px;
+   border-radius: 50%;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   padding: 3px;
+   background-color: #08ef;
+     
+}
+
+.navbar {
+  display: flex;
+}
+
 .navbar a {
-   display: inline-block;
-   font-size: 18px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   font-size: 1.5em;
    color: #fff;
    text-decoration: none;
-   font-weight: 500;
-   margin-left: 35px;
+   margin: 0 15px;
    transition: -7s;
-   animation: slideTop 5s ease forwards;
-   animation-delay: calc(.2s * var(-i));
-   flex-wrap: wrap;
-   margin-right: 50px;
+   animation: slideTop 3s ease forwards;
 }
 
 .navbar a:hover {
    color: #08ef;
-}
-.container{
-   position: absolute;
-	top: 100vh;
-   z-index: 1000;
 }
 
 section{
@@ -86,7 +73,6 @@ section{
    display: flex;
    width: 100%;
    height: 100vh;
-   position: relative;
 }
 
 .box-image img{
@@ -94,7 +80,6 @@ section{
    height: 500px;
    animation: anima;
    animation-duration: 800ms;
-
 }
 
 @keyframes anima{
@@ -103,113 +88,53 @@ section{
     to{transform: translate(0px,00);}
 }
 
-body{
-    background-color: #1f242d;
-}
-
-
-
-/* FIm parte do cabeçalho*/
-
-/*Parte do carrossel*/
-
-
-.inicio {
-   /*Tudo que fica entre o cabeçalho e os filmes*/
-   position: relative;
-   width: 100%;
-   height: 100vh;
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
-   flex-wrap: wrap;
-
-}
-
-.conteudo-do-inicio {
-   /*Texto que fica na esquerda*/
-   max-width: 600px;
-}
-
-.conteudo-do-inicio h3 {
-   font-size: 32px;
-   font-weight: 700;
-   color: #08ef;
-   opacity: 0;
-   animation: slideBotton 5s ease forwards;
-   animation-delay: .7s;
-   flex-wrap: wrap;
-}
-
-.conteudo-do-inicio h3:nth-of-type(2) {
-   margin-bottom: 30px;
-}
-
-.conteudo-do-inicio h1 {
-   font-size: 56px;
-   font-weight: 700;
-   margin: -3px 0;
-   flex-wrap: wrap;
-}
-
-.conteudo-do-inicio p {
-   font-size: 16px;
-}
-
-.foto-inicio img {
-   max-width: 300px;
-   opacity: 0;
-   animation: foto 1s ease forwards;
-   animation-delay: 1s;
-   box-shadow: 0 0 20px #08ef;
-}
-
-
-.banner {
-   display: flex;
-   align-items: center;
-   height: 100%;
-   width: 100%;
-   box-shadow: 0 0 5px #08ef;
-   flex-wrap: wrap;
-}
-
-/* Fim parte do carrossel*/
-
 
 /*Parte dos filmes*/
-.h2 {
-    padding: 10px;
-}
-
-.container-galeria h2 {
-   padding: 10px;
+.container-filme{
+  padding: 20px;
 }
 
 .container-galeria {
-   display: flex;
-   flex-wrap: wrap;
-   padding: 20px;
+  margin-top: 20px;
 }
 
-.itens-galeria {
-   width: 220px;
-   height: 300px;
+.categoria {
+  margin-bottom: 20px;
+}
+
+.categoria h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.filme-carousel {
+  display: flex;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.filme-item {
+   width: 15em;
+   height: 22em;
    transition: .2s;
-   padding: 5px;
+   padding: 1.5em;
 }
 
-.itens-galeria img {
-   width: 100%;
-   height: 100%;
+.filme-item img {
+   width: 200px;
+   height: 300px;
    object-fit: cover;
    border-radius: 10px;
    flex-wrap: wrap;
 }
 
-.itens-galeria :hover {
+.filme-item:hover {
    transform: scale(1.1);
 }
+
+
 
 /*Fim parte dos filmes*/
 
@@ -266,71 +191,65 @@ body{
 
 /* INICIO DOBRA TUTOR */
 footer {
-    background-color:#1f242d;
-    color: rgb(255, 255, 255);
-    padding: 10px 0;
-    font-size: 30px;
+   background-color:#1f242d;
+   color: rgb(255, 255, 255);
+   padding: 10px 0;
+   font-size: 30px;
+}
+  
+h3, h5{
+   color: rgb(255, 255, 255);
+   margin-bottom: 20px;
+}
 
-  }
+h5{
+font-size: 25px;
+}
+.rodapeinicio {
+   max-width: 2000px;
+   margin: 0 auto;
+}
   
-  h3, h5{
-    color: rgb(255, 255, 255);
-    margin-bottom: 20px;
-  }
-
-  h5{
-   font-size: 25px;
-  }
-  .rodapeinicio {
-    max-width: 2000px;
-    margin: 0 auto;
-  }
-  
-  .rodapesocial{
-    text-align: center;
-    margin-bottom: 50px;
-    
-  }
-  
-  .social {
-    display: inline-block;
-    font-size: 24px;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  
-    padding: 4px;
-    
-    
-  }
-  
-  .social:hover {
-    color: red;
-    
-  }
-  
+.rodapesocial{
+   text-align: center;
+   margin-bottom: 50px;
    
-
-
-  .rodapefim {
-    background-color: #08ef;
-    padding: 5px 0;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 100px;
-  }
+}
   
-  .rodapefim p {
-    margin: 0;
+.social {
+   display: inline-block;
+   font-size: 24px;
+   color: rgb(255, 255, 255);
+   text-decoration: none;
+   transition: color 0.3s ease;
+   padding: 4px;
+   
+   
+}
+  
+.social:hover {
+   color: red;
+   
+}
+  
+.rodapefim {
+   background-color: #08ef;
+   padding: 5px 0;
+   text-align: center;
+   font-size: 18px;
+   margin-top: 100px;
+}
+  
+.rodapefim p {
+   margin: 0;
 
-
-  }
+}
 .botaorodape{
-    background-color: #08ef;
-    border-radius: 10px;
-    padding: 3px;
-    margin-right: 50px;
-    border: none;
+   background-color: #08ef;
+   border-radius: 10px;
+   padding: 3px;
+   margin-right: 50px;
+   border: none;
 }
 
 /* FIM DOBRA TUTOR */

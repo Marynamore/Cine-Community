@@ -40,6 +40,7 @@ public function cadastrarFilme(FilmeDTO $FilmeDTO){
 *atualizar(FilmeDTO $filme): 
 *atualiza os dados de um filme no banco de dados com base nos dados do objeto FilmeDTO passado como parâmetro;
 */
+
 public function alterarFilme(FilmeDTO $FilmeDTO) {
     try {
         $sql = "UPDATE filme SET nome_filme=?, dt_de_lancamento_filme=?, duracao_filme=?, sinopse_filme=?, fk_id_categoria_filme=?, fk_id_canal_filme=?, classificacao_filme=?, capa_filme=?, trailer_filme = ?, fk_id_usuario=?, fk_id_perfil=? WHERE id_filme=?";

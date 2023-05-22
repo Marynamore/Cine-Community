@@ -81,9 +81,10 @@
             <input type="hidden" name="situacao_usu" value="Ativo">';
                 }
             ?>
-            <input type="submit" onclick="funCad()" value="Enviar"> 
+            <input type="submit" onclick="funCad()" value="Enviar" class="botao"> 
+            <input type="reset" onclick="funCad()" value="Limpar" class="botao"> 
         </form>
-            <button onclick="javascript:history.go(-1)">Voltar</button>
+            <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     </div>
     </center>
              
