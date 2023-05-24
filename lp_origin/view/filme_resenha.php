@@ -46,9 +46,9 @@ $UsuarioDAO = new UsuarioDAO();
     <header class="header" >
         <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
-            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-            <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i><br>CADASTRO</a>
-            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><br><?=$_SESSION["nickname_usu"];?></a>
+            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
+            <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i>CADASTRO</a>
+            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
         </nav>
     </header>
     <div id="all">

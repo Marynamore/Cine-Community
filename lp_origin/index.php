@@ -3,7 +3,7 @@
    if(isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil =  $_SESSION["id_perfil"];
+    $id_perfil =  $_SESSION["fk_id_perfil"];
     //exit;  
   } else {
     $usuarioLogado = "";
@@ -43,7 +43,7 @@
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
         <?php
             if(!empty($usuarioLogado)){
-            echo  '<a href="#about" onclick="funcFavorito()"><i class="fa-solid fa-users"></i><br>FAVORITOS</a>';     
+            echo  '<a href="#about" onclick="funcFavorito()"><i class="fa-solid fa-users"></i>FAVORITOS</a>';     
             echo  '<a href="./view/alterar_usuario.php?id_usuario='.$id_usuarioLogado.'" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>'.$usuarioLogado.'</a>';
             echo  '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';                         
             } else {   

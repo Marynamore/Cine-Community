@@ -71,7 +71,7 @@ DROP TABLE IF EXISTS `cine_community`.`perfil` ;
 
 CREATE TABLE IF NOT EXISTS `cine_community`.`perfil` (
   `id_perfil` INT NOT NULL AUTO_INCREMENT,
-  `perfil_usu` VARCHAR(45) NOT NULL COMMENT 'administrador, moderador, colecionador, usuario',
+  `perfil_usu` VARCHAR(45) NOT NULL COMMENT 'Administrador, Moderador, Colecionador, Usuario',
   PRIMARY KEY (`id_perfil`))
 ENGINE = InnoDB;
 
@@ -90,14 +90,23 @@ DROP TABLE IF EXISTS `cine_community`.`usuario` ;
 CREATE TABLE IF NOT EXISTS `cine_community`.`usuario` (
   `id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
   `nome_usu` VARCHAR(100) NOT NULL,
-  `nickname_usu` VARCHAR(100) NULL DEFAULT NULL,
-  `dt_de_nasci_usu` DATE NULL DEFAULT NULL,
-  `genero_usu` ENUM('masculino', 'feminino', 'naoBinario', 'naoDeclarar') NOT NULL COMMENT 'masculino, feminino, naoBinario, naoDeclarar',
+  `nickname_usu` VARCHAR(100) DEFAULT NULL,
+  `dt_de_nasci_usu` DATE DEFAULT NULL,
+  `genero_usu` ENUM('masculino','feminino','naoBinario','naoDeclarar') NOT NULL COMMENT 'Masculino, Feminino, Não Binário, Não Declarar',
   `email_usu` VARCHAR(100) NOT NULL,
   `senha_usu` VARCHAR(60) NOT NULL,
-  `situacao_usu` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Ativo, Inativo ou Bloqueado\n',
-  `foto_usu` VARCHAR(50) NULL DEFAULT NULL,
-  `fk_id_perfil` INT NOT NULL,
+  `situacao_usu` VARCHAR(50) DEFAULT 'Ativo' COMMENT 'Ativo, Inativo ou Bloqueado\n',
+  `foto_usu` VARCHAR(50) DEFAULT NULL,
+  `telefone` VARCHAR(20) DEFAULT NULL,
+  `cpf_cnpj` VARCHAR(14) DEFAULT NULL,
+  `endereco` VARCHAR(70) DEFAULT NULL,
+  `numero` CHAR(7) DEFAULT NULL,
+  `complemento` VARCHAR(15) DEFAULT NULL,
+  `bairro` VARCHAR(70) DEFAULT NULL,
+  `cidade` VARCHAR(70) DEFAULT NULL,
+  `cep` VARCHAR(15) DEFAULT NULL,
+  `uf` CHAR(2) DEFAULT NULL,
+  `fk_id_perfil` INT(11) NOT NULL,
   PRIMARY KEY (`id_usuario`, `fk_id_perfil`),
   INDEX `fk_usuario_perfil_usu1_idx` (`fk_id_perfil` ASC),
   CONSTRAINT `fk_usuario_perfil_usu1`
@@ -112,12 +121,11 @@ DEFAULT CHARACTER SET = utf8;
 -- Despejando dados para a tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nome_usu`,`nickname_usu`,`dt_de_nasci_usu`,`genero_usu`,`email_usu`,`senha_usu`,`situacao_usu`,`foto_usu`,`fk_id_perfil`) 
-VALUES
-(1, 'Rafaela Medeiros da Silva',NULL,'1987-06-05','naoBinario','adm@email.com',MD5('123456'),'Ativo',NULL,1),
-(2, 'Maya','Mayalice','2000-12-08','feminino','maya@email.com',MD5('123'),'Ativo',NULL,2),
-(3, 'Fatima','Fafa','1999-05-12','feminino','fafa@gmail.com',MD5('Fdefatima'),'Ativo',NULL,4),
-(4, 'Gabriela','GabGabi','2004-07-25','feminino','gabgabi@outlook.com',MD5('Gabgabi'),'Ativo',NULL,4);
+INSERT INTO `usuario` (`id_usuario`, `nome_usu`, `nickname_usu`, `dt_de_nasci_usu`, `genero_usu`, `email_usu`, `senha_usu`, `situacao_usu`, `foto_usu`, `telefone`, `cpf_cnpj`, `endereco`, `numero`, `complemento`, `bairro`, `cidade`, `cep`, `uf`, `fk_id_perfil`) VALUES
+(1, 'Rafaela Medeiros da Silva', NULL, '1987-06-05', 'naoBinario', 'adm@email.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ativo', NULL, '(61)77777-6565', '000.000.888-99', 'QNM 11', '11', 'Casa', 'CEILANDIA NORTE', 'BRASILIA', '72211-111', 'DF', 1),
+(2, 'Maya', 'Mayalice', '2000-12-08', 'feminino', 'maya@email.com', '202cb962ac59075b964b07152d234b70', 'Ativo', NULL, '6198887-0909', '333.444.777-77', 'QSC 01 AREA ESP ', '444', 'Ap', 'CEILANDIA NORTE', 'BRASILIA', '72-999-02', 'MG', 2),
+(3, 'Fatima', 'Fafa', '1999-05-12', 'feminino', 'fafa@gmail.com', 'b2b95d2ed89b9e922775bea179801c95', 'Ativo', NULL, '6199641-1008', '079.321.888-30', 'QSC 09', '563', 'Ap', 'TAGUATINGA NORTE', 'SALVADOR', '72-923-800', 'BH', 4),
+(4, 'Gabriela', 'GabGabi', '2004-07-25', 'feminino', 'gabgabi@outlook.com', '52b341f3c35a14e33b91e28b334a1db0', 'Ativo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4);
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`filme`
@@ -294,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`resenha` (
   `descricao_res` VARCHAR(800) NULL DEFAULT NULL,
   `dt_hora_res` TIMESTAMP NULL DEFAULT NULL,
   `denuncia_res` VARCHAR(50) NULL DEFAULT NULL,
-  `situacao_res` VARCHAR(50) NULL DEFAULT NULL COMMENT 'ativo, inativo ou bloqueado\n',
+  `situacao_res` VARCHAR(50) NULL DEFAULT 'Ativo' COMMENT 'Ativo, Inativo ou Bloqueado\n',
   `fk_id_usuario` INT(11) NOT NULL,
   `fk_id_perfil` INT NOT NULL,
   `fk_id_filme` INT(11) NOT NULL,
@@ -325,8 +333,8 @@ DEFAULT CHARACTER SET = utf8;
 --
 
 INSERT INTO `resenha` (`id_resenha`, `avaliacao_res`, `titulo_res`, `descricao_res`, `dt_hora_res`, `denuncia_res`, `situacao_res`, `fk_id_filme`, `fk_id_usuario`, `fk_id_perfil`) VALUES
-(1, NULL, 'comédia romântica', 'Acho que me pareço com a Kat que é uma jovem inteligente e independente que odeia o colégio e tem uma personalidade forte. Muito eu!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 3,1),
-(2, NULL, 'comédia romântica', 'E eu pareço com a  Bianca!', '2011-05-27 01:42:00', NULL, 'ativo', 42, 4,1);
+(1, NULL, 'comédia romântica', 'Acho que me pareço com a Kat que é uma jovem inteligente e independente que odeia o colégio e tem uma personalidade forte. Muito eu!', '2011-05-27 01:42:00', NULL, 'Ativo', 42, 3,1),
+(2, NULL, 'comédia romântica', 'E eu pareço com a  Bianca!', '2011-05-27 01:42:00', NULL, 'Ativo', 42, 4,1);
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`categoria_item`
@@ -339,6 +347,15 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`categoria_item` (
   PRIMARY KEY (`id_categoria_item`))
 ENGINE = InnoDB;
 
+--
+-- Despejando dados para a tabela `categoria_item`
+--
+
+INSERT INTO `categoria_item` (`id_categoria_item`, `categoria_item`) VALUES
+(1, 'Livros e Revistas'),
+(2, 'Adereços'),
+(3, 'Fotografias'),
+(4, 'Posters e Pôsteres'); 
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`item`
@@ -346,14 +363,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cine_community`.`item` ;
 
 CREATE TABLE IF NOT EXISTS `cine_community`.`item` (
-  `id_item` INT NOT NULL AUTO_INCREMENT,
+  `id_item` INT(11) NOT NULL AUTO_INCREMENT,
   `nome_item` VARCHAR(50) NOT NULL,
   `descricao_item` VARCHAR(800) NOT NULL,
-  `preco_item` VARCHAR(15) NOT NULL,
+  `preco_item` DECIMAL(13,2) NOT NULL DEFAULT '0.00',
   `imagem_item` VARCHAR(50) NOT NULL,
-  `fk_id_categoria_item` INT NOT NULL,
+  `qtd_item` VARCHAR(2) NOT NULL DEFAULT '1',
+  `fk_id_categoria_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,
-  `fk_id_perfil` INT NOT NULL,
+  `fk_id_perfil` INT(11) NOT NULL,
   PRIMARY KEY (`id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
   INDEX `fk_item_categoria_item1_idx` (`fk_id_categoria_item` ASC),
   INDEX `fk_item_usuario1_idx` (`fk_id_usuario` ASC),
@@ -377,39 +395,32 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cine_community`.`carrinho_de_compra`
+-- Table `cine_community`.`carrinho`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cine_community`.`carrinho_de_compra` ;
+DROP TABLE IF EXISTS `cine_community`.`carrinho` ;
 
-CREATE TABLE IF NOT EXISTS `cine_community`.`carrinho_de_compra` (
-  `id_carrinho_de_compra` INT NOT NULL AUTO_INCREMENT,
-  `quantidade_compra` VARCHAR(2) NOT NULL DEFAULT '1',
-  `dt_e_hora` TIMESTAMP NOT NULL,
-  `fk_id_item` INT NOT NULL,
-  `fk_id_categoria_item` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `cine_community`.`carrinho` (
+  `id_carrinho` INT(11) NOT NULL AUTO_INCREMENT,
+  `qtd_compra` VARCHAR(2) NOT NULL DEFAULT '1',
+  `dt_hora_car` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+  `fk_id_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,
-  `fk_id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_carrinho_de_compra`, `fk_id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
-  INDEX `fk_carrinho_de_compra_item1_idx` (`fk_id_item` ASC),
-  INDEX `fk_carrinho_de_compra_categoria_item1_idx` (`fk_id_categoria_item` ASC),
-  INDEX `fk_carrinho_de_compra_usuario1_idx` (`fk_id_usuario` ASC),
-  INDEX `fk_carrinho_de_compra_peril1_idx` (`fk_id_perfil` ASC),
-  CONSTRAINT `fk_carrinho_de_compra_item1`
+  `fk_id_perfil` INT(11) NOT NULL,
+  PRIMARY KEY (`id_carrinho`, `fk_id_item`, `fk_id_usuario`, `fk_id_perfil`),
+  INDEX `fk_carrinho_item1_idx` (`fk_id_item` ASC),
+  INDEX `fk_carrinho_usuario1_idx` (`fk_id_usuario` ASC),
+  INDEX `fk_carrinho_peril1_idx` (`fk_id_perfil` ASC),
+  CONSTRAINT `fk_carrinho_item1`
     FOREIGN KEY (`fk_id_item`)
     REFERENCES `cine_community`.`item` (`id_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_carrinho_de_compra_categoria_item1`
-    FOREIGN KEY (`fk_id_categoria_item`)
-    REFERENCES `cine_community`.`categoria_item` (`id_categoria_item`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_carrinho_de_compra_usuario1`
+  CONSTRAINT `fk_carrinho_usuario1`
     FOREIGN KEY (`fk_id_usuario`)
     REFERENCES `cine_community`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_carrinho_de_compra_perfil1`
+  CONSTRAINT `fk_carrinho_perfil1`
     FOREIGN KEY (`fk_id_perfil`)
     REFERENCES `cine_community`.`perfil` (`id_perfil`)
     ON DELETE NO ACTION
@@ -423,35 +434,23 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cine_community`.`transacao` ;
 
 CREATE TABLE IF NOT EXISTS `cine_community`.`transacao` (
-  `id_transacao` INT NOT NULL AUTO_INCREMENT,
-  `tipo_transacao` ENUM('compra', 'venda', 'troca') NOT NULL,
-  `dt_e_hora` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
-  `status_transacao` ENUM('pendente', 'concluida', 'cancelada','emProgresso') NOT NULL DEFAULT 'Em Progresso',
-  `valor_total` VARCHAR(45) NOT NULL,
-  `fk_id_carrinho_de_compra` INT NOT NULL,
-  `fk_id_item` INT NOT NULL,
-  `fk_id_categoria_item` INT NOT NULL,
+  `id_transacao` INT(11) NOT NULL AUTO_INCREMENT,
+  `tipo_trans` ENUM('compra','venda') NOT NULL COMMENT 'Compra, Venda',
+  `dt_hora_trans` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+  `status_trans` VARCHAR(50) NOT NULL DEFAULT 'Em Progresso' COMMENT 'Pendente, Concluída, Cancelada,Em Progresso',
+  `valor_total` DECIMAL(13,2) NOT NULL,
+  `qtd_trans` VARCHAR(2) NOT NULL DEFAULT '1',
+  `tipo_pagamento_trans` VARCHAR(45) DEFAULT 'PIX' COMMENT 'PIX\nCartão de Crédio\nCartão de Débito\nPay Pal',
+  `fk_id_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,
-  `fk_id_perfil` INT NOT NULL,
-  PRIMARY KEY (`id_transacao`, `fk_id_carrinho_de_compra`, `fk_id_item`, `fk_id_categoria_item`, `fk_id_usuario`, `fk_id_perfil`),
-  INDEX `fk_transacao_carrinho_de_compra1_idx` (`fk_id_carrinho_de_compra` ASC),
+  `fk_id_perfil` INT(11) NOT NULL,
+  PRIMARY KEY (`id_transacao`, `fk_id_item`, `fk_id_usuario`, `fk_id_perfil`),
   INDEX `fk_transacao_item1_idx` (`fk_id_item` ASC),
-  INDEX `fk_transacao_categoria_item1_idx` (`fk_id_categoria_item` ASC),
   INDEX `fk_transacao_usuario1_idx` (`fk_id_usuario` ASC),
   INDEX `fk_transacao_peril1_idx` (`fk_id_perfil` ASC),
-  CONSTRAINT `fk_transacao_carrinho_de_compra1`
-    FOREIGN KEY (`fk_id_carrinho_de_compra`)
-    REFERENCES `cine_community`.`carrinho_de_compra` (`id_carrinho_de_compra`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_item1`
     FOREIGN KEY (`fk_id_item`)
     REFERENCES `cine_community`.`item` (`id_item`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_transacao_categoria_item1`
-    FOREIGN KEY (`fk_id_categoria_item`)
-    REFERENCES `cine_community`.`categoria_item` (`id_categoria_item`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transacao_usuario1`
