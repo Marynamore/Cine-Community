@@ -33,6 +33,7 @@ filmeCarousel.forEach(carousel => {
     prevButton.style.justifyContent = 'center'; // Adjust the font size as needed
     prevButton.style.color = '#08ef'; // Adjust the color as needed
     carousel.insertBefore(prevButton, carousel.firstChild);
+
     
     const nextButton = document.createElement('button','i');
     nextButton.classList.add('fa-solid', 'fa-arrow-right'); // Replace 'fa-arrow-right' with the appropriate class for the right arrow icon

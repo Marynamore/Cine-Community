@@ -67,9 +67,6 @@
             <div class="box-image"><img src="./assets/banner/amortedodemonio.webp"></div>
             <div class="box-image"><img src="./assets/banner/velozesefuriososx.png"></div>     
         </div>
-        <div class="bolinhas">
-    
-        </div>
     </section>
     <div class="container-filme">
         <div class="container-galeria">

@@ -100,7 +100,7 @@ $UsuarioDAO = new UsuarioDAO();
                 echo '</div>';
         }
         ?>
-            <h4 <?php if($resenha->getFK_id_usuario() == $id_usuario){echo 'style="order: -1;"';}; ?>></h4>
+            <h4 <?php if($resenha->getFK_id_usuario() == $id_usuario)?>></h4>
             <div>
                 <?php if(!empty($usuario)){ ?>
                 <img src="../assets/<?= $usuario['foto_usu']; ?>" alt="">

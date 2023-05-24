@@ -1,21 +1,14 @@
 * {
-   /*TUDO*/
    margin: 0;
    padding: 0;
    box-sizing: border-box;
    font-family: 'Poppins', sans-serif;
-   
 }
-
 
 body {
    background-color: #1f242d;
    color: #fff;
 }
-
-/*Parte do cabeçalho*/
-
-
 
 .header {
    width: 100% auto;
@@ -40,7 +33,6 @@ body {
    -webkit-border-radius: 50%;
    padding: 3px;
    background-color: #08ef;
-     
 }
 
 .navbar {
@@ -76,8 +68,8 @@ section{
 }
 
 .box-image img{
-   width: 100em;
-   height: 500px;
+   width: 112%;
+   height: auto;
    animation: anima;
    animation-duration: 800ms;
 }
@@ -87,7 +79,6 @@ section{
     from{transform: translate(-50px,00);}
     to{transform: translate(0px,00);}
 }
-
 
 /*Parte dos filmes*/
 .container-filme{
@@ -111,7 +102,6 @@ section{
 .filme-carousel {
   display: flex;
   overflow: hidden;
-  -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
 }
 
@@ -123,8 +113,8 @@ section{
 }
 
 .filme-item img {
-   width: 200px;
-   height: 300px;
+   width: 100%;
+   height: auto;
    object-fit: cover;
    border-radius: 10px;
    flex-wrap: wrap;
@@ -133,8 +123,6 @@ section{
 .filme-item:hover {
    transform: scale(1.1);
 }
-
-
 
 /*Fim parte dos filmes*/
 
@@ -187,7 +175,6 @@ section{
       opacity: 1;
    }
 }
- 
 
 /* INICIO DOBRA TUTOR */
 footer {
@@ -196,26 +183,26 @@ footer {
    padding: 10px 0;
    font-size: 30px;
 }
-  
+
 h3, h5{
    color: rgb(255, 255, 255);
    margin-bottom: 20px;
 }
 
 h5{
-font-size: 25px;
+   font-size: 25px;
 }
+
 .rodapeinicio {
    max-width: 2000px;
    margin: 0 auto;
 }
-  
+
 .rodapesocial{
    text-align: center;
    margin-bottom: 50px;
-   
 }
-  
+
 .social {
    display: inline-block;
    font-size: 24px;
@@ -223,15 +210,12 @@ font-size: 25px;
    text-decoration: none;
    transition: color 0.3s ease;
    padding: 4px;
-   
-   
 }
-  
+
 .social:hover {
    color: red;
-   
 }
-  
+
 .rodapefim {
    background-color: #08ef;
    padding: 5px 0;
@@ -239,11 +223,11 @@ font-size: 25px;
    font-size: 18px;
    margin-top: 100px;
 }
-  
+
 .rodapefim p {
    margin: 0;
-
 }
+
 .botaorodape{
    background-color: #08ef;
    border-radius: 10px;
@@ -254,4 +238,51 @@ font-size: 25px;
 
 /* FIM DOBRA TUTOR */
 
- 
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+   .header {
+      flex-direction: column;
+   }
+
+   .navbar {
+      justify-content: center;
+      margin-top: 10px;
+   }
+
+   .navbar a {
+      margin: 0 10px;
+   }
+
+   .box-image img {
+      max-height: 300px;
+   }
+
+  .container-filme {
+    padding: 10px;
+  }
+
+  .categoria h2 {
+    font-size: 20px;
+  }
+
+  .filme-item {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .filme-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .filme-carousel {
+    scroll-snap-type: none;
+    overflow-x: scroll;
+  }
+}
+
+
+
