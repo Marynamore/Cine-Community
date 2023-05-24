@@ -129,6 +129,7 @@
         </div>
     </footer>
     </div>
+    <script src="./js/carrossel.js"></script>
     <script src="./js/script.js"></script>
 <!-- Inclua o arquivo JavaScript do jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
