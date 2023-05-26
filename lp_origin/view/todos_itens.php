@@ -14,39 +14,49 @@ $id_perfil =  $_SESSION["fk_id_perfil"];
 $usuarioLogado = "";
 } 
 
-include '../control/control_carrinho_add.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Itens</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-   <link rel="stylesheet" href="css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <header>
-        <section>
-            <a href="#">Logo</a>
-            <nav>
-                <a href="cadastrar_item.php">Cadastrar Item</a>
-                <a href="todos_itens.php">Itens</a>
-                <a href="pedidos.php">Meus Pedidos</a>
-                <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado;?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
-                <?php 
-                    $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-                    $total_itens = $carrinhoData['total_itens'];
-                    $carrinho_itens = $carrinhoData['carrinho_itens'];
+    <header class="header" >
+        <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
+        <nav class="navbar" style="-i:1;">
+            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
+            <a href="todos_itens.php">Itens</a>
+        <?php
+            if(!empty($usuarioLogado)){
+            echo  '<a href="cadastrar_item.php" onclick="funcFavorito()"><i class="fa-solid fa-users"></i>Cadastrar Item</a>';     
+            echo  '<a href="./view/alterar_usuario.php?id_usuario='.$id_usuarioLogado.'" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>'.$usuarioLogado.'</a>';
+            echo  '<a class="border1" href="pedidos.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>Meus Pedidos</a>';
+            echo  '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>'; 
+        ?>
+        <?php 
+            $carrinho = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+            $total_itens = $carrinho['total_itens'];
+            $carrinhoItens = $carrinho['carrinho_itens'];
 
-                    foreach ($carrinho_itens as $carrinhoItem) {                   
-                ?>
-                <a href="carrinho.php">Carrinho<span><?=$total_itens;?></span></a>
-                <?php } ?>
-            </nav>
-
-        </section>
+            foreach ($carrinhoItens as $carrinhoItem) {                   
+        ?>
+        <a href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i><span><?=$total_itens;?></span></a>
+        <?php } ?>
+        <?php                             
+            } else {   
+                echo  '<a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i>CADASTRO</a>
+            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i>LOGIN</a>';
+            } 
+        ?>
+        </nav>
     </header>
     <section>
         <h1>Itens</h1>

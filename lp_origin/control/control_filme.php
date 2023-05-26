@@ -46,14 +46,14 @@ $FilmeDTO->setNome_filme( $nome_filme );
 $FilmeDTO->setDt_de_lancamento_filme( $dt_de_lancamento_filme );
 $FilmeDTO->setDuracao_filme( $duracao_filme );
 $FilmeDTO->setSinopse_filme( $sinopse_filme );
-$FilmeDTO->setFk_categoria_filme_id_categoria_filme($categoria_filme );
+$FilmeDTO->setFk_id_categoria_filme($categoria_filme );
 $FilmeDTO->setClassificacao_filme( $classificacao_filme );
 $FilmeDTO->setCapa_filme( $capa_filme_da );
-$FilmeDTO->setFk_canal_filme_id_canal_filme( $canal_filme );
-$FilmeDTO->setFk_usuario_id_usuario( $id_usuario );
+$FilmeDTO->setFk_id_canal_filme( $canal_filme );
+$FilmeDTO->setFk_id_usuario( $id_usuario );
 
 $FilmeDAO = new FilmeDAO();
 $FilmeDAO->CadastrarFilme($FilmeDTO);
-header( "Location:../view/adm/listafilmesadm.php" );
+header( "Location:../view/dashboard/listafilmesadm.php" );
 
 ?>

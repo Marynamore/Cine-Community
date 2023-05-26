@@ -15,6 +15,7 @@
    $filme = $FilmeDAO->listarTodosFilme();
 
 ?>
+
  <a href="../adm/paineladmcomcss.php">Voltar</a> 
       <center> <h2>Lista de Filmes</h2></center>
     <table>

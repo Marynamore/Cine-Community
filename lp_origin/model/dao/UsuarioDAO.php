@@ -101,7 +101,7 @@ class UsuarioDAO {
             $stmt = $this->pdo->prepare( $sql );
             $stmt->bindValue( 1, $id_usuario);
             $stmt->execute();
-            $usuarios = $stmt->fetchAll( PDO::FETCH_ASSOC );
+            $usuarios = $stmt->fetch( PDO::FETCH_ASSOC );
             return $usuarios;
         } catch ( PDOException $e ) {
             echo $e->getMessage();

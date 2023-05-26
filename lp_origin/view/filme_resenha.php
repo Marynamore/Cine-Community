@@ -81,26 +81,27 @@ $UsuarioDAO = new UsuarioDAO();
         <div class="titulo">
             <h1>Resenhas:</h1> 
             <a href="resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
-            <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
             <input type="hidden" name="fk_id_usuario" value="<?=$id_usuario = $_SESSION['id_usuario'];?>">
         </div>
 
         <?php
             $resenhas = $ResenhaDAO->verificarResenha($get_id,$id_usuario);
             if(!empty($resenhas)){
-            foreach($resenhas as $resenha) {
-                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_id_usuario());
+            foreach($resenhas as $resenhaFetch) {
+                $usuario = $UsuarioDAO->dadosUsuarioPorId($resenhaFetch->getFk_id_usuario());
         ?>        
         <div class="resenha">
         <?php 
-            if($id_usuario == $resenha->getFk_id_usuario()){
-                echo '<div class="titulo_res">';
-                echo '<a class="edicao_resenha" onclick="funcEditarRes()">Editar</a>
-                <a class="edicao_resenha" onclick="funcExcluirRes()">Excluir</a>';
-                echo '</div>';
-        }
-        ?>
-            <h4 <?php if($resenha->getFK_id_usuario() == $id_usuario)?>></h4>
+            if($resenhaFetch->getFk_id_usuario() == $id_usuario){    
+        echo'
+            <form action="../control/alterar_res.php" method="post">        
+                <div class="titulo_res">
+                    <a href="../control/alterar_res.php?get_id=<?='.$resenhaFetch->getFk_id_usuario().'?>" class="edicao_resenha">Editar</a>
+                    <a class="edicao_resenha" value="<?='.$resenhaFetch->getFk_id_usuario().'?>">Excluir</a>
+                </div>
+            </form> ';   
+         }?>
+            <h4 <?php if($resenhaFetch->getFK_id_usuario() == $id_usuario)?>></h4>
             <div>
                 <?php if(!empty($usuario)){ ?>
                 <img src="../assets/<?= $usuario['foto_usu']; ?>" alt="">
@@ -109,12 +110,12 @@ $UsuarioDAO = new UsuarioDAO();
                 <?php }; ?>   
                 <div>
                 <p><?= $usuario['nome_usu']; ?></p>
-                <span><?= $resenha->getDt_hora_res(); ?></span>
+                <span><?= $resenhaFetch->getDt_hora_res(); ?></span>
                 </div>
             </div>
-            <h3 class="title"><?= $resenha->getTitulo_res(); ?></h3>
-            <?php if(empty($resenhas['descricao_res'])){ ?>
-                <p><?= $resenha->getDescricao_res(); ?></p>
+            <h3 class="title"><?= $resenhaFetch->getTitulo_res(); ?></h3>
+            <?php if(empty($resenhasFetch['descricao_res'])){ ?>
+                <p><?= $resenhaFetch->getDescricao_res(); ?></p>
             <?php } ?>  
         </div>
       <?php

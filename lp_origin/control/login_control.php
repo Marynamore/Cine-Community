@@ -21,7 +21,7 @@ if (!empty($usuarioLogado)) {
     $_SESSION['fk_id_perfil']     = $usuarioLogado['fk_id_perfil'];
     
     if ($_SESSION['fk_id_perfil'] == 1) {
-        header('Location:../view/adm/paineladmcomcss.php');
+        header('Location:../view/dashboard/painel_adm.php');
         exit();
     } elseif ($_SESSION['fk_id_perfil'] == 2) {
         header('Location:../moderador_usu.php');

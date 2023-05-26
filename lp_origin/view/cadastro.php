@@ -34,6 +34,7 @@
     <center>
     <div class="container">  
         <form id="contact" action="../control/cadastro_control.php" method="post">
+            <input type="hidden" name="id_usuario">
           <h3>Cadastro</h3>
             <input placeholder="Nome" type="text" name="nome_usu" id="">
             <input placeholder="Nickname" type="text" tabindex="2" name="nickname_usu" id="" required>

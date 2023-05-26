@@ -36,5 +36,3 @@ if ( isset( $usuarioDAO ) ) {
     header( "Location:../view/cadastro.php" );
     exit;
 }
-
-

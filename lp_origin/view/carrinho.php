@@ -37,11 +37,11 @@ if(isset($_SESSION["id_usuario"])) {
                 <a href="pedidos.php">Meus Pedidos</a>
                 <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado;?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
                 <?php 
-                    $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-                    $total_itens = $carrinhoData['total_itens'];
-                    $carrinho_itens = $carrinhoData['carrinho_itens'];
+                    $carrinho = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+                    $total_itens = $carrinho['total_itens'];
+                    $carrinhoItens = $carrinho['carrinho_itens'];
 
-                    foreach ($carrinho_itens as $carrinhoItem) {                   
+                    foreach ($carrinhoItens as $carrinhoItem) {                   
                 ?>
                 <a href="carrinho.php">Carrinho<span><?=$total_itens;?></span></a>
                 <?php } ?>
@@ -70,7 +70,7 @@ if(isset($_SESSION["id_usuario"])) {
         ?>
             <form action="" method="POST">
                 <input type="hidden" name="id_carrinho" value="<?=$carrinhoFetch->getId_carrinho()?>">
-                <img src="../assets/project_assets/?=$itemFetch['imagem_item']?>">
+                <img src="../assets/project_assets/<?=$itemFetch['imagem_item']?>">
                 <h3><?=$itemFetch['nome_item']?></h3>
                 <div>
                     <p class="price"><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch['preco_item']?></p>
@@ -78,7 +78,7 @@ if(isset($_SESSION["id_usuario"])) {
                     <input type="submit" name="atualizar_car" class="fas fa-edit">
                 </div>
                 <p>Subtotal: <span><i class="fas fa-indian-rupee-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch['preco_item']); ?></span></p>
-                <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');">
+                <input type="submit" value="Delet" name="deletar_item" onclick="return confirm('Quer deletar este item?');">
             </form>
             <?php
                 $total_itens += $sub_total;
