@@ -354,8 +354,7 @@ ENGINE = InnoDB;
 INSERT INTO `categoria_item` (`id_categoria_item`, `categoria_item`) VALUES
 (1, 'Livros e Revistas'),
 (2, 'Adereços'),
-(3, 'Fotografias'),
-(4, 'Posters e Pôsteres'); 
+(3, 'Posters e Pôsteres'); 
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`item`
@@ -393,6 +392,17 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`item` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+--
+-- Despejando dados para a tabela `item`
+--
+
+INSERT INTO `item` (`id_item`,  `nome_item`,`descricao_item`,`preco_item`, `imagem_item`, `qtd_item`,`fk_id_categoria_item` ,`fk_id_usuario`,`fk_id_perfil`) VALUES
+(1, 'Action Figure - Rambo ','Este action figure do Rambo é uma representação impressionante do icônico personagem de ação. Com 15 centímetros de altura, ele possui um visual realista, calças pretas e botas robustas. O rosto esculpido exibe uma expressão determinada, com cabelo curto castanho escuro. Com várias articulações, o action figure pode ser colocado em diferentes poses. Vem com um arsenal de armas realistas. É o item perfeito para os fãs de ação e colecionadores, recriando cenas emocionantes do personagem.','199.99','rambo.webp','1',2,4,3),
+(2, 'Action FIgure - Monkey D. Luffy','Este boneco do Luffy é uma representação impressionante do protagonista de "One Piece". Com 18 centímetros de altura. O rosto esculpido transmite a felicidade característica do personagem, com detalhes como o cabelo de borracha e o  traje de samurai autêntico. Com articulações flexíveis, permite poses dinâmicas e vem com acessórios como o chapéu de palha removível. É um item essencial para fãs e colecionadores, capturando a personalidade e aventuras do carismático Luffy.','499.99','luffao.jpg','2',2,4,3 ),
+(3, 'Action Figure - Jason Voorhees','Este boneco é ideal para brincar seguindo suas histórias ou colecionar.Seu tamanho é de 20 cm. Com suas articulações, você pode ajustar as poses e criar histórias emocionantes com os personagens ganhando vida. É perfeito para colecionadores que desejam expandir e diversificar sua coleção.','299.99','jason.webp','4',2,4,3),
+(4, 'Livro - Pôsters ','O livro "Posters" é o quinto da série Star Wars Art, curada por George Lucas. Ele reúne os melhores pôsteres de todos os seis filmes de Star Wars, da série animada The Clone Wars e de edições limitadas. Esta coleção é uma homenagem à arte dos pôsteres de Star Wars, apresentando a ação, a arte e o drama da saga em um volume magnificamente produzido.','320.00','livrostarwars.jpg','10',1,4,3),
+(5, 'Revista - Aranhaverso: Aranha Zero  ',' Miles Morales é transportado através de um portal dimensional para uma nova e perigosa aventura no multiverso! No entanto, acredita-se que a Teia da Vida e do Destino havia sido destruída. Agora surge a pergunta: quem teceu a nova Teia e por quê? O Aranhaverso está em grave perigo, e é chegada a hora de uma nova reunião. Miles e seus amigos enfrentarão o desafio de consertar a Teia e restaurar o equilíbrio no multiverso. Prepare-se para testemunhar o retorno do Homem-Aranha Noir, que retorna do além-túmulo! Além disso, surge o enigma do Aranha-Zero.','29.99','hqmiranha.jpg','20',1,4,3),
+(6, 'Pôster - Vingadores: Guerra Infinita  ','A Marvel Studios revolucionou a cultura pop ao criar a épica Saga do Infinito, um arco de histórias lendário que marcou uma geração de fãs. Agora, em uma edição especial, apresentamos os 23 filmes que compõem esse universo cinematográfico, cada um com seu próprio pôster gigante estilo "enciclopédia". Esses pôsteres oficiais do MCU, em formato 50x70cm, são perfeitos para colecionadores e fãs de super-heróis, permitindo que eles leiam, guardem e decorem suas paredes com essas obras de arte icônicas.','29.99','guerrainfinita.webp','20',3,4,3);
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`carrinho`

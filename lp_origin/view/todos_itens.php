@@ -21,6 +21,7 @@ $usuarioLogado = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
@@ -49,27 +50,27 @@ $usuarioLogado = "";
             <?php } ?>
         </nav>
     </header>
-    <section class="container-filme">
-        <h1>Itens</h1>
+    <h1>Itens</h1>
+    <div class="container-filme">
         <div class="container-galeria">
-        <?php 
-            require_once '../model/dao/itemDAO.php';
-            $itemDAO = new ItemDAO();
-            $item = $itemDAO->listarTodosItens();
-            $categorias = array();
+            <?php 
+                require_once '../model/dao/itemDAO.php';
+                $itemDAO = new ItemDAO();
+                $item = $itemDAO->listarTodosItens();
+                $categorias = array();
 
-            foreach($item as $itemFetch){
-                $categoria = $itemFetch->getFk_id_categoria_item();
-                // echo'<pre>';
-                // print_r($itemFetch);
-                // echo'</pre>';
-                if(!in_array($categoria,$categorias)){
-                    $categorias[] = $categoria;
+                foreach($item as $itemFetch){
+                    $categoria = $itemFetch->getFk_id_categoria_item();
+                    // echo'<pre>';
+                    // print_r($itemFetch);
+                    // echo'</pre>';
+                    if(!in_array($categoria,$categorias)){
+                        $categorias[] = $categoria;
+                    }
                 }
-            }
 
-            foreach($categorias as $categoria){
-        ?>
+                foreach($categorias as $categoria){
+            ?>
             <div class="categoria">
                 <h2><?= $categoria ?></h2>
                 <div class="filme-carousel">
@@ -78,24 +79,26 @@ $usuarioLogado = "";
                 // print_r($itemFetch->getImagem_item());
                 // echo'</pre>';
                 if($itemFetch->getFk_id_categoria_item() === $categoria){?>
-                    <form action="../control/control_carrinho_add.php" method="POST">
-                        <img src="../assets/project_assets/<?=$itemFetch->getImagem_item()?>">
-                        <h3><?=$itemFetch->getNome_item()?></h3>
-                        <input type="hidden" name="id_item" value="<?=$itemFetch->getId_item()?>">
-                        <div>
-                            <p><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch->getPreco_item()?></p>
-                            <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
-                        </div>
-                        <input type="submit" name="item_adicionado" value="Adicionar">
-                        <a href="transacao.php?get_id=<?=$itemFetch['id']?>">Comprar</a>
-                    </form>
+                    <div class="filme-item">
+                        <form action="../control/control_carrinho_add.php" method="POST">
+                            <img src="../assets/imagensprodutos/<?=$itemFetch->getImagem_item()?>">
+                            <h3><?=$itemFetch->getNome_item()?></h3>
+                            <input type="hidden" name="id_item" value="<?=$itemFetch->getId_item()?>">
+                            <div>
+                                <p><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch->getPreco_item()?></p>
+                                <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
+                            </div>
+                            <input type="submit" name="item_adicionado" value="Adicionar">
+                            <a href="transacao.php?get_id=<?=$itemFetch['id']?>">Comprar</a>
+                        </form>
+                    </div>
                     <?php }
                     }?>
                 </div>
             </div>
             <?php }?>            
         </div>
-    </section>
+    </div>
 <!-- FIM TELA COLECIONÁVEIS -->
 <hr>
     <footer>

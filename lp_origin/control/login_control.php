@@ -20,11 +20,12 @@ if (!empty($usuarioLogado)) {
 
     $id_perfil = $_SESSION['fk_id_perfil'];
 
-    if (in_array($id_perfil, [1, 2, 3, 4])) {
+    if (in_array($id_perfil, [2, 3, 4])) {
         header('Location:../index.php');
         exit();
-    } else {
-        // Redirecionar para outras páginas conforme necessário
+    } elseif(in_array($id_perfil, [1])){
+        header('Location:../view/dashboard/painel_adm.php');
+        exit();
     }
 } else {
     header("Location:../index.php?msg=Usuário e/ou senha inválidos");

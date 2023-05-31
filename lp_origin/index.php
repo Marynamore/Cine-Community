@@ -3,6 +3,7 @@
 
     if (isset($_SESSION["id_usuario"])) {
         $usuarioLogado    = $_SESSION["nickname_usu"];
+        $nomeUsuario      = $_SESSION["nome_usu"];
         $id_usuarioLogado = $_SESSION["id_usuario"];
         $id_perfil        = $_SESSION["fk_id_perfil"];
     } else {
@@ -43,14 +44,14 @@
         <nav class="navbar" style="-i:1;">
             <a href="index.php" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a> 
      <?php 
-     if (empty($usuarioLogado)) {
+     if (!empty($usuarioLogado)) {
      if ($id_perfil == 1) {
-        echo '<a href="./view/dashboard/painel_adm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
+        echo '<a href="./view/dashboard/painel_adm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $id_usuarioLogado . 'Painel Administrador</a>';
+        echo '<a class="border1" href="./control/control_sairadm.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+    } if ($id_perfil == 2) {
+        echo '<a href="./view/adm/painel_moderador.php"><i class="fa-solid fa-users"></i>PAINEL MODERADOR</a>';
         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
-    } elseif ($id_perfil == 2) {
-        echo '<a href="./view/adm/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
-        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
-    } elseif ($id_perfil == 3 || $id_perfil == 4) {
+    } if ($id_perfil == 3 || $id_perfil == 4) {
         echo '<a href="./view/alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
     }
@@ -155,7 +156,7 @@
 
     </div>
   </div>
-  <center><a href="../lp_origin/view/iniciocompras.php" class="checkout-btn">Explorar Itens</a>
+  <center><a href="../lp_origin/view/todos_itens.php" class="checkout-btn">Explorar Itens</a>
   </div></center>
 
 </section>
