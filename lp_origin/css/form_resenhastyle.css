@@ -1,6 +1,6 @@
  body{
-    background-color: #1f242d;
-    background-color: black;
+     
+    background-color:  #002b46;
     box-sizing: border-box;
     align-items: center;
  }
@@ -12,11 +12,13 @@
     max-width: 500px;
     background-color: #002b46;
     color: #fff;
-    box-shadow: 0 0 10px #08ef;
     font-size: 15px;
     padding: 2em;
     margin: 2em;
+    border: solid 3px #08ef ;
+    border-radius: 15px;
 }
+     
 
 .form{
     color: white;
@@ -32,8 +34,7 @@
 
 .titulo{
     border: none;
-    border-radius: 20px;
-    box-shadow: 0 0 10px #08ef;
+    border-radius: 10px;
     background-color: #08ef;
     color: white;
     padding: 10px;
@@ -41,12 +42,12 @@
 
 .form textarea{
     border: none;
-    border-radius: 20px;
-    box-shadow: 0 0 10px #08ef;
+    border-radius: 10px;
     background-color: #08ef;
     color: white;
     padding: 80px;
     font-weight: bolder;
+   
     
     
 }
@@ -60,7 +61,7 @@
     cursor: pointer;
 }
 .button:hover{
-    background-color: red;
+    color: black;
 }
 
 a{
@@ -69,7 +70,7 @@ a{
     padding: 0;
 }
 a:hover{
-    background-color: red;
+    color: black;
 }
 
 h1{

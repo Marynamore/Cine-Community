@@ -14,7 +14,7 @@ class UsuarioDAO {
 
     public function logar($email_usu,$senha_usu){
         try{
-            $sql = "SELECT u.id_usuario, u.nome_usu, u.nickname_usu, u.email_usu, u.senha_usu, u.fk_id_perfil, p.perfil_usu FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil = p.id_perfil WHERE email_usu=? AND senha_usu =?";
+            $sql = "SELECT u.id_usuario, u.nome_usu, u.nickname_usu, u.email_usu, u.senha_usu, u.fk_id_perfil, p.perfil_usu FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil = p.id_perfil WHERE email_usu=? AND senha_usu=?";
 
             $stmt = $this->pdo->prepare($sql);   
             $stmt->bindValue(1, $email_usu);
@@ -29,25 +29,54 @@ class UsuarioDAO {
         }    
     }
 
-    public function cadastrarUsuario(UsuarioDTO $UsuarioDTO){
-        try{
-            $sql = "INSERT INTO usuario (nome_usu,nickname_usu,genero_usu,dt_de_nasci_usu,email_usu,fk_id_perfil,situacao_usu,senha_usu) 
-             VALUES (?, ?, ?, ?, ?, ?,?,?)";
+    public function cadastrarUsuario(UsuarioDTO $usuarioDTO) {
+        try {
+            $sql = "INSERT INTO usuario (nome_usu, nickname_usu, dt_de_nasci_usu, genero_usu, email_usu, senha_usu,
+                    situacao_usu, foto_usu, telefone, cpf_cnpj, endereco, numero, complemento, bairro, cidade, cep, uf, fk_id_perfil)  
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
-            $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
-            $stmt->bindValue(3, $UsuarioDTO->getGenero_usu	());
-            $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
-            $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
-            $stmt->bindValue(6, $UsuarioDTO->getFk_id_perfil());
-            $stmt->bindValue(7, $UsuarioDTO->getsituacao_usu());
-            $stmt->bindValue(8, MD5($UsuarioDTO->getSenha_usu()));
-            return  $stmt->execute();
-        }catch(PDOException $e){
+    
+            $stmt->bindValue(1, $usuarioDTO->getNome_usu());
+            $stmt->bindValue(2, $usuarioDTO->getNickname_usu());
+            $stmt->bindValue(3, $usuarioDTO->getDt_de_nasci_usu());
+            $stmt->bindValue(4, $usuarioDTO->getGenero_usu());
+            $stmt->bindValue(5, $usuarioDTO->getEmail_usu());
+            $stmt->bindValue(6, $usuarioDTO->getSenha_usu());
+            $stmt->bindValue(7, $usuarioDTO->getSituacao_usu());
+            $stmt->bindValue(8, $usuarioDTO->getFoto_usu());
+            $stmt->bindValue(9, $usuarioDTO->getTelefone());
+            $stmt->bindValue(10, $usuarioDTO->getCpf_cnpj());
+            $stmt->bindValue(11, $usuarioDTO->getEndereco());
+            $stmt->bindValue(12, $usuarioDTO->getNumero());
+            $stmt->bindValue(13, $usuarioDTO->getComplemento());
+            $stmt->bindValue(14, $usuarioDTO->getBairro());
+            $stmt->bindValue(15, $usuarioDTO->getCidade());
+            $stmt->bindValue(16, $usuarioDTO->getCep());
+            $stmt->bindValue(17, $usuarioDTO->getUf());
+            $stmt->bindValue(18, $usuarioDTO->getFk_id_perfil());
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
             echo $e->getMessage();
-        die();    
+            die();
         }
     }
+    
+    
+    public function recuperarID(){
+        try{
+            $sql = "SELECT * FROM usuario ORDER BY id_usuario limit 1";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $usuario;
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }
+        
+    }
+    
+
     
     public function listarTodos(){
         try{
@@ -64,7 +93,9 @@ class UsuarioDAO {
     
     public function alterarUsuario(UsuarioDTO $UsuarioDTO) {
         try {
-            $sql = "UPDATE usuario SET nome_usu=?, nickname_usu=?, genero_usu=?, dt_de_nasci_usu=?, email_usu=?, senha_usu=? WHERE id_usuario=?";
+            $sql = "UPDATE usuario SET nome_usu=?, nickname_usu=?, genero_usu=?,
+             dt_de_nasci_usu=?, foto_usu=?, telefone=?, cpf_cnpj=?, endereco=?, numero=?,
+              complemento=? bairro=?, cidade=?, cep=?, uf=? email_usu=?, senha_usu=? WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
             $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
@@ -72,7 +103,17 @@ class UsuarioDAO {
             $stmt->bindValue(4, $UsuarioDTO->getDt_de_nasci_usu());
             $stmt->bindValue(5, $UsuarioDTO->getEmail_usu());
             $stmt->bindValue(6, md5($UsuarioDTO->getSenha_usu()));
-            $stmt->bindValue(7, $UsuarioDTO->getId_usuario());
+            $stmt->bindValue(7, $UsuarioDTO->getTelefone());
+            $stmt->bindValue(8, $UsuarioDTO->getCpf_cnpj());
+            $stmt->bindValue(9, $UsuarioDTO->getEndereco());
+            $stmt->bindValue(10, $UsuarioDTO->getNumero());
+            $stmt->bindValue(11, $UsuarioDTO->getComplemento());
+            $stmt->bindValue(12, $UsuarioDTO->getBairro());
+            $stmt->bindValue(13, $UsuarioDTO->getCidade());
+            $stmt->bindValue(14, $UsuarioDTO->getFoto_usu());
+            $stmt->bindValue(15, $UsuarioDTO->getCep());
+            $stmt->bindValue(16, $UsuarioDTO->getUf());
+            $stmt->bindValue(17, $UsuarioDTO->getId_usuario());
             $stmt->execute();
             return true;
         } catch (PDOException $exc) {
@@ -101,7 +142,7 @@ class UsuarioDAO {
             $stmt = $this->pdo->prepare( $sql );
             $stmt->bindValue( 1, $id_usuario);
             $stmt->execute();
-            $usuarios = $stmt->fetch( PDO::FETCH_ASSOC );
+            $usuarios = $stmt->fetchAll( PDO::FETCH_ASSOC );
             return $usuarios;
         } catch ( PDOException $e ) {
             echo $e->getMessage();
@@ -136,7 +177,7 @@ public function dadosUsuarioPorId($id) {
             $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
             $usuario->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
             $usuario->setEmail_usu($usuarioFetch["email_usu"]);
-            $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
+            $usuario->setSenha_usu($usuarioFetch["usu$UsuarioDTO"]);
             $usuario->setPerfil_usu($usuarioFetch["perfil_usu"]);
             $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
             $usuario->setFoto_usu($usuarioFetch["foto_usu"]);
@@ -165,7 +206,7 @@ public function recuperarPorID($id)
             $usuario->setNome_usu($usuarioFetch["nome_usu"]);
             $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
             $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
-            $usuario->setDt_de_nasci_usu($usuarioFetch["dt_nasci_usu"]);
+            $usuario->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
             $usuario->setEmail_usu($usuarioFetch["email_usu"]);
             $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
             $usuario->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);

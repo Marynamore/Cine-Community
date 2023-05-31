@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #1f242d;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #08ef;
+  border-radius: 6px;
+  padding: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.card-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card-info input {
+  flex-basis: calc(50% - 5px);
+}
+
+.card-info select {
+  flex-basis: 100%;
+}
+
+.card-actions {
+  text-align: right;
+}
+
+.card-actions button {
+  padding: 10px 20px;
+  background-color: #3483eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.card-actions button:hover {
+  background-color: #2067c9;
+}
+
+.adicionar {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      padding: 15px;
+      border:none;
+      border-radius: 15px;   
+    }
+.adicionar:hover{
+  color: crimson;
+}
+  

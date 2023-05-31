@@ -9,6 +9,6 @@ if($retorno){
 }else{
     $msg="Erro ao excluir o Usuario";
 } 
-header("location:../view/listausuario.php?msg=$msg");
+header("location:../view/listausuarioadm.php?msg=$msg");
 
 

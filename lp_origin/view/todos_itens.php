@@ -27,40 +27,31 @@ $usuarioLogado = "";
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <title>Cine Community</title>
+
 </head>
 <body>
     <header class="header" >
         <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
-        <nav class="navbar" style="-i:1;">
-            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
+        <nav class="navbar">
+            <a href="cadastrar_item.php">Cadastrar Item</a>
             <a href="todos_itens.php">Itens</a>
-        <?php
-            if(!empty($usuarioLogado)){
-            echo  '<a href="cadastrar_item.php" onclick="funcFavorito()"><i class="fa-solid fa-users"></i>Cadastrar Item</a>';     
-            echo  '<a href="./view/alterar_usuario.php?id_usuario='.$id_usuarioLogado.'" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>'.$usuarioLogado.'</a>';
-            echo  '<a class="border1" href="pedidos.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>Meus Pedidos</a>';
-            echo  '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>'; 
-        ?>
-        <?php 
-            $carrinho = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-            $total_itens = $carrinho['total_itens'];
-            $carrinhoItens = $carrinho['carrinho_itens'];
+            <a href="pedidos.php">Meus Pedidos</a>
+            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado;?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
+            <?php 
+                $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+                $total_itens = $carrinhoData['total_itens'];
+                $carrinho_itens = $carrinhoData['carrinho_itens'];
 
-            foreach ($carrinhoItens as $carrinhoItem) {                   
-        ?>
-        <a href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i><span><?=$total_itens;?></span></a>
-        <?php } ?>
-        <?php                             
-            } else {   
-                echo  '<a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i>CADASTRO</a>
-            <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i>LOGIN</a>';
-            } 
-        ?>
+                foreach ($carrinho_itens as $carrinhoItem) {                   
+            ?>
+            <a href="carrinho.php">Carrinho<span><?=$total_itens;?></span></a>
+            <?php } ?>
         </nav>
     </header>
-    <section>
+    <section class="container-filme">
         <h1>Itens</h1>
-        <div>
+        <div class="container-galeria">
         <?php 
             require_once '../model/dao/itemDAO.php';
             $itemDAO = new ItemDAO();
@@ -81,7 +72,7 @@ $usuarioLogado = "";
         ?>
             <div class="categoria">
                 <h2><?= $categoria ?></h2>
-                <div class="categoria-carousel">
+                <div class="filme-carousel">
             <?php foreach($item as $itemFetch){
                 // echo'<pre>';
                 // print_r($itemFetch->getImagem_item());
@@ -105,8 +96,32 @@ $usuarioLogado = "";
             <?php }?>            
         </div>
     </section>
+<!-- FIM TELA COLECIONÁVEIS -->
+<hr>
+    <footer>
+        <center><h3>O lugar perfeito para os amantes do cinema!</h3></center>
+        <center><h5>Nos siga!</h5></center>
 
-<script src="js/script.js"></script>
+        <div class="rodapeinicio">
+            <div class="rodapesocial">
+                <button class="botaorodape"> <a href="https://www.youtube.com/watch?v=W4VTq0sa9yg" class="social">Instagram<i class="fab fa-instagram"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=Sx86-18V3m8" class="social">Twitter<i class="fab fa-twitter"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=YKdgcYZy1rQ" class="social">Facebook<i class="fab fa-facebook-f"></i></a></button>
+            </div>
 
+            <div class="rodapefim">
+                <p>Todos os direitos reservados &copy; 2023</p>
+            </div>
+
+        </div>
+    </footer>
+    </div>
+
+   <script src="../js/carrossel.js"></script>
+<!-- Inclua o arquivo JavaScript do jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Inclua o arquivo JavaScript do Slick Carousel -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 </body>
 </html>

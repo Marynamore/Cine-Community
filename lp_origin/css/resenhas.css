@@ -47,8 +47,7 @@ h4{
 }
 
 .resenha{
-    margin: 20px;
-    margin:none;
+   
     padding:10px 10px;
     box-shadow: 0 0 10px #08ef;
     color: #fff;
@@ -93,10 +92,10 @@ border-radius: 5px;
 margin: 5px;
 }
 .edicao_resenha:hover{
-background-color: red;
+
 color: black;
 }
 .criar_resenha:hover{
-background-color: red;
+
 color: black;
 }  

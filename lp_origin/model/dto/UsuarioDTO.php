@@ -7,13 +7,22 @@ class  UsuarioDTO {
     private $id_usuario;
     private $nome_usu;
     private $nickname_usu;
-    private $genero_usu;
     private $dt_de_nasci_usu;
+    private $genero_usu;
     private $email_usu;
     private $senha_usu;
-    private $fk_id_perfil;
     private $situacao_usu;
     private $foto_usu;
+    private $telefone;
+    private $cpf_cnpj;
+    private $endereco;
+    private $numero;
+    private $complemento;
+    private $bairro;
+    private $cidade;
+    private $cep;
+    private $uf;
+    private $fk_id_perfil;
     
 
     public function getId_usuario() {
@@ -53,8 +62,37 @@ class  UsuarioDTO {
     public function getFoto_usu() {
         return $this->foto_usu;
     }
-
     
+    public function getTelefone() {
+        return $this->telefone;
+    }
+
+    public function getCpf_cnpj() {
+        return $this->cpf_cnpj;
+    }
+
+    public function getEndereco() {
+        return $this->endereco;
+    }
+  
+    public function getNumero() {
+        return $this->numero;
+    }
+    public function getComplemento() {
+        return $this->complemento;
+    }
+    public function getBairro() {
+        return $this->bairro;
+    }
+    public function getCidade() {
+        return $this->cidade;
+    }
+    public function getCep() {
+        return $this->cep;
+    }
+    public function getUf() {
+        return $this->uf;
+    }
     public function setId_usuario($id_usuario) {
         $this->id_usuario = $id_usuario;
     }
@@ -92,6 +130,33 @@ class  UsuarioDTO {
     public function setFoto_usu($foto_usu) {
         $this->foto_usu = $foto_usu;
     }
-
+    
+    public function setTelefone($telefone) {
+        $this->telefone = $telefone;
+    }
+    public function setCpf_cnpj($cpf_cnpj) {
+        $this->cpf_cnpj = $cpf_cnpj;
+    }
+    public function setEndereco($endereco) {
+        $this->endereco = $endereco;
+    }
+    public function setNumero($numero) {
+        $this->numero = $numero;
+    }
+    public function setComplemento($complemento) {
+        $this->complemento = $complemento;
+    }
+    public function setBairro($bairro) {
+        $this->bairro = $bairro;
+    }
+    public function setCidade($cidade) {
+        $this->cidade = $cidade;
+    }
+    public function setCep($cep) {
+        $this->cep = $cep;
+    }
+    public function setUf($uf) {
+        $this->uf = $uf;
+    }
     
 }

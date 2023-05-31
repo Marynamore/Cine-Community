@@ -34,7 +34,7 @@ if (isset($_GET['get_id'])) {
                 <h2>TÍTULO</h2>
                 <input type="text" name="titulo_res" class="titulo">
                 <div class="form">
-                    <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA OPINIÃO"></textarea>
+                    <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA"></textarea>
                 </div>
                 <input type="hidden" name="dt_hora_res" value="<?= date('Y-m-d H:i:s'); ?>">
                 <input type="hidden" name="fk_id_filme" value="<?= $get_id; ?>">

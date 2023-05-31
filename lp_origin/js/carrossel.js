@@ -30,8 +30,9 @@ filmeCarousel.forEach(carousel => {
     prevButton.classList.add('fa-solid', 'fa-arrow-left'); // Replace 'fa-arrow-left' with the appropriate class for the left arrow icon
     prevButton.addEventListener('click', () => navigate(-1));
     prevButton.style.fontSize = '35px';
-    prevButton.style.justifyContent = 'center'; // Adjust the font size as needed
+    prevButton.style.justifyContent = 'space-between'; // Adjust the font size as needed
     prevButton.style.color = '#08ef'; // Adjust the color as needed
+    prevButton.style.backgroundColor = '#1f242d';
     carousel.insertBefore(prevButton, carousel.firstChild);
 
     
@@ -42,6 +43,7 @@ filmeCarousel.forEach(carousel => {
     prevButton.style.justifyContent = 'center';
     // Adjust the font size as needed
     nextButton.style.color = '#08ef'; // Adjust the color as needed
+    nextButton.style.backgroundColor = '#1f242d';
     carousel.appendChild(nextButton);
     
 });

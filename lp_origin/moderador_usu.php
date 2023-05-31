@@ -27,95 +27,84 @@
         </nav>
     </header>
 <?php }?>
-    <div>
-        <img class="banner"  src="assets/Banner.png" alt="">
-        <br>
-        <br>
-    </div>
-
-    <?php 
-    require_once './model/dao/filmeDAO.php';
-    $FilmeDAO = new FilmeDAO();
-    $filme = $FilmeDAO->listarTodos();
-
-    ?>
-    <div class="container-galeria">
-        <?php 
-        $categoria='';  
-        foreach ($filme as $filmeFetch) {   ?>
-        <!-- Exibe a categoria do filme -->
-        <?php if($categoria != $filmeFetch['categoria_filme']){
-            $categoria = $filmeFetch['categoria_filme'];
-            echo '<div>';
-            echo '<h2>'.$filmeFetch['categoria_filme'].'</h2>';
-            echo '</div>';
-        } ?>
-        <div class="itens-galeria">
-        <a href="" onclick="funImg()">
-            <!-- Exibe a capa do filme -->
-            <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme']; ?>">
-            <!-- Exibe o nome do filme -->
-            <h4><?= $filmeFetch['nome_filme']; ?></h4>
-        </a>
-        </div>
-      <?php 
-        //  echo '<pre>';
-        //var_dump($filmeFetch);
-        //echo '</pre>'; 
     
-    }?>
 
+    <section>
+        <div class="box">
+            <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
+            <div class="box-image"><img src='./assets/banner/Compre2.png'><div>
+            <div class="box-image"><img src='./assets/banner/criesuas2.png'></div>
+
+        </div>
+    </section>
+    <div class="container-filme">
+        <div class="container-galeria">
+            <?php
+                require_once './model/dao/filmeDAO.php';
+                $FilmeDAO   = new FilmeDAO();
+                $filme      = $FilmeDAO->listarTodos();
+                $categorias = array();
+
+                // Obter todas as categorias dos filmes
+                foreach ( $filme as $filmeFetch ) {
+                    $categoria = $filmeFetch['categoria_filme'];
+                    if ( !in_array( $categoria, $categorias ) ) {
+                        $categorias[] = $categoria;
+                    }
+                }
+
+                // Exibir os filmes agrupados por categoria
+                foreach ( $categorias as $categoria ) {
+                ?>
+            <div class="categoria">
+                <h2><?=$categoria?></h2>
+                <div class="filme-carousel">
+                    <?php foreach ( $filme as $filmeFetch ) {
+                            if ( $filmeFetch['categoria_filme'] === $categoria ) {?>
+                    <div class="filme-item">
+                        <a href="./view/filme_resenha.php?get_id=<?=$filmeFetch['id_filme'];?>">
+                        <img src="assets/<?=$filmeFetch['capa_filme'];?>" alt="Capa do filme <?=$filmeFetch['nome_filme'];?>">
+                        </a>
+                    </div>
+                    <?php }
+                        }?>
+                </div>
+            </div>
+            <?php }?>
+        </div>
     </div>
+
+  <!-- FIM SELEÇÃO DE FILMES -->
   
 
 
-  <!-- FIM SELEÇÃO DE FILMES -->
+  <hr>
     <footer>
-        <hr>
-        <!--  INICIO RODAPE -->
-        <section class="main_tutor">
-            <div class="main_tutor_content">
-                <header>
-                    <h1>Conheça mais nosso trabalho</h1>
-                
-                </header>
-                <div class="main_tutor_content_img">
-                    <img src="../lp_origin/assets/logoinicio.png" width="100" title="Instrutor" alt="Instrutor">
-                </div>
-                <article class="main_tutor_content_history">
-                    <header>
-                        <h2>Formados em TI e apaixonados por filmes</h2>
-                    </header>
-                     
-                </article>
+        <center><h3>O lugar perfeito para os amantes do cinema!</h3></center>
+        <center><h5>Nos siga!</h5></center>
 
-                <section class="main_tutor_social_media">
-                    <header>
-                        <h2 >Nos siga nas redes sociais</h2>
-                    </header>
-
-                    <article>
-                        <header>
-                            <h3 ><a href="#" class="icon-facebook"> Facebook</a></h3>
-                        </header>
-                    </article>
-
-                        <article>
-                            <header>
-                                <h3><a href="#" class="icon-instagram"> Instagram</a></h3>
-                            </header>
-                        </article>
-
-                        <article>
-                            <header>
-                                <h3><a href="#" class="icon-google-plus2"> Twitter</a></h3>
-                            </header>
-                        </article>
-                </section>
+        <div class="rodapeinicio">
+            <div class="rodapesocial">
+                <button class="botaorodape"> <a href="https://www.youtube.com/watch?v=W4VTq0sa9yg" class="social">Instagram<i class="fab fa-instagram"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=Sx86-18V3m8" class="social">Twitter<i class="fab fa-twitter"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=YKdgcYZy1rQ" class="social">Facebook<i class="fab fa-facebook-f"></i></a></button>
             </div>
-        </section>
 
-        <!-- FIM  RODAPE -->
+            <div class="rodapefim">
+                <p>Todos os direitos reservados &copy; 2023</p>
+            </div>
+
+        </div>
     </footer>
+    </div>
+
+    <script src="./js/carrossel.js"></script>
+    <script src="./js/script.js"></script>
+<!-- Inclua o arquivo JavaScript do jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Inclua o arquivo JavaScript do Slick Carousel -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+
 </body>
 </html>

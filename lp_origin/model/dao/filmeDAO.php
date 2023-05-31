@@ -43,7 +43,8 @@ public function cadastrarFilme(FilmeDTO $FilmeDTO){
 
 public function alterarFilme(FilmeDTO $FilmeDTO) {
     try {
-        $sql = "UPDATE filme SET nome_filme=?, dt_de_lancamento_filme=?, duracao_filme=?, sinopse_filme=?, fk_id_categoria_filme=?, fk_id_canal_filme=?, classificacao_filme=?, capa_filme=?, trailer_filme = ?, fk_id_usuario=?, fk_id_perfil=? WHERE id_filme=?";
+        $sql = "UPDATE filme SET nome_filme=?, dt_de_lancamento_filme=?, duracao_filme=?, sinopse_filme=?, fk_id_categoria_filme=?, fk_id_canal_filme=?,
+         classificacao_filme=?, capa_filme=?, trailer_filme=?, fk_id_usuario=?, fk_id_perfil=? WHERE id_filme=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, $FilmeDTO->getNome_filme());
         $stmt->bindValue(2, $FilmeDTO->getDt_de_lancamento_filme());
@@ -57,10 +58,11 @@ public function alterarFilme(FilmeDTO $FilmeDTO) {
         $stmt->bindValue(10, $FilmeDTO->getFk_id_usuario());
         $stmt->bindValue(11, $FilmeDTO->getFk_id_perfil());
         $stmt->bindValue(12, $FilmeDTO->getId_filme());
-        $FilmeDTO = $stmt->execute();
-        return $FilmeDTO;
+        $stmt->execute();
+        return true;
     } catch (PDOException $e) {
         echo $e->getMessage();
+        return false;
     }    
 }
 
@@ -143,7 +145,7 @@ public function listarTodosFilme() {
     try{
         $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cn.canal_filme FROM filme f INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario INNER JOIN categoria_filme c 
         ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn 
-        ON f.fk_id_canal_filme = cn.id_canal_filme";
+        ON f.fk_id_canal_filme = cn.id_canal_filme ";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -209,32 +211,34 @@ public function recuperarPorID($get_id) {
 
 public function buscarPorID($id) {
     try {
-        $sql = "SELECT * FROM filme WHERE id_filme=?";
+        $sql = "SELECT f.*, u.id_usuario, p.id_perfil FROM filme f INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme i ON f.fk_id_canal_filme = i.id_canal_filme WHERE id_filme=?  ";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        $filmeFetch = $stmt->$stmt->get_result();
-    
-    if ($filmeFetch->num_rows == 1) {
-        $filme = $filmeFetch->fetch_assoc();
-        $FilmeDTO = new FilmeDTO();
-        $FilmeDTO->setId_filme($filme["id_filme"]);
-        $FilmeDTO->setNome_filme($filme["nome_filme"]);
-        $FilmeDTO->setDt_de_lancamento_filme($filme["dt_de_lancamento_filme"]);
-        $FilmeDTO->setDuracao_filme($filme ["duracao_filme"]);
-        $FilmeDTO->setSinopse_filme($filme["sinopse_filme"]);
-        //$FilmeDTO->setGenero_filme($filme["genero_filme"]);
-        $FilmeDTO->setClassificacao_filme($filme["classificacao_filme"]);
-        $FilmeDTO->setCapa_filme($filme["capa_filme"]);
-        $FilmeDTO->setTrailer_filme($filme["trailer_filme"]);
-        //$FilmeDTO->setCanal_filme($filme["canal_filme"]);
-        
-        return $FilmeDTO;
-    } else {
-        return null;
-    }
-    }catch (PDOException $exc) {
+        $filmeFetch = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($filmeFetch) == 1) {
+            $filme = $filmeFetch[0];
+            $FilmeDTO = new FilmeDTO();
+            $FilmeDTO->setId_filme($filme["id_filme"]);
+            $FilmeDTO->setNome_filme($filme["nome_filme"]);
+            $FilmeDTO->setDt_de_lancamento_filme($filme["dt_de_lancamento_filme"]);
+            $FilmeDTO->setDuracao_filme($filme["duracao_filme"]);
+            $FilmeDTO->setSinopse_filme($filme["sinopse_filme"]);
+            $FilmeDTO->setFk_Id_categoria_filme($filme["fk_id_categoria_filme"]);
+            $FilmeDTO->setClassificacao_filme($filme["classificacao_filme"]);
+            $FilmeDTO->setCapa_filme($filme["capa_filme"]);
+            $FilmeDTO->setTrailer_filme($filme["trailer_filme"]);
+            $FilmeDTO->setFk_Id_canal_filme($filme["fk_id_canal_filme"]);
+            $FilmeDTO->setFk_id_usuario($filme["id_usuario"]);
+            $FilmeDTO->setFk_id_perfil($filme["id_perfil"]);
+
+            return $FilmeDTO;
+        } else {
+            return null;
+        }
+    } catch (PDOException $exc) {
         echo $exc->getMessage();
     }
 }
