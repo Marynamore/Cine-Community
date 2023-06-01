@@ -1,11 +1,13 @@
 <?php
-require_once "../../model/dao/UsuarioDAO.php";
-$id_usuario = $_GET["id"];
-$UsuarioDAO = new UsuarioDAO();
+require_once "../../model/dao/filmeDAO.php";
 
-$retorno = $UsuarioDAO->excluirUsuarioById($id_usuario);
-$msg = "Usuário excluido com sucesso!";
+if (isset($_GET["id_filme"])) {
+    $id_filme = $_GET["id_filme"];
+    $FilmeDAO = new FilmeDAO();
+    $retorno = $FilmeDAO->excluirFilmeById($id_filme);
+    $msg = ($retorno) ? "Filme excluído com sucesso!" : "Erro ao excluir o filme";
+} else {
+    $msg = "ID do filme não fornecido";
+}
 
-header("location:listausuarioadm.php?msg=$msg");
-
-
+header("Location: ./listafilmemod.php?msg=" . urlencode($msg));

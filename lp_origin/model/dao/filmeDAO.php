@@ -13,28 +13,34 @@ class FilmeDAO{
     }
 
     
-public function cadastrarFilme(FilmeDTO $FilmeDTO){
-    try{
-    $sql = "INSERT INTO  filme  (nome_filme,dt_de_lancamento_filme,duracao_filme, sinopse_filme, fk_id_categoria_filme,fk_id_canal_filme, classificacao_filme,capa_filme,trailer_filme, fk_id_usuario,fk_id_perfil) VALUES (?,?,?,?,?,?,?,?,?,?,? )";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindValue(1, $FilmeDTO->getNome_filme());
-    $stmt->bindValue(2, $FilmeDTO->getDt_de_lancamento_filme());
-    $stmt->bindValue(3, $FilmeDTO->getDuracao_filme());
-    $stmt->bindValue(4, $FilmeDTO->getSinopse_filme());
-    $stmt->bindValue(5, $FilmeDTO->getFk_id_categoria_filme());
-    $stmt->bindValue(6, $FilmeDTO->getFk_id_canal_filme());
-    $stmt->bindValue(7, $FilmeDTO->getClassificacao_filme());
-    $stmt->bindValue(8, $FilmeDTO->getCapa_filme());
-    $stmt->bindValue(9, $FilmeDTO->getTrailer_filme());
-    $stmt->bindValue(10, $FilmeDTO->getFk_id_usuario());
-    $stmt->bindValue(11, $FilmeDTO->getFk_id_perfil());
-
-    return $stmt->execute();
-    }catch(PDOException $exc) {
-    echo $exc->getMessage();
-    die();
+    public function cadastrarFilme(FilmeDTO $FilmeDTO)
+    {
+        try {
+            $sql = "INSERT INTO filme (nome_filme, dt_de_lancamento_filme, duracao_filme, sinopse_filme, fk_id_categoria_filme,
+            fk_id_canal_filme, classificacao_filme, capa_filme, trailer_filme, fk_id_usuario, fk_id_perfil) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $FilmeDTO->getNome_filme());
+            $stmt->bindValue(2, $FilmeDTO->getDt_de_lancamento_filme());
+            $stmt->bindValue(3, $FilmeDTO->getDuracao_filme());
+            $stmt->bindValue(4, $FilmeDTO->getSinopse_filme());
+            $stmt->bindValue(5, $FilmeDTO->getFk_id_categoria_filme());
+            $stmt->bindValue(6, $FilmeDTO->getFk_id_canal_filme());
+            $stmt->bindValue(7, $FilmeDTO->getClassificacao_filme());
+            $stmt->bindValue(8, $FilmeDTO->getCapa_filme());
+            $stmt->bindValue(9, $FilmeDTO->getTrailer_filme());
+            $stmt->bindValue(10, $FilmeDTO->getFk_id_usuario());
+            $stmt->bindValue(11, $FilmeDTO->getFk_id_perfil());
+    
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Erro ao cadastrar o filme no banco de dados: " . $e->getMessage();
+            return false;
+        }
     }
-}
+    
 
 /*
 *atualizar(FilmeDTO $filme): 
@@ -72,19 +78,22 @@ public function alterarFilme(FilmeDTO $FilmeDTO) {
 public function excluirFilmeById($id_filme) {
     try {
         $sql = "DELETE FROM filme WHERE id_filme=?";
-         $stmt = $this->pdo->prepare($sql);
-    $stmt->bindValue(1, $id_filme);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id_filme);
+        $stmt->execute();
 
-    return $stmt->execute();
-   } catch (PDOException $exc) {
-    echo $exc->getMessage();
-   }
+        return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
 }
+
 
 
 public function listarTodos(){
     try{
-        $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme, p.perfil_usu FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil ORDER BY id_categoria_filme, f.nome_filme";
+        $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme, p.perfil_usu FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil ORDER BY id_categoria_filme, f.nome_filme ";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();   
@@ -145,7 +154,7 @@ public function listarTodosFilme() {
     try{
         $sql = "SELECT f.*, u.nome_usu, c.categoria_filme, cn.canal_filme FROM filme f INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario INNER JOIN categoria_filme c 
         ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn 
-        ON f.fk_id_canal_filme = cn.id_canal_filme ";
+        ON f.fk_id_canal_filme = cn.id_canal_filme ORDER BY id_filme DESC ";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();

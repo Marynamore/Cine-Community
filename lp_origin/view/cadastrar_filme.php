@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["fk_id_usuario"]) || !isset($_SESSION["fk_id_perfil"])) {
+    header("Location: login.php"); // Redirecionar para a página de login, caso o usuário não esteja logado
+    exit;
+}
+
+$id_usuario = $_SESSION["fk_id_usuario"];
+$id_perfil = $_SESSION["fk_id_perfil"];
+
+if ($id_perfil == "moderador") {
+    echo "Apenas moderadores podem cadastrar filmes.";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,15 +30,20 @@
 <body>
     <h1>Cadastrar filme</h1>
     <div class="borda">
-        <form action="./controladicionar_filme.php" method="post" enctype="multipart/form-data">
+        <form action="../control/control_filme.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="fk_id_usuario" value="<?= $id_usuario; ?>">
+            <input type="hidden" name="fk_id_perfil" value="<?= $id_perfil; ?>">
             <label for="capa_filme">Poster do filme:</label>
-            <input type="file" name="capa_filme" id="capa_filme"><br><br>    
+            <input placeholder="Foto" type="file" name="capa_filme" id=""><br>
+
             <label for="nome_filme">Nome do filme:</label>
             <input type="text" name="nome_filme" id="nome_filme" placeholder="Filme"><br><br>
+
             <label for="dt_de_lancamento_filme">Data de lançamento:</label>
-            <input type="date" name="dt_de_lancamento_filme" id="dt_de_lancamento_filme" placeholder="Data de lançamento" value="<?= date('Y-m-d'); ?>"><br><br>
-            <label for="categoria_filme">Categoria:</label>
-            <select name="fk_categoria_filme_id_categoria_filme" id="categoria_filme">
+            <input type="date" name="dt_de_lancamento_filme" id="dt_de_lancamento_filme" placeholder="Data de lançamento"><br><br>
+
+            <label for="fk_id_categoria_filme">Categoria:</label>
+            <select name="fk_id_categoria_filme" id="fk_id_categoria_filme">
                 <option value="1">Infantil</option>
                 <option value="2">Romance</option>
                 <option value="3">Ação</option>
@@ -32,15 +54,30 @@
                 <option value="8">Faroeste</option>
                 <option value="9">Suspense</option>
             </select><br><br>
+
+            <label for="fk_id_canal_filme">Canal:</label>
+            <select name="fk_id_canal_filme" id="fk_id_canal_filme">
+                <option value="">Selecionar um Canal</option>
+                <option value="1">Netflix</option>
+                <option value="2">Amazon Prime Video</option>
+                <option value="3">Globoplay+</option>
+                <option value="4">Disney+</option>
+                <option value="5">Telecine</option>
+                <option value="6">Now</option>
+                <option value="7">Paramount+</option>
+                <option value="8">HBO Max</option>
+                <option value="9">Star+</option>
+            </select><br><br>
+
             <label for="duracao_filme">Duração:</label>
-            <input type="time" name="duracao_filme" id="duracao_filme" placeholder="Duração" value="<?= date('H:i:s'); ?>"><br><br>
+            <input type="time" name="duracao_filme" id="duracao_filme" placeholder="Duração"><br><br>
+
             <label for="classificacao_filme">Classificação indicativa:</label>
             <input type="number" name="classificacao_filme" id="classificacao_filme" placeholder="Classificação"><br><br>
-            <label for="fk_canal_filme_id_canal_filme">Disponível em:</label>
-            <input type="text" name="fk_canal_filme_id_canal_filme" id="fk_canal_filme_id_canal_filme"><br><br>
+            
             <label for="sinopse_filme">Sinopse:</label>
             <textarea name="sinopse_filme" id="sinopse_filme" cols="30" rows="10" placeholder="Sinopse"></textarea><br><br>
-            <input type="hidden" name="fk_usuario_id_usuario" value="<?= $id_usuario; ?>">
+            
             <input type="submit" value="Cadastrar">
         </form>
     </div>

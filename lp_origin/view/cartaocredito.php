@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="../css/cartaocredito.css">
+
 <html>
 <head>
   <title>Página de Pagamento</title>
-  
+
 </head>
 <body>
   <br>
   <br>
   <br>
   <br>
-  <br>  
+  <br>
+  <a class="voltarcartao" href="../view/formapagamento.php">Voltar</a>
   <div class="container">
     <h2>Adicionar Cartão de Crédito</h2>
     <form>

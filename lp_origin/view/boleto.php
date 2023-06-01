@@ -10,6 +10,7 @@
   <br>
   <br>
   <br>
+  <a class="voltarboleto" href="../view/formapagamento.php">Voltar</a>
     <div class="container">
         <h1>Gerador de Boletos</h1>
   

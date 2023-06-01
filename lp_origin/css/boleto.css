@@ -12,6 +12,23 @@ body {
   background-color: #08ef;
 }
 
+.voltarboleto{
+  margin: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #08ef;
+    text-decoration: none;
+}
+
+.voltarboleto:hover{
+  color: black;
+}
+
 h1 {
   text-align: center;
   color: black;

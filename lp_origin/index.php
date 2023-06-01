@@ -69,7 +69,14 @@
             <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
             <div class="box-image"><img src='./assets/banner/Compre2.png'><div>
             <div class="box-image"><img src='./assets/banner/criesuas2.png'></div>
-
+            <div class="box-image"><img src="./assets/banner/avatar.jpeg"></div>
+            <div class="box-image"><img src='./assets/banner/Indiana-Jones.jpg'><div>
+            <div class="box-image"><img src='./assets/banner/oppenheimer.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/john-wick-4.jpg"></div>
+            <div class="box-image"><img src='./assets/banner/Panico6.jpg'><div>
+            <div class="box-image"><img src='./assets/banner/supermario.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/velozesefuriososx.png"></div>
+            <div class="box-image"><img src='./assets/banner/amortedodemonio.webp'><div>
         </div>
     </section>
     <div class="container-filme">

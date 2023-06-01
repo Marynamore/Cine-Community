@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,13 +12,6 @@ session_start();
     <title>Lista Moderador</title>
 </head>
 <body>
-    <?php
-  require_once '../../model/dao/UsuarioDAO.php';
-  $UsuarioDAO = new UsuarioDAO(); 
-   
-  $usuario = $UsuarioDAO->recuperarID();
-  foreach($usuario as $usuario){
-    ?>
 <header class="header" >
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
@@ -32,12 +24,19 @@ session_start();
         <h1>Painel do Moderador</h1>
     </header>
     <nav>
-        <div class='painel_adm'>
-            
-            <a href="../adm/listafilmemod.php">Filmes</a>
-			<a href="../cadastrar_filme.php">Adicionar Filme</a>
-            <a href="../alterar_usuario.php?id=<?=$usuario["id_usuario"]?>">Alterar Perfil</a>
-			<a href="../../control/control_sairadm.php">Logout</a>
+    <div class='painel_adm'>
+        <a href="../../index.php">voltar</a>
+        <a href="../adm/listafilmemod.php">Filmes</a>
+    <?php
+  require_once '../../model/dao/UsuarioDAO.php';
+  $UsuarioDAO = new UsuarioDAO(); 
+   
+  $usuario = $UsuarioDAO->recuperarID();
+  foreach($usuario as $usuario){
+    ?>
+		<a href="../cadastrar_filme.php?id=<?=$usuario["fk_id_perfil"]?>">Adicionar Filme</a>
+        <a href="../alterar_usuario.php?id=<?=$usuario["id_usuario"]?>">Alterar Perfil</a>
+			
     </div>
 <?php
   }

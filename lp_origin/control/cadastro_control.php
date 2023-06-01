@@ -36,6 +36,8 @@ $usuarioDTO->setEndereco($endereco);
 $usuarioDTO->setNumero($numero);
 $usuarioDTO->setComplemento($complemento);
 $usuarioDTO->setBairro($bairro);
+$usuarioDTO->setFoto_usu($foto_usu);
+$usuarioDTO->setCidade($cidade);
 $usuarioDTO->setCep($cep);
 $usuarioDTO->setUf($uf);
 $usuarioDTO->setFk_id_perfil($id_perfil);
