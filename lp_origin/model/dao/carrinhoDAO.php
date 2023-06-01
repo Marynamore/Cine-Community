@@ -13,12 +13,12 @@ class CarrinhoDAO{
 public function countItemCarrinho($id_usuario)
 {
     try {
-        $sql = "SELECT COUNT(*) AS total_itens FROM carrinho WHERE fk_id_usuario=?";
+        $sql = "SELECT COUNT(*) AS total_itens FROM carrinho WHERE id_usuario=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id_usuario]);
         $total_itens = $stmt->fetchColumn();
 
-        $sql = "SELECT * FROM carrinho WHERE fk_id_usuario=?";
+        $sql = "SELECT * FROM carrinho WHERE id_usuario=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id_usuario]);
         $carrinho_itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,19 +33,23 @@ public function countItemCarrinho($id_usuario)
 }
 
 
-public function adicionarItemCar($id_usuario, $id_item, $qtd_compra, $id_perfil)
+public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil)
 {
     try {
-        $sqlCar = "SELECT * FROM carrinho WHERE fk_id_usuario=? AND fk_id_item=?";
+        $sqlCar = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
+                    INNER JOIN item i ON c.fk_id_item = i.id_item
+                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
+                    WHERE u.id_usuario=? AND i.id_item=?";
         $verificaCarItem = $this->pdo->prepare($sqlCar);
-        $verificaCarItem->bindValue(1, $id_usuario);
-        $verificaCarItem->bindValue(2, $id_item);
-        $verificaCarItem->execute([$id_usuario, $id_item]);
+        $verificaCarItem->execute([$id_usuarioLogado, $id_item]);
 
-        $sqlMaxCar = "SELECT * FROM carrinho WHERE fk_id_usuario=?";
+        $sqlMaxCar = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c
+                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
+                    INNER JOIN item i ON c.fk_id_item = i.id_item
+                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
+                    WHERE u.id_usuario=?";
         $maxCarItem  = $this->pdo->prepare($sqlMaxCar);
-        $maxCarItem->bindValue(1, $id_usuario);
-        $maxCarItem->execute([$id_usuario]);
+        $maxCarItem->execute([$id_usuarioLogado]);
 
         if ($verificaCarItem->rowCount() > 0) {
             return 'Já adicionado ao carrinho';
@@ -54,19 +58,14 @@ public function adicionarItemCar($id_usuario, $id_item, $qtd_compra, $id_perfil)
         } else {
             $sqlItem = "SELECT * FROM item WHERE id_item = ? LIMIT 1";
             $preItem = $this->pdo->prepare($sqlItem);
-            $preItem->bindValue(1, $id_item);
             $preItem->execute([$id_item]);
             $precoFetch = $preItem->fetch(PDO::FETCH_ASSOC);
 
-            $id_carrinho = ''; // Coloque o valor correto do id_carrinho
-
-            $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, qtd_compra, fk_id_perfil) VALUES (?,?,?,?)";
+            $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco_item, qtd_compra, fk_id_perfil) VALUES (?,?,?,?,?)";
             $adItemCar = $this->pdo->prepare($sql);
-            $adItemCar->bindValue(1, $id_usuario);
-            $adItemCar->bindValue(2, $id_item);
-            $adItemCar->bindValue(3, $qtd_compra);
-            $adItemCar->bindValue(4, $id_perfil);
-            $adItemCar->execute();
+            $adItemCar->bindValue(1, $id_usuarioLogado->getFk_id_usuario());
+            $adItemCar->bindValue(5, $id_perfil->getFk_id_perfil());
+            $adItemCar->execute([$id_usuarioLogado, $id_item, $precoFetch['preco_item'], $qtd_compra, $id_perfil]);
 
             return 'Item Adicionado ao Carrinho';
         }
@@ -75,8 +74,6 @@ public function adicionarItemCar($id_usuario, $id_item, $qtd_compra, $id_perfil)
         die();
     }
 }
-
-
 
 
     public function alterarItem(ItemDTO $itemDTO){
@@ -123,7 +120,7 @@ public function obterItemCarPorUsuarioID($id_usuario){
                 $carrinhoDTO->setFk_id_item($carrinhoFetch['fk_id_item']);
                 $carrinhoDTO->setDt_hora_car($carrinhoFetch['dt_hora_car']);
                 $carrinhoDTO->setQtd_compra($carrinhoFetch['qtd_compra']);
-                $carrinhoDTO->setFk_id_usuario($carrinhoFetch['fk_id_usuario']);
+                $carrinhoDTO->setFk_id_usuario($carrinhoFetch['id_usuario']);
                 $carrinhoDTO->setFk_id_perfil($carrinhoFetch['fk_id_perfil']);
 
                 $carItens[] = $carrinhoDTO;

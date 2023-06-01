@@ -32,14 +32,14 @@ if (isset($_GET['get_id'])) {
             <form action="../control/resenha_control.php" method="post">
                 <br>
                 <h2>TÍTULO</h2>
-                <input type="text" name="titulo_res" class="titulo">
+                <input type="text" name="titulo_res" class="titulo" required>
                 <div class="form">
-                    <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA"></textarea>
+                    <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA" required></textarea>
                 </div>
                 <input type="hidden" name="dt_hora_res" value="<?= date('Y-m-d H:i:s'); ?>">
                 <input type="hidden" name="fk_id_filme" value="<?= $get_id; ?>">
-                <input type="hidden" name="fk_id_usuario" value="<?= $_SESSION['id_usuario']; ?>">
-                <input type="hidden" name="fk_id_perfil" value="<?= $_SESSION['id_perfil']; ?>">
+                <input type="hidden" name="fk_id_usuario" value="<?= $_SESSION['fk_id_usuario']; ?>">
+                <input type="hidden" name="fk_id_perfil" value="<?= $_SESSION['fk_id_perfil']; ?>">
                 <input type="submit" onclick="return funcResenha()" value="ENVIAR" class="button">
                 <a href="filme_resenha.php?get_id=<?= $get_id; ?>" class="button">VOLTAR</a>
             </form>

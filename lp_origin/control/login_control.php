@@ -12,21 +12,23 @@ $UsuarioDAO = new UsuarioDAO();
 $usuarioLogado = $UsuarioDAO->logar($email_usu, $senha_usu);
 
 if (!empty($usuarioLogado)) {
-    $_SESSION['fk_id_usuario'] = $usuarioLogado['id_usuario'];
+    $_SESSION['id_usuario'] = $usuarioLogado['id_usuario'];
     $_SESSION['nickname_usu'] = $usuarioLogado['nickname_usu'];
     $_SESSION['nome_usu'] = $usuarioLogado['nome_usu'];
-    $_SESSION['fk_id_perfil'] = $usuarioLogado['fk_id_perfil'];
+    $_SESSION['id_perfil'] = $usuarioLogado['fk_id_perfil'];
 
-    $id_perfil = $_SESSION['fk_id_perfil'];
 
-    if (in_array($id_perfil, [1, 2, 3, 4])) {
+
+    $id_perfil = $_SESSION['id_perfil'];
+
+    if (in_array($id_perfil, [2, 3, 4])) {
         header('Location:../index.php');
         exit();
-    } else {
-        // Redirecionar para outras páginas conforme necessário
+    } elseif(in_array($id_perfil, [1])) {
+        header('Location:../view/dashboard/painel_adm.php');
+        exit();
     }
 } else {
     header("Location:../index.php?msg=Usuário e/ou senha inválidos");
     exit;
 }
-?>

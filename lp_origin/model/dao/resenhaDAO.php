@@ -32,34 +32,107 @@ class ResenhaDAO {
         }
     }
 
-    public function verificarResenha($get_id){
-    try{
-        $sql = "SELECT r.*, f.id_filme, u.nome_usu, u.foto_usu, u.id_usuario, p.id_perfil FROM resenha r INNER JOIN filme f ON r.fk_id_filme = f.id_filme INNER JOIN usuario u ON r.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON r.fk_id_perfil = p.id_perfil WHERE f.id_filme=?";
+    public function verificarResenha($get_id) {
+        try {
+            $sql = "SELECT r.*, u.nome_usu, u.foto_usu, u.id_usuario, p.id_perfil FROM resenha r INNER JOIN usuario u ON r.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON r.fk_id_perfil = p.id_perfil WHERE r.fk_id_filme = ?";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$get_id]);
+            
+            $resenhas = array();
+            if ($stmt->rowCount() > 0) {
+                while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $ResenhaDTO = new ResenhaDTO();
+                    $ResenhaDTO->setId_resenha($resenhaFetch['id_resenha']);
+                    $ResenhaDTO->setTitulo_res($resenhaFetch['titulo_res']);
+                    $ResenhaDTO->setDescricao_res($resenhaFetch['descricao_res']);
+                    $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
+                    $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
+                    $ResenhaDTO->setFk_id_usuario($resenhaFetch['id_usuario']);
+                    $ResenhaDTO->setFk_id_perfil($resenhaFetch['id_perfil']);
+                    $resenhas[] = $ResenhaDTO;
+                }
+                return $resenhas;
+            } else {
+                return array(); // Retorna um array vazio se não houver resenhas
+            }
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+            return array(); // Retorna um array vazio em caso de exceção
+        }
+    }
+    
+    
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$get_id]);
+    public function alterarResenha(ResenhaDTO $ResenhaDTO) {
+        try {
+            $sql = "UPDATE resenha SET avaliacao_res=?, titulo_res=?, descricao_res=?,
+            dt_hora_res=?, denuncia_res=?, situacao_res=?, fk_id_usuario=?, fk_id_perfil=? WHERE id_resenha=?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $ResenhaDTO->getAvaliacao_res());
+            $stmt->bindValue(2, $ResenhaDTO->getTitulo_res());
+            $stmt->bindValue(3, $ResenhaDTO->getDescricao_res());
+            $stmt->bindValue(4, $ResenhaDTO->getDt_hora_res());
+            $stmt->bindValue(5, $ResenhaDTO->getDenuncia_res());
+            $stmt->bindValue(6, $ResenhaDTO->getSituacao_res());
+            $stmt->bindValue(7, $ResenhaDTO->getFk_id_usuario());
+            $stmt->bindValue(8, $ResenhaDTO->getFk_id_perfil());
+            $stmt->bindValue(9, $ResenhaDTO->getId_resenha());
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }    
+    }
+    
 
-        $resenhas = array();
-        if($stmt->rowCount() > 0){
-            while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+public function excluirResenhaById($id_resenha){
+        try{
+            $sql = "DELETE FROM resenha WHERE id_resenha=?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $id_resenha);
+            $stmt->execute();
+           
+            return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+
+    }
+ 
+    public function buscarPorID($id) {
+        try {
+            $sql = "SELECT f.*, u.id_usuario, p.id_perfil FROM resenha f 
+                    INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario 
+                    INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil 
+                    WHERE id_resenha = ?";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+    
+            $resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($resenhaFetch) {
                 $ResenhaDTO = new ResenhaDTO();
                 $ResenhaDTO->setId_resenha($resenhaFetch['id_resenha']);
                 $ResenhaDTO->setTitulo_res($resenhaFetch['titulo_res']);
                 $ResenhaDTO->setDescricao_res($resenhaFetch['descricao_res']);
                 $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
                 $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
-                $ResenhaDTO->setFk_id_filme($resenhaFetch['id_filme']);
                 $ResenhaDTO->setFk_id_usuario($resenhaFetch['id_usuario']);
                 $ResenhaDTO->setFk_id_perfil($resenhaFetch['id_perfil']);
-                $resenhas[] = $ResenhaDTO;
-                
-            } return $resenhas;
-        }else{
-            echo '<p>Nenhuma Resenha adicionada ainda!</p>';
+    
+                return $ResenhaDTO;
+            } else {
+                return null;
+            }
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
         }
-        }catch(PDOException $exc){
-        echo $exc->getMessage();
     }
-}
+    
+    
 }
 ?>

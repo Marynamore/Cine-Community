@@ -44,3 +44,4 @@ if ($capa_filme['error'] === UPLOAD_ERR_OK) {
     echo "Erro ao fazer upload da imagem da capa do filme.";
     exit;
 }
+

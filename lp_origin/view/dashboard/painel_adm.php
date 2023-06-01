@@ -18,6 +18,12 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/styleadm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Dashboard</title>
     <script>
         // Função para exibir o conteúdo do botão clicado e armazenar a seleção
@@ -62,9 +68,8 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
 <body onload="definirConteudoInicial()">
 <header class="header" >
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
-        <nav class="navbar" style="-i:1;">
-            <a href="../../index.php" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
-
+        <nav class="navbar">
+            <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
         </nav>
     </header>
 <header>
@@ -92,9 +97,6 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             </div>
             <div class="menu-item">
                 <button onclick="mostrarConteudo('transacoes')">Transações</button>
-            </div>
-            <div class="menu-item">
-                <button onclick="mostrarConteudo('transacoes')">Logout</button>
             </div>
         </div>
     </nav>

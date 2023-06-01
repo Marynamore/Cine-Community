@@ -13,26 +13,27 @@ class UsuarioDAO {
     }
 
     public function logar($email_usu, $senha_usu)
-{
-    try {
-        $sql = "SELECT u.id_usuario, u.nome_usu, u.nickname_usu, u.email_usu, u.senha_usu, u.fk_id_perfil, p.perfil_usu FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil = p.id_perfil WHERE email_usu=?";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $email_usu);
-        $stmt->execute();
-        $usuarioLogado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($usuarioLogado && $usuarioLogado['senha_usu'] === md5($senha_usu)) {
-            return $usuarioLogado;
-        } else {
-            return false;
+    {
+        try {
+            $sql = "SELECT u.id_usuario, u.nome_usu, u.nickname_usu, u.email_usu, u.senha_usu, u.fk_id_perfil, p.perfil_usu FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil = p.id_perfil WHERE email_usu=?";
+    
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $email_usu);
+            $stmt->execute();
+            $usuarioLogado = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($usuarioLogado && $usuarioLogado['senha_usu'] === md5($senha_usu)) {
+                return $usuarioLogado;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            //die() = usado para parar a execução - retirar na versão de produção
+            die();
         }
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-        //die() = usado para parar a execução - retirar na versão de produção
-        die();
     }
-}
+    
 
     
 

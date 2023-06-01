@@ -71,7 +71,7 @@ if(isset($_SESSION["id_usuario"])) {
         ?>
             <form action="" method="POST">
                 <input type="hidden" name="id_carrinho" value="<?=$carrinhoFetch->getId_carrinho()?>">
-                <img src="../assets/project_assets/?=$itemFetch['imagem_item']?>">
+                <img src="../assets/?=$itemFetch['imagem_item']?>">
                 <h3><?=$itemFetch['nome_item']?></h3>
                 <div>
                     <p class="price"><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch['preco_item']?></p>

@@ -67,13 +67,12 @@ class ItemDAO{
 
     public function listarTodosItens(){
         try{
-            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY i.id_item DESC";
+            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY id_categoria_item, i.nome_item ";
 
             $allItem = $this->pdo->prepare($sql);
             $allItem->execute();
 
             $itens = array();
-            if($allItem->rowCount()>0){
                 while($itemFetch = $allItem->fetch(PDO::FETCH_ASSOC)){
                     $itemDTO = new ItemDTO();
 
@@ -86,12 +85,9 @@ class ItemDAO{
                     $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
                     $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
 
-                    $itens[] = $itemDTO;
+                    $itens[] = $itemFetch;
                 } 
                 return $itens;
-            }else{
-                echo '<p>Nenhum item encontrado!</p>';
-            }
 
         }catch(PDOException $exc){
             echo $exc->getMessage();
