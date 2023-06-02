@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+    padding: 20px;
+}
+
+.item-details {
+    display: flex;
+    margin-right: 20px;
+    flex-direction: column;
+}
+
+.item-details img {
+    width: 200px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.item-address {
+    text-align: center;
+}
+
+
+.payment-method {
+    margin-bottom: 2em;
+}
+
+.payment-method label {
+    margin-left: 5px;
+}
+

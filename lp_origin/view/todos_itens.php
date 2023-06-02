@@ -76,19 +76,18 @@ if (isset($_SESSION["id_usuario"])) {
                         <?php foreach ($item as $itemFetch) {
                             if ($itemFetch['categoria_item'] === $categoria) {
                         ?>
-                                <div class="item-conteudo">
-                                    <form action="../control/control_carrinho_add.php" method="POST">
-                                        <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
-                                        <h2><?= $itemFetch['nome_item'] ?></h2>
-                                        <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
-                                        <div>
-                                            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
-                                            <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
-                                        </div><br>
-                                        <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
-                                        <a href="transacao.php?get_id=<?= $itemFetch['id'] ?>">Comprar</a>
-                                    </form>
-                                </div>
+                        <div class="item-conteudo">
+                            <form action="../control/control_carrinho_add.php" method="POST">
+                                <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+                                <h2><?= $itemFetch['nome_item'] ?></h2>
+                                <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
+                                <div>
+                                    <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
+                                    
+                                </div><br>
+                                <a class="detalhesbotao" href="./detalhe_item.php">Detalhes</a>
+                            </form>
+                        </div>
                         <?php
                             }
                         } ?>
