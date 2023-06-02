@@ -1,9 +1,9 @@
 <?php
 session_start();
 if (isset($_SESSION["id_usuario"])) {
+    $id_perfil = $_SESSION['id_perfil'] == 3;
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil = $_SESSION["fk_id_perfil"];
 } else {
     $usuarioLogado = "";
 }
@@ -35,25 +35,30 @@ if (isset($_SESSION["id_usuario"])) {
     <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     <center>
         <div class="container">
-            <form id="contact" action="../control/cadastro_control.php" method="post">
+            <form id="contact" action="../control/cadastro_item_control.php" method="post">
                 <h3>Cadastro Item</h3>
 
                 <!-- Personal Data -->
                 <fieldset>
                     <div class="inputBox">
-                        <label for="nome_usu">Nome do Item:</label>
+                        <label for="imagem_item">Imagem do Item:</label>
+                        <input type="file" name="imagem_item" id="imagem_item">
+                    </div>
+                    <div class="inputBox">
+                        <label for="nome_item">Nome do Item:</label>
                         <input placeholder="Nome do item" type="text" name="nome_item" id="nome_item" required>
                     </div>
                     <div class="form">
                         <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA" required></textarea>
                     </div>
-                    <div class="inputBox">
-                        <label for="imagem_item">Imagem do Item:</label>
-                        <input type="file" name="imagem_item" id="imagem_item">
-                    </div>
+
                     <div class="inputBox">
                         <label for="qtd_item">Quantidade em Estoque:</label>
                         <input placeholder="Quantidade em Estoque" type="text" name="qtd_item" id="qtd_item" required>
+                    </div>
+                    <div class="inputBox">
+                        <label for="preco_item">Preço Item:</label>
+                        <input placeholder="Quantidade em Estoque" type="text" name="preco_item" id="preco_item" required>
                     </div>
                     <label for="fk_id_categoria_item">Categoria do Item:</label>
                     <select name="fk_id_categoria_item" id="fk_id_categoria_item">
@@ -62,8 +67,8 @@ if (isset($_SESSION["id_usuario"])) {
                         <option value="3">Posters e Pôsteres</option>
                     </select>
                 </fieldset>
-                <input type="hidden" name="fk_id_usuario" value="<?= $_SESSION['fk_id_usuario']; ?>">
-                <input type="hidden" name="fk_id_perfil" value="<?= $_SESSION['fk_id_perfil']; ?>">
+                <input type="hidden" name="fk_id_usuario" value="<?= $_SESSION['id_usuario']; ?>">
+                <input type="hidden" name="fk_id_perfil" value="<?= $_SESSION['id_perfil']; ?>">
 
                 <input type="submit" onclick="funCad()" value="Enviar" class="botao">
                 <input type="reset"  value="Limpar" class="botao">

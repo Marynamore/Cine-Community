@@ -41,15 +41,7 @@ if (isset($_SESSION["id_usuario"])) {
             <a href="pedidos.php">Meus Pedidos</a>
             <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado; ?>" onclick="funcPerfil()"><i
                     class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
-            <?php
-            $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-            $total_itens = $carrinhoData['total_itens'];
-            $carrinho_itens = $carrinhoData['carrinho_itens'];
-
-            foreach ($carrinho_itens as $carrinhoItem) {
-            ?>
-                <a href="carrinho.php">Carrinho<span><?= $total_itens; ?></span></a>
-            <?php } ?>
+            <a href="../index.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
         </nav>
     </header>
     <h1>Itens</h1>
@@ -61,17 +53,12 @@ if (isset($_SESSION["id_usuario"])) {
             $item = $itemDAO->listarTodosItens();
             $categorias = array();
 
-            echo '<pre>';
-            var_dump($itemDAO = new ItemDAO());
-            echo '</pre>'; 
-                       
             foreach ($item as $itemFetch) {
                 $categoria = $itemFetch['categoria_item'];
                 if (!in_array($categoria, $categorias)) {
                     $categorias[] = $categoria;
                 }
             }
-
             foreach ($categorias as $categoria) {
             ?>
                 <div class="categoria">
@@ -80,18 +67,18 @@ if (isset($_SESSION["id_usuario"])) {
                         <?php foreach ($item as $itemFetch) {
                             if ($itemFetch['categoria_item'] === $categoria) {
                         ?>
-                        <div class="item-conteudo">
-                            <form action="../control/control_carrinho_add.php" method="POST">
-                                <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
-                                <h2><?= $itemFetch['nome_item'] ?></h2>
-                                <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
-                                <div>
-                                    <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
-                                    
-                                </div><br>
-                                <a class="detalhesbotao" href="./detalhe_item.php">Detalhes</a>
-                            </form>
-                        </div>
+                                <div class="item-conteudo">
+                                    <form action="../control/control_carrinho_add.php" method="POST">
+                                        <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+                                        <h2><?= $itemFetch['nome_item'] ?></h2>
+                                        <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
+                                        <div>
+                                            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
+                                            
+                                        </div><br>
+                                        <a class="detalhesbotao" href="../view/detalhe_item.php">Detalhes</a>
+                                    </form>
+                                </div>
                         <?php
                             }
                         } ?>

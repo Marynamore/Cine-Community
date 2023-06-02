@@ -67,27 +67,27 @@ class ItemDAO{
 
     public function listarTodosItens(){
         try{
-            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.id_categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY id_categoria_item, i.nome_item ";
+            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY id_categoria_item, i.nome_item ";
 
             $allItem = $this->pdo->prepare($sql);
             $allItem->execute();
 
             $itens = array();
-            while($itemFetch = $allItem->fetch(PDO::FETCH_ASSOC)){
-                $itemDTO = new ItemDTO();
+                while($itemFetch = $allItem->fetch(PDO::FETCH_ASSOC)){
+                    $itemDTO = new ItemDTO();
 
-                $itemDTO->setId_item($itemFetch['id_item']);
-                $itemDTO->setImagem_item($itemFetch['imagem_item']);
-                $itemDTO->setNome_item($itemFetch['nome_item']);
-                $itemDTO->setPreco_item($itemFetch['preco_item']);
-                $itemDTO->setQtd_item($itemFetch['qtd_item']);
-                $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
-                $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
-                $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
+                    $itemDTO->setId_item($itemFetch['id_item']);
+                    $itemDTO->setImagem_item($itemFetch['imagem_item']);
+                    $itemDTO->setNome_item($itemFetch['nome_item']);
+                    $itemDTO->setPreco_item($itemFetch['preco_item']);
+                    $itemDTO->setQtd_item($itemFetch['qtd_item']);
+                    $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
+                    $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
+                    $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
 
-                $itens[] = $itemFetch;
-            } 
-            return $itens;
+                    $itens[] = $itemFetch;
+                } 
+                return $itens;
 
         }catch(PDOException $exc){
             echo $exc->getMessage();
