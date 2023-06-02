@@ -45,3 +45,4 @@ if ($capa_filme['error'] === UPLOAD_ERR_OK) {
     exit;
 }
 
+?>

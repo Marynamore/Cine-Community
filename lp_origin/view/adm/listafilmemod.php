@@ -27,7 +27,7 @@ if ($id_perfil == "moderador") {
    $filme = $FilmeDAO->listarTodosFilme();
 
 ?>
- <a href="../dashboard/painel_moderador.php">Voltar</a> 
+ <a href="../adm/painel_moderador.php">Voltar</a> 
       <center> <h2>Lista de Filmes</h2></center>
     <table>
         <thead>

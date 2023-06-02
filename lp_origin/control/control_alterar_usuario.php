@@ -53,3 +53,4 @@ if ($sucesso) {
 
 header("location:../view/adm/listausuarioadm.php?msg=" . urlencode($msg));
 exit;
+?>

@@ -1,0 +1,54 @@
+a{
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #08ef;
+  }
+  
+  
+  tr:nth-child(even) {
+    background-color: none;
+  }
+  
+  
+  button {
+    padding: 6px 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+   
+  
+  button.editar {
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+  }
+  
+  button.excluir {
+    background-color: #f44336;
+    color: white;
+  }
+  body{
+    background-color: #002b46;
+    flex-wrap: wrap;
+    color: white;
+  }

@@ -1,17 +1,15 @@
 <?php
-session_start();
+    session_start();
 
-$usuarioLogado = "";
-$id_usuarioLogado = "";
-$id_perfil = "";
-
-if (isset($_SESSION["id_usuario"])) {
-    $usuarioLogado = $_SESSION["nickname_usu"];
-    $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil = $_SESSION["fk_id_perfil"];
-}
+    if (isset($_SESSION["id_usuario"])) {
+        $usuarioLogado    = $_SESSION["nickname_usu"];
+        $id_usuarioLogado = $_SESSION["id_usuario"];
+        $id_perfil        = $_SESSION["fk_id_perfil"];
+    } else {
+        $usuarioLogado = "";
+    }
+    
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,33 +23,44 @@ if (isset($_SESSION["id_usuario"])) {
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Cine Community</title>
+    <!-- <script>
+        function funImg()
+        {
+        alert("Esta função requer o login do usuario!");
+        }
+        function funcPerfil(){
+            alert('Em breve:\nFunção "Meu Perfil" disponível');
+        }
+        function funcFavorito(){
+            alert('Em breve:\nFunção "Favorito" disponível');
+        }
+    </script> -->
 </head>
 <body>
     <div id="container">
-        <header class="header">
-            <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
-            <nav class="navbar">
-                <a href="index.php"><i class="fa-solid fa-house"></i>INICIO</a>
+    <header class="header" >
+        <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
+        <nav class="navbar" style="-i:1;">
+            <a href="index.php" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a> 
+     <?php 
+     if (!empty($usuarioLogado)) {
+     if ($id_perfil == 1) {
+        echo '<a href="./view/adm/paineladm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
+        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+    } elseif ($id_perfil == 2) {
+        echo '<a href="./view/dashboard/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
+        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+    } elseif ($id_perfil == 3 || $id_perfil == 4) {
+        echo '<a href="./view/alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
+        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+    }
+    } else {
+       echo '<a href="./view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i>CADASTRO</a>
+         <a href="./view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i>LOGIN</a>';
+}
+?>
 
-                <?php 
-                if (!empty($usuarioLogado)) {
-                    if ($id_perfil == 1) {
-                        echo '<a href="./view/adm/paineladm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
-                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
-                    } elseif ($id_perfil == 2) {
-                        echo '<a href="./view/adm/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
-                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
-                    } elseif ($id_perfil == 3 || $id_perfil == 4) {
-                        echo '<a href="./view/alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
-                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
-                    }
-                } else {
-                    echo '<a href="./view/cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
-                    echo '<a href="./view/login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
-                }
-                ?>
-          <!-- Resto do conteúdo -->
-    </div>
+
         </nav>
     </header>
     <section>
@@ -98,14 +107,25 @@ if (isset($_SESSION["id_usuario"])) {
             <?php }?>
         </div>
     </div>
-    <br>
+
+  <!-- FIM SELEÇÃO DE FILMES -->
+  <br>
+  <br>
+  <br>
   <hr>
 
 <!-- INICIO TELA COLECIONÁVEIS -->
 <section class="sessaocompras">
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   <div class="compras">
-    <h1>Compre e/ou Venda Itens Colecionáveis</h1><br>
+    <h1>Compre, Venda e Troque Itens Colecionáveis</h1>
     <p>Encontre os itens mais raros e exclusivos para completar sua coleção. Nosso site oferece uma ampla variedade de itens colecionáveis. Explore a nossa seleção e participe da comunidade de colecionadores!</p>
 
     <div class="product-list">
@@ -130,9 +150,12 @@ if (isset($_SESSION["id_usuario"])) {
         <div class="description">Descrição do Produto 3</div>
       </div>
 
+
+
+
     </div>
   </div>
-  <center><a href="../lp_origin/view/todos_itens.php" class="checkout-btn">Explorar Itens</a>
+  <center><a href="../lp_origin/view/iniciocompras.php" class="checkout-btn">Explorar Itens</a>
   </div></center>
 
 </section>

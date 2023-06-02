@@ -1,86 +1,69 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color:  #1f242d;
-}
-
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 100px;
-  background-color: #08ef;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.voltaritem{
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  background-color: #08ef;
-  text-decoration: none;
-}
-
-.voltaritem:hover{
-  color: black;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 0;
-  color: #fff;
-}
-
-.payment-methods {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.payment-methods button {
-  margin: 10px;
-  padding: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-}
-.payment-methods button:hover{
-  color:  #dc3545;
-}
-
-/* Estilos para cada tipo de pagamento */
-.payment-methods .credit-card {
-  background-color: darkcyan;
-}
-
-.payment-methods .debit-card {
-  background-color: #ffc439;
-}
-
-.payment-methods .bank-slip {
-  background-color: darkblue;
-}
-
-/* .payment-methods .paypal {
-  background-color: #ffc439;
-} */
-
-.payment-methods .pix {
-  background-color: #9c27b0;
-}
-
-footer {
-  background-color:#08ef;
-  color: #fff;
-  padding: 5px;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    background-color:  #1f242d;
+  }
   
-}
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #08ef;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 0;
+    color: #fff;
+  }
+  
+  .payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .payment-methods button {
+    margin: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .payment-methods button:hover{
+    color:  #dc3545;
+  }
+
+  /* Estilos para cada tipo de pagamento */
+  .payment-methods .credit-card {
+    background-color: darkcyan;
+  }
+  
+  .payment-methods .debit-card {
+    background-color: #ffc439;
+  }
+  
+  .payment-methods .bank-slip {
+    background-color: darkblue;
+  }
+  
+  /* .payment-methods .paypal {
+    background-color: #ffc439;
+  } */
+  
+  .payment-methods .pix {
+    background-color: #9c27b0;
+  }
+  
+  footer {
+    background-color:#08ef;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+    
+  }

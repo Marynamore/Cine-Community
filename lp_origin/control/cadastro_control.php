@@ -19,7 +19,7 @@ $bairro = filter_input(INPUT_POST, 'bairro');
 $cidade = filter_input(INPUT_POST, 'cidade');
 $cep = filter_input(INPUT_POST, 'cep');
 $uf = filter_input(INPUT_POST, 'uf');
-$id_perfil = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
+$id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 
 
 

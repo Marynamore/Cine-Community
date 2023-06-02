@@ -44,6 +44,7 @@ if ($id_perfil == "moderador") {
 
             <label for="fk_id_categoria_filme">Categoria:</label>
             <select name="fk_id_categoria_filme" id="fk_id_categoria_filme">
+                <option value="">Selecionar uma Categoria</option>
                 <option value="1">Infantil</option>
                 <option value="2">Romance</option>
                 <option value="3">Ação</option>

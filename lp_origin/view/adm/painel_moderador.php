@@ -26,7 +26,7 @@ session_start();
     <nav>
     <div class='painel_adm'>
         <a href="../../index.php">voltar</a>
-        <a href="../dashboard/listafilmemod.php">Filmes</a>
+        <a href="../adm/listafilmemod.php">Filmes</a>
     <?php
   require_once '../../model/dao/UsuarioDAO.php';
   $UsuarioDAO = new UsuarioDAO(); 
