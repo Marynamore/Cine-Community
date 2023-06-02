@@ -26,7 +26,6 @@ if (!empty($usuarioLogado)) {
         exit();
     } elseif(in_array($id_perfil, [1])) {
         header('Location:../view/dashboard/painel_adm.php');
-        exit();
     }
 } else {
     header("Location:../index.php?msg=Usuário e/ou senha inválidos");

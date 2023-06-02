@@ -7,7 +7,7 @@ $carrinhoDAO = new CarrinhoDAO();
 
 
 if (isset($usuarioLogado) && isset($_POST['item_adicionado'])) {
-    session_start(); // Iniciar a sessão
+    session_start();
     $_SESSION['id_usuario'] = $usuarioLogado['id_usuario'];
     $_SESSION['id_perfil'] = $usuarioLogado['fk_id_perfil'];
 

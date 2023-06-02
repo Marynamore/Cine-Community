@@ -8,7 +8,7 @@ $carrinhoDAO = new CarrinhoDAO();
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil = $_SESSION["fk_id_perfil"];
+    $id_perfil = $_SESSION["id_perfil"];
 } else {
     $usuarioLogado = "";
 }
@@ -61,6 +61,10 @@ if (isset($_SESSION["id_usuario"])) {
             $item = $itemDAO->listarTodosItens();
             $categorias = array();
 
+            echo '<pre>';
+            var_dump($itemDAO = new ItemDAO());
+            echo '</pre>'; 
+                       
             foreach ($item as $itemFetch) {
                 $categoria = $itemFetch['categoria_item'];
                 if (!in_array($categoria, $categorias)) {
