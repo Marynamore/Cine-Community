@@ -51,7 +51,7 @@
             <td><?=$usuario["senha_usu"]?></td>
             <td><?=$usuario["foto_usu"]?></td>
             <td>
-              <button class="editar"><a href="../alterar_usuario.php?id=<?=$usuario["id_usuario"]?>"title="ALTERAR"> Alterar<i class="bi bi-pencil"></i></a></button>
+              <button class="editar"><a href="../alterar_usuario.php?id=<?=$usuario["id_usuario"]?>"title="ALTERAR">Alterar<i class="bi bi-pencil"></i></a></button>
               <button class="excluir"><a href="../control/excluir.php?id=<?=$usuario["id_usuario"]?>" title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a></button>
             </td>
           </tr>

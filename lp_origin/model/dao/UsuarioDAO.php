@@ -74,10 +74,10 @@ class UsuarioDAO {
     
     public function recuperarID(){
         try{
-            $sql = "SELECT * FROM usuario ORDER BY id_usuario DESC  limit 1";
+            $sql = "SELECT * FROM perfil ORDER BY  id_perfil limit 1";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-            $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             return $usuario;
         }catch(PDOException $e){
             echo $e->getMessage();

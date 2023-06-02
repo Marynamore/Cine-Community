@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["fk_id_usuario"]) || !isset($_SESSION["fk_id_perfil"])) {
+if (!isset($_SESSION["id_usuario"]) || !isset($_SESSION["fk_id_perfil"])) {
     header("Location: login.php"); // Redirecionar para a página de login, caso o usuário não esteja logado
     exit;
 }
 
-$id_usuario = $_SESSION["fk_id_usuario"];
+$id_usuario = $_SESSION["id_usuario"];
 $id_perfil = $_SESSION["fk_id_perfil"];
 
-if ($id_perfil == "moderador") {
+if ($id_perfil == 2) {
     echo "Apenas moderadores podem cadastrar filmes.";
     exit;
 }
