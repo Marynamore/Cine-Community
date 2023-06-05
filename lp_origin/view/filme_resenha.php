@@ -110,7 +110,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
             <h4 <?php if ($resenha->getFK_id_usuario() == $id_usuario) ?>></h4>
             <div>
                 <?php if (!empty($usuario)) { ?>
-                    <img src="../assets/<?= $usuario['foto_usu']; ?>" alt="">
+                    <img src="../assets/pessoas/<?= $usuario['foto_usu']; ?>" alt="">
                 <?php } else { ?>
                     <h3><?= substr($usuario->getNome_usu(), 0, 1); ?></h3>
                 <?php } ?>

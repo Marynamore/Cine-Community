@@ -122,9 +122,9 @@ DEFAULT CHARACTER SET = utf8;
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nome_usu`, `nickname_usu`, `dt_de_nasci_usu`, `genero_usu`, `email_usu`, `senha_usu`, `situacao_usu`, `foto_usu`, `telefone`, `cpf_cnpj`, `endereco`, `numero`, `complemento`, `bairro`, `cidade`, `cep`, `uf`, `fk_id_perfil`) VALUES
-(1, 'Rafaela Medeiros da Silva', NULL, '1987-06-05', 'naoBinario', 'adm@email.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ativo', NULL, '(61)77777-6565', '000.000.888-99', 'QNM 11', '11', 'Casa', 'CEILANDIA NORTE', 'BRASILIA', '72211-111', 'DF', 1),
-(2, 'Maya', 'Mayalice', '2000-12-08', 'feminino', 'maya@email.com', '202cb962ac59075b964b07152d234b70', 'Ativo', NULL, '6198887-0909', '333.444.777-77', 'QSC 01 AREA ESP ', '444', 'Ap', 'CEILANDIA NORTE', 'BRASILIA', '72-999-02', 'MG', 2),
-(3, 'Fatima', 'Fafa', '1999-05-12', 'feminino', 'fafa@gmail.com', 'b2b95d2ed89b9e922775bea179801c95', 'Ativo', NULL, '6199641-1008', '079.321.888-30', 'QSC 09', '563', 'Ap', 'TAGUATINGA NORTE', 'SALVADOR', '72-923-800', 'BH', 4),
+(1, 'Rafaela Medeiros da Silva', NULL, '1987-06-05', 'naoBinario', 'adm@email.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ativo', 'pic-2.png', '(61)77777-6565', '000.000.888-99', 'QNM 11', '11', 'Casa', 'CEILANDIA NORTE', 'BRASILIA', '72211-111', 'DF', 1),
+(2, 'Maya', 'Mayalice', '2000-12-08', 'feminino', 'maya@email.com', '202cb962ac59075b964b07152d234b70', 'Ativo', 'img-5.jpg', '6198887-0909', '333.444.777-77', 'QSC 01 AREA ESP ', '444', 'Ap', 'CEILANDIA NORTE', 'BRASILIA', '72-999-02', 'MG', 2),
+(3, 'Fatima', 'Fafa', '1999-05-12', 'feminino', 'fafa@gmail.com', 'b2b95d2ed89b9e922775bea179801c95', 'Ativo', 'pic-4.png', '6199641-1008', '079.321.888-30', 'QSC 09', '563', 'Ap', 'TAGUATINGA NORTE', 'SALVADOR', '72-923-800', 'BH', 4),
 (4, 'Gabriela', 'GabGabi', '2004-07-25', 'feminino', 'gabgabi@outlook.com', '52b341f3c35a14e33b91e28b334a1db0', 'Ativo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4);
 
 -- -----------------------------------------------------
