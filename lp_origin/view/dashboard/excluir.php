@@ -11,3 +11,5 @@ if (isset($_GET["id_filme"])) {
 }
 
 header("Location: ./listafilmemod.php?msg=" . urlencode($msg));
+exit;
+?>

@@ -43,6 +43,6 @@ if ($_SESSION['fk_id_perfil'] == 2) {
     $msg = "Permissão negada para alterar o filme";
 }
 
-header("Location: ../view/adm/listafilmemod.php?msg=" . urlencode($msg));
+header("Location: ../view/dashboard/listafilmemod.php?msg=" . urlencode($msg));
 ?>
 

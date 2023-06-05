@@ -62,6 +62,11 @@ if (isset($_SESSION["id_usuario"])) {
                     </div>
 
                     <div class="inputBox">
+                        <label for="telefone">telefone:</label>
+                        <input placeholder="(99)9999-9999" type="text" name="telefone" id="telefone" required>
+                    </div>
+
+                    <div class="inputBox">
                         <label for="genero_usu">Gênero:</label>
                         <input placeholder="Gênero" type="text" name="genero_usu" id="genero_usu" required>
                     </div>

@@ -77,9 +77,9 @@ public function alterarFilme(FilmeDTO $FilmeDTO) {
  */
 public function excluirFilmeById($id_filme) {
     try {
-        $sql = "DELETE FROM filme WHERE id_filme=?";
+        $sql = "DELETE FROM filme WHERE id_filme=:id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $id_filme);
+        $stmt->bindParam(':id', $id_filme, PDO::PARAM_INT);
         $stmt->execute();
 
         return true;
@@ -88,6 +88,7 @@ public function excluirFilmeById($id_filme) {
         return false;
     }
 }
+
 
 
 
