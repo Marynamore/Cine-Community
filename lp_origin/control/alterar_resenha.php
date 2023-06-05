@@ -39,4 +39,3 @@ $resenhaDAO = new ResenhaDAO();
     }
 
 header("Location: ../view/filme_resenha.php?msg=" . urlencode($msg));
-

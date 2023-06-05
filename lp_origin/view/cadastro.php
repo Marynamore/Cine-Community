@@ -28,6 +28,7 @@ if (isset($_SESSION["id_usuario"])) {
         }
     </script>
 
+
 </head>
 
 <body>
@@ -43,7 +44,7 @@ if (isset($_SESSION["id_usuario"])) {
 
                     <div class="inputBox">
                         <label for="imagem_perfil">Foto de Perfil:</label>
-                        <input type="file" name="imagem_perfil" id="imagem_perfil">
+                        <input type="file" name="foto_usu" id="imagem_perfil">
                     </div>
                     <div class="inputBox">
                         <label for="nome_usu">Nome:</label>
@@ -58,6 +59,11 @@ if (isset($_SESSION["id_usuario"])) {
                     <div class="inputBox">
                         <label for="dt_de_nasci_usu">Data de Nascimento:</label>
                         <input placeholder="Data de Nascimento" type="date" name="dt_de_nasci_usu" id="dt_de_nasci_usu" required>
+                    </div>
+
+                    <div class="inputBox">
+                        <label for="telefone">telefone:</label>
+                        <input placeholder="(99)9999-9999" type="text" name="telefone" id="telefone" required>
                     </div>
 
                     <div class="inputBox">
@@ -117,9 +123,9 @@ if (isset($_SESSION["id_usuario"])) {
 
 
                     <div class="inputBox">
-    <label for="perfil">Selecione um perfil:</label>
-    <input type="radio" id="usuario" name="perfil" value="usuario" required>Usuário
-                     <input type="radio" id="colecionador" name="perfil" value="colecionador" required>Colecionador
+    <label for="fk_id_perfil">Selecione um perfil:</label>
+    <input type="radio" id="usuario" name="fk_idperfil" value="4" required>Usuário
+                     <input type="radio" id="colecionador" name="fk_id_perfil" value="3" required>Colecionador
 </div>
 
                 </fieldset>

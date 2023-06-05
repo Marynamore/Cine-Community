@@ -19,9 +19,6 @@
         $usuario = $usuarioDAO->recuperarPorID($id);
 
         if ($usuario != null) {
-            echo '<pre>';
-            print_r($usuario);
-            echo '</pre>';
     ?>
             <h1>Alterar usuário</h1>
             <div class="borda">
@@ -46,7 +43,7 @@
                     <input type="password" name="senha_usu" value="<?= $usuario->getSenha_usu(); ?>"><br><br>
                     
                     Foto:
-                    <input type="text" name="foto_usu" placeholder="URL da foto" value="<?= $usuario->getFoto_usu(); ?>"><br><br>
+                    <input type="file" name="foto_usu" placeholder="URL da foto" value="<?= $usuario->getFoto_usu(); ?>"><br><br>
                     Telefone:
                     <input type="text" name="telefone" placeholder="Telefone" value="<?= $usuario->getTelefone(); ?>"><br><br>
                     CPF/CNPJ:
@@ -59,8 +56,6 @@
                     <input type="text" name="complemento" placeholder="Complemento" value="<?= $usuario->getComplemento(); ?>"><br><br>
                     Cidade:
                     <input type="text" name="cidade" placeholder="Cidade" value="<?= $usuario->getCidade(); ?>"><br><br>
-                    Estado:
-                    <input type="text" name="estado" placeholder="Estado" value="<?= $usuario->getEstado(); ?>"><br><br>
                     CEP:
                     <input type="text" name="cep" placeholder="CEP" value="<?= $usuario->getCep(); ?>"><br><br>
 

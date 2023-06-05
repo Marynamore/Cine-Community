@@ -2,7 +2,7 @@
 session_start();
 
 $usuarioLogado = $_SESSION["nickname_usu"];
-$id_usuarioLogado = $_SESSION["fk_id_usuario"];
+$id_usuarioLogado = $_SESSION["id_usuario"];
 $id_perfil = $_SESSION["fk_id_perfil"];
 
 if ($id_perfil == "moderador") {
@@ -27,7 +27,7 @@ if ($id_perfil == "moderador") {
    $filme = $FilmeDAO->listarTodosFilme();
 
 ?>
- <a href="../adm/painel_moderador.php">Voltar</a> 
+ <a href="../dashboard/painel_moderador.php">Voltar</a> 
       <center> <h2>Lista de Filmes</h2></center>
     <table>
         <thead>
@@ -62,7 +62,7 @@ if ($id_perfil == "moderador") {
            
             <td>
               <button class="editar"><a href="../alterar_filme.php?get_id=<?=$filmeFetch["id_filme"]?>"title="ALTERAR" class="editar"> Alterar<i class="bi bi-pencil"></i></a></button>
-              <button class="excluir"><a href="./excluir_filme.php?id_filme=<?= $filmeFetch["id_filme"] ?>" title="EXCLUIR"><i class="fa fa-trash fa-lg"></i> Excluir</a></button>
+              <button class="excluir"><a href="excluir.php?get_id=<?=$filmeFetch["id_filme"]?>"title="EXCLUIR"><i class="fa fa-trash fa-lg"></i> Excluir</a></button>
 
 
             </td>
