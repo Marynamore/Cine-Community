@@ -127,18 +127,36 @@ class ItemDAO{
         }
     }
 
-    public function obterItemPorId($id_item){
-        try{
-            $sql = "SELECT * FROM item WHERE id_item=? LIMIT 1";
-            $preItem = $this->pdo->prepare($sql);
-            $preItem->bindValue(1, $id_item);
-            $preItem->execute([$id_item]);
-            $itemFetch = $preItem->fetch(PDO::FETCH_ASSOC);
+public function obterItemPorId($id_item){
+   try{
+        $sql = "SELECT * FROM item WHERE id_item=? LIMIT 1";
+        $preItem = $this->pdo->prepare($sql);
+        $preItem->bindValue(1, $id_item);
+        $preItem->execute([$id_item]);
 
-            return $itemFetch;
-        }catch(PDOException $exc){
-            echo $exc->getMessage();
+        $itens = array();
+        if($preItem->rowCount() > 0){
+            while ($itemFetch = $preItem->fetch(PDO::FETCH_ASSOC)) {
+                $itemDTO = new ItemDTO();
+                
+                $itemDTO->setId_item($itemFetch['id_item']);
+                $itemDTO->setNome_item($itemFetch['nome_item']);
+                $itemDTO->setDescricao_item($itemFetch['descricao_item']);
+                $itemDTO->setPreco_item($itemFetch['preco_item']);
+                $itemDTO->setImagem_item($itemFetch['imagem_item']);
+                $itemDTO->setQtd_item($itemFetch['qtd_item']);
+                $itemDTO->setFk_id_categoria_item($itemFetch['fk_id_categoria_item']);
+                $itemDTO->setFk_id_perfil($itemFetch['fk_id_perfil']);
+                $itemDTO->setFk_id_usuario($itemFetch['fk_id_usuario']);             
+                $itens[] = $itemFetch;
+                
+            } return $itens;
+        }else{
+            echo '<p>Nenhum Item adicionado ainda!</p>';
         }
+        }catch(PDOException $exc){
+        echo $exc->getMessage();
+    }
     }
 }
 

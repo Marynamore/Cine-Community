@@ -1,14 +1,12 @@
 <?php 
-
 class TransacaoDTO{
     private $id_transacao;
     private $tipo_trans;
     private $dt_hora_trans;
     private $status_trans;
     private $valor_total;
-    private $qtd_trans;
-    private $fk_id_item;
     private $tipo_pagamento_trans;
+    private $fk_id_item;
     private $fk_id_usuario;
     private $fk_id_perfil;
 
@@ -50,14 +48,6 @@ class TransacaoDTO{
 
     public function setValor_total($valor_total) {
         $this->valor_total = $valor_total;
-    }
-
-   public function getQtd_trans() {
-        return $this->qtd_trans;
-    }
-
-    public function setQtd_trans($qtd_trans) {
-        $this->qtd_trans = $qtd_trans;
     }
 
     public function getFk_id_item() {

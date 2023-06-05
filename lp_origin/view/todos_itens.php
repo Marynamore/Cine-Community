@@ -74,7 +74,6 @@ if (isset($_SESSION["id_usuario"])) {
                                         <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
                                         <div>
                                             <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
-                                            
                                         </div><br>
                                         <a class="detalhesbotao" href="../view/detalhe_item.php">Detalhes</a>
                                     </form>

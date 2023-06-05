@@ -35,9 +35,6 @@ class UsuarioDAO {
     }
     
 
-    
-
-
     public function cadastrarUsuario(UsuarioDTO $usuarioDTO) {
         try {
             $sql = "INSERT INTO usuario (nome_usu, nickname_usu, dt_de_nasci_usu, genero_usu, email_usu, senha_usu,
@@ -199,37 +196,76 @@ public function dadosUsuarioPorId($id) {
     }
 }//fim do recuperarPorID  
 
-public function recuperarPorID($id)
-{
-    try {
-        $sql = "SELECT * FROM usuario WHERE id_usuario=?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $id);
+    public function recuperarPorID($id)
+    {
+        try {
+            $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $id);
 
-        $stmt->execute();
-        $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuarioFetch != null) {
-            $usuario = new UsuarioDTO();
-            $usuario->setId_usuario($usuarioFetch["id_usuario"]);
-            $usuario->setNome_usu($usuarioFetch["nome_usu"]);
-            $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
-            $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
-            $usuario->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
-            $usuario->setEmail_usu($usuarioFetch["email_usu"]);
-            $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
-            $usuario->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
-            $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
+            if ($usuarioFetch != null) {
+                $usuario = new UsuarioDTO();
+                $usuario->setId_usuario($usuarioFetch["id_usuario"]);
+                $usuario->setNome_usu($usuarioFetch["nome_usu"]);
+                $usuario->setNickname_usu($usuarioFetch["nickname_usu"]);
+                $usuario->setGenero_usu($usuarioFetch["genero_usu"]);
+                $usuario->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
+                $usuario->setEmail_usu($usuarioFetch["email_usu"]);
+                $usuario->setSenha_usu($usuarioFetch["senha_usu"]);
+                $usuario->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
+                $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
 
-            return $usuarioFetch;
+                return $usuarioFetch;
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            //die() = usado para parar a execução - retirar na versão de produção
+            die();
         }
-        return null;
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-        //die() = usado para parar a execução - retirar na versão de produção
-        die();
     }
-}
 
+    public function encontraPorId($id)
+    {
+        try {
+            $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $id);
+            $stmt->execute();
+            
+
+            if ($stmt->rowCount() > 0) {
+                $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $usuarioDTO = new UsuarioDTO();
+                $usuarioDTO->setId_usuario($usuarioFetch["id_usuario"]);
+                $usuarioDTO->setNome_usu($usuarioFetch["nome_usu"]);
+                $usuarioDTO->setEmail_usu($usuarioFetch["email_usu"]);
+                $usuarioDTO->setSenha_usu($usuarioFetch["senha_usu"]);
+                $usuarioDTO->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
+                $usuarioDTO->setSituacao_usu($usuarioFetch["situacao_usu"]);
+                $usuarioDTO->setTelefone($usuarioFetch["telefone"]);
+                $usuarioDTO->setCpf_cnpj($usuarioFetch["cpf_cnpj"]);
+                $usuarioDTO->setEndereco($usuarioFetch["endereco"]);
+                $usuarioDTO->setNumero($usuarioFetch["numero"]);
+                $usuarioDTO->setComplemento($usuarioFetch["complemento"]);
+                $usuarioDTO->setBairro($usuarioFetch["bairro"]);
+                $usuarioDTO->setCidade($usuarioFetch["cidade"]);
+                $usuarioDTO->setFoto_usu($usuarioFetch["foto_usu"]);
+                $usuarioDTO->setCep($usuarioFetch["cep"]);
+                $usuarioDTO->setUf($usuarioFetch["uf"]);
+                
+                return $usuarioDTO;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            //die() = usado para parar a execução - retirar na versão de produção
+            die();
+        }
+    }
 
 }
