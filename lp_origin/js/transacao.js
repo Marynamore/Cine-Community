@@ -13,17 +13,15 @@ loginInput.addEventListener("click", function (event) {
     modal.style.display = "block";
 });
 
-const modalInputs = document.querySelectorAll('.modal-link input');
-const forms = document.querySelectorAll('.modal form');
+var paymentMethodSelect = document.getElementById('payment-method');
+var forms = document.querySelectorAll('.modal form');
 
-modalInputs.forEach((input, index) => {
-    input.addEventListener('click', (e) => {
-        e.preventDefault();
-        forms.forEach((form) => {
-            form.style.display = 'none';
-        });
-        forms[index].style.display = 'block';
+paymentMethodSelect.addEventListener('change', function() {
+    var selectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;
+    forms.forEach(function(form) {
+        form.style.display = 'none';
     });
+    document.getElementById(selectedOption + '-form').style.display = 'block';
 });
 
 function fecharModal() {
@@ -33,21 +31,3 @@ function fecharModal() {
     overlay.style.display = 'none'; // Oculta o overlay
 }
 
-// Seleciona os elementos relevantes
-const cartaoCreditoForm = document.getElementById('cartao-credito-form');
-const cartaoDebitoForm = document.getElementById('cartao-debito-form');
-const paymentMethods = document.querySelector('.payment_methods');
-
-// Adiciona um ouvinte de evento de alteração à seção de métodos de pagamento
-paymentMethods.addEventListener('change', function() {
-    if (document.getElementById('cartao-credito-form').checked) {
-        cartaoCreditoForm.style.display = 'block';
-        cartaoDebitoForm.style.display = 'none';
-    } else if (document.getElementById('cartao-debito-form').checked) {
-        cartaoCreditoForm.style.display = 'none';
-        cartaoDebitoForm.style.display = 'block';
-    } else {
-        cartaoCreditoForm.style.display = 'none';
-        cartaoDebitoForm.style.display = 'none';
-    }
-});

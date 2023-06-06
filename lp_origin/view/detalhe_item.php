@@ -1,26 +1,53 @@
 <?php 
-  require_once '../model/dao/itemDAO.php';
-  $itemDAO = new ItemDAO();
+session_start();
+require '../model/dto/carrinhoDTO.php';
+require '../model/dao/carrinhoDAO.php';
+require_once '../model/dao/itemDAO.php';
+
+$itemDAO = new ItemDAO();
+$carrinhoDAO = new CarrinhoDAO();
+
+
+if (isset($_GET['id_item'])) {
+    $id_item = $_GET['id_item'];
+} else {
+    $id_item = '';
+    header('location:./todos_itens.php');
+}
+
+$nickname_usu = isset($_SESSION["nickname_usu"]) ? $_SESSION["nickname_usu"] : '';
+$id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Detalhes do Produto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/itensselecionado.css">
-  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Detalhes do Produto</title>
 </head>
 <body>
   <div id="container">
     <header class="header">
         <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
-            <a href="../view/todos_itens.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
+          <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
+          <a href="../view/todos_itens.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
         </nav>
     </header>
     <hr>
     <?php 
     $item = $itemDAO->obterItemPorId($id_tem);
+echo '<pre>';
+var_dump($item);
+echo '</pre>';
     foreach ($item as $itemFetch) {
     ?>
     <form action="detalhe_item_control.php" method="post">

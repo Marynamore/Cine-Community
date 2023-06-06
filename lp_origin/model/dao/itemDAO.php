@@ -97,7 +97,7 @@ class ItemDAO{
 
     public function obterItemCarPorId($id_item){
         try{
-        $sql = "SELECT i.*, ci.id_categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE id_item=? LIMIT 1";
+        $sql = "SELECT i.*, ci.id_categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
             $preItem = $this->pdo->prepare($sql);
             $preItem->bindValue(1, $id_item);
             $preItem->execute([$id_item]);
@@ -113,9 +113,9 @@ class ItemDAO{
                     $itemDTO->setPreco_item($itemFetch['preco_item']);
                     $itemDTO->setQtd_item($itemFetch['qtd_item']);
                     $itemDTO->setDescricao_item($itemFetch['descricao_item']);
-                    $itemDTO->setFk_id_categoria_item($itemFetch['fk_id_categoria_item']);
-                    $itemDTO->setFk_id_perfil($itemFetch['fk_id_perfil']);
-                    $itemDTO->setFk_id_usuario($itemFetch['fk_id_usuario']);
+                    $itemDTO->setFk_id_categoria_item($itemFetch['id_categoria_item']);
+                    $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
+                    $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
 
                     $itens[] = $itemDTO;
 
@@ -129,7 +129,7 @@ class ItemDAO{
 
 public function obterItemPorId($id_item){
    try{
-        $sql = "SELECT * FROM item WHERE id_item=? LIMIT 1";
+    $sql = "SELECT i.*, ci.categoria_item, u.nome_usu, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
         $preItem = $this->pdo->prepare($sql);
         $preItem->bindValue(1, $id_item);
         $preItem->execute([$id_item]);
@@ -145,11 +145,13 @@ public function obterItemPorId($id_item){
                 $itemDTO->setPreco_item($itemFetch['preco_item']);
                 $itemDTO->setImagem_item($itemFetch['imagem_item']);
                 $itemDTO->setQtd_item($itemFetch['qtd_item']);
-                $itemDTO->setFk_id_categoria_item($itemFetch['fk_id_categoria_item']);
-                $itemDTO->setFk_id_perfil($itemFetch['fk_id_perfil']);
-                $itemDTO->setFk_id_usuario($itemFetch['fk_id_usuario']);             
+                $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
+                $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
+                $itemDTO->setFk_id_usuario($itemFetch['nome_usu']);             
                 $itens[] = $itemFetch;
-                
+
+                return $itemDTO;
+
             } return $itens;
         }else{
             echo '<p>Nenhum Item adicionado ainda!</p>';

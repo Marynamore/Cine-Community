@@ -2,7 +2,9 @@
 session_start();
 require '../model/dto/carrinhoDTO.php';
 require '../model/dao/carrinhoDAO.php';
+require_once '../model/dao/itemDAO.php';
 
+$itemDAO = new ItemDAO();
 $carrinhoDAO = new CarrinhoDAO();
 
 if (isset($_SESSION["id_usuario"])) {
@@ -21,7 +23,6 @@ if (isset($_SESSION["id_usuario"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styleItens.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
@@ -48,41 +49,36 @@ if (isset($_SESSION["id_usuario"])) {
     <div class="container-item">
         <div class="container-galeria">
             <?php
-            require_once '../model/dao/itemDAO.php';
-            $itemDAO = new ItemDAO();
             $item = $itemDAO->listarTodosItens();
             $categorias = array();
-
+            // Obter todas as categorias dos itens
             foreach ($item as $itemFetch) {
                 $categoria = $itemFetch['categoria_item'];
                 if (!in_array($categoria, $categorias)) {
                     $categorias[] = $categoria;
                 }
             }
+
+            // Exibir os itens agrupados por categoria
             foreach ($categorias as $categoria) {
             ?>
-                <div class="categoria">
-                    <h2><?= $categoria ?></h2>
-                    <div class="item-carousel">
-                        <?php foreach ($item as $itemFetch) {
-                            if ($itemFetch['categoria_item'] === $categoria) {
-                        ?>
-                                <div class="item-conteudo">
-                                    <form action="../control/control_carrinho_add.php" method="POST">
-                                        <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
-                                        <h2><?= $itemFetch['nome_item'] ?></h2>
-                                        <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
-                                        <div>
-                                            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
-                                        </div><br>
-                                        <a class="detalhesbotao" href="../view/detalhe_item.php">Detalhes</a>
-                                    </form>
-                                </div>
-                        <?php
-                            }
-                        } ?>
+            <div class="categoria">
+                <h2><?= $categoria ?></h2>
+                <div class="item-carousel">
+                    <?php foreach ($item as $itemFetch) {
+                        if ($itemFetch['categoria_item'] === $categoria) {
+                    ?>
+                    <div class="item-conteudo">
+                        <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+                        <h2><?= $itemFetch['nome_item'] ?></h2><br>
+                        <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p><br><br>
+                        <a class="detalhesbotao" href="detalhe_item.php?id_item=<?=$itemFetch['id_item']?>">Detalhes</a>
                     </div>
+                    <?php
+                        }
+                    } ?>
                 </div>
+            </div>
             <?php } ?>
         </div>
     </div>

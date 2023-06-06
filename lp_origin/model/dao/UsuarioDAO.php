@@ -243,6 +243,42 @@ public function recuperarPorID($id)
     }
 }
 
+public function encontraPorId($id){
+        try {
+            $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $id);
+            $stmt->execute();
 
+            if ($stmt->rowCount() > 0) {
+                $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $usuarioDTO = new UsuarioDTO();
+                $usuarioDTO->setId_usuario($usuarioFetch["id_usuario"]);
+                $usuarioDTO->setNome_usu($usuarioFetch["nome_usu"]);
+                $usuarioDTO->setEmail_usu($usuarioFetch["email_usu"]);
+                $usuarioDTO->setSenha_usu($usuarioFetch["senha_usu"]);
+                $usuarioDTO->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
+                $usuarioDTO->setSituacao_usu($usuarioFetch["situacao_usu"]);
+                $usuarioDTO->setTelefone($usuarioFetch["telefone"]);
+                $usuarioDTO->setCpf_cnpj($usuarioFetch["cpf_cnpj"]);
+                $usuarioDTO->setEndereco($usuarioFetch["endereco"]);
+                $usuarioDTO->setNumero($usuarioFetch["numero"]);
+                $usuarioDTO->setComplemento($usuarioFetch["complemento"]);
+                $usuarioDTO->setBairro($usuarioFetch["bairro"]);
+                $usuarioDTO->setCidade($usuarioFetch["cidade"]);
+                $usuarioDTO->setFoto_usu($usuarioFetch["foto_usu"]);
+                $usuarioDTO->setCep($usuarioFetch["cep"]);
+                $usuarioDTO->setUf($usuarioFetch["uf"]);
+
+                return $usuarioDTO;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            //die() = usado para parar a execução - retirar na versão de produção
+            die();
+        }
+    }
 
 }

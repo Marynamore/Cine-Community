@@ -79,26 +79,23 @@
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
     <h2>Formas de Pagamento:</h2>
-    <div class="payment-options container modal-link">
-        <aside class="payment_methods">
-            <input type="radio" id="pix-form" name="payment-method-id" value="pix" >
-            <label for="pix-form">PIX</label>
-        </aside>
-        <aside class="payment_methods">
-            <input type="radio" id="boleto-form" name="payment-method-id" value="boleto">
-            <label for="boleto-form">Boleto</label>
-        </aside>
-        <aside class="payment_methods">
-            <input type="radio" id="cartao-credito-form" name="payment-method-id" value="credit_card">
-            <label for="cartao-credito-form">Cartão de Crédito</label>
-        </aside>
-        <aside class="payment_methods">
-            <input type="radio" id="cartao-debito-form" name="payment-method-id" value="debit_card">
-            <label for="cartao-debito-form">Cartão de Débito</label>
-        </aside>
-    </div>
+<div class="payment-options container modal-link">
+    <aside class="payment_methods">
+        <label for="payment-method">Escolha uma forma de pagamento:</label>
+        <select id="payment-method" name="payment-method-id">
+            <optgroup label="Pagamento Online">
+                <option value="pix">PIX</option>
+                <option value="boleto">Boleto</option>
+            </optgroup>
+            <optgroup label="Cartão de Crédito">
+                <option value="credit_card">Cartão de Crédito</option>
+                <option value="debit_card">Cartão de Débito</option>
+            </optgroup>
+        </select>
+    </aside>
+</div>
 
-    <input type="submit" value="Finalizar Compra">
+<input type="submit" value="Finalizar Compra">
 </form>
 
 <!-- INICIO POP LOGIN -->
@@ -122,7 +119,7 @@
             <br><br>
             <button class="botao">Enviar</button>
         </form>
-        
+
         <form action="" method="get" id="cartao-credito-form" class="formulario">
             <!-- Formulário de Cartão de Crédito -->
         </form>
@@ -133,6 +130,7 @@
     </div>
 </div>
 <!-- FIM POP LOGIN -->
+
 
  
     <?php
