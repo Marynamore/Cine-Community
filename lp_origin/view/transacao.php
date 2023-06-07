@@ -92,6 +92,9 @@
         </div>
         <div class="container">
             <h2>VALOR TOTAL:</h2>
+            <div>
+                
+            </div>
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
         <h2>Formas de Pagamento:</h2>

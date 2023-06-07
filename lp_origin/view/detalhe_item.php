@@ -50,7 +50,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
     if ($itemFetch) {
     ?>
   
-    <form action="detalhe_item_control.php" method="post">
+    <form action="../control/control_carrinho_add.php" method="post">
       <section id="product-details">
         <div class="product">
           <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>">
