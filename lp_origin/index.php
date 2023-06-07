@@ -56,10 +56,15 @@ if (isset($_SESSION["id_usuario"])) {
     </header>
     <section>
         <div class="box">
-            <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
-            <div class="box-image"><img src='./assets/banner/Compre2.png'><div>
-            <div class="box-image"><img src='./assets/banner/criesuas2.png'></div>
-
+        <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
+            <div class="box-image"><img src='./assets/banner/Banner loja virtual cosméticos black friday .png'></div>
+            <div class="box-image"><img src="./assets/banner/avatar.jpeg"></div>
+            <div class="box-image"><img src='./assets/banner/creed3.jpg'></div>
+            <div class="box-image"><img src="./assets/banner/Indiana-Jones.jpg"></div>
+            <div class="box-image"><img src='./assets/banner/guardians-galaxy.jpg'></div>
+            <div class="box-image"><img src='./assets/banner/oppenheimer.jpg'></div>
+            <div class="box-image"><img src='./assets/banner/supermario.jpg'></div>
+            <div class="box-image"><img src='./assets/banner/velozesefuriososx.png'></div>
         </div>
     </section>
     <div class="container-filme">

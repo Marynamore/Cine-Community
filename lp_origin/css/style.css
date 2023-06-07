@@ -107,7 +107,6 @@ section{
    overflow: hidden;
    scroll-snap-type: x mandatory;
    justify-content: space-between;
-
    align-items: center;
 }
 
@@ -376,5 +375,4 @@ h5{
     overflow-x: scroll;
   }
 }
-
 

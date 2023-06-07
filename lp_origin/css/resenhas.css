@@ -48,12 +48,19 @@ h4{
 }
 
 .resenha{
-   
+   border: solid 1px #08ef;
     padding:10px 10px;
     color: #fff;
     border-radius: 10px;
     margin-bottom: 20px;
      
+}
+.profile{
+        height: 50px;
+        width: 50px;
+        border: solid 2px #08ef;
+        border-radius: 50%;
+        
 }
 
 h1{
