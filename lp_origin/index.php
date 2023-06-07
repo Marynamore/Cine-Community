@@ -13,20 +13,42 @@ require_once './model/conexao.php';
 
 $pdo = Conexao::getInstance();
 
-if (!empty($_GET['search'])) {
-    $data = $_GET['search'];
-    $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
-    FROM filme f
-    INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
-    INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
-    ORDER BY id_categoria_filme, f.nome_filme";
-} else {
-    $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
-            FROM filme f
-            INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
-            INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
-            ORDER BY id_categoria_filme, f.nome_filme";
+if (isset($_POST['nome_filme'])) {
+    $nome_filme = $_POST['nome_filme'];
+    $lista = [];
+
+    $stmt = $pdo->prepare("SELECT * FROM filme WHERE nome_filme = :nome_filme");
+    $stmt->bindValue(':nome_filme', $nome_filme);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM filme WHERE nome_filme LIKE :nome_filme");
+        $stmt->bindValue(':nome_filme', '%' . $nome_filme . '%');
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
 }
+
+
+// if (!empty($_GET['search'])) {
+//     $data = $_GET['search'];
+//     $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
+//     FROM filme f
+//     INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
+//     INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
+//     ORDER BY id_categoria_filme, f.nome_filme";
+// } else {
+//     $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
+//             FROM filme f
+//             INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
+//             INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
+//             ORDER BY id_categoria_filme, f.nome_filme";
+// }
 
 ?>
 
@@ -56,7 +78,7 @@ if (!empty($_GET['search'])) {
                 <a class="search-btn">
                     <img class="loupe-blue" src="./assets/search.svg" alt="" width="25px" height="25px">
                     <button onclick="searchData()">
-                        <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg" width="25px" height="15px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
                     </button>
@@ -70,7 +92,7 @@ if (!empty($_GET['search'])) {
                         echo '<a href="./view/adm/paineladm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 2) {
-                        echo '<a href="./view/adm/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
+                        echo '<a href="./view/dashboard/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 3 || $id_perfil == 4) {
                         echo '<a href="./view/alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';

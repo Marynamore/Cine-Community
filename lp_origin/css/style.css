@@ -111,15 +111,21 @@ body {
 }
 
 .search-box:hover > .search-btn{
-   background:#08ef;
+   background-color: #fff;
+   border: none;
 }
 
 .search-box:hover > .search-btn .loupe-blue{
    display: none;
+   border: none;
+   background-color: #fff;
 }
 
 .search-box:hover > .search-btn .loupe-white {
    display: block;
+   border: none;
+   background-color: #fff;
+   
 }
 
 

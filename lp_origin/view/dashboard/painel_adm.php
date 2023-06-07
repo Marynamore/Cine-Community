@@ -1,5 +1,25 @@
 <?php
 session_start();
+if (isset($_POST['nome_usuario'])) {
+    $nome_usuario = $_POST['nome_usuario'];
+    $lista = [];
+
+    $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usuario = :nome_usuario");
+    $stmt->bindValue(':nome_usuario', $nome_usuario);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usuario LIKE :nome_usuario");
+        $stmt->bindValue(':nome_usuario', '%' . $nome_usuario . '%');
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+}
 
 // Verifica se a página foi atualizada
 if (isset($_POST['refresh'])) {
@@ -70,6 +90,17 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
             <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
+            <div class="search-box">
+                <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
+                <a class="search-btn">
+                    <img class="loupe-blue" src="../../assets/search.svg" alt="" width="25px" height="25px">
+                    <button onclick="searchData()">
+                        <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+                </a>
+            </div>
         </nav>
     </header>
 <header>
@@ -234,4 +265,5 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             <button type="submit" style="display: none;"></button>
     </form>
 </body>
+<script src="../../js/searchadm.js"></script>
 </html>
