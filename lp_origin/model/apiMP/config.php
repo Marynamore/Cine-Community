@@ -17,6 +17,7 @@
 
 // URL da API do Mercado Pago CRIAR PAGAMENTO
     define('URL_TOKECARD', 'https://api.mercadopago.com/v1/card_tokens');
+    
 
 // URL da API do Mercado Pago BUSCAR PAGAMENTO    
     define('URL_BUSCPAG','https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=ID_REF&range=date_created&begin_date=NOW-30DAYS&end_date=NOW');

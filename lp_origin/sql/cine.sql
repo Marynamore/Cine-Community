@@ -495,6 +495,7 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`transacao` (
   `status_trans` VARCHAR(50) NOT NULL DEFAULT 'Em Progresso' COMMENT 'Pendente, Concluída, Cancelada,Em Progresso',
   `valor_total` DECIMAL(13,2) NOT NULL,
   `tipo_pagamento_trans` VARCHAR(45) NULL DEFAULT 'PIX' COMMENT 'PIX\\nCartão de Crédio\\nCartão de Débito\\nMercado Pago',
+  `ref_mp` VARCHAR(45) NOT NULL,
   `fk_id_compra` INT NOT NULL,
   `fk_id_carrinho` INT(11) NOT NULL,
   `fk_id_item` INT(11) NOT NULL,

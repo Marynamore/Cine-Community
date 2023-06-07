@@ -2,9 +2,23 @@
     session_start();
     require_once '../model/dao/UsuarioDAO.php';
     require_once '../model/dao/itemDAO.php';
-
+    
     $usuarioDAO = new UsuarioDAO();
     $itemDAO = new ItemDAO();
+
+    if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
+        $id_perfil = $_SESSION["id_perfil"];
+        $id = $_SESSION["id_usuario"];
+        
+        $usuario = $usuarioDAO->encontraPorId($id);
+        $id_tem = $_GET['id_tem'];
+
+        $item = $itemDAO->obterItemPorId($id_tem);
+    } else {
+        echo "Usuário não encontrado.";
+        exit;
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,20 +30,11 @@
     <title>Detalhes da Transação</title>
 </head>
 <body>
-    <?php
-
-    if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
-        $id_perfil = $_SESSION["id_perfil"];
-        $id = $_SESSION["id_usuario"];
-
-        $usuario = $usuarioDAO->encontraPorId($id);
-// echo '<pre>';
-// print_r($usuario);
-// echo '</pre>';
-    ?>
     <form action="../control/item_transacao_control.php" method="POST">
         <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
-                <h2>Confira seus dados:</h2>
+
+        <h2>Confira seus dados:</h2>
+
         <div class="container">
             <div class="item-details">
                 <div class="item-address">
@@ -50,20 +55,23 @@
             <div class="item-details">
                 <div class="item-address">
                 <?php 
-                $item = $itemDAO->obterItemPorId($id_tem);
                 foreach ($item as $itemFetch) {
                 ?>
+
                 <section id="product-details">
                     <div class="product">
                         <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
                     </div>
                     <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
+
                     <div class="product-info">
                         <h2><?= $itemFetch['nome_item'] ?></h2>
                     </div>
+
                     <div class="product-info">
                         <input type="text" name="description" value="<?=$itemFetch['descricao_item'] ?>">
-                    </div>        
+                    </div>     
+
                     <div>
                         <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
                         <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
@@ -78,25 +86,24 @@
             <h2>VALOR TOTAL:</h2>
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
-    <h2>Formas de Pagamento:</h2>
-<div class="payment-options container modal-link">
-    <aside class="payment_methods">
-        <label for="payment-method">Escolha uma forma de pagamento:</label>
-        <select id="payment-method" name="payment-method-id">
-            <optgroup label="Pagamento Online">
-                <option value="pix">PIX</option>
-                <option value="boleto">Boleto</option>
-            </optgroup>
-            <optgroup label="Cartão de Crédito">
-                <option value="credit_card">Cartão de Crédito</option>
-                <option value="debit_card">Cartão de Débito</option>
-            </optgroup>
-        </select>
-    </aside>
-</div>
-
-<input type="submit" value="Finalizar Compra">
-</form>
+        <h2>Formas de Pagamento:</h2>
+        <div class="payment-options container modal-link">
+            <aside class="payment_methods">
+                <label for="payment-method">Escolha uma forma de pagamento:</label>
+                <select id="payment-method" name="payment-method-id">
+                    <optgroup label="Pagamento Online">
+                        <option value="pix">PIX</option>
+                        <option value="boleto">Boleto</option>
+                    </optgroup>
+                    <optgroup label="Cartão de Crédito">
+                        <option value="credit_card">Cartão de Crédito</option>
+                        <option value="debit_card">Cartão de Débito</option>
+                    </optgroup>
+                </select>
+            </aside>
+        </div>
+        <input type="submit" value="Finalizar Compra">
+    </form>
 
 <!-- INICIO POP LOGIN -->
 <div class="overlay"></div>
@@ -130,14 +137,7 @@
     </div>
 </div>
 <!-- FIM POP LOGIN -->
-
-
- 
-    <?php
-        } else {
-            echo "Usuário não encontrado.";
-        }
-    ?>
 <script src="../js/transacao.js"></script>
 </body>
 </html>
+

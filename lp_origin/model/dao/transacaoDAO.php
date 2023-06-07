@@ -10,7 +10,7 @@ class TransacaoDAO{
         $this->pdo = Conexao::getInstance();
     }
 
-    public function cadastrarTransacao(TransacaoDTO $transacaoDTO){
+    public function criarTransacao(TransacaoDTO $transacaoDTO){
         try{
             $sql = "INSERT INTO transacao (tipo_trans, dt_hora_trans, status_trans, valor_total,fk_id_item, tipo_pagamento_trans, fk_id_usuario, fk_id_perfil) VALUES (?,?,?,?,?,?,?,?,)";
             $cadTransacao = $this->pdo->prepare($sql); 
@@ -116,8 +116,8 @@ class TransacaoDAO{
         }
     }
 
- public function enviarRequisicao($dados) {
-        include_once '../../apiMP/config.php';
+    public function enviarRequisicao($dados) {
+        include_once '../apiMP/config.php';
         // Configuração da requisição cURL
         $curl = curl_init();
 
@@ -139,96 +139,113 @@ class TransacaoDAO{
         // Executa a requisição e obtém a resposta
         $response = curl_exec($curl);
 
-        // Fecha a conexão cURL
-        curl_close($curl);
+        // Verifica se ocorreu algum erro na requisição para criar o pagamento
+        if ($response === false) {
+            echo 'Erro na requisição de pagamento: ' . curl_error($curl);
+        } else {
+            // Decodifica a resposta JSON do pagamento
+            $response_dados = json_decode($response, true); 
 
+            // Verifica se ocorreu algum erro ao criar o pagamento
+            if (isset($responseDataPayment['status']) && $response_dados['status'] === 201) {
+                // Pagamento criado com sucesso
+                echo 'Pagamento criado com sucesso!';
+                echo 'ID do pagamento: ' . $response_dados['id'];
+            } else {
+                // Erro ao criar o pagamento
+                echo 'Erro ao criar o pagamento: ' . $response;
+            }
+
+        }
+        curl_close($curl);
         return $response;
     }
 
-    public function tokenDoCartao() {
-
-        // Dados do cartão de crédito
-        $card_data = array(
-            'card_number' => '************',
-            'cardholder' => 'Nome do Titular',
-            'expiration_month' => 'MM',
-            'expiration_year' => 'AAAA',
-            'security_code' => 'CVV',
-        );
-
-        // Faz uma requisição para obter o token do cartão
-        $token_request = $this->fazerRequisicaoToken($card_data);
-
-        // Verifica se a requisição foi bem-sucedida e retorna o token do cartão
-        if ($token_request['status'] === 'success') {
-            return $token_request['card_token'];
-        } else {
-            // Trate o erro adequadamente
-            return false;
-        }
-    }
-
-    public function fazerRequisicaoToken($card_data) {
-        include_once '../../apiMP/config.php';
-
-        // Dados da requisição para obter o token do cartão
-        $request_dados = array(
-            'card_number' => $card_data['card_number'],
-            'cardholder' => $card_data['cardholder'],
-            'expiration_month' => $card_data['expiration_month'],
-            'expiration_year' => $card_data['expiration_year'],
-            'security_code' => $card_data['security_code'],
-        );
+    public function tokenDoCartao($card_dados) {
+        include_once '../apiMP/config.php';
 
         // Configuração da requisição cURL
         $curl = curl_init();
 
-        $options = array(
+        $optionsToken = array(
             CURLOPT_URL => URL_TOKECARD,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_POSTFIELDS => http_build_query($request_dados),
+            CURLOPT_POSTFIELDS => json_encode($card_dados),
             CURLOPT_POST => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/x-www-form-urlencoded',
+                'Content-Type: application/json',
                 'Authorization: Bearer ' . TOKEN_MERCADOPAGO
             )
         );
 
         // Configura as opções do cURL
-        curl_setopt_array($curl, $options);
+        curl_setopt_array($curl, $optionsToken);
 
         // Executa a requisição e obtém a resposta
-        $response = curl_exec($curl);
+        $responseToken = curl_exec($curl);
 
         // Verifica se a requisição foi bem-sucedida
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        if ($http_code === 201) {
-            // A requisição foi bem-sucedida, analisa a resposta da API
-            $decoded_response = json_decode($response, true);
-
-            // Verifica se o token do cartão foi retornado na resposta
-            if (isset($decoded_response['id'])) {
-                // Token do cartão obtido com sucesso
-                $card_token = $decoded_response['id'];
-
-                // Retorna o token do cartão
-                return $card_token;
-            } else {
-                // A resposta da API não contém o token do cartão
-                // Trate o erro adequadamente
-                return false;
-            }
-        } else {
-            // A requisição não foi bem-sucedida
-            // Trate o erro adequadamente
+        if ($responseToken === false) {
+            echo 'Erro na requisição do token do cartão: ' . curl_error($curl);
             return false;
         }
 
-        // Fecha a conexão cURL
+        // Decodifica a resposta JSON do token do cartão
+        $decoded_response = json_decode($responseToken, true);
+
+        // Verifica o status da resposta do token do cartão
+        if (isset($decoded_response['status']) && $decoded_response['status'] === 201) {
+            // Token do cartão obtido com sucesso
+            $card_dados = $decoded_response['id'];
+
+            $request = $this->enviarRequisicao($card_dados);
+            
+            // Trate a resposta da requisição adequadamente
+            if ($request['status'] === 'success') {
+                return $request['card_token'];
+            } else {
+                echo 'Erro na requisição do token do cartão: ' . $request['status_detail'];
+                return false;
+            }
+        } else {
+            echo 'Erro ao obter o token do cartão: ' . $responseToken;
+            return false;
+        }
+
         curl_close($curl);
     }
+
+    public function pixMethod($pix) {
+        include_once '../apiMP/config.php';
+
+        $request = $this->enviarRequisicao($pix);
+
+        // Verifica se ocorreu algum erro na requisição para criar o pagamento
+        if ($request === false) {
+            echo 'Erro na requisição de pagamento: ' . curl_error($curlPayment);
+        } else {
+            // Decodifica a resposta JSON do pagamento
+            $responseDataPayment = json_decode($request);
+
+            // Verifica se ocorreu algum erro ao criar o pagamento
+            if (isset($responseDataPayment->status) && $responseDataPayment->status === 201) {
+                // Pagamento criado com sucesso
+                echo 'Pagamento criado com sucesso!';
+                echo 'ID do pagamento: ' . $responseDataPayment->id;
+
+                echo '<img id="base64image" src="data:image/jpeg;base64,' . $responseDataPayment->point_of_interaction->transaction_data->qr_code_base64 . '">';
+
+                echo '<strong>Copie:</strong>';
+                echo $responseDataPayment->point_of_interaction->transaction_data->qr_code;
+            } else {
+                // Erro ao criar o pagamento
+                echo 'Erro ao criar o pagamento: ' . $request;
+            }
+        }
+
+    }
+
 
     public function obterPagamentoPorID($response) {
         $decoded_response = json_decode($response, true);
