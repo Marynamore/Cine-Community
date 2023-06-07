@@ -3,9 +3,7 @@ session_start();
 require '../model/dto/carrinhoDTO.php';
 require '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
-
-$itemDAO = new ItemDAO();
-$carrinhoDAO = new CarrinhoDAO();
+require_once '../model/dao/UsuarioDAO.php';
 
 
 if (isset($_GET['id_item'])) {
@@ -14,6 +12,10 @@ if (isset($_GET['id_item'])) {
     $id_item = '';
     header('location:./todos_itens.php');
 }
+
+$itemDAO = new ItemDAO();
+$carrinhoDAO = new CarrinhoDAO();
+$UsuarioDAO = new UsuarioDAO();
 
 $nickname_usu = isset($_SESSION["nickname_usu"]) ? $_SESSION["nickname_usu"] : '';
 $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
@@ -44,36 +46,35 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
     </header>
     <hr>
     <?php 
-    $item = $itemDAO->obterItemPorId($id_tem);
-echo '<pre>';
-var_dump($item);
-echo '</pre>';
-    foreach ($item as $itemFetch) {
+    $itemFetch = $itemDAO->obterItemPorId($id_item);
+    if ($itemFetch) {
     ?>
+  
     <form action="detalhe_item_control.php" method="post">
       <section id="product-details">
         <div class="product">
-          <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+          <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>">
         </div>
-        <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
+        <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
         <div class="product-info">
           <h2>Boneco Rambo</h2>
-          <h2><?= $itemFetch['nome_item'] ?></h2>
-          <ul>
-            <li>Característica 1</li>
-            <li>Característica 2</li>
-            <li>Característica 3</li>
-          </ul>
+          <h2><?= $itemFetch->getNome_item() ?></h2>
+          <br>
+          <p><?=$itemFetch->getDescricao_item()?></p>
           <div>
-            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
+            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
             <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
           </div><br>
           <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
-          <a href="transacao.php?get_id=<?= $itemFetch['id'] ?>">Comprar</a>
+          <a href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>
         </div>
       </section>
     </form>
-    <?php }?>
+    <?php 
+    } else {
+        echo '<p>Nenhum Item Adicionado!</p>';
+    }
+    ?>
     <hr>
     <footer>
       <p>Todos os direitos reservados &copy; 2023</p>

@@ -11,9 +11,16 @@
         $id = $_SESSION["id_usuario"];
         
         $usuario = $usuarioDAO->encontraPorId($id);
-        $id_tem = $_GET['id_tem'];
 
-        $item = $itemDAO->obterItemPorId($id_tem);
+        if (isset($_GET['id_item'])) {
+            $id_item = $_GET['id_item'];
+        } else {
+            $id_item = '';
+            header('location:./todos_itens.php');
+        }
+
+        $itemFetch = $itemDAO->obterItemPorId($id_item);
+
     } else {
         echo "Usuário não encontrado.";
         exit;
@@ -55,25 +62,26 @@
             <div class="item-details">
                 <div class="item-address">
                 <?php 
-                foreach ($item as $itemFetch) {
+
+                if ($itemFetch) {
                 ?>
 
                 <section id="product-details">
                     <div class="product">
-                        <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
                     </div>
-                    <input type="hidden" name="id_item" value="<?= $itemFetch['id_item'] ?>"><br>
+                    <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
 
                     <div class="product-info">
-                        <h2><?= $itemFetch['nome_item'] ?></h2>
+                        <h2><?= $itemFetch->getNome_item() ?></h2>
                     </div>
 
                     <div class="product-info">
-                        <input type="text" name="description" value="<?=$itemFetch['descricao_item'] ?>">
+                        <input type="text" name="description" value="<?=$itemFetch->getDescricao_item() ?>">
                     </div>     
 
                     <div>
-                        <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
+                        <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
                         <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                     </div>
                 </section>
