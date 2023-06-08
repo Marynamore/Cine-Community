@@ -19,9 +19,15 @@ $bairro = filter_input(INPUT_POST, 'bairro');
 $cidade = filter_input(INPUT_POST, 'cidade');
 $cep = filter_input(INPUT_POST, 'cep');
 $uf = filter_input(INPUT_POST, 'uf');
-$id_perfil = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
+$id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 
+$imagem_item = $_FILES['foto_usu'];
 
+if ($foto_usu['error'] === UPLOAD_ERR_OK) {
+    $nome_arquivo = $foto_usu['name'];
+    $caminho_temporario = $foto_usu['tmp_name'];
+    $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
+    move_uploaded_file($caminho_temporario, $caminho_destino);
 
 $usuarioDTO = new UsuarioDTO();
 $usuarioDTO->setNome_usu($nome_usu);
@@ -36,13 +42,11 @@ $usuarioDTO->setEndereco($endereco);
 $usuarioDTO->setNumero($numero);
 $usuarioDTO->setComplemento($complemento);
 $usuarioDTO->setBairro($bairro);
-$usuarioDTO->setFoto_usu($foto_usu);
+$usuarioDTO->setFoto_usu($nome_arquivo);
 $usuarioDTO->setCidade($cidade);
 $usuarioDTO->setCep($cep);
 $usuarioDTO->setUf($uf);
 $usuarioDTO->setFk_id_perfil($id_perfil);
-
-
 
 
 $usuarioDAO = new UsuarioDAO();
@@ -54,5 +58,9 @@ if ($usuarioDAO) {
     exit;
 } else {
     header("Location: ../view/cadastro.php");
+    exit;
+}
+}else {
+    echo "Erro ao fazer upload da foto do usuario.";
     exit;
 }

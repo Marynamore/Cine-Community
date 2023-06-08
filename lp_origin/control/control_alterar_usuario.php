@@ -51,5 +51,5 @@ if ($sucesso) {
     $msg = "Erro ao Alterar o Usuário";
 }
 
-header("location:../view/adm/listausuarioadm.php?msg=" . urlencode($msg));
+header("location:../view/dashboard/listausuarioadm.php?msg=" . urlencode($msg));
 exit;
