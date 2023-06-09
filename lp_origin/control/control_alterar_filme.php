@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+if ($_SESSION['fk_id_perfil'] == 1 || $_SESSION['fk_id_perfil'] == 2) {
 require_once "../model/dao/filmeDAO.php";
 require_once "../model/dto/filmeDTO.php";
 
@@ -16,7 +16,6 @@ $id_canal_filme         = isset($_POST['fk_id_canal_filme']) ? $_POST['fk_id_can
 $id_usuario             = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : null;
 $id_perfil              = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
 
-if ($_SESSION['fk_id_perfil'] == 2) {
     $FilmeDTO = new FilmeDTO();
 
     $FilmeDTO->setId_filme($id_filme);
@@ -39,9 +38,15 @@ if ($_SESSION['fk_id_perfil'] == 2) {
     } else {
         $msg = "Erro ao alterar o filme";
     }
+    
+    if ($_SESSION['fk_id_perfil'] == 1) {
+        header("Location: ../view/dashboard/painel_adm.php?msg=" . urlencode($msg));
+    } else if ($_SESSION['fk_id_perfil'] == 2) {
+        header("Location: ../view/dashboard/painel_moderador.php?msg=" . urlencode($msg));
+    }
 } else {
     $msg = "Permissão negada para alterar o filme";
+    header("Location: ../view/dashboard/pagina_de_erro.php?msg=" . urlencode($msg));
 }
 
-header("Location: ../view/adm/listafilmemod.php?msg=" . urlencode($msg));
 ?>
