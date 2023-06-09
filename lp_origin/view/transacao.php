@@ -2,9 +2,13 @@
     session_start();
     require_once '../model/dao/UsuarioDAO.php';
     require_once '../model/dao/itemDAO.php';
-    
+    require_once '../model/dao/transacaoDAO.php';
+
+    $transacaoDAO = new TransacaoDAO();
     $usuarioDAO = new UsuarioDAO();
     $itemDAO = new ItemDAO();
+
+    $id_fatura = $_GET['id_fatura'];
 
     if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
         $id_perfil = $_SESSION["id_perfil"];
@@ -34,14 +38,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/transacao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Detalhes da Transação</title>
 </head>
 <body>
     <form action="../control/item_transacao_control.php" method="POST">
         <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
-
+        <input type="hidden" name="id_fatura" value="<?= $id_fatura['id_fatura'] ?>">
         <h2>Confira seus dados:</h2>
-
         <div class="container">
             <div class="item-details">
                 <div class="item-address">
@@ -75,9 +84,8 @@
                     <div class="product-info">
                         <h2><?= $itemFetch->getNome_item() ?></h2>
                     </div>
-
                     <div class="product-info">
-                        <input type="text" name="description" value="<?=$itemFetch->getDescricao_item() ?>">
+                        <textarea name="descricao_item" id="" cols="30" rows="10"><?=$itemFetch->getDescricao_item() ?></textarea>
                     </div>     
 
                     <div>
@@ -85,70 +93,158 @@
                         <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                     </div>
                 </section>
-                </form>
                 <?php }?>
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" name="transaction_amount">
             <h2>VALOR TOTAL:</h2>
-            <div>
-                
-            </div>
+            <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
-        <h2>Formas de Pagamento:</h2>
+        <h2>Escolha sua Forma de Pagamento:</h2>
         <div class="payment-options container modal-link">
             <aside class="payment_methods">
                 <label for="payment-method">Escolha uma forma de pagamento:</label>
                 <select id="payment-method" name="payment-method-id">
-                    <optgroup label="Pagamento Online">
-                        <option value="pix">PIX</option>
-                        <option value="boleto">Boleto</option>
-                    </optgroup>
-                    <optgroup label="Cartão de Crédito">
-                        <option value="credit_card">Cartão de Crédito</option>
-                        <option value="debit_card">Cartão de Débito</option>
-                    </optgroup>
+                <optgroup label="Pagamento Online">
+                    <option value="pix" id="pix-form-data">PIX</option>
+                    <option value="boleto" id="boleto-form">Boleto</option>
+                </optgroup>
+                <optgroup label="Cartão">
+                    <option value="credit_card" id="cartao-credito-form">Cartão de Crédito</option>
+                    <option value="debit_card" id="cartao-debito-form">Cartão de Débito</option>
+                </optgroup>
                 </select>
             </aside>
         </div>
         <input type="submit" value="Finalizar Compra">
-    </form>
 
-<!-- INICIO POP LOGIN -->
-<div class="overlay"></div>
-<div class="modal">
-    <div class="login">
-        <button class="close-btn" onclick="fecharModal()">&#10005;</button>
+        <!-- INICIO POP LOGIN -->
+        <div class="overlay"></div>
+        <div class="modal">
+        <div class="login">
+            <button class="close-btn" onclick="fecharModal()">&#10005;</button>
 
-        <form action="" method="get" id="pix-form-data">
+            <form action="" method="get" id="pix-form">
             <h1>Pix</h1>
-            <p><strong>Código do Pix:</strong> <span id="pix-code"></span></p>
-            <button class="botao">Enviar</button>
-        </form>
+            <div class="payment-code">
+                <p><strong>Código do Pix:</strong></p>
+                <p><span id="pix-code"></span></p>
+            </div>
 
-        <form action="" method="get" id="boleto-form">
+            <div class="payment-instructions">
+                <p>1. Abra o aplicativo do seu banco ou carteira digital.</p>
+                <p>2. Selecione a opção "Pagamento Pix" ou similar.</p>
+                <p>3. Escaneie o código QR abaixo ou digite o código de pagamento manualmente.</p>
+                <p>4. Confirme o pagamento.</p>
+            </div>
+            <button class="botao">Enviar</button>
+            </form>
+
+            <form action="" method="get" id="boleto-form">
             <h1>Boleto</h1>
+
+            <div class="form-group">
+                <label for="vencimento">Data de Vencimento:</label>
+                <input type="date" id="vencimento">
+            </div>
+
+            <div class="boleto" id="boleto">
+                <h2>Boleto Gerado:</h2>
+                <p id="valor-gerado"></p>
+                <p id="vencimento-gerado"></p>
+                <img id="codigo-gerado" src="" alt="Código de barras">
+            </div>
             <p><strong>Código de Barras:</strong> <span id="boleto-code"></span></p>
             <input type="text" placeholder="Usuário" class="input">
             <br><br>
             <input type="password" placeholder="Senha" class="input">
             <br><br>
             <button class="botao">Enviar</button>
-        </form>
+            </form>
 
-        <form action="" method="get" id="cartao-credito-form" class="formulario">
-            <!-- Formulário de Cartão de Crédito -->
-        </form>
+                <form action="" method="get" id="cartao-credito-form" class="formulario">
+                    <div class="form-group">
+                        <label for="nome">Nome no Cartão:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número do Cartão:</label>
+                        <input type="number" id="numero" name="numero" required>
+                    </div>
+                    <div class="card-info">
+                        <div class="form-group">
+                            <label for="validade">Data de Validade:</label>
+                            <input type="text" id="validade" name="validade" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="number" id="cvv" name="cvv" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bandeira">Bandeira:</label>
+                        <select id="bandeira" name="bandeira" required>
+                            <option value="">Selecione</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="hipercard">Hipercard</option>
+                            <option value="amex">Amex</option>
+                            <option value="diners">Diners</option>
+                            <option value="elo">Elo</option>
+                            <option value="mercadolivre">Cartão MercadoLivre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="adicionar" type="submit">Pagar</button>
+                    </div>
+                </form>
 
-        <form action="" method="get" id="cartao-debito-form" class="formulario">
-            <!-- Formulário de Cartão de Débito -->
-        </form>
-    </div>
-</div>
+                <form action="" method="get" id="cartao-debito-form" class="formulario">
+                    <div class="form-group">
+                        <label for="nome">Nome no Cartão:</label>
+                        <input type="text" id="nome" name="cardholderName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número do Cartão:</label>
+                        <input type="number" id="numero" name="cardNumber" required>
+                    </div>
+                    <div class="card-info">
+                        <div class="form-group">
+                            <label for="validade">Data de Validade:</label>
+                            <input type="text" id="validade" name="expirationDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="number" id="cvv" name="securityCode" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bandeira">Bandeira:</label>
+                        <select id="bandeira" name="bandeira" required>
+                            <option value="">Selecione</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="hipercard">Hipercard</option>
+                            <option value="amex">Amex</option>
+                            <option value="diners">Diners</option>
+                            <option value="elo">Elo</option>
+                            <option value="mercadolivre">Cartão MercadoLivre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="adicionar" type="submit">Pagar</button>
+                        <progress value="0" class="progress-bar">Carregando...</progress>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </form>
+
 <!-- FIM POP LOGIN -->
 <script src="../js/transacao.js"></script>
 </body>
 </html>
+
 

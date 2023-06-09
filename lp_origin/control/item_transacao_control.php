@@ -1,9 +1,11 @@
 <?php
 require_once '../model/dao/transacaoDAO.php';
 
+$id = $_GET['id_fatura'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $method         = strip_tags($_POST['payment-method-id']);
+    $method         = strip_tags($_POST['payment_method_id']);
 
     // Obtém os valores do formulário
     $nome           = strip_tags($_POST["nome_usu"]);
@@ -18,78 +20,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cidade         = strip_tags($_POST["cidade"]); 
     $uf             = strip_tags($_POST["uf"]); 
     $cep            = strip_tags($_POST["cep"]); 
+    $preco_item    = strip_tags($_POST["preco_item"]);
+    $valor_total   = $preco_item;
+    $nome_card   = strip_tags($_POST['cardholderName']);
+    $numero_card   = strip_tags($_POST['cardNumber']);
+    $validade_card = strip_tags($_POST['expirationDate']);
+    $cvv           = strip_tags($_POST['securityCode']);
     $id_perfil = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
-    $description = $_POST["description"];
+    $descricao = $_POST["descricao_item"];
     $id_usuario = $_POST["id_usuario"];
-
+    
     // Cria uma instância da classe TransacaoDAO
     $transacaoDAO = new TransacaoDAO();
 
     // Dados do cartão de crédito
     $card_dados = array(
-        'card_number' => '************',
-        'cardholder' => 'Nome do Titular',
-        'expiration_month' => 'MM',
-        'expiration_year' => 'AAAA',
-        'security_code' => 'CVV',
+        'card_number' => $numero_card,
+        'cardholder' => $nome_card,
+        'expiration_month' => $validade_card,
+        'expiration_year' => $validade_card,
+        'security_code' => $cvv,
         'cardholder' => array(
-            'name' => 'John Doe',
+            'name' => $nome,
             'identification' => array(
                 'type' => 'CPF',
-                'number' => '12345678901'
+                'number' => $cpf_cnpj
             )
-        )
+        ),
+        'email' => $email_mercado_pago
     );
 
-// Dados do pagamento com o método Pix
-$dados_pix = array(
-    'transaction_amount' => $amount,
-    'description' => $description,
-    'external_reference' => $externalReference,
-    'payment_method_id' => $method,
-    'payer' => array(
-        'email' => 'test@test.com'
-    ),
-    'installments' => 1,
-    'notification_url' => "https://www.suaurl.com/notificacoes/"
-);
+    // Monta o array de dados com os valores do formulário
+    $dados = array(
+        'items' => array(
+            array(
+                'description' => $description,
+            )
+        ),
+        'payer' => array(
+            'email' => $email_mercado_pago,
+            'first_name' => $nome,
+            'identification' => array(
+                'type' => $cpf_cnpj,
+                'number' => $cpf_cnpj
+            )
+        ),
+        'installments' => 1,
+        'payment_method_id' => $method,
+        'issuer_id' => $id_perfil, // Adicione o issuer_id aqui
+        'token' => $card_token,
+        'transaction_amount' => $valor_total,
+        'notification_url' => "https://www.suaurl.com/notificacoes/"
+    );
+
+    // Dados do pagamento com o método Pix
+    $dados_pix = array(
+        'transaction_amount' => $valor_total,
+        'description' => $descricao,
+        'external_reference' => 'M002F1',
+        'payment_method_id' => 'pix',
+        'payer' => array(
+            'email' => 'test@test.com'
+        ),
+        'installments' => 1,
+        'notification_url' => "https://www.suaurl.com/notificacoes/"
+    );
 
     // Verificar o método de pagamento selecionado
     if ($method === 'pix') {
         // Chame a função pixMethod() do TransacaoDAO passando os dados de pagamento
         $transacaoDAO->pixMethod($dados_pix);
 
-    } elseif ($method === 'boleto') {
-        // Lógica para transação via boleto
-        // ...
-    } elseif ($method === 'credit_card') {
+    } elseif ($method === 'tickte') {
+
+        $transacaoDAO->pixMethod($dados_pix);
+
+    } elseif ($method === 'credit_card' || $method === 'debit_card') {
         // Primeiro, obtenha o token do cartão de crédito
         $card_token = $transacaoDAO->tokenDoCartao($card_dados);
 
         // Verifique se o token do cartão foi obtido com sucesso
         if ($card_token !== false) {
-            // Monta o array de dados com os valores do formulário
-            $dados = array(
-                'items' => array(
-                    array(
-                        'description' => $description,
-                    )
-                ),
-                'payer' => array(
-                    'email' => $email_mercado_pago,
-                    'first_name' => $nome,
-                    'identification' => array(
-                        'type' => $cpf_cnpj,
-                        'number' => $cpf_cnpj
-                    )
-                ),
-                'installments' => $parcelas,
-                'payment_method_id' => $method,
-                'issuer_id' => $id_perfil, // Adicione o issuer_id aqui
-                'token' => $card_token,
-                'transaction_amount' => $valor_total
-            );
-
             // Envia a requisição para a API do Mercado Pago
             $response = $transacaoDAO->enviarRequisicao($dados);
 
@@ -114,15 +125,21 @@ $dados_pix = array(
             header("Location: ../view/transacao.php");
             exit;
         }
-    } elseif ($method === 'debit_card') {
-        // Lógica para transação via cartão de débito
-        // ...
     } else {
-        // Método de pagamento inválido ou não selecionado
-        // Tratar o erro apropriadamente
-        // ...
+        echo "<script>location.href='../view/transacao.php?ERRO ao Acessar o Metodo';</script>";
     }
     // Salvar a transação no banco de dados
-    $transacaoDAO->criarTransacao($id_usuario, $id_item, $description, $qtd_item);
+    $transacaoDAO->criarTransacao($id_usuario, $id_transacao, $ref_mp,);
+
+    if ($transacaoDAO) {
+        //Buscar essa transacao no banco
+        $transacaoDAO->obterTransacaoPorRef($ref_mp);
+        echo "<script>location.href='../view/transacao.php?id_transacao=$id_transacao';</script>";
+    } else {
+        echo "<script>location.href='../view/transacao.php?ERRO';</script>";
+    }
+
+}else{
+    echo "<script>location.href='../view/detalhe_item.php?ERRO';</script>";
 }
 

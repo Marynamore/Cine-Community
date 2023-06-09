@@ -20,7 +20,6 @@
       <a href="../view/pix.php"><button class="debit-card">Pix</button></a>
       <a href="../view/boleto.php"><button class="bank-slip">Boleto Bancário</button></a>
       <!-- <a href="cartaocredito.html"><button class="paypal">PayPal</button></a> -->
-
     </div>
   </div>
 </body>
