@@ -8,7 +8,6 @@
     $usuarioDAO = new UsuarioDAO();
     $itemDAO = new ItemDAO();
 
-    $id_fatura = $_GET['id_fatura'];
 
     if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
         $id_perfil = $_SESSION["id_perfil"];

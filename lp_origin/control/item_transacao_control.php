@@ -1,7 +1,6 @@
 <?php
 require_once '../model/dao/transacaoDAO.php';
 
-$id = $_GET['id_fatura'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
