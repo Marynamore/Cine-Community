@@ -34,7 +34,7 @@ if ($capa_filme['error'] === UPLOAD_ERR_OK) {
     
     $FilmeDAO = new FilmeDAO();
     if ($FilmeDAO->cadastrarFilme($FilmeDTO)) {
-        header("Location: ../view/adm/listafilmemod.php");
+        header("Location: ../view/dashboard/listafilmemod.php");
         exit;
     } else {
         echo "Erro ao cadastrar o filme no banco de dados.";
@@ -44,4 +44,3 @@ if ($capa_filme['error'] === UPLOAD_ERR_OK) {
     echo "Erro ao fazer upload da imagem da capa do filme.";
     exit;
 }
-

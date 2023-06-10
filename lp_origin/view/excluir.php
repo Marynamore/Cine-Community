@@ -11,4 +11,3 @@ if($retorno){
 }
 header("location:../crud_filme/lista.php?msg=$msg");
 
-

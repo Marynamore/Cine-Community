@@ -43,8 +43,8 @@ if (isset($_SESSION["id_usuario"])) {
                     <legend>Dados Pessoais</legend>
 
                     <div class="inputBox">
-                        <label for="imagem_perfil">Foto de Perfil:</label>
-                        <input type="file" name="imagem_perfil" id="imagem_perfil">
+                        <label for="foto_usu">Foto de Perfil:</label>
+                        <input type="file" name="foto_usu" id="foto_usu">
                     </div>
                     <div class="inputBox">
                         <label for="nome_usu">Nome:</label>

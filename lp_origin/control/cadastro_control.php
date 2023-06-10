@@ -3,16 +3,15 @@
 require_once __DIR__ . "/../model/dao/UsuarioDAO.php";
 require_once __DIR__ . "/../model/dto/UsuarioDTO.php";
 
-$nome_usu     = filter_input(INPUT_POST, 'nome_usu');
+$nome_usu = filter_input(INPUT_POST, 'nome_usu');
 $nickname_usu = filter_input(INPUT_POST, 'nickname_usu');
-$dt_de_nasci_usu  = filter_input(INPUT_POST, 'dt_de_nasci_usu');
-$genero_usu   = filter_input(INPUT_POST, 'genero_usu');
-$foto_usu   = filter_input(INPUT_POST, 'foto_usu');
-$email_usu    = filter_input(INPUT_POST, 'email_usu');
-$senha_usu    = filter_input(INPUT_POST, 'senha_usu');
+$dt_de_nasci_usu = filter_input(INPUT_POST, 'dt_de_nasci_usu');
+$genero_usu = filter_input(INPUT_POST, 'genero_usu');
+$email_usu = filter_input(INPUT_POST, 'email_usu');
+$senha_usu = filter_input(INPUT_POST, 'senha_usu');
 $telefone = filter_input(INPUT_POST, 'telefone');
-$cpf_cnpj = filter_input(INPUT_POST,'cpf_cnpj');
-$endereco = filter_input(INPUT_POST, 'endereco'  );
+$cpf_cnpj = filter_input(INPUT_POST, 'cpf_cnpj');
+$endereco = filter_input(INPUT_POST, 'endereco');
 $numero = filter_input(INPUT_POST, 'numero');
 $complemento = filter_input(INPUT_POST, 'complemento');
 $bairro = filter_input(INPUT_POST, 'bairro');
@@ -21,13 +20,17 @@ $cep = filter_input(INPUT_POST, 'cep');
 $uf = filter_input(INPUT_POST, 'uf');
 $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 
-$imagem_item = $_FILES['foto_usu'];
-
-if ($foto_usu['error'] === UPLOAD_ERR_OK) {
+// Verifica se o campo de upload de arquivo foi enviado e se não há erros
+if (isset($_FILES['foto_usu']) && $_FILES['foto_usu']['error'] === UPLOAD_ERR_OK) {
+    $foto_usu = $_FILES['foto_usu'];
     $nome_arquivo = $foto_usu['name'];
     $caminho_temporario = $foto_usu['tmp_name'];
     $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
     move_uploaded_file($caminho_temporario, $caminho_destino);
+} else {
+    // Caso contrário, define uma imagem padrão
+    $nome_arquivo = 'foto_padrao.jpg'; // Substitua pelo nome do arquivo da imagem padrão
+}
 
 $usuarioDTO = new UsuarioDTO();
 $usuarioDTO->setNome_usu($nome_usu);
@@ -48,10 +51,8 @@ $usuarioDTO->setCep($cep);
 $usuarioDTO->setUf($uf);
 $usuarioDTO->setFk_id_perfil($id_perfil);
 
-
 $usuarioDAO = new UsuarioDAO();
 $usuarioDAO->cadastrarUsuario($usuarioDTO);
-
 
 if ($usuarioDAO) {
     header("Location: ../view/login.php");
@@ -60,7 +61,4 @@ if ($usuarioDAO) {
     header("Location: ../view/cadastro.php");
     exit;
 }
-}else {
-    echo "Erro ao fazer upload da foto do usuario.";
-    exit;
-}
+?>

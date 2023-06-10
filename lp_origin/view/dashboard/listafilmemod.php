@@ -3,7 +3,7 @@ session_start();
 
 $usuarioLogado = $_SESSION["nickname_usu"];
 $id_usuarioLogado = $_SESSION["id_usuario"];
-$id_perfil = $_SESSION["fk_id_perfil"];
+$id_perfil = $_SESSION["id_perfil"];
 
 if ($id_perfil == "moderador") {
     echo "Apenas moderadores podem acessar essa pagina.";
@@ -17,7 +17,7 @@ if ($id_perfil == "moderador") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/stylelista.css">
-    <title>Lista Administrador</title>
+    <title>Lista Moderador</title>
 </head>
 <body>
 <?php

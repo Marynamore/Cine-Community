@@ -12,4 +12,3 @@ $msg = ($retorno) ? "Resenha excluído com sucesso!" : "Erro ao excluir a Resenh
 
 header("Location: ../view/filme_resenha.php?msg=" . urlencode($msg));
 
-

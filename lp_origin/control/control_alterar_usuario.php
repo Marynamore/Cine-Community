@@ -44,12 +44,18 @@ $UsuarioDTO->setSenha_usu($senha_usu);
 $UsuarioDAO = new UsuarioDAO();
 $sucesso = $UsuarioDAO->alterarUsuario($UsuarioDTO);
 
-// Redirecionando para a página de perfil com uma mensagem de sucesso ou erro
+// Verificar se o usuário é administrador ou não
 if ($sucesso) {
-    $msg = "Usuário alterado com sucesso!";
+    if ($UsuarioDTO->getFk_Id_perfil() == 1) {
+        // Redirecionar para a página do administrador
+        header("location:../view/dashboard/listausuarioadm.php?msg=" . urlencode("Usuário alterado com sucesso!"));
+    } else {
+        // Redirecionar para a página do usuário
+        header("location:../index.php?msg=" . urlencode("Usuário alterado com sucesso!"));
+    }
 } else {
-    $msg = "Erro ao Alterar o Usuário";
+    // Redirecionar para a página do administrador com mensagem de erro
+    header("location:../view/dashboard/listausuarioadm.php?msg=" . urlencode("Erro ao alterar o usuário"));
 }
 
-header("location:../view/dashboard/listausuarioadm.php?msg=" . urlencode($msg));
 exit;
