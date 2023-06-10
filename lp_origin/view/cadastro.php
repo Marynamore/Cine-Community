@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil = $_SESSION["fk_id_perfil"];
+    $id_perfil = $_SESSION["id_perfil"];
 } else {
     $usuarioLogado = "";
 }

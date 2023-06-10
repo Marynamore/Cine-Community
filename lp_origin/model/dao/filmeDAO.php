@@ -75,7 +75,7 @@ public function alterarFilme(FilmeDTO $FilmeDTO) {
 /**
  * excluir($id): exclui um filme do banco de dados com base no seu id.
  */
-public function excluirFilmeById($id_filme) {
+public function excluirfilmeById($id_filme) {
     try {
         $sql = "DELETE FROM filme WHERE id_filme=?";
         $stmt = $this->pdo->prepare($sql);
@@ -97,6 +97,28 @@ public function listarTodos(){
         $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme, p.perfil_usu FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil ORDER BY id_categoria_filme, f.nome_filme ";
 
         $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();   
+        $filmesDTO = array();
+        while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $FilmeDTO = new FilmeDTO();
+            $FilmeDTO->setId_filme($filmeFetch['id_filme']);
+            $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
+            $FilmeDTO->setFk_id_categoria_filme($filmeFetch['categoria_filme']);
+            $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
+            $filmesDTO[] = $filmeFetch;
+        } 
+        return $filmesDTO;
+    }catch(PDOException $exc){
+        echo $exc->getMessage();
+    }  
+}
+
+public function pesquisarFilmes(){
+    try{
+        $sql = "SELECT f.*, c.categoria_filme, cn.canal_filme, p.perfil_usu, u.id_usuario FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario WHERE nome_filme=? LIKE nome_filme";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, '%' . $nome_filme . '%');
         $stmt->execute();   
         $filmesDTO = array();
         while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {

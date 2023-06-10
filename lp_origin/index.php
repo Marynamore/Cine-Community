@@ -1,17 +1,16 @@
 <?php
 session_start();
-$usuarioLogado = "";
-$id_usuarioLogado = "";
-$id_perfil = "";
+
 
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
+} else {
+    $usuarioLogado = "";
 }
-require_once './model/conexao.php';
 
-$pdo = Conexao::getInstance();
+
 
 if (isset($_POST['nome_filme'])) {
     $nome_filme = $_POST['nome_filme'];
@@ -33,22 +32,6 @@ if (isset($_POST['nome_filme'])) {
         }
     }
 }
-
-
-// if (!empty($_GET['search'])) {
-//     $data = $_GET['search'];
-//     $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
-//     FROM filme f
-//     INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
-//     INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
-//     ORDER BY id_categoria_filme, f.nome_filme";
-// } else {
-//     $sql = "SELECT f.id_filme, f.nome_filme, f.capa_filme, c.categoria_filme, cn.canal_filme
-//             FROM filme f
-//             INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme
-//             INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme
-//             ORDER BY id_categoria_filme, f.nome_filme";
-// }
 
 ?>
 
@@ -73,17 +56,19 @@ if (isset($_POST['nome_filme'])) {
         <header class="header">
             <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
             <nav class="navbar">
-            <div class="search-box">
-                <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
-                <a class="search-btn">
-                    <img class="loupe-blue" src="./assets/search.svg" alt="" width="25px" height="25px">
-                    <button onclick="searchData()">
-                        <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-                    </button>
-                </a>
-            </div>
+                <form action="./control/control_pesquisa.php" method="post">
+                    <div class="search-box">
+                        <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
+                        <a class="search-btn">
+                            <img class="loupe-blue" src="./assets/search.svg" alt="" width="25px" height="25px">
+                            <button onclick="searchData()">
+                                <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
+                        </a>
+                    </div>
+                </form>    
             
                 <a href="index.php"><i class="fa-solid fa-house"></i>INICIO</a>
                 <?php

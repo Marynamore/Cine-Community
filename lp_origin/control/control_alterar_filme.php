@@ -48,3 +48,5 @@ $id_perfil              = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : nul
     $msg = "Permissão negada para alterar o filme";
     header("Location: ../view/dashboard/pagina_de_erro.php?msg=" . urlencode($msg));
 }
+
+?>
