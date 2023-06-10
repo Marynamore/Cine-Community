@@ -293,10 +293,10 @@ section {
  .product-item {
    width: calc(33.33% - 20px);
    margin-bottom: 20px;
-   border: 2px solid #fff;
+   border: 1px solid #08ef;
    border-radius: 20px;
    padding: 20px;
-   background-color:#08ef;
+   background-color:#1f242d;
  }
  
  .product-item img {
@@ -314,7 +314,7 @@ section {
  
  .product-item .price {
    font-size: 14px;
-   color:black;
+   color:white;
    margin-bottom: 10px;
  }
  
@@ -449,4 +449,3 @@ h5{
     overflow-x: scroll;
   }
 }
-

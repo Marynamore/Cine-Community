@@ -48,9 +48,10 @@ if ($get_id) {
 </head>
 
 <body>
+<a href="../view/dashboard/listafilmemod.php"><input type="submit" value="Voltar"></a>
     <h1>Alterar filme</h1>
     <center>
-    <div class="borda">
+    <div class="container">
         <form action="../control/control_alterar_filme.php" method="post">
             <input type="hidden" name="id_filme" value="<?= $id_filme; ?>">
             <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado; ?>">
