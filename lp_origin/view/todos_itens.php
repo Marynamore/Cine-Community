@@ -37,12 +37,24 @@ if (isset($_SESSION["id_usuario"])) {
     <header class="header">
         <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
-            <a href="cadastrar_item.php">Cadastrar Item</a>
-            <a href="todos_itens.php">Itens</a>
-            <a href="pedidos.php">Meus Pedidos</a>
-            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado; ?>" onclick="funcPerfil()"><i
-                    class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
-            <a href="../index.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
+        <?php
+            if (!empty($usuarioLogado)) {
+                if($id_perfil == 3){
+                    echo' <a href="cadastrar_item.php">Cadastrar Item</a>';
+                }elseif ($id_perfil == 3 || $id_perfil == 4) {
+                    echo '<a href="../index.php"><i class="fa-solid fa-house"></i>INICIO</a>';
+                    echo '<a href="todos_itens.php">Itens</a>';
+                    echo'<a href="alterar_usuario.php?id_usuario=<?= $id_usuarioLogado; ?>" onclick="funcPerfil()"><i
+                    class="fa-solid fa-user"></i>'.$usuarioLogado.'</a>';
+                }elseif($id_perfil == 4){
+                   echo '<a href="pedidos.php">Meus Pedidos</a>';
+                } 
+            }else {
+                echo '<a href="cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
+                echo '<a href="login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
+            }
+            ?>
+            <!-- Resto do conteúdo -->
         </nav>
     </header>
     <h1>Itens</h1>

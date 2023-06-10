@@ -89,7 +89,7 @@ if (isset($_POST['nome_filme'])) {
                 <?php
                 if (!empty($usuarioLogado)) {
                     if ($id_perfil == 1) {
-                        echo '<a href="./view/adm/paineladm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
+                        echo '<a href="./view/dashboard/painel_adm.php?id_usuario=' . $id_usuarioLogado . '"><i class="fa-solid fa-user"></i>' . $usuarioLogado . 'Painel Administrador</a>';
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 2) {
                         echo '<a href="./view/dashboard/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
