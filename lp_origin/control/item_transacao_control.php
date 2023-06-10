@@ -53,7 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dados = array(
         'items' => array(
             array(
-                'description' => $description,
+                'currency_id' => 'BRL',
+                'description' => $descricao,
             )
         ),
         'payer' => array(
@@ -90,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Chame a função pixMethod() do TransacaoDAO passando os dados de pagamento
         $transacaoDAO->pixMethod($dados_pix);
 
-    } elseif ($method === 'tickte') {
+    } elseif ($method === 'ticket_url') {
 
         $transacaoDAO->pixMethod($dados_pix);
 

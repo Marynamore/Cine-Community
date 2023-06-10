@@ -96,7 +96,8 @@
                 </div>
             </div>
         </div>
-        <div class="container" name="transaction_amount">
+        <div class="container">
+            <input type="hidden" name="transaction_amount" value="<?=$itemFetch->getPreco_item()?>">
             <h2>VALOR TOTAL:</h2>
             <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
         </div>
@@ -106,19 +107,19 @@
             <aside class="payment_methods">
                 <label for="payment-method">Escolha uma forma de pagamento:</label>
                 <select id="payment-method" name="payment-method-id">
-                <optgroup label="Pagamento Online">
-                    <option value="pix" id="pix-form-data">PIX</option>
-                    <option value="boleto" id="boleto-form">Boleto</option>
-                </optgroup>
-                <optgroup label="Cartão">
-                    <option value="credit_card" id="cartao-credito-form">Cartão de Crédito</option>
-                    <option value="debit_card" id="cartao-debito-form">Cartão de Débito</option>
-                </optgroup>
+                    <optgroup label="Pagamento Online">
+                        <option value="pix">PIX</option>
+                        <option value="ticket_url">Boleto</option>
+                    </optgroup>
+                    <optgroup label="Cartão">
+                        <option value="credit_card">Cartão de Crédito</option>
+                        <option value="debit_card">Cartão de Débito</option>
+                    </optgroup>
                 </select>
             </aside>
         </div>
         <input type="submit" value="Finalizar Compra">
-
+        
         <!-- INICIO POP LOGIN -->
         <div class="overlay"></div>
         <div class="modal">
