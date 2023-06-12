@@ -1,14 +1,19 @@
+body{
+  background-color:  #1f242d;
+  color: #fff;
+}
 .container {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     align-items: baseline;
+    
 }
 
 .item-details {
-    display: flex;
+
     margin-right: 20px;
-    flex-direction: column;
+
 }
 
 .item-details img {
@@ -25,14 +30,14 @@
 }
 
 #product-details {
-  display: flex;
+  
   justify-content: center;
   margin: 20px;
   
 }
 
 .product {
-  background-color:  #1f242d;
+ 
   border:  none;
   border-radius: 5px;
   margin-right: 20px;
