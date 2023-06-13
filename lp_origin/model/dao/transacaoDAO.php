@@ -131,7 +131,6 @@ class TransacaoDAO{
 
     public function enviarRequisicao($dados) {
         include_once '../apiMP/config.php';
-        // Configuração da requisição cURL
         $curl = curl_init();
 
         $options = array(
@@ -145,11 +144,9 @@ class TransacaoDAO{
                 'Authorization: Bearer ' . TOKEN_MERCADOPAGO
             )
         );
-
-        // Configura as opções do cURL
+        
         curl_setopt_array($curl, $options);
 
-        // Executa a requisição e obtém a resposta
         $response = curl_exec($curl);
 
         // Verifica se ocorreu algum erro na requisição para criar o pagamento
@@ -177,8 +174,6 @@ class TransacaoDAO{
 
     public function tokenDoCartao($card_dados) {
         include_once '../apiMP/config.php';
-
-        // Configuração da requisição cURL
         $curl = curl_init();
 
         $optionsToken = array(
@@ -193,10 +188,8 @@ class TransacaoDAO{
             )
         );
 
-        // Configura as opções do cURL
         curl_setopt_array($curl, $optionsToken);
 
-        // Executa a requisição e obtém a resposta
         $responseToken = curl_exec($curl);
 
         // Verifica se a requisição foi bem-sucedida

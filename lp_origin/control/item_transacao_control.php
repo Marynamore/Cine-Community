@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $method         = strip_tags($_POST['payment_method_id']);
 
-    // Obtém os valores do formulário
     $nome           = strip_tags($_POST["nome_usu"]);
     $cpf_cnpj       = strip_tags($_POST["cpf_cnpj"]);
     $email = strip_tags($_POST["email_usu"]);
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descricao = $_POST["descricao_item"];
     $id_usuario = $_POST["id_usuario"];
     
-    // Cria uma instância da classe TransacaoDAO
     $transacaoDAO = new TransacaoDAO();
 
     // Dados do cartão de crédito
@@ -67,33 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ),
         'installments' => 1,
         'payment_method_id' => $method,
-        'issuer_id' => $id_perfil, // Adicione o issuer_id aqui
+        'issuer_id' => $id_perfil,
         'token' => $card_token,
         'transaction_amount' => $valor_total,
         'notification_url' => "https://www.suaurl.com/notificacoes/"
     );
 
-    // Dados do pagamento com o método Pix
-    $dados_pix = array(
-        'transaction_amount' => $valor_total,
-        'description' => $descricao,
-        'external_reference' => 'M002F1',
-        'payment_method_id' => 'pix',
-        'payer' => array(
-            'email' => 'test@test.com'
-        ),
-        'installments' => 1,
-        'notification_url' => "https://www.suaurl.com/notificacoes/"
-    );
-
     // Verificar o método de pagamento selecionado
     if ($method === 'pix') {
-        // Chame a função pixMethod() do TransacaoDAO passando os dados de pagamento
-        $transacaoDAO->pixMethod($dados_pix);
+        $transacaoDAO->pixMethod($dados);
 
     } elseif ($method === 'ticket_url') {
 
-        $transacaoDAO->pixMethod($dados_pix);
+        //$transacaoDAO->boletoMethod($dados);
 
     } elseif ($method === 'credit_card' || $method === 'debit_card') {
         // Primeiro, obtenha o token do cartão de crédito
@@ -114,13 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../view/pedidos.php");
                 exit;
             } else {
-                // Trate o erro adequadamente
                 echo "Erro ao obter o ID do pagamento";
                 header("Location: ../view/transacao.php");
                 exit;
             }
         } else {
-            // Trate o erro adequadamente
             echo "Erro ao obter o token do cartão";
             header("Location: ../view/transacao.php");
             exit;
@@ -128,8 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<script>location.href='../view/transacao.php?ERRO ao Acessar o Metodo';</script>";
     }
+
     // Salvar a transação no banco de dados
-    $transacaoDAO->criarTransacao($id_usuario, $id_transacao, $ref_mp,);
+    $transacaoDAO->criarTransacao($id_usuario, $id_transacao, $ref_mp);
 
     if ($transacaoDAO) {
         //Buscar essa transacao no banco

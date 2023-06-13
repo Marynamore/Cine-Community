@@ -103,7 +103,38 @@
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
         <h2>Escolha sua Forma de Pagamento:</h2>
-        <div class="payment-options container modal-link">
+        <button onclick="openModal()">Abrir Janela Modal</button>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Formulário de Pagamento</h2>
+    <form id="payment-form">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome">
+      
+      <label for="forma-pagamento">Forma de Pagamento:</label>
+      <select id="forma-pagamento" name="forma-pagamento" onchange="togglePaymentFields()">
+        <option value="pix">Pix</option>
+        <option value="boleto">Boleto</option>
+      </select>
+      
+      <div id="pix-fields">
+        <label for="chave-pix">Chave Pix:</label>
+        <input type="text" id="chave-pix" name="chave-pix">
+      </div>
+      
+      <div id="boleto-fields">
+        <label for="numero-boleto">Número do Boleto:</label>
+        <input type="text" id="numero-boleto" name="numero-boleto">
+      </div>
+      
+      <input type="submit" value="Enviar Pagamento">
+    </form>
+  </div>
+</div>
+
+        <!-- <div class="payment-options container modal-link">
             <aside class="payment_methods">
                 <label for="payment-method">Escolha uma forma de pagamento:</label>         
                 <select id="opcoes" onchange="mostrarModal()">
@@ -115,7 +146,7 @@
                 </select>
             </aside>
         </div>
-        <!-- INICIO POP LOGIN -->
+         INICIO POP LOGIN 
         <div class="modal" id="modal">
             <h2>Modal</h2>
             <p id="opcaoSelecionada"></p>
@@ -238,7 +269,7 @@
             </div>
         </div>
         </div>
-        <!-- FIM POP LOGIN -->
+        FIM POP LOGIN -->
     </form>    
 <script src="../js/transacao.js"></script>
 </body>
