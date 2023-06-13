@@ -73,3 +73,15 @@ footer {
   padding: 10px;
   text-align: center;
 }
+
+.compraritem{
+  background-color: #08ef;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.compraritem:hover{
+  color: black;
+}
