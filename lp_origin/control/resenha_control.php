@@ -10,7 +10,7 @@ if (isset($_SESSION['id_usuario'])){
     $id_filme = isset($_POST['fk_id_filme']) ? $_POST['fk_id_filme'] : null;
     $id_usuario = isset($_POST['fk_id_usuario']) ? $_POST['fk_id_usuario'] : null;
     $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
-    $dt_hora_res = date('Y-m-d H:i:s');
+    $dt_hora_res = date('d-m-y H:i:s');
 
     $resenhaDTO = new ResenhaDTO();
     $resenhaDTO->setTitulo_res($titulo_res);
