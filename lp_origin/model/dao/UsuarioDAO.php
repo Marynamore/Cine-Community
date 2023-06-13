@@ -89,18 +89,34 @@ class UsuarioDAO {
     
 
     
-    public function listarTodos(){
-        try{
-            $sql = "SELECT * FROM usuario ORDER BY nome_usu";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
-            $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $usuario;
-        }catch(PDOException $e){
-            echo $e->getMessage();
+public function listarTodos()
+{
+    try {
+        $sql = "SELECT * FROM usuario ORDER BY id_usuario";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        $usuarios = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $usuario = new UsuarioDTO();
+            $usuario->setId_usuario($row['id_usuario']);
+            $usuario->setNome_usu($row['nome_usu']);
+            $usuario->setNickname_usu($row['nickname_usu']);
+            $usuario->setGenero_usu($row['genero_usu']);
+            $usuario->setDt_de_nasci_usu($row['dt_de_nasci_usu']);
+            $usuario->setEmail_usu($row['email_usu']);
+            $usuario->setSenha_usu($row['senha_usu']);
+            $usuario->setFoto_usu($row['foto_usu']);
+
+            $usuarios[] = $usuario;
         }
-        
+
+        return $usuarios;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
     }
+}
+
     
     public function alterarUsuario(UsuarioDTO $UsuarioDTO)
     {
@@ -126,27 +142,26 @@ class UsuarioDAO {
             $stmt->bindValue(15, $UsuarioDTO->getEmail_usu());
             $stmt->bindValue(16, $UsuarioDTO->getSenha_usu());
             $stmt->bindValue(17, $UsuarioDTO->getId_usuario());
-            $stmt->execute();
-            return true;
-        } catch (PDOException $exc) {
-            echo $exc->getMessage();
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
             die();
         }
     }
     
 
     public function excluirUsuarioById($id_usuario){
-        try{
+        try {
             $sql = "DELETE FROM usuario WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return true;
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-        return false;
-    }
+            $stmt->bindValue(1, $id_usuario);
+            $stmt->execute();
+    
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
 }
     public function dadosUsuario($id_usuario) {
         try {

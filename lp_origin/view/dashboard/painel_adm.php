@@ -207,63 +207,54 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         </div>
 
         <div class="conteudo" id="usuarios">
-            <h2>Usuários</h2>
-            <?php
+    <h2>Usuários</h2>
+    <?php
+    require_once '../../model/dao/UsuarioDAO.php';
+    $UsuarioDAO = new UsuarioDAO();
 
-            require_once '../../model/dao/UsuarioDAO.php';
-            $UsuarioDAO = new UsuarioDAO();
+    if (isset($_GET["msg"])) {
+        echo "<center>" . $_GET["msg"] . "</center>";
+    }
 
-            ?>
-            <?php
-                if(isset($_GET["msg"])){
-                    echo "<center>".$_GET["msg"]."</center>";
-                }
-                ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Nickname</th>
-                        <th>Data de Nascimento</th>
-                        <th>Gênero</th>
-                        <th>E-mail</th>
-                        <th>Senha</th>
-                        <th>Foto</th>
-                        <th>Ação</th>
+    $usuarios = $UsuarioDAO->listarTodos();
+    ?>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Nickname</th>
+                <th>Data de Nascimento</th>
+                <th>Gênero</th>
+                <th>E-mail</th>
+                <th>Senha</th>
+                <th>Foto</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($usuarios as $usuario) { ?>
+                <tr>
+                    <td><?= $usuario->getId_usuario() ?></td>
+                    <td><?= $usuario->getNome_usu() ?></td>
+                    <td><?= $usuario->getNickname_usu() ?></td>
+                    <td><?= $usuario->getDt_de_nasci_usu() ?></td>
+                    <td><?= $usuario->getGenero_usu() ?></td>
+                    <td><?= $usuario->getEmail_usu() ?></td>
+                    <td><?= $usuario->getSenha_usu() ?></td>
+                    <td><?= $usuario->getFoto_usu() ?></td>
+                    <td>
+                        <a href="../alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
+                        <a href="../../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>" title="EXCLUIR">Excluir <i class="fa fa-trash fa-lg"></i></a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <?php
-                     $usuarios = $UsuarioDAO->listarTodos();
-                     foreach ($usuarios as $usuario) {
-                     ?>
-                    <tr>
-                        <td><?= $usuario["id_usuario"] ?></td>
-                        <td><?= $usuario["nome_usu"] ?></td>
-                        <td><?= $usuario["nickname_usu"] ?></td>
-                        <td><?= $usuario["genero_usu"] ?></td>
-                        <td><?= $usuario["dt_de_nasci_usu"] ?></td>
-                        <td><?= $usuario["email_usu"] ?></td>
-                        <td><?= $usuario["senha_usu"] ?></td>
-                        <td><?= $usuario["foto_usu"] ?></td>
-                        <td>
-                            <a href="../alterar_usuario.php?id_usuario=<?= $usuario["id_usuario"] ?>" title="ALTERAR">Alterar<i
-                                    class="bi bi-pencil"></i></a>
-                            <a href="../../control/excluir.php?id_usuario=<?= $usuario["id_usuario"] ?>"
-                                title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                     ?>
 
-                    <!-- adicione mais linhas conforme necessário -->
-                </tbody>
-            </table>
-        </div>
+
 
         <div class="conteudo" id="itens">
             <h2>Itens</h2>

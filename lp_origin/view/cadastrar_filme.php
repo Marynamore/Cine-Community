@@ -9,7 +9,7 @@ if (!isset($_SESSION["id_usuario"]) || !isset($_SESSION["id_perfil"])) {
 $id_usuario = $_SESSION["id_usuario"];
 $id_perfil = $_SESSION["id_perfil"];
 
-if ($id_perfil === "moderador") {
+if ($id_perfil == 2) {
     echo "Apenas moderadores e podem cadastrar filmes.";
     exit;
 }

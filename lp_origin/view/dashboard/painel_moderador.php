@@ -31,8 +31,8 @@ $usuario = $UsuarioDAO->recuperarUsuarioPorID($idUsuarioDesejado);
             <a href="../../index.php">voltar</a>
             <a href="../dashboard/listafilmemod.php">Filmes</a>
             <?php if ($usuario): ?>
-                <a href="../cadastrar_filme.php?id=<?= $usuario["id_usuario"] ?>">Adicionar Filme</a>
-                <a href="../alterar_usuario.php?id=<?= $usuario["id_usuario"] ?>">Alterar Perfil</a>
+                <a href="../cadastrar_filme.php?id_usuario=<?= $usuario["id_usuario"] ?>">Adicionar Filme</a>
+                <a href="../perfil_usuario.php?id_usuario=<?= $usuario["id_usuario"] ?>">Perfil</a>
             <?php endif; ?>
         </div>
     </nav>
