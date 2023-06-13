@@ -65,7 +65,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
             <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
           </div><br>
           <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
-          <a href="fatura.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>
+          <a href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>
         </div>
       </section>
     </form>
