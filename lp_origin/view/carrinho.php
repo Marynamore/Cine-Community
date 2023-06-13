@@ -3,15 +3,18 @@ session_start();
 require_once '../model/dto/carrinhoDTO.php';
 require_once '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
+require_once '../model/dao/UsuarioDAO.php';
 
 $itemDAO = new ItemDAO();
 $carrinhoDAO = new CarrinhoDAO();
+$usuarioDAO = new UsuarioDAO();
 
 if(isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
-    $id_perfil =  $_SESSION["fk_id_perfil"];
+    $id_perfil =  $_SESSION["id_perfil"];
     //exit;  
+
 } else {
     $usuarioLogado = "";
 } 
@@ -38,7 +41,7 @@ if(isset($_SESSION["id_usuario"])) {
             <a href="cadastrar_item.php">Cadastrar Item</a>
             <a href="todos_itens.php">Itens</a>
             <a href="pedidos.php">Meus Pedidos</a>
-            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado;?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
+            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
             <?php 
                 $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
                 $total_itens = $carrinhoData['total_itens'];
@@ -71,7 +74,7 @@ if(isset($_SESSION["id_usuario"])) {
         ?>
             <form action="" method="POST">
                 <input type="hidden" name="id_carrinho" value="<?=$carrinhoFetch->getId_carrinho()?>">
-                <img src="../assets/?=$itemFetch['imagem_item']?>">
+                <img src="../assets/imagensprodutos?=$itemFetch['imagem_item']?>">
                 <h3><?=$itemFetch['nome_item']?></h3>
                 <div>
                     <p class="price"><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch['preco_item']?></p>

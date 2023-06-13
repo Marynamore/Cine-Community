@@ -27,6 +27,7 @@ if (isset($usuarioLogado) && isset($_POST['item_adicionado'])) {
     $carrinhoDTO->setFk_id_perfil($id_perfil);
 
     $message = $carrinhoDAO->adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil);
+    
 } else {
     header("Location:../view/todos_itens.php?msg=Usuário Não encontrado");
     exit;

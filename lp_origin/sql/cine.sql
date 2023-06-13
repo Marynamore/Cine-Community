@@ -539,6 +539,28 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`transacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `cine_community`.`item_contem_compra`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cine_community`.`item_contem_compra` ;
+
+CREATE TABLE IF NOT EXISTS `cine_community`.`item_contem_compra` (
+  `fk_id_item` INT(11) NOT NULL,
+  `fk_id_compra` INT NOT NULL,
+  PRIMARY KEY (`fk_id_item`, `fk_id_compra`),
+  INDEX `fk_item_has_compra_compra1_idx` (`fk_id_compra` ASC),
+  INDEX `fk_item_has_compra_item1_idx` (`fk_id_item` ASC),
+  CONSTRAINT `fk_item_has_compra_item1`
+    FOREIGN KEY (`fk_id_item`)
+    REFERENCES `cine_community`.`item` (`id_item`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_has_compra_compra1`
+    FOREIGN KEY (`fk_id_compra`)
+    REFERENCES `cine_community`.`compra` (`id_compra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

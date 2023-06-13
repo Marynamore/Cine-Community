@@ -46,190 +46,66 @@
     <title>Detalhes da Transação</title>
 </head>
 <body>
-        <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
-        <input type="hidden" name="id_fatura" value="<?= $id_fatura['id_fatura'] ?>">
-        <h2>Confira seus dados:</h2>
-        <div class="container">
-            <div class="item-details">
-                <div class="item-address">
-                    <p><strong>Nome:</strong> <?= $usuario->getNome_usu()?></p>
-                    <p><strong>Email:</strong> <?= $usuario->getEmail_usu()?></p>
-                    <p><strong>CPF ou CNPJ:</strong> <?= $usuario->getCpf_cnpj()?></p>
-                    <p><strong>Telefone:</strong> <?= $usuario->getTelefone()?></p>
-                    <p><strong>Endereço:</strong> <?= $usuario->getEndereco()?></p>
-                    <p><strong>Nº:</strong> <?= $usuario->getNumero()?></p>
-                    <p><strong>Complemento:</strong> <?= $usuario->getComplemento()?></p>
-                    <p><strong>Bairro:</strong> <?= $usuario->getBairro()?></p>
-                    <p><strong>Cidade:</strong> <?= $usuario->getCidade()?></p>
-                    <p><strong>CEP:</strong> <?= $usuario->getCep()?></p>
-                    <p><strong>UF:</strong> <?= $usuario->getUF()?></p>
-                </div>
+    <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
+    <input type="hidden" name="id_fatura" value="<?= $id_fatura['id_fatura'] ?>">
+    <h2>Confira seus dados:</h2>
+    <div class="container">
+        <div class="item-details">
+            <div class="item-address">
+                <p><strong>Nome:</strong> <?= $usuario->getNome_usu()?></p>
+                <p><strong>Email:</strong> <?= $usuario->getEmail_usu()?></p>
+                <p><strong>CPF ou CNPJ:</strong> <?= $usuario->getCpf_cnpj()?></p>
+                <p><strong>Telefone:</strong> <?= $usuario->getTelefone()?></p>
+                <p><strong>Endereço:</strong> <?= $usuario->getEndereco()?></p>
+                <p><strong>Nº:</strong> <?= $usuario->getNumero()?></p>
+                <p><strong>Complemento:</strong> <?= $usuario->getComplemento()?></p>
+                <p><strong>Bairro:</strong> <?= $usuario->getBairro()?></p>
+                <p><strong>Cidade:</strong> <?= $usuario->getCidade()?></p>
+                <p><strong>CEP:</strong> <?= $usuario->getCep()?></p>
+                <p><strong>UF:</strong> <?= $usuario->getUF()?></p>
             </div>
-            <h2>Detalhes Produto:</h2>
-            <div class="item-details">
-                <div class="item-address">
-                <?php 
-
-                if ($itemFetch) {
-                ?>
-
-                <section id="product-details">
-                    <div class="product">
-                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
-                    </div>
-                    <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
-
-                    <div class="product-info">
-                        <h2><?= $itemFetch->getNome_item() ?></h2>
-                    </div>
-                    <div class="product-info">
-                        <textarea name="descricao_item" id="" cols="30" rows="10"><?=$itemFetch->getDescricao_item() ?></textarea>
-                    </div>     
-
-                    <div>
-                        <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
-                        <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
-                    </div>
-                </section>
-                <?php }?>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <input type="hidden" name="transaction_amount" value="<?=$itemFetch->getPreco_item()?>">
-            <h2>VALOR TOTAL:</h2>
-            <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
-        <div class="payment-methods">
-            <a href="cartaocredito.php"><button class="credit-card">Cartão de Crédito/Débito</button></a>
-            <a href="pix.php"><button class="debit-card">Pix</button></a>
-            <a href="boleto.php"><button class="bank-slip">Boleto Bancário</button></a>
-        </div>
-        <!-- INICIO POP LOGIN -->
-        <div class="modal" id="modal">
-            <h2>Modal</h2>
-            <p id="opcaoSelecionada"></p>
-            <button onclick="fecharModal()">Fechar</button>
+        <h2>Detalhes Produto:</h2>
+        <div class="item-details">
+            <div class="item-address">
+            <?php 
 
-            <div id="pixForm">
-            <h1>Pix</h1>
-            <div class="payment-code">
-                <p><strong>Código do Pix:</strong></p>
-                <p><span id="pix-code"></span></p>
-            </div>  
-            <div class="payment-instructions">
-                <p>1. Abra o aplicativo do seu banco ou carteira digital.</p>
-                <p>2. Selecione a opção "Pagamento Pix" ou similar.</p>
-                <p>3. Escaneie o código QR abaixo ou digite o código de pagamento manualmente.</p>
-                <p>4. Confirme o pagamento.</p>
-            </div>
-            <button class="botao">Enviar</button>
-            </div>
+            if ($itemFetch) {
+            ?>
 
-            <div id="boletoForm">
-            <h1>Boleto</h1>
-            <div class="form-group">
-                <label for="vencimento">Data de Vencimento:</label>
-                <input type="date" id="vencimento">
-            </div>
-            <div class="boleto" id="boleto">
-                <h2>Boleto Gerado:</h2>
-                <p id="valor-gerado"></p>
-                <p id="vencimento-gerado"></p>
-                <img id="codigo-gerado" src="" alt="Código de barras">
-            </div>
-            <p><strong>Código de Barras:</strong> <span id="boleto-code"></span></p>
-            <input type="text" placeholder="Usuário" class="input">
-            <br><br>
-            <input type="password" placeholder="Senha" class="input">
-            <br><br>
-            <button class="botao">Enviar</button>
-            </div>
+            <section id="product-details">
+                <div class="product">
+                    <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
+                </div>
+                <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
 
-            <div id="cartaoCreditoForm">
-            <h1>Cartão de Crédito</h1>
-            <form action="" method="get" class="formulario">
-                <div class="form-group">
-                <label for="nome">Nome no Cartão:</label>
-                <input type="text" id="nome" name="nome" required>
+                <div class="product-info">
+                    <h2><?= $itemFetch->getNome_item() ?></h2>
                 </div>
-                <div class="form-group">
-                <label for="numero">Número do Cartão:</label>
-                <input type="number" id="numero" name="numero" required>
-                </div>
-                <div class="card-info">
-                <div class="form-group">
-                    <label for="validade">Data de Validade:</label>
-                    <input type="text" id="validade" name="validade" required>
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV:</label>
-                    <input type="number" id="cvv" name="cvv" required>
-                </div>
-                </div>
-                <div class="form-group">
-                <label for="bandeira">Bandeira:</label>
-                <select id="bandeira" name="bandeira" required>
-                    <option value="">Selecione</option>
-                    <option value="visa">Visa</option>
-                    <option value="mastercard">Mastercard</option>
-                    <option value="hipercard">Hipercard</option>
-                    <option value="amex">Amex</option>
-                    <option value="diners">Diners</option>
-                    <option value="elo">Elo</option>
-                    <option value="mercadolivre">Cartão MercadoLivre</option>
-                </select>
-                </div>
-                <div class="form-group">
-                <button class="adicionar" type="submit">Pagar</button>
-                </div>
-            </form>
-            </div>
+                <div class="product-info">
+                    <textarea name="descricao_item" id="" cols="30" rows="10"><?=$itemFetch->getDescricao_item() ?></textarea>
+                </div>     
 
-            <div id="cartaoDebitoForm">
-            <h1>Cartão de Débito</h1>
-            <form action="" method="get" class="formulario">
-                <div class="form-group">
-                <label for="nome">Nome no Cartão:</label>
-                <input type="text" id="nome" name="cardholderName" required>
+                <div>
+                    <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
+                    <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                 </div>
-                <div class="form-group">
-                <label for="numero">Número do Cartão:</label>
-                <input type="number" id="numero" name="cardNumber" required>
-                </div>
-                <div class="card-info">
-                <div class="form-group">
-                    <label for="validade">Data de Validade:</label>
-                    <input type="text" id="validade" name="expirationDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV:</label>
-                    <input type="number" id="cvv" name="securityCode" required>
-                </div>
-                </div>
-                <div class="form-group">
-                <label for="bandeira">Bandeira:</label>
-                <select id="bandeira" name="bandeira" required>
-                    <option value="">Selecione</option>
-                    <option value="visa">Visa</option>
-                    <option value="mastercard">Mastercard</option>
-                    <option value="hipercard">Hipercard</option>
-                    <option value="amex">Amex</option>
-                    <option value="diners">Diners</option>
-                    <option value="elo">Elo</option>
-                    <option value="mercadolivre">Cartão MercadoLivre</option>
-                </select>
-                </div>
-                <div class="form-group">
-                <button class="adicionar" type="submit">Pagar</button>
-                <progress value="0" class="progress-bar">Carregando...</progress>
-                </div>
-            </form>
+            </section>
+            <?php }?>
             </div>
         </div>
     </div>
-       <!-- FIM POP LOGIN -->
+    <div class="container">
+        <input type="hidden" name="transaction_amount" value="<?=$itemFetch->getPreco_item()?>">
+        <h2>VALOR TOTAL:</h2>
+        <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
+    </div>
+    <div class="payment-methods">
+        <a href="cartaocredito.php"><button class="credit-card">Cartão de Crédito/Débito</button></a>
+        <a href="pix.php"><button class="debit-card">Pix</button></a>
+        <a href="boleto.php"><button class="bank-slip">Boleto Bancário</button></a>
+    </div>
 <script src="../js/transacao.js"></script>
 </body>
 </html>
