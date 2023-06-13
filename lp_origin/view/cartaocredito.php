@@ -12,10 +12,10 @@
   <br>
   <br>
   <br>
-  <a class="voltarcartao" href="../view/formapagamento.php">Voltar</a>
+  <a class="voltarcartao" href="formapagamento.php">Voltar</a>
   <div class="container">
     <h2>Adicionar Cartão de Crédito</h2>
-    <form>
+    <form action="item_transacao_control.php" method="POST" >
       <div class="form-group">
         <label for="nome">Nome no Cartão:</label>
         <input type="text" id="nome" name="nome" required>
@@ -48,7 +48,7 @@
         </select>
       </div>
       <div class="form-group">
-        <button class="adicionar" type="submit">Pagar</button>
+        <button class="adicionar" type="submit">Finalizar Pagamento</button>
       </div>
     </form>
   </div>

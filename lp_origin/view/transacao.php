@@ -46,7 +46,6 @@
     <title>Detalhes da Transação</title>
 </head>
 <body>
-    <form action="../control/item_transacao_control.php" method="POST">
         <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
         <input type="hidden" name="id_fatura" value="<?= $id_fatura['id_fatura'] ?>">
         <h2>Confira seus dados:</h2>
@@ -102,51 +101,12 @@
             <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
-        <h2>Escolha sua Forma de Pagamento:</h2>
-        <button onclick="openModal()">Abrir Janela Modal</button>
-
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2>Formulário de Pagamento</h2>
-    <form id="payment-form">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome">
-      
-      <label for="forma-pagamento">Forma de Pagamento:</label>
-      <select id="forma-pagamento" name="forma-pagamento" onchange="togglePaymentFields()">
-        <option value="pix">Pix</option>
-        <option value="boleto">Boleto</option>
-      </select>
-      
-      <div id="pix-fields">
-        <label for="chave-pix">Chave Pix:</label>
-        <input type="text" id="chave-pix" name="chave-pix">
-      </div>
-      
-      <div id="boleto-fields">
-        <label for="numero-boleto">Número do Boleto:</label>
-        <input type="text" id="numero-boleto" name="numero-boleto">
-      </div>
-      
-      <input type="submit" value="Enviar Pagamento">
-    </form>
-  </div>
-</div>
-
-        <!-- <div class="payment-options container modal-link">
-            <aside class="payment_methods">
-                <label for="payment-method">Escolha uma forma de pagamento:</label>         
-                <select id="opcoes" onchange="mostrarModal()">
-                    <option value="">Selecione uma opção</option>
-                    <option value="opcao1">Pix</option>
-                    <option value="opcao2">Boleto</option>
-                    <option value="opcao3">Cartão de crédito</option>
-                    <option value="opcao4">Cartão de débito</option>
-                </select>
-            </aside>
+        <div class="payment-methods">
+            <a href="cartaocredito.php"><button class="credit-card">Cartão de Crédito/Débito</button></a>
+            <a href="pix.php"><button class="debit-card">Pix</button></a>
+            <a href="boleto.php"><button class="bank-slip">Boleto Bancário</button></a>
         </div>
-         INICIO POP LOGIN 
+        <!-- INICIO POP LOGIN -->
         <div class="modal" id="modal">
             <h2>Modal</h2>
             <p id="opcaoSelecionada"></p>
@@ -157,7 +117,7 @@
             <div class="payment-code">
                 <p><strong>Código do Pix:</strong></p>
                 <p><span id="pix-code"></span></p>
-            </div>
+            </div>  
             <div class="payment-instructions">
                 <p>1. Abra o aplicativo do seu banco ou carteira digital.</p>
                 <p>2. Selecione a opção "Pagamento Pix" ou similar.</p>
@@ -268,9 +228,8 @@
             </form>
             </div>
         </div>
-        </div>
-        FIM POP LOGIN -->
-    </form>    
+    </div>
+       <!-- FIM POP LOGIN -->
 <script src="../js/transacao.js"></script>
 </body>
 </html>
