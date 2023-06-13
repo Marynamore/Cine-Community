@@ -41,6 +41,7 @@ if (isset($_SESSION["id_usuario"])) {
             if (!empty($usuarioLogado)) {
                 if($id_perfil == 3){
                     echo' <a href="cadastrar_item.php">Cadastrar Item</a>';
+                    echo' <a href="./dashboard/painel_colecionador.php">PAINEL COLECIONADOR</a>';
                 }elseif ($id_perfil == 3 || $id_perfil == 4) {
                     echo '<a href="../index.php"><i class="fa-solid fa-house"></i>INICIO</a>';
                     echo '<a href="todos_itens.php">Itens</a>';

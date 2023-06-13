@@ -81,6 +81,16 @@ if (isset($_SESSION["id_usuario"])) {
                         <label for="senha_usu">Senha:</label>
                         <input placeholder="Senha" type="password" name="senha_usu" id="senha_usu" required>
                     </div>
+
+                    <div class="inputBox">
+                        <label for="telefone">Telefone:</label>
+                        <input placeholder="telefone" type="text" name="telefone" id="telefone" required>
+                    </div>
+
+                    <div class="inputBox">
+                        <label for="cpf_cnpj">Cpf/cnpj:</label>
+                        <input placeholder="Cpf/cnpj" type="text" name="cpf_cnpj" id="cpf_cnpj" required>
+                    </div>
                 </fieldset>
 
                 <!-- Address -->

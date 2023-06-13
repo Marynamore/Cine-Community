@@ -242,7 +242,9 @@ public function recuperarPorID($id)
             $usuario->setEndereco($usuarioFetch["endereco"]);
             $usuario->setNumero($usuarioFetch["numero"]);
             $usuario->setComplemento($usuarioFetch["complemento"]);
+            $usuario->setBairro($usuarioFetch["bairro"]);
             $usuario->setCidade($usuarioFetch["cidade"]);
+            
             $usuario->setCep($usuarioFetch["cep"]);
             $usuario->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
             $usuario->setSituacao_usu($usuarioFetch["situacao_usu"]);
@@ -271,6 +273,9 @@ public function encontraPorId($id){
                 $usuarioDTO = new UsuarioDTO();
                 $usuarioDTO->setId_usuario($usuarioFetch["id_usuario"]);
                 $usuarioDTO->setNome_usu($usuarioFetch["nome_usu"]);
+                //$usuarioDTO->setNickname($usuarioFetch["nickname_usu"]);
+                $usuarioDTO->setGenero_usu($usuarioFetch["genero_usu"]);
+                $usuarioDTO->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
                 $usuarioDTO->setEmail_usu($usuarioFetch["email_usu"]);
                 $usuarioDTO->setSenha_usu($usuarioFetch["senha_usu"]);
                 $usuarioDTO->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);

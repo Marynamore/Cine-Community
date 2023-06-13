@@ -18,6 +18,7 @@ class ItemDAO{
             $cadItem->bindValue(1, $itemDTO->getNome_item());
             $cadItem->bindValue(2, $itemDTO->getDescricao_item());
             $cadItem->bindValue(3, $itemDTO->getPreco_item());
+            $cadItem->bindValue(3, $itemDTO->getQtd_item());
             $cadItem->bindValue(4, $itemDTO->getImagem_item());
             $cadItem->bindValue(5, $itemDTO->getFk_id_categoria_item());
             $cadItem->bindValue(6, $itemDTO->getFk_id_usuario());

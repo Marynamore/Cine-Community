@@ -24,7 +24,7 @@ if (isset($_SESSION["id_usuario"])) {
     <title>Cadastrar</title>
     <script>
         function funCad() {
-            alert("Seu Cadastro foi concluído com sucesso.");
+            alert("Seu item foi concluído com sucesso.");
         }
     </script>
 
@@ -49,7 +49,7 @@ if (isset($_SESSION["id_usuario"])) {
                         <input placeholder="Nome do item" type="text" name="nome_item" id="nome_item" required>
                     </div>
                     <div class="form">
-                        <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA" required></textarea>
+                        <textarea name="descricao_item" cols="30" rows="10" placeholder="DEIXE AQUI SUA DESCRIÇÃO DO ITEM" required></textarea>
                     </div>
 
                     <div class="inputBox">

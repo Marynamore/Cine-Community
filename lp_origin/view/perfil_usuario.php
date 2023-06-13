@@ -26,7 +26,7 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
     <link rel="stylesheet" href="">
 </head>
 <body>
-    <h2>Confira seus dados:</h2>
+    <h2>PERFIL:</h2>
     <div class="container">
         <div class="item-details">
             <div class="item-address">
@@ -36,11 +36,14 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
                         <img class='profile' src="../assets/pessoas/<?= $usuario->getFoto_usu(); ?>" alt="">
                     <?php } ?>
                     <p><strong>Nome:</strong> <?= $usuario->getNome_usu() ?></p>
+                    <p><strong>Nickname_usu:</strong> <?= $usuario->getNickname_usu() ?></p>
+                    <p><strong>Genero:</strong> <?= $usuario->getGenero_usu() ?></p>
+                    <p><strong>Data de Nascimento:</strong> <?= $usuario->getDt_de_nasci_usu() ?></p>
+                    <p><strong>Telefone:</strong> <?= $usuario->getTelefone() ?></p>
                     <p><strong>Email:</strong> <?= $usuario->getEmail_usu() ?></p>
                     <p><strong>CPF ou CNPJ:</strong> <?= $usuario->getCpf_cnpj() ?></p>
                     <p><strong>Telefone:</strong> <?= $usuario->getTelefone() ?></p>
                 </fieldset>
-
                 <fieldset>
                     <legend>Endereço</legend>
                     <p><strong>Endereço:</strong> <?= $usuario->getEndereco() ?></p>
