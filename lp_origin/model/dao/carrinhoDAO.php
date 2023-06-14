@@ -49,6 +49,7 @@ public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_p
             WHERE (u.id_usuario=? OR p.id_perfil=?) AND i.id_item=?";
         $verificaCarItem = $this->pdo->prepare($sqlCar);
         $verificaCarItem->execute([$id_usuarioLogado, $id_item, $id_perfil]);
+
             $sqlMaxCar = "SELECT c.*, u.id_usuario, p.id_perfil FROM carrinho c 
             INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario 
             INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil 
