@@ -101,11 +101,8 @@
         <h2>VALOR TOTAL:</h2>
         <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
     </div>
-    <div class="payment-methods">
-        <a href="cartaocredito.php"><button class="credit-card">Cartão de Crédito/Débito</button></a>
-        <a href="pix.php"><button class="debit-card">Pix</button></a>
-        <a href="boleto.php"><button class="bank-slip">Boleto Bancário</button></a>
-    </div>
+    
+    <a href="https://mpago.la/2YV27jN"><button class="credit-card">Mercado Pago</button></a>
 <script src="../js/transacao.js"></script>
 </body>
 </html>

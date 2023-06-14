@@ -38,19 +38,41 @@ if(isset($_SESSION["id_usuario"])) {
     <header class="header" >
         <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
-            <a href="cadastrar_item.php">Cadastrar Item</a>
-            <a href="todos_itens.php">Itens</a>
-            <a href="pedidos.php">Meus Pedidos</a>
-            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?=$_SESSION["nickname_usu"];?></a>
-            <?php 
-                $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-                $total_itens = $carrinhoData['total_itens'];
-                $carrinho_itens = $carrinhoData['carrinho_itens'];
-
-                foreach ($carrinho_itens as $carrinhoItem) {                   
-            ?>
-            <a href="carrinho.php">Carrinho<span><?=$total_itens;?></span></a>
-            <?php } ?>
+        <?php
+            if (!empty($usuarioLogado)) {
+                if($id_perfil == 3){
+                    echo ' <a href="cadastrar_item.php">Cadastrar Item</a>';
+                } elseif ($id_perfil == 3 || $id_perfil == 4) {
+                    echo '<a href="../index.php"><i class="fa-solid fa-house"></i>INICIO</a>';
+                    echo '<a href="todos_itens.php">Itens</a>';
+                    echo '<a href="alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
+                    echo '<a href="pedidos.php">Meus Pedidos</a>';
+                    $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+                    $total_itens = $carrinhoData['total_itens'];
+                    $carrinho_itens = $carrinhoData['carrinho_itens'];
+                    if (!empty($carrinho_itens)) {
+                        foreach ($carrinho_itens as $carrinhoItem) {
+                            echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
+                        }
+                    }
+                } elseif($id_perfil == 4){
+                    echo '<a href="pedidos.php">Meus Pedidos</a>';
+                    $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+                    $total_itens = $carrinhoData['total_itens'];
+                    $carrinho_itens = $carrinhoData['carrinho_itens'];
+                    if (!empty($carrinho_itens)) {
+                        foreach ($carrinho_itens as $carrinhoItem) {
+                            echo '<a href="carrinho.php">Carrinho<span>' . $total_itens . '</span></a>';
+                        }
+                    } else {
+                        echo '<a href="carrinho.php">Carrinho<span>0</span></a>';
+                    }
+                } 
+            } else {
+                echo '<a href="cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
+                echo '<a href="login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
+            }
+        ?>
         </nav>
     </header>
 
@@ -60,24 +82,18 @@ if(isset($_SESSION["id_usuario"])) {
         <?php 
             $total_itens = 0;
             $carItens = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
-                echo'<pre>';
-                print_r($carItens);
-                echo'</pre>';
             if (!empty($carItens)) {
                 foreach ($carItens as $carrinhoFetch) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
 
                     if ($itemFetch) {
-                echo'<pre>';
-                var_dump($itemFetch);
-                echo'</pre>';
         ?>
             <form action="" method="POST">
                 <input type="hidden" name="id_carrinho" value="<?=$carrinhoFetch->getId_carrinho()?>">
-                <img src="../assets/imagensprodutos?=$itemFetch['imagem_item']?>">
+                <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
                 <h3><?=$itemFetch['nome_item']?></h3>
                 <div>
-                    <p class="price"><i class="fas fa-indian-rupee-sign"></i><?=$itemFetch['preco_item']?></p>
+                    <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item']?></p>
                     <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                     <input type="submit" name="atualizar_car" class="fas fa-edit">
                 </div>
@@ -98,11 +114,11 @@ if(isset($_SESSION["id_usuario"])) {
 
         <?php if ($total_itens != 0) {?>
         <div>
-            <p>Total Itens: <span><i class="fas fa-indian-rupee-sign"></i> <?= $total_itens; ?></span></p>
+            <p>Total Itens: <span><i class="fas fa-brazilian-real-sign"></i> <?= $total_itens; ?></span></p>
             <form action="" method="POST">
                 <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');">
             </form>
-            <a href="checkout.php" class="btn">Checkout</a>
+            <a href="transacao.php" class="btn">Comprar</a>
         </div>
         <?php }?>            
     </section>
