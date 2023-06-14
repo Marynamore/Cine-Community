@@ -66,7 +66,7 @@ public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_p
             $preItem = $this->pdo->prepare($sqlItem);
             $preItem->execute([$id_item]);
             $precoFetch['preco_item'] = $preItem->fetch(PDO::FETCH_ASSOC);
-    
+            
             $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco_item, qtd_compra, fk_id_perfil, dt_hora_car) VALUES (?,?,?,?,?,NULL)";
             $adItemCar = $this->pdo->prepare($sql);
             $adItemCar->bindValue(1, $id_usuarioLogado);
@@ -78,7 +78,6 @@ public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_p
     
             return 'Item Adicionado ao Carrinho';
         }
-
 
     } catch (PDOException $exc) {
         echo $exc->getMessage();

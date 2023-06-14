@@ -76,7 +76,6 @@ class ItemDAO{
             $itens = array();
                 while($itemFetch = $allItem->fetch(PDO::FETCH_ASSOC)){
                     $itemDTO = new ItemDTO();
-
                     $itemDTO->setId_item($itemFetch['id_item']);
                     $itemDTO->setImagem_item($itemFetch['imagem_item']);
                     $itemDTO->setNome_item($itemFetch['nome_item']);
