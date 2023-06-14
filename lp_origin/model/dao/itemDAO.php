@@ -33,7 +33,7 @@ class ItemDAO{
 
     public function alterarItem(ItemDTO $itemDTO){
         try{
-            $sql = "UPDATE item SET nome_item=?, descricao_item=?, preco_item=?, imagem_item=?, fk_id_categoria_item=?, fk_id_usuario=?, fk_id_perfil=? WHERE id_item=?";
+            $sql = "UPDATE item SET nome_item=?, descricao_item=?, preco_item=?, imagem_item=?, fk_id_categoria_item=?, fk_id_usuario=?, fk_id_perfil=?, qtd_item=? WHERE id_item=?";
 
             $upItem = $this->pdo->prepare($sql);
             $upItem->bindValue(1, $itemDTO->getNome_item());
@@ -44,11 +44,13 @@ class ItemDAO{
             $upItem->bindValue(6, $itemDTO->getFk_id_usuario());
             $upItem->bindValue(7, $itemDTO->getFk_id_perfil());
             $upItem->bindValue(8, $itemDTO->getId_item());
+            $upItem->bindValue(9, $itemDTO->getQtd_item());
 
             return $upItem->execute();
 
         }catch(PDOException $exc){
             echo $exc->getMessage();
+            die();
         }
     }
 
@@ -177,6 +179,7 @@ public function obterItemPorId($id_item){
             $itemDTO->setImagem_item($itens["imagem_item"]);
             $itemDTO->setNome_item($itens["nome_item"]);
             $itemDTO->setDescricao_item($itens["descricao_item"]);
+            $itemDTO->setQtd_item($itens["qtd_item"]);
             $itemDTO->setPreco_item($itens["preco_item"]);
             $itemDTO->setFk_Id_categoria_item($itens["fk_id_categoria_item"]);
             $itemDTO->setFk_id_usuario($itens["id_usuario"]);

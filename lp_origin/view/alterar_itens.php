@@ -23,6 +23,7 @@ if ($id) {
         $descricao_item = $itens->getDescricao_item();
         $fk_id_categoria_item = $itens->getFk_id_categoria_item();
         $preco_item = $itens->getPreco_item();
+        $qtd_item = $itens->getQtd_item();
     } else {
         echo "Item não encontrado.";
         exit;
@@ -46,29 +47,29 @@ if ($id) {
 </head>
 
 <body>
-    <a href="../view/dashboard/listaitensmod.php"><input type="submit" value="Voltar"></a>
+<button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     <h1>Alterar item</h1>
     <center>
         <div class="container">
             <form action="../control/control_alterar_itens.php" method="post">
                 <input type="hidden" name="id_item" value="<?= $id_item; ?>">
-                <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado; ?>">
-                <input type="hidden" name="id_perfil" value="<?= $id_perfil; ?>">
+                <input type="hidden" name="fk_id_usuario" value="<?= $id_usuarioLogado; ?>">
+                <input type="hidden" name="fk_id_perfil" value="<?= $id_perfil; ?>">
                 Poster do item:
                 <input type="file" name="imagem_item" value="<?= $imagem_item; ?>"><br><br>
                 Nome do item:
                 <input type="text" name="nome_item" placeholder="Item" value="<?= $nome_item; ?>"> <br> <br>
-                Data de lançamento:
+                Preço:
                 <input type="text" name="preco_item" placeholder="Data de lançamento" value="<?= $preco_item; ?>"><br><br>
 
-                <label for="categoria_itens">Categoria:</label>
+                <label for="categoria_itens">Categoria do Item:</label>
                 <select name="fk_id_categoria_item" id="categoria_itens">
                     <option value="1" <?= ($fk_id_categoria_item == 1) ? 'selected' : ''; ?>>Livros e Revistas</option>
                     <option value="2" <?= ($fk_id_categoria_item == 2) ? 'selected' : ''; ?>>Filmes e Séries</option>
                     <option value="3" <?= ($fk_id_categoria_item == 3) ? 'selected' : ''; ?>>Posters e Pôsteres</option>
                 </select>
-                Duração:
-                <input type="text" name="qtd_item" placeholder="Duração" value="<?= $qtd_item; ?>"> <br><br>
+                Quantidade de item:
+                <input type="text" name="qtd_item" placeholder="Quantidade de item" value="<?= $qtd_item; ?>"> <br><br>
 
                 <input type="submit" value="Alterar">
             </form>
