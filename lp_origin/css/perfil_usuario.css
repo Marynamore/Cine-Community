@@ -26,10 +26,10 @@ body{
     button{
         background-color: #08ef;
         border: none;
-        border-radius: 30px;
+        border-radius: 20px;
         padding: 10px;
         margin-top: 10px;
     }
     .alterar:hover{
-        color: black;
+        color: red;
     }

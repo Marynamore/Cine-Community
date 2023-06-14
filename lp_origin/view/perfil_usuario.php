@@ -27,7 +27,7 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
    
 </head>
 <body>
-<button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
+<button onclick="javascript:history.go(-1)" class="alterar">Voltar</button>
     <h2>Confira seus dados:</h2>
     <div class="container">
         <div class="item-details">

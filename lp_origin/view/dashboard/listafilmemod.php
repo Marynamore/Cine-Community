@@ -38,8 +38,8 @@ if ($id_perfil == "moderador") {
             <th>Duração</th>
             <th>Categoria</th>
             <th>Classificação</th>
+            <th>Sinopse</th>
             <th>Capa</th>
-<!--            <th>Trailer</th>-->
             <th>Canal</th>
             <th>Ação</th>
 
@@ -57,6 +57,7 @@ if ($id_perfil == "moderador") {
             <td><?=$filmeFetch["duracao_filme"]?></td>
             <td><?=$filmeFetch["categoria_filme"]?></td>
             <td><?=$filmeFetch["classificacao_filme"] ?></td>
+            <td><?=$filmeFetch["sinopse_filme"]?></td>
             <td><?=$filmeFetch["capa_filme"]?></td>
             <td><?=$filmeFetch["canal_filme"]?></td>
            
@@ -72,6 +73,5 @@ if ($id_perfil == "moderador") {
           ?>
 
 </body>
-<!--<td><?=$filmeFetch["sinopse_filme"]?></td>
-<th>Sinopse</th>-->
+
 </html>

@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`filme` (
   `nome_filme` VARCHAR(80) NOT NULL,
   `dt_de_lancamento_filme` DATE NULL DEFAULT NULL,
   `duracao_filme` TIME NULL DEFAULT NULL,
-  `sinopse_filme` VARCHAR(250) NOT NULL,
+  `sinopse_filme` VARCHAR(500) NOT NULL,
   `classificacao_filme` VARCHAR(50) NOT NULL,
   `capa_filme` VARCHAR(50) NOT NULL,
   `trailer_filme` VARCHAR(50) NULL DEFAULT NULL,

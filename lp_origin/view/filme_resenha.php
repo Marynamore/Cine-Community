@@ -70,7 +70,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
                 <h3>Duração:<br><?= $filmeFetch->getDuracao_filme(); ?></h3>
                 <h3>Categoria:<br><?= $filmeFetch->getFk_id_categoria_filme(); ?></h3>
                 <h3>Classificação indicativa:<br><?= $filmeFetch->getClassificacao_filme(); ?></h3>
-                <h3><a href="">Trailer</a><?= $filmeFetch->getTrailer_filme(); ?></h3>
+                <h3>Canal:<br><?= $filmeFetch->getFk_id_canal_filme(); ?></h3>
                 <h3>Sinopse:<br><?= $filmeFetch->getSinopse_filme(); ?></h3>
             </div>
         </div>
