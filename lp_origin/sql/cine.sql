@@ -174,12 +174,11 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`filme` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = big5;
+DEFAULT CHARACTER SET = utf8;
 
 --
 -- Despejando dados para a tabela `filme`
 --
-
 INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duracao_filme`, `sinopse_filme`, `classificacao_filme`, `capa_filme`, `trailer_filme`, `fk_id_categoria_filme`, `fk_id_canal_filme`, `fk_id_usuario`, `fk_id_perfil`) VALUES
 (1, 'Menina de Ouro', '2005-02-11', '02:12:00', 'Frankie Dunne (Clint Eastwood) passou toda a sua vida no ringue, gerenciando e treinando boxeadores de elite. Frankie costuma passar para os lutadores com quem trabalha as mesmas li??es que seguiu ao longo de sua vida: acima de tudo, proteja-se. Feri', '12', 'meninadeouro.jfif', '', 3, 1, 1, 2),
 (3, 'Aftersun', '2022-12-01', '01:42:00', 'Em Aftersun, Sophie, de onze anos, e seu pai Callum est?o de f?rias em um clube na costa da Turquia no final dos anos 90. Eles tomam banho, jogam sinuca e desfrutam da companhia amig?vel um do outro. Callum era a melhor vers?o de si mesmo quando esta', '14', 'Aftersun.jfif', NULL, 7, 1, 2, 2),
@@ -253,7 +252,13 @@ INSERT INTO `filme` (`id_filme`, `nome_filme`, `dt_de_lancamento_filme`, `duraca
 (72, 'Vingadores: Ultimato', '2019-04-25', '03:02:00', 'Os her?is remanescentes se unem em uma miss?o ousada para desfazer os danos causados por Thanos. Eles viajam no tempo para recuperar as Joias do Infinito e tentar reverter o estalar de dedos que dizimou metade da popula??o do universo. O filme ? uma ', '12', 'vingadores.jfif', NULL, 4, 6, 2, 2),
 (73, 'Blade Runner', '1982-06-25', '01:57:00', 'No futuro dist?pico de Los Angeles em 2019, os seres humanos criaram replicantes, androides id?nticos aos humanos em apar?ncia, mas projetados para trabalhar em col?nias extraterrestres perigosas. Quando um grupo de replicantes rebeldes retorna ? Ter', '18', 'bladerunner1.jpg', NULL, 4, 7, 2, 2),
 (74, 'Blade Runner 2049', '2017-10-05', '02:43:00', 'Um novo policial chamado K descobre um segredo que tem o potencial de abalar a sociedade. Determinado a desvendar a verdade, ele embarca em uma miss?o para encontrar Rick Deckard, um ex-Blade Runner que est? desaparecido h? tr?s d?cadas. Enquanto enf', '14', 'bladerunner2.jpg', NULL, 4, 5, 2, 2),
-(75, 'Interestelar', '2014-11-06', '02:49:00', 'as reservas naturais da Terra est?o se esgotando e um grupo de astronautas ? enviado em uma miss?o crucial: encontrar um novo planeta habit?vel para a continuidade da esp?cie humana. Cooper ? escolhido para liderar a equipe, mesmo sabendo que essa jo', '10', 'interestelar.jpg', NULL, 4, 2, 2, 2);
+(75, 'Interestelar', '2014-11-06', '02:49:00', 'as reservas naturais da Terra est?o se esgotando e um grupo de astronautas ? enviado em uma miss?o crucial: encontrar um novo planeta habit?vel para a continuidade da esp?cie humana. Cooper ? escolhido para liderar a equipe, mesmo sabendo que essa jo', '10', 'interestelar.jpg', NULL, 4, 2, 2, 2),
+(76, 'A Casa Monstro', '2006-11-03', '01:31:00', 'A hist?ria acompanha tr?s crian?as, DJ, Chowder e Jenny, que descobrem que a casa do misterioso Nebbercracker, um velho rabugento da vizinhan?a, ? na verdade uma criatura viva e assustadora. Enquanto tentam desvendar o segredo por tr?s da casa, eles ', '10', 'acasamonstro.jpg', NULL, 1, 1, 2, 2),
+(77, 'Monstros S.A.', '2001-11-02', '01:32:00', 'A trama gira em torno de dois monstros, Sulley e seu assistente Mike, que trabalham na Monstros S.A., a maior f?brica de sustos do mundo dos monstros. A energia deles ? obtida atrav?s dos sustos das crian?as humanas.', '10', 'monstrossa.webp', NULL, 1, 4, 2, 2),
+(78, 'Shrek', '2001-05-18', '01:29:00', ' conta a hist?ria de um ogro verde chamado Shrek, que vive em um p?ntano isolado e tranquilo. Sua vida solit?ria ? interrompida quando o maligno Lorde Farquaad exila uma s?rie de personagens de contos de fadas em seu p?ntano.', '10', 'shrek1.jpg', NULL, 1, 4, 2, 2),
+(79, 'Shrek 2', '2004-05-19', '01:33:00', 'No filme, Shrek e Fiona s?o convidados pelo rei Harold e pela rainha Lillian para visitar o reino de T?o T?o Distante e conhecer seus sogros.', '10', 'shrek2.jpg', NULL, 1, 4, 2, 2),
+(80, 'Shrek Terceiro', '2007-05-18', '01:33:00', 'Segue as aventuras do ogro verde e seus amigos em uma nova jornada. No filme, Shrek enfrenta um desafio inesperado quando o Rei Harold, pai de Fiona, falece, deixando vago o trono de T?o T?o Distante.', '10', 'shrek3.jpg', NULL, 1, 4, 2, 2);
+
 
 -- -----------------------------------------------------
 -- Table `cine_community`.`favorito`
