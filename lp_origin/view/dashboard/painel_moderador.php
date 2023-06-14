@@ -21,6 +21,7 @@ $usuario = $UsuarioDAO->recuperarUsuarioPorID($idUsuarioDesejado);
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="../../index.php" style="-i:2;"><i class="fa-solid fa-house"></i><br>INICIO</a>
+            <a href="../cadastro.php" style="-i:2;"><i class="fa-solid fa-house"></i><br>CADASTRAR</a>
         </nav>
     </header>
     <header>

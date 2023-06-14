@@ -28,10 +28,10 @@ $usuario = $UsuarioDAO->recuperarUsuarioPorID($idUsuarioDesejado);
     </header>
     <nav>
         <div class='painel_adm'>
-            <a href="../../index.php">voltar</a>
-            <a href="../dashboard/listafilmemod.php">Filmes</a>
+            <a href="../todos_itens.php">voltar</a>
+            <a href="../dashboard/listaitens.php">Itens</a>
             <?php if ($usuario): ?>
-                <a href="../cadastrar_filme.php?id_usuario=<?= $usuario["id_usuario"] ?>">Adicionar Filme</a>
+                <a href="../cadastrar_item.php?id_usuario=<?= $usuario["id_usuario"] ?>">Adicionar Itens</a>
                 <a href="../perfil_usuario.php?id_usuario=<?= $usuario["id_usuario"] ?>">Perfil</a>
             <?php endif; ?>
         </div>

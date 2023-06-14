@@ -31,7 +31,7 @@ if (isset($_SESSION["id_usuario"])) {
 
         if ($usuario != null) {
     ?>
-            <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
+          <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
             <center>
                 <h1>Alterar usuário</h1>
                 <form action="../control/control_alterar_usuario.php" method="POST">

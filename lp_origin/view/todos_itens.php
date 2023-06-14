@@ -35,7 +35,7 @@ if (isset($_SESSION["id_usuario"])) {
 
 <body>
     <header class="header">
-        <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
+        <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
         <?php
             if (!empty($usuarioLogado)) {
