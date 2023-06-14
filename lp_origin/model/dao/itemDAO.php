@@ -18,6 +18,7 @@ class ItemDAO{
             $cadItem->bindValue(1, $itemDTO->getNome_item());
             $cadItem->bindValue(2, $itemDTO->getDescricao_item());
             $cadItem->bindValue(3, $itemDTO->getPreco_item());
+            $cadItem->bindValue(3, $itemDTO->getQtd_item());
             $cadItem->bindValue(4, $itemDTO->getImagem_item());
             $cadItem->bindValue(5, $itemDTO->getFk_id_categoria_item());
             $cadItem->bindValue(6, $itemDTO->getFk_id_usuario());
@@ -159,7 +160,36 @@ public function obterItemPorId($id_item){
         }catch(PDOException $exc){
         echo $exc->getMessage();
     }
+   }
+   public function buscarPorID($id) {
+    try {
+        $sql = "SELECT i.*, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil INNER JOIN categoria_item c ON i.fk_id_categoria_item = c.id_categoria_item WHERE id_item=?  ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        $itensFetch = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($itensFetch) == 1) {
+            $itens = $itensFetch[0];
+            $itemDTO = new itemDTO();
+            $itemDTO->setId_item($itens["id_item"]);
+            $itemDTO->setImagem_item($itens["imagem_item"]);
+            $itemDTO->setNome_item($itens["nome_item"]);
+            $itemDTO->setDescricao_item($itens["descricao_item"]);
+            $itemDTO->setPreco_item($itens["preco_item"]);
+            $itemDTO->setFk_Id_categoria_item($itens["fk_id_categoria_item"]);
+            $itemDTO->setFk_id_usuario($itens["id_usuario"]);
+            $itemDTO->setFk_id_perfil($itens["id_perfil"]);
+
+            return $itemDTO;
+        } else {
+            return null;
+        }
+    } catch (PDOException $exc) {
+        echo $exc->getMessage();
     }
+}
 }
 
                 

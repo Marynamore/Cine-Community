@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../model/dto/carrinhoDTO.php';
-require_once '../model/dao/carrinhoDAO.php';
+require '../model/dto/carrinhoDTO.php';
+require '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
 
 $itemDAO = new ItemDAO();
@@ -35,46 +35,27 @@ if (isset($_SESSION["id_usuario"])) {
 
 <body>
     <header class="header">
-        <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
+        <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
         <?php
             if (!empty($usuarioLogado)) {
                 if($id_perfil == 3){
-                    echo ' <a href="cadastrar_item.php">Cadastrar Item</a>';
-                } elseif ($id_perfil == 3 || $id_perfil == 4) {
+                    echo' <a href="cadastrar_item.php">Cadastrar Item</a>';
+                    echo' <a href="./dashboard/painel_colecionador.php">PAINEL COLECIONADOR</a>';
+                }elseif ($id_perfil == 3 || $id_perfil == 4) {
                     echo '<a href="../index.php"><i class="fa-solid fa-house"></i>INICIO</a>';
-                    echo '<a href="todos_itens.php"><i class="fa-brands fa-product-hunt"></i>Itens</a>';
-                    echo '<a href="alterar_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
-                    echo '<a href="pedidos.php"><i class="fa-solid fa-bags-shopping"></i>Meus Pedidos</a>';
-                    if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
-                        $total_itens = $carrinhoData['total_itens'];
-                        $carrinho_itens = $carrinhoData['carrinho_itens'];
-                        if (!empty($carrinho_itens)) {
-                            foreach ($carrinho_itens as $carrinhoItem) {
-                                echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
-                            }
-                        }
-                    } else {
-                        echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
-                    }
-                } elseif($id_perfil == 4){
-                    echo '<a href="pedidos.php"><i class="fa-solid fa-bags-shopping"></i>Meus Pedidos</a>';
-                    $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
-                    $total_itens = $carrinhoData['total_itens'];
-                    $carrinho_itens = $carrinhoData['carrinho_itens'];
-                    if (!empty($carrinho_itens)) {
-                        foreach ($carrinho_itens as $carrinhoItem) {
-                            echo '<a href="carrinho.php">Carrinho<span>' . $total_itens . '</span></a>';
-                        }
-                    } else {
-                        echo '<a href="carrinho.php">Carrinho<span>0</span></a>';
-                    }
+                    echo '<a href="todos_itens.php">Itens</a>';
+                    echo'<a href="alterar_usuario.php?id_usuario=<?= $id_usuarioLogado; ?>" onclick="funcPerfil()"><i
+                    class="fa-solid fa-user"></i>'.$usuarioLogado.'</a>';
+                }elseif($id_perfil == 4){
+                   echo '<a href="pedidos.php">Meus Pedidos</a>';
                 } 
-            } else {
+            }else {
                 echo '<a href="cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
                 echo '<a href="login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
             }
-        ?>
+            ?>
+            <!-- Resto do conteúdo -->
         </nav>
     </header>
     <h1>Itens</h1>

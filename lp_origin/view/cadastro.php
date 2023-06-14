@@ -62,14 +62,14 @@ if (isset($_SESSION["id_usuario"])) {
                     </div>
 
                     <div class="inputBox">
-                    <label for="genero_usu">Gênero:</label>
-                    <select id="genero_usu" name="genero_usu">
-                    <option value="---">Selecione</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="naoBinario">Não binário</option>
-                    <option value="naoDeclarar">Prefiro não declarar</option>
-                    </select>
+                        <label for="genero_usu">Gênero:</label>
+                        <select id="genero_usu" name="genero_usu">
+                            <option value="---">Selecione</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="naoBinario">Não binário</option>
+                            <option value="naoDeclarar">Prefiro não declarar</option>
+                        </select>
                     </div>
 
                     <div class="inputBox">
@@ -80,6 +80,16 @@ if (isset($_SESSION["id_usuario"])) {
                     <div class="inputBox">
                         <label for="senha_usu">Senha:</label>
                         <input placeholder="Senha" type="password" name="senha_usu" id="senha_usu" required>
+                    </div>
+
+                    <div class="inputBox">
+                        <label for="telefone">Telefone:</label>
+                        <input placeholder="telefone" type="text" name="telefone" id="telefone" required>
+                    </div>
+
+                    <div class="inputBox">
+                        <label for="cpf_cnpj">Cpf/cnpj:</label>
+                        <input placeholder="Cpf/cnpj" type="text" name="cpf_cnpj" id="cpf_cnpj" required>
                     </div>
                 </fieldset>
 
@@ -117,67 +127,72 @@ if (isset($_SESSION["id_usuario"])) {
                     </div>
 
                     <div class="inputBox">
-                    <label for="uf">UF:</label>
-                    <select id="uf" name="uf">
-                    <option value="0">Selecione</option>
-                    <option value="1">AC</option>
-                    <option value="2">AL</option>
-                    <option value="3">AP</option>
-                    <option value="4">AM</option>
-                    <option value="5">BA</option>
-                    <option value="6">CE</option>
-                    <option value="7">DF</option>
-                    <option value="8">ES</option>
-                    <option value="9">GO</option>
-                    <option value="10">MA</option>
-                    <option value="11">MT</option>
-                    <option value="12">MS</option>
-                    <option value="13">MG</option>
-                    <option value="14">PA</option>
-                    <option value="15">PB</option>
-                    <option value="16">PR</option>
-                    <option value="17">PE</option>
-                    <option value="18">PI</option>
-                    <option value="19">RJ</option>
-                    <option value="20">RN</option>
-                    <option value="21">RS</option>
-                    <option value="22">RO</option>
-                    <option value="23">RR</option>
-                    <option value="24">SC</option>
-                    <option value="25">SP</option>
-                    <option value="26">SE</option>
-                    <option value="27">TO</option>
-            
+                        <label for="uf">UF:</label>
+                        <select id="uf" name="uf">
+                            <option value="0">Selecione</option>
+                            <option value="1">AC</option>
+                            <option value="2">AL</option>
+                            <option value="3">AP</option>
+                            <option value="4">AM</option>
+                            <option value="5">BA</option>
+                            <option value="6">CE</option>
+                            <option value="7">DF</option>
+                            <option value="8">ES</option>
+                            <option value="9">GO</option>
+                            <option value="10">MA</option>
+                            <option value="11">MT</option>
+                            <option value="12">MS</option>
+                            <option value="13">MG</option>
+                            <option value="14">PA</option>
+                            <option value="15">PB</option>
+                            <option value="16">PR</option>
+                            <option value="17">PE</option>
+                            <option value="18">PI</option>
+                            <option value="19">RJ</option>
+                            <option value="20">RN</option>
+                            <option value="21">RS</option>
+                            <option value="22">RO</option>
+                            <option value="23">RR</option>
+                            <option value="24">SC</option>
+                            <option value="25">SP</option>
+                            <option value="26">SE</option>
+                            <option value="27">TO</option>
 
-                    </select>
+
+                        </select>
                     </div>
-
-
-
                     <div class="inputBox">
-    <label for="fk_id_perfil">Selecione um perfil:</label>
-    <input type="radio" id="usuario" name="fk_id_perfil" value="4" required>Usuário
-                     <input type="radio" id="colecionador" name="fk_id_perfil" value="3" required>Colecionador
-</div>
-
+                        <label for="fk_id_perfil">Selecione um perfil:</label>
+                        <?php
+                        if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 1) {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="1">Administrador</option>
+                         <option value="2">Moderador</option>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         </select>';
+                        } else if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 2) {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         <option value="2">Moderador</option>
+                         </select>';
+                        } else {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         </select>';
+                        }
+                        ?>
+                    </div>
                 </fieldset>
-
-                <?php
-                    // Testa se é o administrador
-                    if ( isset( $_SESSION['fk_id_perfil'] ) && $_SESSION['fk_id_perfil'] == 1 ) {
-                        // Se a chave existir e o valor for igual a 1
-                        echo '';
-                    } else {
-                        // Caso NÃO seja o administrador ou a chave não exista
-                        echo '
-                        <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
-                        <input type="hidden" name="situacao_usu" value="Ativo">';
-                    }
-                ?>
                 <br>
 
                 <input type="submit" onclick="funCad()" value="Enviar" class="botao">
-                <input type="reset"  value="Limpar" class="botao">
+                <input type="reset" value="Limpar" class="botao">
             </form>
         </div>
     </center>

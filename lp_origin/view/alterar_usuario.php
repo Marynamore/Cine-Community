@@ -31,7 +31,7 @@ if (isset($_SESSION["id_usuario"])) {
 
         if ($usuario != null) {
     ?>
-            <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
+          <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
             <center>
                 <h1>Alterar usuário</h1>
                 <form action="../control/control_alterar_usuario.php" method="POST">
@@ -153,50 +153,35 @@ if (isset($_SESSION["id_usuario"])) {
                             <input type="radio" id="usuario" name="fk_id_perfil" value="4" value="<?= $usuario->getEmail_usu(); ?>" required>Usuário
                             <input type="radio" id="colecionador" name="fk_id_perfil" value="3" value="<?= $usuario->getEmail_usu(); ?>" required>Colecionador
                         </div>
+                    
+                    <div class="inputBox">
+                        <label for="fk_id_perfil">Selecione um perfil:</label>
+                        <?php
+                        if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 1) {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="1">Administrador</option>
+                         <option value="2">Moderador</option>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         </select>';
+                        } else if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 2) {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         <option value="2">Moderador</option>
+                         </select>';
+                        } else {
+                            echo '
+                         <select id="fk_id_perfil" name="fk_id_perfil" required>
+                         <option value="3">Colecionador</option>
+                         <option value="4">Usuário</option>
+                         </select>';
+                        }
+                        ?>
+                    </div>
                     </fieldset>
-                    <br>
-                    <?php
-                    if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 1) {
-                        echo '
-                     <div class="inputBox">
-                     <label for="fk_id_perfil">Perfil:</label>
-                     <select id="fk_id_perfil" name="fk_id_perfil">
-                     <option value="1">Administrador</option>
-                     <option value="2">Moderador</option>
-                <option value="3">Colecionador</option>
-                <option value="4" selected>Usuário</option>
-                </select>
-                </div>
-                <div class="inputBox">
-                <label for="situacao_usu">Situação:</label>
-                <select id="situacao_usu" name="situacao_usu">
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-                </select>
-                </div>';
-                    } else if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 2) {
-                        echo '
-                <div class="inputBox">
-                <label for="fk_id_perfil">Perfil:</label>
-                <select id="fk_id_perfil" name="fk_id_perfil">
-                <option value="2">Moderador</option>
-                <option value="3">Colecionador</option>
-                </select>
-                </div>
-                <div class="inputBox">
-                <label for="situacao_usu">Situação:</label>
-                <select id="situacao_usu" name="situacao_usu">
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-                </select>
-                </div>';
-                    } else {
-                        echo '
-        <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
-        <input type="hidden" name="situacao_usu" value="Ativo">';
-                    }
-                    ?>
-
 
                     <input type="submit" onclick="funCad()" value="Enviar" class="botao">
                     <input type="reset" value="Limpar" class="botao">
