@@ -147,13 +147,7 @@ if (isset($_SESSION["id_usuario"])) {
                                 <option value="26" <?= ($usuario->getUf() == 'SE') ? 'selected' : ''; ?>>SE</option>
                                 <option value="27" <?= ($usuario->getUf() == 'TO') ? 'selected' : ''; ?>>TO</option>
                             </select>
-                        </div>
-                        <div>
-                            <label for="fk_id_perfil">Selecione um perfil:</label>
-                            <input type="radio" id="usuario" name="fk_id_perfil" value="4" value="<?= $usuario->getEmail_usu(); ?>" required>Usuário
-                            <input type="radio" id="colecionador" name="fk_id_perfil" value="3" value="<?= $usuario->getEmail_usu(); ?>" required>Colecionador
-                        </div>
-                    
+                        </div>  
                     <div class="inputBox">
                         <label for="fk_id_perfil">Selecione um perfil:</label>
                         <?php

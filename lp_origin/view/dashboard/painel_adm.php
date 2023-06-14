@@ -100,7 +100,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
     <header class="header">
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
-            <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
+            <a href="../cadastro.php"><i class="fa-solid fa-house"></i>Cadastrar</a>
             <div class="search-box">
                 <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
                 <a class="search-btn">
@@ -141,6 +141,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             </div>
             <div class="menu-item">
                 <button onclick="mostrarConteudo('transacoes')">Transações</button>
+                <button onclick="javascript:history.go(-2)" class="botao">Voltar</button>
             </div>
         </div>
     </nav>
