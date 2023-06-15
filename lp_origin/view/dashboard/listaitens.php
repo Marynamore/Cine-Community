@@ -6,67 +6,114 @@ $id_usuarioLogado = $_SESSION["id_usuario"];
 $id_perfil = $_SESSION["id_perfil"];
 
 if ($id_perfil == "colecionador") {
-    echo "Apenas colecionador podem acessar essa pagina.";
+    echo "Apenas colecionadores podem acessar esta página.";
     exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/stylelista.css">
+    <link rel="stylesheet" href="../../css/caixadepergunta.css">
+    
     <title>Lista Colecionador</title>
 </head>
+
 <body>
-<?php
-   require_once '../../model/dao/ItemDAO.php';
+    <?php
+    require_once '../../model/dao/ItemDAO.php';
 
-   $ItemDAO = new ItemDAO();
-   $itens = $ItemDAO->listarTodosItens();
+    $ItemDAO = new ItemDAO();
+    $itens = $ItemDAO->listarTodosItens();
 
-?>
- <a href="../dashboard/painel_colecionador.php">Voltar</a> 
-      <center> <h2>Lista de Itens</h2></center>
+    ?>
+    <a href="../dashboard/painel_colecionador.php">Voltar</a>
+    <center>
+        <h2>Lista de Itens</h2>
+    </center>
     <table>
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade de Itens</th>
-            <th>Categoria</th>
-            <th>Capa</th>
-            <th>Ação</th>
-
-          </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade de Itens</th>
+                <th>Categoria</th>
+                <th>Capa</th>
+                <th>Ação</th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-          <?php
-              foreach($itens as $itemFetch){
-          ?>
-          <tr>
-            <td><?=$itemFetch["id_item"]?></td>
-            <td><?=$itemFetch["nome_item"]?></td>
-            <td><?=$itemFetch["preco_item"] ?></td>
-            <td><?=$itemFetch["qtd_item"]?></td>
-            <td><?=$itemFetch["categoria_item"]?></td>
-            <td><?=$itemFetch["imagem_item"] ?></td>
-           
-            <td>
-              <button class="editar"><a href="../alterar_itens.php?id=<?=$itemFetch["id_item"]?>"title="ALTERAR" class="editar"> Alterar<i class="bi bi-pencil"></i></a></button>
-              <button class="excluir"><a href="../../control/excluir_item.php?id_item=<?=$itemFetch["id_item"]?>"title="EXCLUIR"><i class="fa fa-trash fa-lg"></i> Excluir</a></button>
+            <?php foreach ($itens as $item) : ?>
+                <tr>
+                    <td><?= $item["id_item"] ?></td>
+                    <td><?= $item["nome_item"] ?></td>
+                    <td><?= $item["preco_item"] ?></td>
+                    <td><?= $item["qtd_item"] ?></td>
+                    <td><?= $item["categoria_item"] ?></td>
+                    <td><?= $item["imagem_item"] ?></td>
+                    <td>
+                        <button class="editar">
+                            <a href="../alterar_itens.php?id_item=<?= $item["id_item"] ?>" title="ALTERAR" class="editar">
+                                Alterar<i class="bi bi-pencil"></i>
+                            </a>
+                        </button>
+                        <button class="excluir">
+                            <a href="../../control/excluir_item.php?id_item=<?= $item["id_item"] ?>" title="EXCLUIR" onclick="return confirm('Tem certeza que deseja excluir esse dado?')">
+                                <i class="fa fa-trash fa-lg"></i> Excluir</a>
+                        </button>
 
-
-            </td>
-          </tr>
-          <?php
-            }
-          ?>
-
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </body>
-<!--<td><?=$itemFetch["sinopse_itens"]?></td>
-<th>Sinopse</th>-->
+<script>
+function showConfirmation(message) {
+    // Cria a caixa de diálogo de confirmação
+    var dialog = document.createElement('div');
+    dialog.classList.add('confirmation-dialog');
+
+    // Adiciona a mensagem à caixa de diálogo
+    var messageElement = document.createElement('p');
+    messageElement.classList.add('message');
+    messageElement.textContent = message;
+    dialog.appendChild(messageElement);
+
+    // Adiciona os botões de confirmação
+    var confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Confirmar';
+    confirmButton.addEventListener('click', function() {
+        // Remove a caixa de diálogo
+        dialog.remove();
+        // Executa a ação de exclusão
+        window.location.href = "../../control/excluir_item.php?id_item=<?= $item["id_item"] ?>";
+    });
+    var cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancelar';
+    cancelButton.addEventListener('click', function() {
+        // Remove a caixa de diálogo
+        dialog.remove();
+    });
+
+    var buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('buttons');
+    buttonsContainer.appendChild(confirmButton);
+    buttonsContainer.appendChild(cancelButton);
+    dialog.appendChild(buttonsContainer);
+
+    // Adiciona a caixa de diálogo à página
+    document.body.appendChild(dialog);
+
+    // Cancela o evento de clique padrão do link
+    return false;
+}
+
+</script>
+
 </html>

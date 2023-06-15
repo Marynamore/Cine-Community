@@ -31,10 +31,10 @@ class ItemDAO{
         }
     }
 
-    public function alterarItem(ItemDTO $itemDTO){
-        try{
-            $sql = "UPDATE item SET nome_item=?, descricao_item=?, preco_item=?, imagem_item=?, fk_id_categoria_item=?, fk_id_usuario=?, fk_id_perfil=? WHERE id_item=?";
-
+    public function alterarItem(ItemDTO $itemDTO) {
+        try {
+            $sql = "UPDATE item SET nome_item=?, descricao_item=?, preco_item=?, imagem_item=?, fk_id_categoria_item=?, fk_id_usuario=?, fk_id_perfil=?, qtd_item=? WHERE id_item=?";
+    
             $upItem = $this->pdo->prepare($sql);
             $upItem->bindValue(1, $itemDTO->getNome_item());
             $upItem->bindValue(2, $itemDTO->getDescricao_item());
@@ -43,14 +43,16 @@ class ItemDAO{
             $upItem->bindValue(5, $itemDTO->getFk_id_categoria_item());
             $upItem->bindValue(6, $itemDTO->getFk_id_usuario());
             $upItem->bindValue(7, $itemDTO->getFk_id_perfil());
-            $upItem->bindValue(8, $itemDTO->getId_item());
-
+            $upItem->bindValue(8, $itemDTO->getQtd_item());
+            $upItem->bindValue(9, $itemDTO->getId_item());
+    
             return $upItem->execute();
-
-        }catch(PDOException $exc){
-            echo $exc->getMessage();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die();
         }
     }
+    
 
     public function excluirItemPorId($id_item){
         try{
@@ -68,7 +70,7 @@ class ItemDAO{
 
     public function listarTodosItens(){
         try{
-            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY id_categoria_item, i.nome_item ";
+            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, ci.categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil ORDER BY  id_item ";
 
             $allItem = $this->pdo->prepare($sql);
             $allItem->execute();
@@ -162,24 +164,28 @@ public function obterItemPorId($id_item){
    }
    public function buscarPorID($id) {
     try {
-        $sql = "SELECT i.*, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil INNER JOIN categoria_item c ON i.fk_id_categoria_item = c.id_categoria_item WHERE id_item=?  ";
+        if (!$id) {
+            throw new Exception("ID do item não fornecido.");
+        }
+        
+        $sql = "SELECT i.*, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil INNER JOIN categoria_item c ON i.fk_id_categoria_item = c.id_categoria_item WHERE id_item=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        $itensFetch = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (count($itensFetch) == 1) {
-            $itens = $itensFetch[0];
+        if ($item) {
             $itemDTO = new itemDTO();
-            $itemDTO->setId_item($itens["id_item"]);
-            $itemDTO->setImagem_item($itens["imagem_item"]);
-            $itemDTO->setNome_item($itens["nome_item"]);
-            $itemDTO->setDescricao_item($itens["descricao_item"]);
-            $itemDTO->setPreco_item($itens["preco_item"]);
-            $itemDTO->setFk_Id_categoria_item($itens["fk_id_categoria_item"]);
-            $itemDTO->setFk_id_usuario($itens["id_usuario"]);
-            $itemDTO->setFk_id_perfil($itens["id_perfil"]);
+            $itemDTO->setId_item($item["id_item"]);
+            $itemDTO->setImagem_item($item["imagem_item"]);
+            $itemDTO->setNome_item($item["nome_item"]);
+            $itemDTO->setDescricao_item($item["descricao_item"]);
+            $itemDTO->setPreco_item($item["preco_item"]);
+            $itemDTO->setFk_Id_categoria_item($item["fk_id_categoria_item"]);
+            $itemDTO->setQtd_item($item["qtd_item"]);
+            $itemDTO->setFk_id_usuario($item["id_usuario"]);
+            $itemDTO->setFk_id_perfil($item["id_perfil"]);
 
             return $itemDTO;
         } else {
@@ -187,8 +193,12 @@ public function obterItemPorId($id_item){
         }
     } catch (PDOException $exc) {
         echo $exc->getMessage();
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
     }
 }
+
+
 }
 
                 

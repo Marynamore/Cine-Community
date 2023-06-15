@@ -29,7 +29,7 @@ $usuario = $UsuarioDAO->recuperarUsuarioPorID($idUsuarioDesejado);
     <nav>
         <div class='painel_adm'>
             <a href="../todos_itens.php">voltar</a>
-            <a href="../dashboard/listaitens.php">Itens</a>
+            <a href="../dashboard/listaitens.php?id_usuario=<?= $usuario["id_usuario"] ?>">Itens</a>
             <?php if ($usuario): ?>
                 <a href="../cadastrar_item.php?id_usuario=<?= $usuario["id_usuario"] ?>">Adicionar Itens</a>
                 <a href="../perfil_usuario.php?id_usuario=<?= $usuario["id_usuario"] ?>">Perfil</a>

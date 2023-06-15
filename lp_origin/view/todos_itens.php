@@ -43,7 +43,7 @@ if (isset($_SESSION["id_usuario"])) {
                     echo' <a href="cadastrar_item.php">Cadastrar Item</a>';
                     echo' <a href="./dashboard/painel_colecionador.php">PAINEL COLECIONADOR</a>';
                 }elseif ($id_perfil == 4) {
-                    echo '<a href="pedidos.php"><i class="fa-solid fa-bags-shopping"></i>Meus Pedidos</a>';
+                    echo '<a href="meus_pedidos.php"><i class="fa-solid fa-bags-shopping"></i>Meus Pedidos</a>';
                     echo '<a href="todos_itens.php"><i class="fa-brands fa-product-hunt"></i>Itens</a>';
                     if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
                         $total_itens = $carrinhoData['total_itens'];
