@@ -89,9 +89,21 @@
                     <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $itemFetch->getPreco_item() ?></strong></h3>
                 </div>
             </section>
+            <select id="opcoes" onchange="mostrarModal()">
+                <option value="">Selecione uma opção</option>
+                <option value="opcao1">Pix</option>
+                <option value="opcao2">Boleto</option>
+                <option value="opcao3">Cartão de crédito</option>
+                <option value="opcao4">Cartão de débito</option>
+            </select>
             <?php }?>
             </div>
         </div>
+    </div>
+    <div class="modal" id="modal">
+        <h2>Modal</h2>
+        <p id="opcaoSelecionada"></p>
+        <button onclick="fecharModal()">Fechar</button>
     </div>
     <form action="../control/item_transacao_control.php" method="post">
         <input type="hidden" name="fk_id_compra" value="<?= $id_compra->getFk_id_compra() ?>">  
