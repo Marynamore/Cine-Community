@@ -165,7 +165,7 @@ public function listarTodos()
 }
     public function dadosUsuario($id_usuario) {
         try {
-            $sql  = "SELECT * FROM usuario WHERE id_usuario=? limit 1";
+            $sql  = "SELECT * FROM usuario WHERE id_usuario=? LIMIT 1";
             $stmt = $this->pdo->prepare( $sql );
             $stmt->bindValue( 1, $id_usuario);
             $stmt->execute();

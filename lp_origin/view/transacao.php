@@ -12,7 +12,7 @@
     if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
         $id_perfil = $_SESSION["id_perfil"];
         $id = $_SESSION["id_usuario"];
-        
+
         $usuario = $usuarioDAO->encontraPorId($id);
 
         if (isset($_GET['id_item'])) {
@@ -46,8 +46,6 @@
     <title>Detalhes da Transação</title>
 </head>
 <body>
-    <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
-    <input type="hidden" name="id_fatura" value="<?= $id_fatura['id_fatura'] ?>">
     <h2>Confira seus dados:</h2>
     <div class="container">
         <div class="item-details">
@@ -70,7 +68,7 @@
         <div class="item-details">
             <div class="item-address">
             <?php 
-
+                $grand_total = 0;
             if ($itemFetch) {
             ?>
 
@@ -78,31 +76,33 @@
                 <div class="product">
                     <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
                 </div>
-                <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
-
                 <div class="product-info">
                     <h2><?= $itemFetch->getNome_item() ?></h2>
-                </div>
-                <div class="product-info">
-                    <textarea name="descricao_item" id="" cols="30" rows="10"><?=$itemFetch->getDescricao_item() ?></textarea>
-                </div>     
-
-                <div>
-                    <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
-                    <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
+                    <?php
+                    if($id_perfil == 4){
+                    echo '<p>Quantidade: '.$itemFetch->getQtd_item().'</p>';
+                    }
+                    ?>
+                </div>    
+                <div class="container">
+                    <h2>VALOR TOTAL:</h2>
+                    <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $itemFetch->getPreco_item() ?></strong></h3>
                 </div>
             </section>
             <?php }?>
             </div>
         </div>
     </div>
-    <div class="container">
-        <input type="hidden" name="transaction_amount" value="<?=$itemFetch->getPreco_item()?>">
-        <h2>VALOR TOTAL:</h2>
-        <p><i class="fas fa-brazilian-real-sign"></i><?= $itemFetch->getPreco_item() ?></p>
-    </div>
-    
-    <a href="https://mpago.la/2YV27jN"><button class="credit-card">Mercado Pago</button></a>
+    <form action="../control/item_transacao_control.php" method="post">
+        <input type="hidden" name="fk_id_compra" value="<?= $id_compra->getFk_id_compra() ?>">  
+         <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>">
+        <input type="hidden" name="id_usuario" value="<?= $usuario->getId_usuario() ?>">
+        <input type="hidden" name="id_transacao" value="<?= $id_transcao->getId_transacao() ?>">  
+        <input type="hidden" name="compra" value="<?= $id_transcao->getTipo_trans()?>">      
+        <input type="hidden" name="dt_hora_trans" value="<?= $id_transcao->getTipo_trans() ?>">  
+        <input type="hidden" name="valor_total" value="<?=$itemFetch->getPreco_item()?>">
+        <a href="https://mpago.la/2YV27jN"><button class="credit-card">Mercado Pago</button></a>
+    </form>
 <script src="../js/transacao.js"></script>
 </body>
 </html>

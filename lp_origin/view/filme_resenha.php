@@ -97,7 +97,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
             foreach ($resenhas as $resenha) {
                 $usuario = $UsuarioDAO->dadosUsuarioPorId($resenha->getFk_id_usuario());
         ?>
-
+        
         <div class="resenha">
             <div class="titulo_res">
                 <?php

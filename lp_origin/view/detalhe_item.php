@@ -87,8 +87,9 @@ if ($itemFetch) {
           <br>
           <p><?= $itemFetch->getDescricao_item() ?></p>
           <div>
-            <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
-            <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
+            <p>Preço Item: <i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
+            <p>Quantidade em Estoque: <?= $itemFetch->getQtd_item() ?></p>
+            <input type="number" name="qtd_item" required min="1" value='<?= $itemFetch->getQtd_item() ?>' max="99" maxlength="2">
           </div><br>
           <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
           <a class="compraritem" href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>

@@ -6,7 +6,7 @@ class TransacaoDTO{
     private $status_trans;
     private $valor_total;
     private $tipo_pagamento_trans;
-    private $ref_mp;
+    private $qtd_trans;
     private $fk_id_item;
     private $fk_id_usuario;
     private $fk_id_perfil;
@@ -51,12 +51,12 @@ class TransacaoDTO{
         $this->valor_total = $valor_total;
     }
 
-    public function getRef_mp() {
-        return $this->ref_mp;
+    public function getQtd_trans() {
+        return $this->qtd_trans;
     }
 
-    public function setRef_mp($ref_mp) {
-        $this->ref_mp = $ref_mp;
+    public function setQtd_trans($qtd_trans) {
+        $this->qtd_trans = $qtd_trans;
     }
 
     public function getFk_id_item() {

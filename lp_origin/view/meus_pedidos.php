@@ -1,21 +1,38 @@
 <?php
 session_start();
-
+require_once '../model/dao/itemDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 require_once '../model/dao/compraDAO.php';
 
+$itemDAO = new ItemDAO();
 $usuarioDAO = new UsuarioDAO();
 $compraDAO = new CompraDAO();
 
-if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
-    $id_perfil = $_SESSION["id_perfil"];
-    $id_usuario = $_SESSION["id_usuario"];
-
-    $usuario = $usuarioDAO->encontraPorId($id);
+if (isset($_GET['id_item'])) {
+    $id_item = $_GET['id_item'];
 } else {
-    echo "Usuário não encontrado.";
-    exit;
+    $id_item = '';
+    header('Location: ./todos_itens.php');
+    exit();
 }
+
+if (isset($_SESSION["id_usuario"])) {
+    $usuarioLogado = $_SESSION["nickname_usu"];
+    $id_usuarioLogado = $_SESSION["id_usuario"];
+    $id_perfil = $_SESSION["id_perfil"];
+} else {
+    $usuarioLogado = "";
+    header("Location: ../view/todos_itens.php?msg=Usuário não encontrado");
+    exit();
+}
+
+if ($itemFetch) {
+    if (isset($_SESSION['msg'])) {
+        $message = $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    } else {
+        $message = "";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,65 +47,41 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
 
 </head>
 <body>
-   
-<?php include 'components/header.php'; ?>
 
-<section class="orders">
-
-   <h1 class="heading">my orders</h1>
-
-   <div class="box-container">
-
+<section>
+   <h1>Meus Pedidos</h1>
+   <div>
    <?php
-    $compraFetch = $compraDAO->obterIdUsuario($id_usuario);
-      if($compraFetch){
-        
-         while($fetch_order = $select_orders->fetch(PDO::FETCH_ASSOC)){
-            $select_product = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
-            $select_product->execute([$fetch_order['product_id']]);
-            if($select_product->rowCount() > 0){
-               while($fetch_product = $select_product->fetch(PDO::FETCH_ASSOC)){
+    $compras = $compraDAO->obterIdUsuario($id_usuario);
+ 
+      if($compras){
+         foreach ($compras as $compra) {
+            $item = $compraDAO->buscarItem($compra->getFk_id_item());
    ?>
-   <div class="box" <?php if($fetch_order['status'] == 'canceled'){echo 'style="border:.2rem solid red";';}; ?>>
-      <a href="view_order.php?get_id=<?= $fetch_order['id']; ?>">
-         <p class="date"><i class="fa fa-calendar"></i><span><?= $fetch_order['date']; ?></span></p>
-         <img src="uploaded_files/<?= $fetch_product['image']; ?>" class="image" alt="">
-         <h3 class="name"><?= $fetch_product['name']; ?></h3>
-         <p class="price"><i class="fas fa-indian-rupee-sign"></i> <?= $fetch_order['price']; ?> x <?= $fetch_order['qty']; ?></p>
-         <p class="status" style="color:<?php if($fetch_order['status'] == 'delivered'){echo 'green';}elseif($fetch_order['status'] == 'canceled'){echo 'red';}else{echo 'orange';}; ?>"><?= $fetch_order['status']; ?></p>
+   <div <?php if($compra->getStatus_compra() == 'Cancelada'){echo 'style="border:.2rem solid red";';}; ?>>
+      <a href="pedido.php?id_item=<?= $compra->getId_compra()?>">
+         <p><i class="fas fa-calendar"></i><span><?= $compra->getDt_hora_compra()?></span></p>
+         <img src="../assets/imagensprodutos/<?=$item['imagem_item']; ?>">
+         <h3><?= $item['nome_item']; ?></h3>
+         <p><i class="fas fa-brazilian-real-sign"></i> <?= $compra->getPreco_compra() ?> x <?= $compra->getQuant_compra()?></p>
+         <p style="color:<?php if($compraFetch['status_compra'] == 'Concluída'){echo 'green';}elseif($compraFetch['status_compra'] == 'Cancelada'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status_compra']; ?></p>
       </a>
    </div>
    <?php
-            }
-         }
       }
-   }else{
-      echo '<p class="empty">no orders found!</p>';
-   }
+      }else{
+         echo '<p>Nenhum Pedido adicionado</p>';
+      }
    ?>
 
    </div>
 
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-<script src="js/script.js"></script>
-
-<?php include 'components/alert.php'; ?>
-
 </body>
 </html>
+
+<?php 
+} else {
+    echo '<p>Nenhum item encontrado!</p>';
+}
+?>

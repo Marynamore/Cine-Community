@@ -12,7 +12,7 @@ class TransacaoDAO{
 
     public function criarTransacao(TransacaoDTO $transacaoDTO){
         try{
-            $sql = "INSERT INTO transacao (tipo_trans, dt_hora_trans, status_trans, valor_total, fk_id_item, tipo_pagamento_trans, rf_mp, fk_id_usuario, fk_id_perfil) VALUES (?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO transacao (tipo_trans, dt_hora_trans, status_trans, valor_total, fk_id_item, tipo_pagamento_trans, qtd_trans, fk_id_usuario, fk_id_perfil) VALUES (?,?,?,?,?,?,?,?,?)";
             $cadTransacao = $this->pdo->prepare($sql); 
 
             $cadTransacao->bindValue(1, $transacaoDTO->getTipo_trans());
@@ -21,7 +21,7 @@ class TransacaoDAO{
             $cadTransacao->bindValue(4, $transacaoDTO->getValor_total());
             $cadTransacao->bindValue(5, $transacaoDTO->getFk_id_item());
             $cadTransacao->bindValue(6, $transacaoDTO->getTipo_pagamento_trans());
-            $cadTransacao->bindValue(7, $transacaoDTO->getRef_mp());
+            $cadTransacao->bindValue(7, $transacaoDTO->getQtd_trans());
             $cadTransacao->bindValue(8, $transacaoDTO->getFk_id_usuario());
             $cadTransacao->bindValue(9, $transacaoDTO->getFk_id_perfil());
 
@@ -226,22 +226,22 @@ class TransacaoDAO{
     //     curl_close($curl);
     // }
 
-    public function gerarQRCode(){
+    // public function gerarQRCode(){
     
-        $payloadJson = json_encode($payload);
+    //     $payloadJson = json_encode($payload);
     
-        // Prefixo '000201' indica o início do payload PIX
-        // Demais campos correspondem às informações do payload
-        $codigoPix = '000201' . str_pad(strlen($payloadJson), 2, '0', STR_PAD_LEFT) . $payloadJson . '6304';
+    //     // Prefixo '000201' indica o início do payload PIX
+    //     // Demais campos correspondem às informações do payload
+    //     $codigoPix = '000201' . str_pad(strlen($payloadJson), 2, '0', STR_PAD_LEFT) . $payloadJson . '6304';
     
-        // Base64 do código PIX
-        $base64Pix = base64_encode($codigoPix);
+    //     // Base64 do código PIX
+    //     $base64Pix = base64_encode($codigoPix);
     
-        // Monta a URL do QR Code
-        $qrcodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($base64Pix);
+    //     // Monta a URL do QR Code
+    //     $qrcodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($base64Pix);
     
-        return $qrcodeUrl;
-    }
+    //     return $qrcodeUrl;
+    // }
     
     
 
