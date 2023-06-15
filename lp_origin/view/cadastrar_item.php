@@ -42,14 +42,14 @@ if (isset($_SESSION["id_usuario"])) {
                 <fieldset>
                     <div class="inputBox">
                         <label for="imagem_item">Imagem do Item:</label>
-                        <input type="file" name="imagem_item" id="imagem_item">
+                        <input type="file" name="imagem_item" id="imagem_item" required>
                     </div>
                     <div class="inputBox">
                         <label for="nome_item">Nome do Item:</label>
                         <input placeholder="Nome do item" type="text" name="nome_item" id="nome_item" required>
                     </div>
                     <div class="form">
-                        <textarea name="descricao_res" cols="30" rows="10" placeholder="DEIXE AQUI SUA RESENHA" required></textarea>
+                    <textarea name="descricao_item" cols="30" rows="10" placeholder="DEIXE AQUI SUA DESCRIÇÃO" required></textarea>
                     </div>
 
                     <div class="inputBox">

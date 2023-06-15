@@ -1,0 +1,19 @@
+.confirmation-dialog {
+    background-color: #fff;
+    border: 1px solid #be0101;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.confirmation-dialog .message {
+    margin-bottom: 10px;
+}
+
+.confirmation-dialog .buttons {
+    text-align: right;
+}
+
+.confirmation-dialog .buttons button {
+    margin-left: 10px;
+}
