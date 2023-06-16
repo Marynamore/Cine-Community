@@ -142,6 +142,9 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             <div class="menu-item">
                 <button onclick="mostrarConteudo('transacoes')">Transações</button>
             </div>
+            <div class="menu-item">
+                <button onclick="mostrarConteudo('denuncia')">Resenhas Denunciadas</button>
+            </div>
         </div>
     </nav>
     <main class="painel_adm">
@@ -270,6 +273,38 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             <h2>Transações</h2>
             <!-- Conteúdo da seção de Transações -->
         </div>
+        <div class="conteudo" id="denuncia">
+    <h2>Resenhas Denunciadas</h2>
+    <!-- Conteúdo da seção de Resenhas -->
+    
+    <?php
+    // Incluir o arquivo ResenhaDAO.php e realizar a busca das denúncias
+    require_once __DIR__ . '../../../model/dao/resenhaDAO.php';
+    require_once __DIR__ . '../../../model/dto/resenhaDTO.php';
+    
+    $resenhaDAO = new ResenhaDAO();
+    $denuncias = $resenhaDAO->buscarResenhasDenunciadas();
+    
+    // Verificar se há denúncias para exibir
+    if (!empty($denuncias)) {
+        foreach ($denuncias as $denuncia) {
+            $id_resenha = $denuncia->getId_resenha();
+            $denuncia_res = $denuncia->getDenuncia_res();
+    
+            // Exibir as informações da denúncia
+            echo "<p>Resenha ID: $id_resenha</p>";
+            echo "<p>Denúncia: $denuncia_res</p>";
+            echo "<hr>";
+        }
+    } else {
+        // Caso não haja denúncias
+        echo "<p>Nenhuma denúncia encontrada.</p>";
+    }
+    ?>
+</div>
+
+</div>
+
         </div>
     </main>
     <form method="post">
