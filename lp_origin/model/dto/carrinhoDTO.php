@@ -4,9 +4,11 @@ class CarrinhoDTO{
     private $id_carrinho;
     private $qtd_compra;
     private $dt_hora_car;
+    private $preco;
     private $fk_id_item;
     private $fk_id_usuario;
     private $fk_id_perfil;
+
     public function getId_carrinho() {
         return $this->id_carrinho;
     }
@@ -29,6 +31,14 @@ class CarrinhoDTO{
 
     public function setDt_hora_car($dt_hora_car) {
         $this->dt_hora_car = $dt_hora_car;
+    }
+
+    public function getPreco() {
+        return $this->preco;
+    }
+
+    public function setPreco($preco) {
+        $this->preco = $preco;
     }
 
     public function getFk_id_item() {

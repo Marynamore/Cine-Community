@@ -16,6 +16,12 @@ body{
     background-color: red;
     color: black;
 }  
+
+.favorito button{
+  display: flex;
+  flex: right;
+}
+
 .dados-filme{
     margin:none;
     margin-top: 30px;
@@ -26,6 +32,7 @@ body{
     box-shadow: 0 0 10px #08ef;
     border-radius:10px;
     margin-bottom: 10px;
+    
 
 }
 .titulo{

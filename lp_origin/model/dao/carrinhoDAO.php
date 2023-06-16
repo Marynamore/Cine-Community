@@ -38,7 +38,7 @@ class CarrinhoDAO {
         }
     }
     
-    public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil) {
+    public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil, $dt_hora_car) {
         try {
             $sqlCar = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c 
                     INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario 
@@ -65,13 +65,14 @@ class CarrinhoDAO {
                 $preItem->execute([$id_item]);
                 $precoFetch = $preItem->fetch(PDO::FETCH_ASSOC);
 
-                $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco_item, qtd_compra, fk_id_perfil, dt_hora_car) VALUES (?,?,?,?,?,NULL)";
+                $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco, qtd_compra, fk_id_perfil, dt_hora_car) VALUES (?,?,?,?,?,?)";
                 $adItemCar = $this->pdo->prepare($sql);
                 $adItemCar->bindValue(1, $id_usuarioLogado);
                 $adItemCar->bindValue(2, $id_item);
                 $adItemCar->bindValue(3, $precoFetch['preco_item']);
                 $adItemCar->bindValue(4, $qtd_compra);
                 $adItemCar->bindValue(5, $id_perfil);
+                $adItemCar->bindValue(6, $dt_hora_car);
                 $adItemCar->execute();
 
                 return 'Item Adicionado ao Carrinho';
@@ -132,6 +133,36 @@ class CarrinhoDAO {
                     $carrinhoDTO->setFk_id_usuario($carrinhoFetch['id_usuario']);
                     $carrinhoDTO->setFk_id_perfil($carrinhoFetch['fk_id_perfil']);
 
+                    $carItens[] = $carrinhoDTO;
+                }
+            }
+            return $carItens;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+            return array(); // Retornar um array vazio em caso de erro
+        }
+    }
+
+    public function obterItemCarPorID($id_item) {
+        try {
+            $sql = "SELECT c.*, u.id_usuario, p.id_perfil FROM carrinho c 
+                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario  
+                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil 
+                    WHERE c.fk_id_item=?";
+            $carItem = $this->pdo->prepare($sql);
+            $carItem->execute([$id_item]);
+
+            $carItens = array();
+            if ($carItem->rowCount() > 0) {
+                while ($carrinhoFetch = $carItem->fetch(PDO::FETCH_ASSOC)) {
+                    $carrinhoDTO = new CarrinhoDTO();
+
+                    $carrinhoDTO->setId_carrinho($carrinhoFetch['id_carrinho']);
+                    $carrinhoDTO->setDt_hora_car($carrinhoFetch['dt_hora_car']);
+                    $carrinhoDTO->setQtd_compra($carrinhoFetch['qtd_compra']);
+                    $carrinhoDTO->setFk_id_usuario($carrinhoFetch['id_usuario']);
+                    $carrinhoDTO->setFk_id_perfil($carrinhoFetch['id_perfil']);
+                    $carrinhoDTO->setFk_id_item($carrinhoFetch['id_item']);
                     $carItens[] = $carrinhoDTO;
                 }
             }

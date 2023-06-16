@@ -83,6 +83,8 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
             <div class="dados-filme">
                 <img src="../assets/<?= $filmeFetch->getCapa_filme(); ?>" alt="" class="poster">
                 <div>
+                    
+                <a href="../control/favoritar.php" class="favorito"><button><i class="fa-regular fa-star" style="color: #0959e1;"></i></button></a>    
                     <h1><?= $filmeFetch->getNome_filme(); ?></h1>
                     <h3>Lançamento:<br><?= $filmeFetch->getDt_de_lancamento_filme(); ?></h3>
                     <h3>Duração:<br><?= $filmeFetch->getDuracao_filme(); ?></h3>
