@@ -5,10 +5,6 @@ require_once '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 
-$itemDAO = new ItemDAO();
-$carrinhoDAO = new CarrinhoDAO();
-$usuarioDAO = new UsuarioDAO();
-
 if (isset($_GET['id_item'])) {
     $id_item = $_GET['id_item'];
 } else {
@@ -18,6 +14,9 @@ if (isset($_GET['id_item'])) {
 }
 
 
+$itemDAO = new ItemDAO();
+$carrinhoDAO = new CarrinhoDAO();
+$usuarioDAO = new UsuarioDAO();
 
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
@@ -47,6 +46,7 @@ if (isset($_SESSION["id_usuario"])) {
         <nav class="navbar">
            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
           <?php
+
             if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
               $total_itens = $carrinhoData['total_itens'];
               $carrinho_itens = $carrinhoData['carrinho_itens'];
@@ -69,8 +69,8 @@ if (isset($_SESSION["id_usuario"])) {
             <?php
             $total_itens = 0;
             $carItens = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
-            $carrinhoFetch = $carrinhoDAO->obterItemCarPorID($id_item);
             if (!empty($carItens)) {
+                $itemFetch = $itemDAO->obterItemPorId($id_item);
                 foreach ($carItens as $carrinhoFetch) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
 
@@ -81,7 +81,6 @@ if (isset($_SESSION["id_usuario"])) {
                             <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
                             <h3><?= $itemFetch['nome_item'] ?></h3>
                             <div>
-                                
                                 <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
                                 <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                                 <input type="submit" name="atualizar_car" class="fas fa-edit">

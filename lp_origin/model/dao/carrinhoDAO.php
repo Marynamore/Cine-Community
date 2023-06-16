@@ -145,11 +145,10 @@ class CarrinhoDAO {
 
     public function obterItemCarPorID($id_item) {
         try {
-            $sql = "SELECT c.*, i.id_item, i.preco_item, u.id_usuario, p.id_perfil FROM carrinho c 
-                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario 
-                    INNER JOIN item i ON c.fk_id_item = i.id_item 
+            $sql = "SELECT c.*, i.preco_item, u.id_usuario, p.id_perfil FROM carrinho c 
+                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario  
                     INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil 
-                    WHERE i.id_item=?";
+                    WHERE c.fk_id_item=?";
             $carItem = $this->pdo->prepare($sql);
             $carItem->execute([$id_item]);
 
@@ -159,7 +158,6 @@ class CarrinhoDAO {
                     $carrinhoDTO = new CarrinhoDTO();
 
                     $carrinhoDTO->setId_carrinho($carrinhoFetch['id_carrinho']);
-                    $carrinhoDTO->setFk_id_item($carrinhoFetch['id_item']);
                     $carrinhoDTO->setDt_hora_car($carrinhoFetch['dt_hora_car']);
                     $carrinhoDTO->setQtd_compra($carrinhoFetch['qtd_compra']);
                     $carrinhoDTO->setFk_id_usuario($carrinhoFetch['id_usuario']);
