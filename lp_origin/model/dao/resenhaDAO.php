@@ -133,6 +133,62 @@ public function excluirResenhaById($id_resenha){
         }
     }
     
+    public function denunciarResenha($id_resenha, $denuncia_res) {
+        try {
+            $sql = "UPDATE resenha SET denuncia_res = denuncia_res + 1 WHERE id_resenha = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(1, $id_resenha);
+            $stmt->execute();
+    
+            // Inserir a denúncia na tabela de denúncias
+            $sqlDenuncia = "INSERT INTO resenha (id_resenha, denuncia_res) VALUES (?, ?)";
+            $stmtDenuncia = $this->pdo->prepare($sqlDenuncia);
+            $stmtDenuncia->bindValue(1, $id_resenha);
+            $stmtDenuncia->bindValue(2, $denuncia_res);
+            $stmtDenuncia->execute();
+    
+            // Chamar a função para enviar a notificação de denúncia para o administrador
+            // $this->enviarNotificacaoDenunciaResenha($id_resenha, $denuncia_res);
+    
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    // public function enviarNotificacaoDenunciaResenha($id_resenha, $denuncia_res) {
+    //     // Aqui você pode implementar o código para enviar a notificação para o administrador,
+    //     // por exemplo, enviando um e-mail com as informações relevantes da denúncia.
+    //     // Certifique-se de configurar corretamente o envio de e-mails na sua aplicação.
+    // }
+    
+    public function buscarResenhasDenunciadas() {
+        try {
+            $sql = "SELECT * FROM resenha WHERE denuncia_res > 0";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            $denuncias = array();
+            while ($resenhaFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $ResenhaDTO = new ResenhaDTO();
+                $ResenhaDTO->setId_resenha($resenhaFetch['id_resenha']);
+                $ResenhaDTO->setTitulo_res($resenhaFetch['titulo_res']);
+                $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
+                $ResenhaDTO->setDenuncia_res($resenhaFetch['denuncia_res']);
+                $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
+                $ResenhaDTO->setFk_id_usuario($resenhaFetch['fk_id_usuario']);
+                $ResenhaDTO->setFk_id_perfil($resenhaFetch['fk_id_perfil']);
+                
+                $denuncias[] = $ResenhaDTO;
+            }
+            
+            return $denuncias;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+            return array(); // Retorna um array vazio em caso de exceção
+        }
+    }
     
 }
 ?>

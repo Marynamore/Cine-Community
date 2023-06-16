@@ -47,7 +47,7 @@
                         <input type="password" name="senha_usu" placeholder="senha">
                     </div>
                     <input type="submit" value="Enviar" class="btn-login">
-                
+                    Esqueceu a Senha? <a style="color:#3095a7;" href="./formulario_recuperar.php">Recupera-se</style></a>
                     Não tem conta? <a style="color:#3095a7;" href="cadastro.php">Cadastrar-se</style></a>
                 </div>
             </div>
