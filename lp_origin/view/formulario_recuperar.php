@@ -12,12 +12,13 @@ session_start()
     <link rel="icon" type="image/png" sizes="32x32" href="../DecoLivre/lp/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../DecoLivre/lp/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../DecoLivre/lp/site.webmanifest">
-    <link rel="stylesheet" href="../../lp/css/styleLogin.css">
+    <link rel="stylesheet" href="../css/recuperarsenha.css">
     <title>Cine Community|Recuperar Senha</title>
 </head>
 
 <body>
-
+<center>
+    
 <div class="main-login">
     <form action="../control/recuperarsenha.php" method="POST" class="card-login">
         <h1 class="titulo">Recuperar Senha</h1>
@@ -26,7 +27,7 @@ session_start()
                 $msg = isset( $_GET['msg'] ) ? $_GET['msg'] : '';
                 echo $msg, "<br>";
             ?>
-            <label for="email_usu">Email:</label>
+            <label class="email" for="email_usu"><strong>Email:<strong></label>
             <input type="email" name="email_usu" autofocus placeholder="exemplo@gmail.com">
         </div>
         <button type="submit" class="btn-login">Recuperar</button>
@@ -38,6 +39,8 @@ session_start()
             echo $msg;
         }
     ?>
+    
+    </center>
 </div>
 
 </body>
