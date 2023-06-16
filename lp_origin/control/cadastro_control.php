@@ -19,10 +19,10 @@ $cidade = filter_input(INPUT_POST, 'cidade');
 $cep = filter_input(INPUT_POST, 'cep');
 $uf = filter_input(INPUT_POST, 'uf');
 $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
-
+$foto_usu = $_FILES['foto_usu'];
 // Verifica se o campo de upload de arquivo foi enviado e se não há erros
-if (isset($_FILES['foto_usu']) && $_FILES['foto_usu']['error'] === UPLOAD_ERR_OK) {
-    $foto_usu = $_FILES['foto_usu'];
+if ($foto_usu['error'] === UPLOAD_ERR_OK){
+    
     $nome_arquivo = $foto_usu['name'];
     $caminho_temporario = $foto_usu['tmp_name'];
     $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
