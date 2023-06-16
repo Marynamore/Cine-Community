@@ -5,19 +5,15 @@ require_once '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 
-$itemDAO = new ItemDAO();
-$carrinhoDAO = new CarrinhoDAO();
-$usuarioDAO = new UsuarioDAO();
-
 if (isset($_GET['id_item'])) {
     $id_item = $_GET['id_item'];
 } else {
     $id_item = '';
-    header('Location: todos_itens.php');
-    exit();
 }
 
-
+$itemDAO = new ItemDAO();
+$carrinhoDAO = new CarrinhoDAO();
+$usuarioDAO = new UsuarioDAO();
 
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
@@ -26,6 +22,21 @@ if (isset($_SESSION["id_usuario"])) {
 } else {
     $usuarioLogado = "";
 }
+
+$itemFetch = $itemDAO->obterItemPorId($id_item);
+
+echo '<pre>';
+print_r($itemFetch = $itemDAO->obterItemPorId($id_item));
+echo '</pre>';
+
+if ($itemFetch) {
+    if (isset($_SESSION['msg'])) {
+        $message = $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    } else {
+        $message = "";
+    }
+?>
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -47,6 +58,7 @@ if (isset($_SESSION["id_usuario"])) {
         <nav class="navbar">
            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
           <?php
+
             if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
               $total_itens = $carrinhoData['total_itens'];
               $carrinho_itens = $carrinhoData['carrinho_itens'];
@@ -69,19 +81,17 @@ if (isset($_SESSION["id_usuario"])) {
             <?php
             $total_itens = 0;
             $carItens = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
-            $carrinhoFetch = $carrinhoDAO->obterItemCarPorID($id_item);
             if (!empty($carItens)) {
                 foreach ($carItens as $carrinhoFetch) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
-
                     if ($itemFetch) {
+
                         ?>
                         <form action="" method="POST">
                             <input type="hidden" name="id_carrinho" value="<?= $carrinhoFetch->getId_carrinho() ?>">
                             <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
                             <h3><?= $itemFetch['nome_item'] ?></h3>
                             <div>
-                                
                                 <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
                                 <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                                 <input type="submit" name="atualizar_car" class="fas fa-edit">
@@ -105,10 +115,9 @@ if (isset($_SESSION["id_usuario"])) {
             <div>
                 <p>Total Itens: <span><i class="fas fa-brazilian-real-sign"></i> <?= $total_itens; ?></span></p>
                 <form action="" method="POST">
-                    <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio"
-                           onclick="return confirm('Deseja esvaziar o seu carrinho?');">
+                    <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');">
                 </form>
-                <a href="transacao.php" class="btn">Comprar</a>
+                <a href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>" class="btn">Comprar</a>
             </div>
         <?php } ?>
     </section>
@@ -119,12 +128,9 @@ if (isset($_SESSION["id_usuario"])) {
 
         <div class="rodapeinicio">
             <div class="rodapesocial">
-                <button class="botaorodape"> <a href="https://www.youtube.com/watch?v=W4VTq0sa9yg" class="social">Instagram<i
-                                class="fab fa-instagram"></i></a></button>
-                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=Sx86-18V3m8" class="social">Twitter<i
-                                class="fab fa-twitter"></i></a></button>
-                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=YKdgcYZy1rQ" class="social">Facebook<i
-                                class="fab fa-facebook-f"></i></a></button>
+                <button class="botaorodape"> <a href="https://www.youtube.com/watch?v=W4VTq0sa9yg" class="social">Instagram<i class="fab fa-instagram"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=Sx86-18V3m8" class="social">Twitter<i class="fab fa-twitter"></i></a></button>
+                <button class="botaorodape"><a href="https://www.youtube.com/watch?v=YKdgcYZy1rQ" class="social">Facebook<i class="fab fa-facebook-f"></i></a></button>
             </div>
 
             <div class="rodapefim">
@@ -143,3 +149,8 @@ if (isset($_SESSION["id_usuario"])) {
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 </body>
 </html>
+<?php 
+} else {
+    echo '<p>Nenhum item encontrado!</p>';
+}
+?>
