@@ -432,6 +432,7 @@ DROP TABLE IF EXISTS `cine_community`.`carrinho` ;
 CREATE TABLE IF NOT EXISTS `cine_community`.`carrinho` (
   `id_carrinho` INT(11) NOT NULL AUTO_INCREMENT,
   `qtd_compra` VARCHAR(2) NOT NULL DEFAULT '1',
+  `preco` DECIMAL(13,2) NOT NULL DEFAULT '0.00',
   `dt_hora_car` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `fk_id_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,

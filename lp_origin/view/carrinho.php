@@ -9,6 +9,16 @@ $itemDAO = new ItemDAO();
 $carrinhoDAO = new CarrinhoDAO();
 $usuarioDAO = new UsuarioDAO();
 
+if (isset($_GET['id_item'])) {
+    $id_item = $_GET['id_item'];
+} else {
+    $id_item = '';
+    header('Location: todos_itens.php');
+    exit();
+}
+
+
+
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
@@ -59,6 +69,7 @@ if (isset($_SESSION["id_usuario"])) {
             <?php
             $total_itens = 0;
             $carItens = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
+            $carrinhoFetch = $carrinhoDAO->obterItemCarPorID($id_item);
             if (!empty($carItens)) {
                 foreach ($carItens as $carrinhoFetch) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
@@ -67,14 +78,15 @@ if (isset($_SESSION["id_usuario"])) {
                         ?>
                         <form action="" method="POST">
                             <input type="hidden" name="id_carrinho" value="<?= $carrinhoFetch->getId_carrinho() ?>">
-                            <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item'] ?>">
+                            <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
                             <h3><?= $itemFetch['nome_item'] ?></h3>
                             <div>
+                                
                                 <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
                                 <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
                                 <input type="submit" name="atualizar_car" class="fas fa-edit">
                             </div>
-                            <p>Subtotal: <span><i class="fas fa-indian-rupee-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch['preco_item']); ?></span></p>
+                            <p>Subtotal: <span><i class="fas fa-brazilian-real-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch['preco_item']); ?></span></p>
                             <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');">
                         </form>
                         <?php
