@@ -34,10 +34,6 @@ class UsuarioDAO {
         }
     }
     
-
-    
-
-
     public function cadastrarUsuario(UsuarioDTO $usuarioDTO) {
         try {
             $sql = "INSERT INTO usuario (nome_usu, nickname_usu, dt_de_nasci_usu, genero_usu, email_usu, senha_usu,

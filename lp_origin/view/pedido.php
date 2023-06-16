@@ -62,26 +62,26 @@ if ($itemFetch) {
             $grand_total += $sub_total;
    ?>
    <div>
+        <div>
+            <p><i class="fas fa-calendar"></i><?= $compraFetch['dt_hora_compra']; ?></p>
+            <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
+            <p><i class="fas fa-brazilian-real-sign"></i><?= $compraFetch['preco_compra']; ?> x <?= $compraFetch['quant_compra']?></p>
+            <h3><?= $itemFetch['nome_item']; ?></h3>
+            <p>Valor Total : <span><i class="fas fa-brazilian-real-sign"></i><?= $grand_total?></span></p>
+        </div>
       <div>
-         <p class="title"><i class="fas fa-calendar"></i><?= $compraFetch['date']; ?></p>
-         <img src="uploaded_files/<?= $fetch_product['image']; ?>" class="image" alt="">
-         <p class="price"><i class="fas fa-brazilian-real-sign"></i><?= $compraFetch['price']; ?> x <?= $compraFetch['qty']; ?></p>
-         <h3 class="name"><?= $fetch_product['name']; ?></h3>
-         <p class="grand-total">grand total : <span><i class="fas fa-indian-rupee-sign"></i> <?= $grand_total; ?></span></p>
-      </div>
-      <div class="col">
-         <p class="title">billing address</p>
-         <p class="user"><i class="fas fa-user"></i><?= $compraFetch['name']; ?></p>
-         <p class="user"><i class="fas fa-phone"></i><?= $compraFetch['number']; ?></p>
-         <p class="user"><i class="fas fa-envelope"></i><?= $compraFetch['email']; ?></p>
-         <p class="user"><i class="fas fa-map-marker-alt"></i><?= $compraFetch['address']; ?></p>
-         <p class="title">status</p>
-         <p class="status" style="color:<?php if($compraFetch['status'] == 'delivered'){echo 'green';}elseif($compraFetch['status'] == 'canceled'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status']; ?></p>
-         <?php if($compraFetch['status'] == 'canceled'){ ?>
-            <a href="checkout.php?get_id=<?= $fetch_product['id']; ?>" class="btn">order again</a>
+         <p>Informações do Colecionador</p>
+         <p><i class="fas fa-user"></i><?= $usuarioFetch['nome_usu']?></p>
+         <p><i class="fas fa-phone"></i><?= $usuarioFetch['telefone']?></p>
+         <p><i class="fas fa-envelope"></i><?= $usuarioFetch['email_usu']?></p>
+         <p><i class="fas fa-map-marker-alt"></i><?= $usuarioFetch['endereco']?></p>
+         <p>STATUS</p>
+         <p style="color:<?php if($compraFetch['status_compra'] == 'Concluído'){echo 'green';}elseif($compraFetch['status_compra'] == 'canceled'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status_compra']; ?></p>
+         <?php if($compraFetch['status_compra'] == 'Cancelado'){ ?>
+            <a href="transacao.php?id_item=<?= $itemFetch['id_item']; ?>" class="btn">Comprar Novamente</a>
          <?php }else{ ?>
-         <form action="" method="POST">
-            <input type="submit" value="cancel order" name="cancel" class="delete-btn" onclick="return confirm('cancel this order?');">
+         <form action="cancelar_pedido.php" method="POST">
+            <input type="submit" value="Cancelar Pedido" name="cancelar_pedido" onclick="return confirm('Deseja cancelar o pedido?')">
          </form>
          <?php } ?>
       </div>

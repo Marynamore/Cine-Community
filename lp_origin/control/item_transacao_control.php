@@ -1,6 +1,6 @@
 <?php
 require_once '../model/dao/transacaoDAO.php';
-
+require_once '../model/dao/compraDAO.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $method         = strip_tags($_POST['pix']);
@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $qtd_trans     = strip_tags($_POST["qtd_item"]);
     
     $transacaoDAO = new TransacaoDAO();
+    $compraDAO = new CompraDAO();
 
     $itemFetch = $itemDAO->obterItemPorId($id_item);
 
@@ -41,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<script>location.href='../view/transacao.php?ERRO ao Acessar o Metodo';</script>";
     }
+
+    // Salvar a compra no banco de dados
+    $compraDAO->adicionarCompra($id_usuario, $id_transacao, $method, $preco_item, $id_compra,$id_carrinho,$id_item,$id_perfil,$id_usuario, $qtd_trans);
 
     // Salvar a transação no banco de dados
     $transacaoDAO->criarTransacao($id_usuario, $id_transacao, $method, $preco_item, $id_compra,$id_carrinho,$id_item,$id_perfil,$id_usuario, $qtd_trans);

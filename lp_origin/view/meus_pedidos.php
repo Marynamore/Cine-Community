@@ -26,14 +26,10 @@ if (isset($_SESSION["id_usuario"])) {
     exit();
 }
 
-if ($itemFetch) {
-    if (isset($_SESSION['msg'])) {
-        $message = $_SESSION['msg'];
-        unset($_SESSION['msg']);
-    } else {
-        $message = "";
-    }
+$compras = $compraDAO->obterComprasPorUsuario($id_usuarioLogado);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,9 +48,7 @@ if ($itemFetch) {
    <h1>Meus Pedidos</h1>
    <div>
    <?php
-    $compras = $compraDAO->obterIdUsuario($id_usuario);
- 
-      if($compras){
+      if(!empty($compras)) {
          foreach ($compras as $compra) {
             $item = $compraDAO->buscarItem($compra->getFk_id_item());
    ?>
@@ -64,7 +58,7 @@ if ($itemFetch) {
          <img src="../assets/imagensprodutos/<?=$item['imagem_item']; ?>">
          <h3><?= $item['nome_item']; ?></h3>
          <p><i class="fas fa-brazilian-real-sign"></i> <?= $compra->getPreco_compra() ?> x <?= $compra->getQuant_compra()?></p>
-         <p style="color:<?php if($compraFetch['status_compra'] == 'Concluída'){echo 'green';}elseif($compraFetch['status_compra'] == 'Cancelada'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status_compra']; ?></p>
+         <p style="color:<?php if($compra->getStatus_compra() == 'Concluída'){echo 'green';}elseif($compra->getStatus_compra() == 'Cancelada'){echo 'red';}else{echo 'orange';}; ?>"><?= $compra->getStatus_compra(); ?></p>
       </a>
    </div>
    <?php
@@ -79,9 +73,3 @@ if ($itemFetch) {
 </section>
 </body>
 </html>
-
-<?php 
-} else {
-    echo '<p>Nenhum item encontrado!</p>';
-}
-?>

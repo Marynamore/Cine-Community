@@ -87,6 +87,7 @@ if ($itemFetch) {
           <br>
           <p><?= $itemFetch->getDescricao_item() ?></p>
           <div>
+            <input type="hidden" name="preco_item" value="<?= $itemFetch->getPreco_item() ?>"><br>
             <p>Preço Item: <i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
             <p>Quantidade em Estoque: <?= $itemFetch->getQtd_item() ?></p>
             <input type="number" name="qtd_item" required min="1" value='<?= $itemFetch->getQtd_item() ?>' max="99" maxlength="2">
@@ -109,4 +110,3 @@ if ($itemFetch) {
     echo '<p>Nenhum item encontrado!</p>';
 }
 ?>
-
