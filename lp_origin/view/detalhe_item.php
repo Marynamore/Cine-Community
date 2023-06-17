@@ -17,6 +17,8 @@ $itemDAO = new ItemDAO();
 $carrinhoDAO = new CarrinhoDAO();
 $usuarioDAO = new UsuarioDAO();
 
+
+
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
@@ -82,6 +84,7 @@ if ($itemFetch) {
           <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>">
         </div>
         <input type="hidden" name="id_item" value="<?= $itemFetch->getId_item() ?>"><br>
+        
         <div class="product-info">
           <h2><?= $itemFetch->getNome_item() ?></h2>
           <br>

@@ -1,15 +1,9 @@
 <?php
 session_start();
-require_once '../model/dto/carrinhoDTO.php';
+
 require_once '../model/dao/carrinhoDAO.php';
 require_once '../model/dao/itemDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
-
-if (isset($_GET['id_item'])) {
-    $id_item = $_GET['id_item'];
-} else {
-    $id_item = '';
-}
 
 $itemDAO = new ItemDAO();
 $carrinhoDAO = new CarrinhoDAO();
@@ -23,20 +17,6 @@ if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = "";
 }
 
-$itemFetch = $itemDAO->obterItemPorId($id_item);
-
-echo '<pre>';
-print_r($itemFetch = $itemDAO->obterItemPorId($id_item));
-echo '</pre>';
-
-if ($itemFetch) {
-    if (isset($_SESSION['msg'])) {
-        $message = $_SESSION['msg'];
-        unset($_SESSION['msg']);
-    } else {
-        $message = "";
-    }
-?>
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,20 +38,17 @@ if ($itemFetch) {
         <nav class="navbar">
            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
           <?php
-
             if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
-              $total_itens = $carrinhoData['total_itens'];
-              $carrinho_itens = $carrinhoData['carrinho_itens'];
-              if (!empty($carrinho_itens)) {
-                foreach ($carrinho_itens as $carrinhoItem) {
+                $total_itens = $carrinhoData['total_itens'];
+                $carrinho_itens = $carrinhoData['carrinho_itens'];
+                if (empty($carrinho_itens)) {
                     echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
                 }
-              }
             } else {
                 echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
             }
           ?>
-          <a href="../view/todos_itens.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>  
+          <a href="../view/todos_itens.php"><i class="fa-solid fa-house"></i>Voltar</a>  
         </nav>
     </header>
 
@@ -80,23 +57,23 @@ if ($itemFetch) {
         <div>
             <?php
             $total_itens = 0;
-            $carItens = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
-            if (!empty($carItens)) {
-                foreach ($carItens as $carrinhoFetch) {
+            $carrinhoData = $carrinhoDAO->obterItemCarPorUsuarioID($id_usuarioLogado);
+            if (!empty($carrinhoData)) {
+                foreach ($carrinhoData as $carrinhoFetch) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
                     if ($itemFetch) {
-
                         ?>
-                        <form action="" method="POST">
+                        <form action="../control/deleta_atualiza.php" method="POST">
                             <input type="hidden" name="id_carrinho" value="<?= $carrinhoFetch->getId_carrinho() ?>">
-                            <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
-                            <h3><?= $itemFetch['nome_item'] ?></h3>
+                            <input type="hidden" name="dt_hora_car" value="<?= date('d-m-y H:i:s');?>">
+                            <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>" style="width:5em;">
+                            <h3><?= $itemFetch->getNome_item() ?></h3>
                             <div>
-                                <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch['preco_item'] ?></p>
-                                <input type="number" name="qtd_item" required min="1" value="1" max="99" maxlength="2">
-                                <input type="submit" name="atualizar_car" class="fas fa-edit">
+                                <p>Preço Item Unitário: <i class="fas fa-brazilian-real-sign"></i> <?= $carrinhoFetch->getPreco() ?></p>
+                                <input type="number" name="qtd_compra" required min="1" value="<?= $carrinhoFetch->getQtd_compra() ?>" max="99" maxlength="2">
+                                <i class="fa-solid fa-pen-to-square"><input type="submit" name="atualizar_car"></i>
                             </div>
-                            <p>Subtotal: <span><i class="fas fa-brazilian-real-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch['preco_item']); ?></span></p>
+                            <p>Subtotal: <span><i class="fas fa-brazilian-real-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item()); ?></span></p>
                             <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');">
                         </form>
                         <?php
@@ -114,10 +91,10 @@ if ($itemFetch) {
         <?php if ($total_itens != 0) { ?>
             <div>
                 <p>Total Itens: <span><i class="fas fa-brazilian-real-sign"></i> <?= $total_itens; ?></span></p>
-                <form action="" method="POST">
+                <form action="../control/esvaziar_car.php" method="POST">
                     <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');">
                 </form>
-                <a href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>" class="btn">Comprar</a>
+                <a href="transacao.php?id_item=<?= $itemFetch['id_item'] ?>" class="btn">Comprar</a>
             </div>
         <?php } ?>
     </section>
@@ -149,8 +126,3 @@ if ($itemFetch) {
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 </body>
 </html>
-<?php 
-} else {
-    echo '<p>Nenhum item encontrado!</p>';
-}
-?>

@@ -8,13 +8,6 @@ $itemDAO = new ItemDAO();
 $usuarioDAO = new UsuarioDAO();
 $compraDAO = new CompraDAO();
 
-if (isset($_GET['id_item'])) {
-    $id_item = $_GET['id_item'];
-} else {
-    $id_item = '';
-    header('Location: ./todos_itens.php');
-    exit();
-}
 
 if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];

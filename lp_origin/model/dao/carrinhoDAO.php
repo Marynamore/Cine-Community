@@ -16,15 +16,17 @@ class CarrinhoDAO {
                     INNER JOIN item i ON c.fk_id_item = i.id_item
                     INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
                     WHERE u.id_usuario=?";
+
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id_usuario]);
-            $total_itens = $stmt->fetchColumn();
+            $total_itens = $stmt->rowCount();
 
             $sql = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c 
                     INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
                     INNER JOIN item i ON c.fk_id_item = i.id_item
                     INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
                     WHERE u.id_usuario=?";
+                    
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id_usuario]);
             $carrinho_itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +40,7 @@ class CarrinhoDAO {
         }
     }
     
-    public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil, $dt_hora_car) {
+    public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil) {
         try {
             $sqlCar = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c 
                     INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario 
@@ -65,14 +67,13 @@ class CarrinhoDAO {
                 $preItem->execute([$id_item]);
                 $precoFetch = $preItem->fetch(PDO::FETCH_ASSOC);
 
-                $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco, qtd_compra, fk_id_perfil, dt_hora_car) VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO carrinho (fk_id_usuario, fk_id_item, preco, qtd_compra, fk_id_perfil) VALUES (?,?,?,?,?)";
                 $adItemCar = $this->pdo->prepare($sql);
                 $adItemCar->bindValue(1, $id_usuarioLogado);
                 $adItemCar->bindValue(2, $id_item);
                 $adItemCar->bindValue(3, $precoFetch['preco_item']);
                 $adItemCar->bindValue(4, $qtd_compra);
                 $adItemCar->bindValue(5, $id_perfil);
-                $adItemCar->bindValue(6, $dt_hora_car);
                 $adItemCar->execute();
 
                 return 'Item Adicionado ao Carrinho';
@@ -83,29 +84,57 @@ class CarrinhoDAO {
         }
     }
 
-
-    public function alterarItem(ItemDTO $itemDTO) {
+    public function esvaziarCar($id_usuario) {
         try {
-            $sql = "UPDATE item SET nome=?";
+            $sqlItemCar = "SELECT * FROM carrinho WHERE fk_id_usuario=?";
+            $preItemCar = $this->pdo->prepare($sqlItemCar);
+            $preItemCar->execute([$id_usuario]);
 
-            $upItem = $this->pdo->prepare($sql);
-            $upItem->bindValue(1, $itemDTO->getNome_item());
-            $itemDTO = $upItem->execute();
+            if ($preItemCar->rowCount() > 0) {
+                $sql = "DELETE FROM carrinho WHERE fk_id_usuario=?";
+                $exItem = $this->pdo->prepare($sql);
+                $exItem->execute([$id_usuario]);
 
-            return $itemDTO;
+                return true;
+            } else {
+                return 'Carrinho já está vazio';
+            }
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
 
-    public function excluirItemPorId($id_item) {
+    public function altualizarQtdCar($qtd_compra,$id_carrinho) {
         try {
-            $sql = "DELETE FROM item WHERE id_item=?";
+            $sql = "UPDATE carrinho SET qtd_compra=? WHERE id_carrinho=?";
+            $upCar = $this->pdo->prepare($sql);
+            $upCar->bindValue(1, $qtd_compra);
+            $upCar->bindValue(2, $id_carrinho);
+            $carrinhoDTO = $upCar->execute([$qtd_compra, $id_carrinho]);
+
+            return $carrinhoDTO;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function excluirItemCar($id_carrinho) {
+        try {
+            $sqlItemCar = "SELECT * FROM carrinho WHERE id_carrinho=?";
+            $preItemCar = $this->pdo->prepare($sqlItemCar);
+            $preItemCar->execute([$id_carrinho]);
+
+            if($preItemCar->rowCount() > 0){
+
+            $sql = "DELETE FROM carrinho WHERE id_carrinho=?";
             $exItem = $this->pdo->prepare($sql);
+            $exItem->bindValue(1, $id_carrinho);
 
-            $exItem->bindValue(1, $id_item);
+            return $exItem->execute([$id_carrinho]);
 
-            return $exItem->execute();
+            }else {
+                return 'Item do Carrinho já excluído';
+            }
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
@@ -127,11 +156,12 @@ class CarrinhoDAO {
                     $carrinhoDTO = new CarrinhoDTO();
 
                     $carrinhoDTO->setId_carrinho($carrinhoFetch['id_carrinho']);
-                    $carrinhoDTO->setFk_id_item($carrinhoFetch['fk_id_item']);
+                    $carrinhoDTO->setFk_id_item($carrinhoFetch['id_item']);
                     $carrinhoDTO->setDt_hora_car($carrinhoFetch['dt_hora_car']);
+                    $carrinhoDTO->setPreco($carrinhoFetch['preco_item']);
                     $carrinhoDTO->setQtd_compra($carrinhoFetch['qtd_compra']);
                     $carrinhoDTO->setFk_id_usuario($carrinhoFetch['id_usuario']);
-                    $carrinhoDTO->setFk_id_perfil($carrinhoFetch['fk_id_perfil']);
+                    $carrinhoDTO->setFk_id_perfil($carrinhoFetch['id_perfil']);
 
                     $carItens[] = $carrinhoDTO;
                 }
@@ -143,7 +173,7 @@ class CarrinhoDAO {
         }
     }
 
-    public function obterItemCarPorID($id_item) {
+    public function obterItemCar($id_item) {
         try {
             $sql = "SELECT c.*, u.id_usuario, p.id_perfil FROM carrinho c 
                     INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario  
@@ -172,4 +202,6 @@ class CarrinhoDAO {
             return array(); // Retornar um array vazio em caso de erro
         }
     }
+
+
 }

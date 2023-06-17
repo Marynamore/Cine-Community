@@ -99,12 +99,12 @@ class ItemDAO{
 
     public function obterItemCarPorId($id_item){
         try{
-        $sql = "SELECT i.*, ci.id_categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
+        $sql = "SELECT i.*, ci.id_categoria_item, u.id_usuario, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=?";
             $preItem = $this->pdo->prepare($sql);
             $preItem->bindValue(1, $id_item);
             $preItem->execute([$id_item]);
             
-            $itens = array();
+            
             if ($preItem->rowCount() > 0) {
                 while ($itemFetch = $preItem->fetch(PDO::FETCH_ASSOC)) {
                     $itemDTO = new ItemDTO();
@@ -120,9 +120,8 @@ class ItemDAO{
                     $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
 
                     $itens[] = $itemDTO;
-
+                    return $itemDTO;
                 } 
-                return $itens;
             }
         }catch(PDOException $exc){
             echo $exc->getMessage();
@@ -162,6 +161,7 @@ public function obterItemPorId($id_item){
         echo $exc->getMessage();
     }
    }
+
    public function buscarPorID($id) {
     try {
         if (!$id) {
@@ -197,6 +197,8 @@ public function obterItemPorId($id_item){
         echo $ex->getMessage();
     }
 }
+
+
 
 
 }

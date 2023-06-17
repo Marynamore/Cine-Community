@@ -6,21 +6,20 @@ require_once '../model/dao/carrinhoDAO.php';
 
 $carrinhoDAO = new CarrinhoDAO();
 
-if (isset($_SESSION['id_usuario']) && isset($_POST['item_adicionado'])) {
+if (isset($_SESSION['id_usuario']) && isset($_POST['carrinho_vazio'])) {
+   
     $id_usuario = $_SESSION['id_usuario'];
     $id_item    = $_POST['id_item'];
-    $qtd_compra = $_POST['qtd_item'];
     $id_perfil  = $_SESSION['id_perfil'];
-    $preco      = $_POST['preco_item'];
 
     $carrinhoDTO = new CarrinhoDTO();
     $carrinhoDTO->setFk_id_usuario($id_usuario);
     $carrinhoDTO->setFk_id_perfil($id_perfil);
     $carrinhoDTO->setFk_id_item($id_item);
 
-    $message = $carrinhoDAO->adicionarItemCar($id_usuario, $id_item, $qtd_compra, $id_perfil,$preco);
+    $message = $carrinhoDAO->esvaziarCar($id_usuario);
 
-    if ($message === 'Item Adicionado ao Carrinho') {
+    if ($message === 'Carrinho Vazio') {
         header('Location: ../view/carrinho.php');
         exit();
     } else {
@@ -31,3 +30,4 @@ if (isset($_SESSION['id_usuario']) && isset($_POST['item_adicionado'])) {
     header("Location:../view/todos_itens.php?msg=Usuário Não encontrado");
     exit;
 }
+
