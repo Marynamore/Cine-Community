@@ -212,11 +212,11 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
     require_once '../../model/dao/UsuarioDAO.php';
     $UsuarioDAO = new UsuarioDAO();
 
-    if (isset($_GET["msg"])) {
-        echo "<center>" . $_GET["msg"] . "</center>";
-    }
-
-    $usuarios = $UsuarioDAO->listarTodos();
+    // if (isset($_GET["msg"])) {
+    //     echo "<center>" . $_GET["msg"] . "</center>";
+    // }
+    // if (isset($_GET["id_usuario"]))
+    $usuario = $UsuarioDAO->listarTodosUsuario();
     ?>
     <table>
         <thead>
@@ -229,23 +229,25 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                 <th>E-mail</th>
                 <th>Senha</th>
                 <th>Foto</th>
+                <th>Perfil</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($usuarios as $usuario) { ?>
+            <?php foreach ($usuario as $usuarioFetch) { ?>
                 <tr>
-                    <td><?= $usuario->getId_usuario() ?></td>
-                    <td><?= $usuario->getNome_usu() ?></td>
-                    <td><?= $usuario->getNickname_usu() ?></td>
-                    <td><?= $usuario->getDt_de_nasci_usu() ?></td>
-                    <td><?= $usuario->getGenero_usu() ?></td>
-                    <td><?= $usuario->getEmail_usu() ?></td>
-                    <td><?= $usuario->getSenha_usu() ?></td>
-                    <td><?= $usuario->getFoto_usu() ?></td>
+                    <td><?= $usuarioFetch["id_usuario"]?></td>
+                    <td><?= $usuarioFetch["nome_usu"]?></td>
+                    <td><?= $usuarioFetch["nickname_usu"]?></td>
+                    <td><?= $usuarioFetch["dt_de_nasci_usu"]?></td>
+                    <td><?= $usuarioFetch["genero_usu"]?></td>
+                    <td><?= $usuarioFetch["email_usu"]?></td>
+                    <td><?= $usuarioFetch["senha_usu"]?></td>
+                    <td><?= $usuarioFetch["foto_usu"]?></td>
+                    <td><?= $usuarioFetch["perfil_usu"]?></td>
                     <td>
-                        <a href="../alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
-                        <a href="../../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>" title="EXCLUIR">Excluir <i class="fa fa-trash fa-lg"></i></a>
+                        <a href="../alterar_usuario.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
+                        <a href="../../control/excluir.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="EXCLUIR">Excluir <i class="fa fa-trash fa-lg"></i></a>
                     </td>
                 </tr>
             <?php } ?>
