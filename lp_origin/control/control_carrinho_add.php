@@ -9,7 +9,7 @@ $carrinhoDAO = new CarrinhoDAO();
 if (isset($_SESSION['id_usuario']) && isset($_POST['item_adicionado'])) {
     $id_usuario = $_SESSION['id_usuario'];
     $id_item    = $_POST['id_item'];
-    $qtd_compra = $_POST['qtd_item'];
+    $qtd_compra = $_POST['qtd_compra'];
     $id_perfil  = $_SESSION['id_perfil'];
     $preco      = $_POST['preco_item'];
 

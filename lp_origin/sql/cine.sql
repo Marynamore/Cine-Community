@@ -492,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`compra` (
   `preco_compra` VARCHAR(45) NULL,
   `dt_hora_compra` DATETIME NULL DEFAULT CURRENT_TIMESTAMP(),
   `status_compra` VARCHAR(45) NULL COMMENT 'Em progresso, Pendente, Concluída, Cancelada',
-  `tipo_pagamento` VARCHAR(45) NULL DEFAULT 'PIX' COMMENT 'PIX\\nCartão de Crédio\\nCartão de Débito\\nMercado Pago',
+  `tipo_pagamento` VARCHAR(45) NULL DEFAULT 'PIX' COMMENT 'PIX\\nCartão de Crédio\\nCartão de Débito\\nBoleto',
   `fk_id_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,
   `fk_id_perfil` INT(11) NOT NULL,

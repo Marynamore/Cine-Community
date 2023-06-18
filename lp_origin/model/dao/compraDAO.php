@@ -11,7 +11,7 @@ class CompraDAO {
    
     public function adicionarCompra($id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil) {
         try {
-            $sql = "INSERT INTO compra (quant_compra, preco_compra, dt_hora_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_usuario, fk_id_perfil) 
+            $sql = "INSERT INTO compra (fk_id_usuario, quant_compra, preco_compra, dt_hora_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_perfil) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
             $compraFetch = $this->pdo->prepare($sql);
