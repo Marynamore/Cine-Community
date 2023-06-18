@@ -63,7 +63,7 @@ if ($id_perfil == "moderador") {
            
             <td>
               <button class="editar"><a href="../alterar_filme.php?get_id=<?=$filmeFetch["id_filme"]?>"title="ALTERAR" class="editar"> Alterar<i class="bi bi-pencil"></i></a></button>
-              <button class="excluir"><a href="../../control/excluir_filme.php?id_filme=<?=$filmeFetch["id_filme"]?>"title="EXCLUIR"><i class="fa fa-trash fa-lg"></i> Excluir</a></button>
+              <button class="excluir"><a href="../../control/excluir_filme.php?id_filme=<?=$filmeFetch["id_filme"]?>"title="EXCLUIR" onclick="return confirm('Deseja excluir esse filme?')"><i class="fa fa-trash fa-lg"></i> Excluir</a></button>
 
 
             </td>

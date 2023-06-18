@@ -30,12 +30,11 @@ if (isset($_SESSION["id_usuario"])) {
 
 
 </head>
-
 <body>
     <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     <center>
         <div class="container">
-            <form id="contact" action="../control/cadastro_item_control.php" method="post">
+            <form id="contact" action="../control/cadastro_item_control.php" method="post" enctype="multipart/form-data">
                 <h3>Cadastro Item</h3>
 
                 <!-- Personal Data -->
@@ -59,6 +58,7 @@ if (isset($_SESSION["id_usuario"])) {
                     <div class="inputBox">
                         <label for="preco_item">Preço Item:</label>
                         <input placeholder="Quantidade em Estoque" type="text" name="preco_item" id="preco_item" required>
+                        <span>Você receberá seu dinheiro na hora pagando, uma taxa de 4,99% por venda.</span>
                     </div>
                     <label for="fk_id_categoria_item">Categoria do Item:</label>
                     <select name="fk_id_categoria_item" id="fk_id_categoria_item">

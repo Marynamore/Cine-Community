@@ -11,30 +11,26 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_categoria_item     = isset($_POST['fk_id_categoria_item']) ? $_POST['fk_id_categoria_item'] : null;
     $id_usuario            = isset($_POST['fk_id_usuario']) ? $_POST['fk_id_usuario'] : null;
     $id_perfil             = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
+    $imagem_item = $_FILES['imagem_item'];
 
-    if (isset($_FILES['imagem_item']) && $_FILES['imagem_item']['error'] === UPLOAD_ERR_OK) {
-        $imagem_item = $_FILES['imagem_item'];
+    if ($imagem_item['error'] === UPLOAD_ERR_OK) {
         $nome_arquivo = $imagem_item['name'];
         $caminho_temporario = $imagem_item['tmp_name'];
-        $caminho_destino = '../assets/imagensprodutos' . $nome_arquivo;
+        $caminho_destino = '../assets/imagensprodutos/' . $nome_arquivo;
         move_uploaded_file($caminho_temporario, $caminho_destino);
-    } else {
-        // Caso contrário, define uma imagem padrão
-        $nome_arquivo = 'foto_padrao.jpg'; // Substitua pelo nome do arquivo da imagem padrão
-    }
 
-    $itemDTO = new ItemDTO();
-    $itemDTO->setNome_item($nome_item);
-    $itemDTO->setDescricao_item($descricao_item);
-    $itemDTO->setPreco_item($preco_item);
-    $itemDTO->setQtd_item($qtd_item);
-    $itemDTO->setFk_id_categoria_item($id_categoria_item);
-    $itemDTO->setImagem_item($nome_arquivo);
-    $itemDTO->setFk_id_usuario($id_usuario);
-    $itemDTO->setFk_id_perfil($id_perfil);
+        $itemDTO = new ItemDTO();
+        $itemDTO->setNome_item($nome_item);
+        $itemDTO->setDescricao_item($descricao_item);
+        $itemDTO->setPreco_item($preco_item);
+        $itemDTO->setQtd_item($qtd_item);
+        $itemDTO->setFk_id_categoria_item($id_categoria_item);
+        $itemDTO->setImagem_item($nome_arquivo);
+        $itemDTO->setFk_id_usuario($id_usuario);
+        $itemDTO->setFk_id_perfil($id_perfil);
 
-    $itemDAO = new ItemDAO();
-    $success = $itemDAO->cadastrarItem($itemDTO);
+        $itemDAO = new ItemDAO();
+        $success = $itemDAO->cadastrarItem($itemDTO);
 
     if ($success) {
         $msg = "item cadastrado com sucesso!";
@@ -48,5 +44,6 @@ if ($_SESSION['id_perfil'] == 3) {
         $msg = "Permissão negada para cadastrar o item";
         header("Location: ../view/dashboard/pagina_de_erro.php?msg=" . urlencode($msg));
     }
+}
 }
 ?>

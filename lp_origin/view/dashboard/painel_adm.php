@@ -190,7 +190,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                             <a href="../alterar_filme.php?get_id=<?=$filmeFetch["id_filme"]?>" title="ALTERAR"
                                 class="editar"> Alterar<i class="bi bi-pencil"></i></a>
                             <a href="../../control/excluir_filme.php?id_filme=<?= $filmeFetch["id_filme"] ?>"
-                                title="EXCLUIR">Excluir<i class="fa fa-trash fa-lg"></i></a>
+                                title="EXCLUIR" onclick="return confirm('Deseja excluir esse filme?')">Excluir<i class="fa fa-trash fa-lg"></i></a>
 
                         </td>
                     </tr>
@@ -247,7 +247,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                     <td><?= $usuarioFetch["perfil_usu"]?></td>
                     <td>
                         <a href="../alterar_usuario.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
-                        <a href="../../control/excluir.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="EXCLUIR">Excluir <i class="fa fa-trash fa-lg"></i></a>
+                        <a href="../../control/excluir.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="EXCLUIR" onclick="return confirm('Deseja excluir esse usuário?')">Excluir <i class="fa fa-trash fa-lg"></i></a>
                     </td>
                 </tr>
             <?php } ?>

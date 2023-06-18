@@ -35,7 +35,7 @@ if (isset($_SESSION["id_usuario"])) {
     <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     <center>
         <div class="container">
-            <form id="contact" action="../control/cadastro_control.php" method="post">
+            <form id="contact" action="../control/cadastro_control.php" method="post" enctype="multipart/form-data">
                 <h3>Cadastro</h3>
 
                 <!-- Personal Data -->

@@ -22,15 +22,11 @@ $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 $foto_usu = $_FILES['foto_usu'];
 // Verifica se o campo de upload de arquivo foi enviado e se não há erros
 if ($foto_usu['error'] === UPLOAD_ERR_OK){
-    
     $nome_arquivo = $foto_usu['name'];
     $caminho_temporario = $foto_usu['tmp_name'];
     $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
     move_uploaded_file($caminho_temporario, $caminho_destino);
-} else {
-    // Caso contrário, define uma imagem padrão
-    $nome_arquivo = 'foto_padrao.jpg'; // Substitua pelo nome do arquivo da imagem padrão
-}
+
 
 $usuarioDTO = new UsuarioDTO();
 $usuarioDTO->setNome_usu($nome_usu);
@@ -60,5 +56,6 @@ if ($usuarioDAO) {
 } else {
     header("Location: ../view/cadastro.php");
     exit;
+}
 }
 ?>

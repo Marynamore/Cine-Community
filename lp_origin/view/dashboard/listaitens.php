@@ -66,7 +66,6 @@ if ($id_perfil == "colecionador") {
                             <a href="../../control/excluir_item.php?id_item=<?= $item["id_item"] ?>" title="EXCLUIR" onclick="return confirm('Tem certeza que deseja excluir esse dado?')">
                                 <i class="fa fa-trash fa-lg"></i> Excluir</a>
                         </button>
-
                     </td>
                 </tr>
             <?php endforeach; ?>

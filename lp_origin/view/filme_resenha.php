@@ -35,15 +35,6 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Cine Community</title>
-    <script>
-        function funcEditarRes() {
-            alert("Em breve:\nA função EDITAR estará disponível");
-        }
-
-        function funcExcluirRes() {
-            alert("Em breve:\nA função EXCLUIR estará disponível");
-        }
-    </script>
 </head>
 
 <body>
@@ -123,7 +114,7 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
                     <?php
                     if ($id_usuario == $resenha->getFk_id_usuario()) {
                         echo '<a href="./alterar_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha">Editar</a>';
-                        echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha">Excluir</a>';
+                        echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm("Deseja esvaziar o seu carrinho?");">Excluir</a>';
                     }
                     ?>
                     <button class="modal-link" onclick="openModal('modal-denunciar', <?php echo $resenha->getId_resenha(); ?>)">
