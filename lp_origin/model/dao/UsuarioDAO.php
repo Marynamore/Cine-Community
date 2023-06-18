@@ -87,31 +87,43 @@ class UsuarioDAO
 
 
 
-    public function listarTodos()
-    {
-        try {
-            $sql = "SELECT * FROM usuario ORDER BY id_usuario";
+    public function listarTodosUsuario() {
+        try{
+            $sql = "SELECT * FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil ORDER BY id_usuario ";
+    
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-
+    
             $usuarios = array();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $usuario = new UsuarioDTO();
-                $usuario->setId_usuario($row['id_usuario']);
-                $usuario->setNome_usu($row['nome_usu']);
-                $usuario->setNickname_usu($row['nickname_usu']);
-                $usuario->setGenero_usu($row['genero_usu']);
-                $usuario->setDt_de_nasci_usu($row['dt_de_nasci_usu']);
-                $usuario->setEmail_usu($row['email_usu']);
-                $usuario->setSenha_usu($row['senha_usu']);
-                $usuario->setFoto_usu($row['foto_usu']);
-
-                $usuarios[] = $usuario;
+            if($stmt->rowCount() > 0){
+                while ($usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $usuarioDTO = new usuarioDTO();
+                    $usuarioDTO->setId_usuario($usuarioFetch['id_usuario']);
+                    $usuarioDTO->setNome_usu($usuarioFetch['nome_usu']);
+                    $usuarioDTO->setDt_de_nasci_usu($usuarioFetch['dt_de_nasci_usu']);
+                    $usuarioDTO->setNickname_usu($usuarioFetch['nickname_usu']);
+                    $usuarioDTO->setGenero_usu($usuarioFetch['genero_usu']);
+                    $usuarioDTO->setEmail_usu($usuarioFetch['email_usu']);
+                    $usuarioDTO->setSenha_usu($usuarioFetch['senha_usu']);
+                    $usuarioDTO->setFoto_usu($usuarioFetch['foto_usu']);
+                    $usuarioDTO->setTelefone($usuarioFetch['telefone']);
+                    $usuarioDTO->setCpf_cnpj($usuarioFetch['cpf_cnpj']);
+                    $usuarioDTO->setComplemento($usuarioFetch['complemento']);
+                    $usuarioDTO->setNumero($usuarioFetch['numero']);
+                    $usuarioDTO->setCpf_cnpj($usuarioFetch['cpf_cnpj']);
+                    $usuarioDTO->setBairro($usuarioFetch['bairro']);
+                    $usuarioDTO->setCidade($usuarioFetch['cidade']);
+                    $usuarioDTO->setCep($usuarioFetch['cep']);
+                    $usuarioDTO->setUf($usuarioFetch['uf']);
+                    $usuarioDTO->setFk_id_perfil($usuarioFetch['perfil_usu']);
+                    $usuarios[] = $usuarioFetch;
+                    
+                } return $usuarios;
+            }else{
+                echo '<p>Nenhum usuario adicionado ainda!</p>';
             }
-
-            return $usuarios;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+            }catch(PDOException $exc){
+            echo $exc->getMessage();
         }
     }
 
@@ -138,7 +150,7 @@ class UsuarioDAO
             $stmt->bindValue(13, $UsuarioDTO->getCep());
             $stmt->bindValue(14, $UsuarioDTO->getUf());
             $stmt->bindValue(15, $UsuarioDTO->getEmail_usu());
-            $stmt->bindValue(16, $UsuarioDTO->getSenha_usu());
+            $stmt->bindValue(16, md5($UsuarioDTO->getSenha_usu()));
             $stmt->bindValue(17, $UsuarioDTO->getId_usuario());
             return $stmt->execute();
         } catch (PDOException $e) {

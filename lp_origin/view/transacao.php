@@ -70,7 +70,7 @@
                 <p><strong>UF:</strong> <?= $usuario->getUF()?></p>
             </div>
         </div>
-        <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
+        <button><a href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" target="_blank">ALTERAR</a></button>
         <h2>Detalhes Produto:</h2>
         <form action="" method="post">
         <div class="item-details">
