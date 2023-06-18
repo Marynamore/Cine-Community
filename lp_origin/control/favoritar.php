@@ -2,11 +2,12 @@
     session_start();
     require_once '../model/dao/UsuarioDAO.php';
     require_once '../model/dao/filmeDAO.php';
+    require_once '../model/dao/favoritoDAO.php';
     
 
     $usuarioDAO = new UsuarioDAO();
-    $filmeDAO = new filmeDAO();
-    $favoritoDAO = new favoritoDAO();
+    $filmeDAO = new FilmeDAO();
+    $favoritoDAO = new FavoritoDAO();
 
     // Verifica se o usuário está logado
     if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {

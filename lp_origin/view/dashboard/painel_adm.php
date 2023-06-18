@@ -125,9 +125,6 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                 <button onclick="mostrarConteudo('filmes')">Filmes</button>
             </div>
             <div class="menu-item">
-                <button onclick="mostrarConteudo('resenhas')">Resenhas</button>
-            </div>
-            <div class="menu-item">
                 <button onclick="mostrarConteudo('usuarios')">Usuários</button>
             </div>
             <div class="menu-item">

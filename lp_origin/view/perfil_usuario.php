@@ -56,7 +56,7 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
                     <p><strong>CEP:</strong> <?= $usuario->getCep() ?></p>
                     <p><strong>UF:</strong> <?= $usuario->getUF() ?></p>
                 </fieldset>
-                <button><a class="alterar" href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" target="_blank">ALTERAR</a></button>
+                <button><a class="alterar" href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>">ALTERAR</a></button>
                 <button><a class="alterar" href="../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>">EXCLUIR</a></button>
             </div>
         </div>

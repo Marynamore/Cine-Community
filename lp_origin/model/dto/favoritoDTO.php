@@ -1,6 +1,6 @@
 <?php
 
-Class favoritoDTO{
+Class FavoritoDTO{
 
     private $id_favorito;
     private $favorito;
@@ -12,7 +12,7 @@ Class favoritoDTO{
         return $this->id_favorito;
     }
     public function getFavorito(){
-        return $this->Favorito;
+        return $this->favorito;
     }
     public function getFk_id_usuario() {
         return $this->fk_id_usuario;
@@ -25,10 +25,10 @@ Class favoritoDTO{
     }
 
     public function setId_favorito($id_favorito){
-        $this->id_favorito;
+        $this->id_favorito = $id_favorito;
     }
     public function setFavorito($favorito){
-        $this->favorito;
+        $this->favorito = $favorito;
     }
     public function setFk_id_usuario($fk_id_usuario){
         $this->fk_id_usuario = $fk_id_usuario;
@@ -37,7 +37,7 @@ Class favoritoDTO{
         $this->fk_id_perfil = $fk_id_perfil;
     }
     public function setFk_id_filme($fk_id_filme){
-        $this->getFk_id_filme;
+        $this->fk_id_filme = $fk_id_filme;
     }
 }
 

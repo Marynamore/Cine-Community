@@ -1,22 +1,9 @@
 <?php
 session_start();
+require_once "../model/dto/UsuarioDTO.php";
+require_once "../model/dao/UsuarioDAO.php";
 
 if (isset($_SESSION['id_perfil']) && ($_SESSION['id_perfil'] == 1 || $_SESSION['id_perfil'] == 2 || $_SESSION['id_perfil'] == 3 || $_SESSION['id_perfil'] == 4)) {
-    require_once "../model/dto/UsuarioDTO.php";
-    require_once "../model/dao/UsuarioDAO.php";
-
-    function redirecionar($msg) {
-        if ($_SESSION['id_perfil'] == 1) {
-            header("Location: ../view/dashboard/painel_adm.php?msg=" . urlencode($msg));
-        } else if ($_SESSION['id_perfil'] == 2) {
-            header("Location: ../view/dashboard/painel_moderador.php?msg=" . urlencode($msg));
-        } else if ($_SESSION['id_perfil'] == 3) {
-            header("Location: ../view/dashboard/painel_colecionador.php?msg=" . urlencode($msg));
-        } else if ($_SESSION['id_perfil'] == 4) {
-            header("Location: ../index.php?msg=" . urlencode($msg));
-        }
-        exit();
-    }
 
     // Recebendo os dados do formulário
     $id_usuario = filter_input(INPUT_POST, 'id_usuario');
@@ -36,18 +23,14 @@ if (isset($_SESSION['id_perfil']) && ($_SESSION['id_perfil'] == 1 || $_SESSION['
     $uf = filter_input(INPUT_POST, 'uf');
     $email_usu = filter_input(INPUT_POST, 'email_usu', FILTER_VALIDATE_EMAIL);
     $senha_usu = filter_input(INPUT_POST, 'senha_usu');
+
     $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 
-    // Define um nome de arquivo padrão
-    $nome_arquivo = 'foto_padrao.jpg'; // Substitua pelo nome do arquivo da imagem padrão
-
-    // Verifica se o campo de upload de arquivo foi enviado e se não há erros
-    if (isset($_FILES['foto_usu']) && $_FILES['foto_usu']['error'] === UPLOAD_ERR_OK) {
-        $foto_usu = $_FILES['foto_usu'];
-        $nome_arquivo = $foto_usu['name'];
-        $caminho_temporario = $foto_usu['tmp_name'];
-        $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
-        move_uploaded_file($caminho_temporario, $caminho_destino);
+        // Alterar o valor do perfil se for "Colecionador 3" ou "Usuário 4"
+    if ($id_perfil == 3) {
+        $id_perfil = 4;
+    } elseif ($id_perfil == 4) {
+        $id_perfil = 3;
     }
     
     // Criando um objeto UsuarioDTO e definindo os valores dos atributos
@@ -85,11 +68,11 @@ if (isset($_SESSION['id_perfil']) && ($_SESSION['id_perfil'] == 1 || $_SESSION['
     // Exibir saída específica para cada perfil
     if ($_SESSION['id_perfil'] == 1) {
         header("Location: ../view/dashboard/painel_adm.php?msg=" . urlencode($msg));
-    } else if ($_SESSION['id_perfil'] == 2) {
+    } elseif ($_SESSION['id_perfil'] == 2) {
         header("Location: ../view/dashboard/painel_moderador.php?msg=" . urlencode($msg));
-    } else if ($_SESSION['id_perfil'] == 3) {
+    } elseif ($_SESSION['id_perfil'] == 3) {
         header("Location: ../view/dashboard/painel_colecionador.php?msg=" . urlencode($msg));
-    } else if ($_SESSION['id_perfil'] == 4) {
+    } elseif ($_SESSION['id_perfil'] == 4) {
         header("Location: ../view/perfil_usuario.php?msg=" . urlencode($msg));
     }
 } else {

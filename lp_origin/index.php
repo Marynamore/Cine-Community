@@ -132,6 +132,7 @@ if (isset($_POST['nome_filme'])) {
                             if ($filmeFetch['categoria_filme'] === $categoria) { ?>
                                 <div class="filme-item">
                                     <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme']; ?>">
+                                        <a href="control/favoritar.php" class="favorito"><button><i class="fa-regular fa-star" style="color: #0959e1;"></i></button></a>   
                                         <img src="assets/<?= $filmeFetch['capa_filme']; ?>" alt="Capa do filme <?= $filmeFetch['nome_filme']; ?>">
                                     </a>
                                 </div>

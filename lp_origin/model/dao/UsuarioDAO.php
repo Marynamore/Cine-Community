@@ -128,12 +128,11 @@ class UsuarioDAO
     }
 
 
-    public function alterarUsuario(UsuarioDTO $UsuarioDTO)
-    {
+    public function alterarUsuario(UsuarioDTO $UsuarioDTO){
         try {
             $sql = "UPDATE usuario SET nome_usu=?, nickname_usu=?, genero_usu=?, dt_de_nasci_usu=?,
-             foto_usu=?, telefone=?, cpf_cnpj=?, endereco=?, numero=?, complemento=?, bairro=?,
-              cidade=?, cep=?, uf=?, email_usu=?, senha_usu=? WHERE id_usuario=?";
+                    foto_usu=?, telefone=?, cpf_cnpj=?, endereco=?, numero=?, complemento=?, bairro=?,
+                    cidade=?, cep=?, uf=?, email_usu=?, senha_usu=?, fk_id_perfil=? WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(1, $UsuarioDTO->getNome_usu());
             $stmt->bindValue(2, $UsuarioDTO->getNickname_usu());
@@ -151,13 +150,15 @@ class UsuarioDAO
             $stmt->bindValue(14, $UsuarioDTO->getUf());
             $stmt->bindValue(15, $UsuarioDTO->getEmail_usu());
             $stmt->bindValue(16, md5($UsuarioDTO->getSenha_usu()));
-            $stmt->bindValue(17, $UsuarioDTO->getId_usuario());
+            $stmt->bindValue(17, $UsuarioDTO->getFk_id_perfil());
+            $stmt->bindValue(18, $UsuarioDTO->getId_usuario());
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
             die();
         }
     }
+
 
 
     public function excluirUsuarioById($id_usuario)
@@ -242,6 +243,7 @@ class UsuarioDAO
                 $usuario->setEndereco($usuarioFetch["endereco"]);
                 $usuario->setNumero($usuarioFetch["numero"]);
                 $usuario->setComplemento($usuarioFetch["complemento"]);
+                $usuario->setBairro($usuarioFetch["bairro"]);
                 $usuario->setCidade($usuarioFetch["cidade"]);
                 $usuario->setCep($usuarioFetch["cep"]);
                 $usuario->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);

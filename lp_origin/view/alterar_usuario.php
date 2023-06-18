@@ -4,7 +4,7 @@ if (isset($_SESSION["id_usuario"])) {
     $id_usuarioLogado = $_SESSION["id_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
 } else {
-    $usuarioLogado = "";
+    $id_usuarioLogado = "";
 }
 ?>
 <!DOCTYPE html>
@@ -151,7 +151,7 @@ if (isset($_SESSION["id_usuario"])) {
                     <div class="inputBox">
                         <label for="fk_id_perfil">Selecione um perfil:</label>
                         <?php
-                        if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 1) {
+                        if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 1){
                             echo '
                          <select id="fk_id_perfil" name="fk_id_perfil" required>
                          <option value="1">Administrador</option>
@@ -159,18 +159,16 @@ if (isset($_SESSION["id_usuario"])) {
                          <option value="3">Colecionador</option>
                          <option value="4">Usuário</option>
                          </select>';
-                        } else if (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 2) {
+                        } elseif (isset($_SESSION['id_perfil']) && $_SESSION['id_perfil'] == 3 || $_SESSION['id_perfil'] == 4) {
+                            echo '
+                            <select id="fk_id_perfil" name="fk_id_perfil" required>
+                                <option value="4">Usuário</option>
+                                <option value="3">Colecionador</option>
+                            </select>';
+                        }else{
                             echo '
                          <select id="fk_id_perfil" name="fk_id_perfil" required>
-                         <option value="3">Colecionador</option>
-                         <option value="4">Usuário</option>
-                         <option value="2">Moderador</option>
-                         </select>';
-                        } else {
-                            echo '
-                         <select id="fk_id_perfil" name="fk_id_perfil" required>
-                         <option value="3">Colecionador</option>
-                         <option value="4">Usuário</option>
+                            <option value="2">Moderador</option>
                          </select>';
                         }
                         ?>
