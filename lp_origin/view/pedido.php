@@ -4,14 +4,6 @@ require_once '../model/dao/compraDAO.php';
 require_once '../model/dao/itemDAO.php';
 require_once '../model/dao/UsuarioDAO.php';
 
-if (isset($_GET['id_item'])) {
-    $id_item = $_GET['id_item'];
-} else {
-    $id_item = '';
-    header('Location:todos_itens.php');
-    exit();
-}
-
 $itemDAO = new ItemDAO();
 $compraDAO = new CompraDAO();
 $usuarioDAO = new UsuarioDAO();
@@ -26,13 +18,13 @@ if (isset($_SESSION["id_usuario"])) {
     exit();
 }
 
-if ($itemFetch) {
-    if (isset($_SESSION['msg'])) {
-        $message = $_SESSION['msg'];
-        unset($_SESSION['msg']);
-    } else {
-        $message = "";
-    }
+if (isset($_GET['id_item'])) {
+    $id_item = $_GET['id_item'];
+} else {
+    $id_item = '';
+    header('Location: meus_pedidos.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,15 +43,15 @@ if ($itemFetch) {
    <h1>Detalhe Pedido</h1>
    <div>
    <?php
+   $total_itens = 0;
     $compras = $compraDAO->recuperaCompraId($id_item);
 
     if($compras){
         foreach ($compras as $compra) {
             $item = $compraDAO->selecionarItem($compra->getFk_id_item());
 
-            $grand_total = 0;
             $sub_total = ($compraFetch['preco_compra'] * $compraFetch['quant_compra']);
-            $grand_total += $sub_total;
+            $total_itens += $sub_total;
    ?>
    <div>
         <div>
@@ -67,7 +59,7 @@ if ($itemFetch) {
             <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
             <p><i class="fas fa-brazilian-real-sign"></i><?= $compraFetch['preco_compra']; ?> x <?= $compraFetch['quant_compra']?></p>
             <h3><?= $itemFetch['nome_item']; ?></h3>
-            <p>Valor Total : <span><i class="fas fa-brazilian-real-sign"></i><?= $grand_total?></span></p>
+            <p>Valor Total : <span><i class="fas fa-brazilian-real-sign"></i><?= $total_itens?></span></p>
         </div>
       <div>
          <p>Informações do Colecionador</p>
@@ -76,8 +68,8 @@ if ($itemFetch) {
          <p><i class="fas fa-envelope"></i><?= $usuarioFetch['email_usu']?></p>
          <p><i class="fas fa-map-marker-alt"></i><?= $usuarioFetch['endereco']?></p>
          <p>STATUS</p>
-         <p style="color:<?php if($compraFetch['status_compra'] == 'Concluído'){echo 'green';}elseif($compraFetch['status_compra'] == 'canceled'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status_compra']; ?></p>
-         <?php if($compraFetch['status_compra'] == 'Cancelado'){ ?>
+         <p style="color:<?php if($compraFetch['status_compra'] == 'Concluída'){echo 'green';}elseif($compraFetch['status_compra'] == 'Cancelada'){echo 'red';}else{echo 'orange';}; ?>"><?= $compraFetch['status_compra']; ?></p>
+         <?php if($compraFetch['status_compra'] == 'Cancelada'){ ?>
             <a href="transacao.php?id_item=<?= $itemFetch['id_item']; ?>" class="btn">Comprar Novamente</a>
          <?php }else{ ?>
          <form action="cancelar_pedido.php" method="POST">
@@ -99,8 +91,3 @@ if ($itemFetch) {
 
 </body>
 </html>
-<?php 
-} else {
-    echo '<p>Nenhum item encontrado!</p>';
-}
-?>

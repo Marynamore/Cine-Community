@@ -173,6 +173,22 @@ class CarrinhoDAO {
         }
     }
 
+    public function obterItemCarPorId($id_usuario) {
+        try {
+            $sql = "SELECT c.*, i.id_item, i.preco_item, u.id_usuario, p.id_perfil FROM carrinho c 
+                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario 
+                    INNER JOIN item i ON c.fk_id_item = i.id_item 
+                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil 
+                    WHERE u.id_usuario=?";
+            $carrinhoFetch = $this->pdo->prepare($sql);
+            $carrinhoFetch->execute([$id_usuario]);
+
+            return $carrinhoFetch;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
     public function obterItemCar($id_item) {
         try {
             $sql = "SELECT c.*, u.id_usuario, p.id_perfil FROM carrinho c 

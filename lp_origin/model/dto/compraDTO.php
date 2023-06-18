@@ -8,7 +8,7 @@ class CompraDTO{
     private $preco_compra;
     private $dt_hora_compra;
     private $status_compra;
-    private $fk_id_carrinho;
+    private $tipo_pagamento;
     private $fk_id_item;
     private $fk_id_usuario;
     private $fk_id_perfil;
@@ -29,8 +29,8 @@ public function getDt_hora_compra(){
 public function getStatus_compra(){
     return $this->status_compra;
 }
-public function getFk_id_carrinho() {
-    return $this->fk_id_carrinho;
+public function getTipo_pagamento(){
+    return $this->tipo_pagamento;
 }
 public function getFk_id_item() {
     return $this->fk_id_item;
@@ -55,10 +55,10 @@ public function setPreco_compra($preco_compra) {
     $this->preco_compra = $preco_compra; 
 }
 public function setStatus_compra($status_compra){
-    $this->status = $status_compra;
+    $this->status_compra = $status_compra;
 }
-public function setFk_id_carrinho($fk_id_carrinho) {
-    $this->fk_id_carrinho = $fk_id_carrinho;
+public function setTipo_pagamento($tipo_pagamento){
+    $this->tipo_pagamento = $tipo_pagamento;
 }
 public function setFk_id_item($fk_id_item) {
     $this->fk_id_item = $fk_id_item;

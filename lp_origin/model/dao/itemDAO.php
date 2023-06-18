@@ -128,39 +128,52 @@ class ItemDAO{
         }
     }
 
-public function obterItemPorId($id_item){
-   try{
-    $sql = "SELECT i.*, ci.categoria_item, u.nome_usu, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
-        $preItem = $this->pdo->prepare($sql);
-        $preItem->bindValue(1, $id_item);
-        $preItem->execute([$id_item]);
+    public function obterItemPorId($id_item){
+        try{
+            $sql = "SELECT i.*, ci.categoria_item, u.nome_usu, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
+                $preItem = $this->pdo->prepare($sql);
+                $preItem->bindValue(1, $id_item);
+                $preItem->execute([$id_item]);
 
-        $itens = array();
-        if($preItem->rowCount() > 0){
-            while ($itemFetch = $preItem->fetch(PDO::FETCH_ASSOC)) {
-                $itemDTO = new ItemDTO();
-                
-                $itemDTO->setId_item($itemFetch['id_item']);
-                $itemDTO->setNome_item($itemFetch['nome_item']);
-                $itemDTO->setDescricao_item($itemFetch['descricao_item']);
-                $itemDTO->setPreco_item($itemFetch['preco_item']);
-                $itemDTO->setImagem_item($itemFetch['imagem_item']);
-                $itemDTO->setQtd_item($itemFetch['qtd_item']);
-                $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
-                $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
-                $itemDTO->setFk_id_usuario($itemFetch['nome_usu']);             
-                $itens[] = $itemFetch;
+                $itens = array();
+                if($preItem->rowCount() > 0){
+                    while ($itemFetch = $preItem->fetch(PDO::FETCH_ASSOC)) {
+                        $itemDTO = new ItemDTO();
+                        
+                        $itemDTO->setId_item($itemFetch['id_item']);
+                        $itemDTO->setNome_item($itemFetch['nome_item']);
+                        $itemDTO->setDescricao_item($itemFetch['descricao_item']);
+                        $itemDTO->setPreco_item($itemFetch['preco_item']);
+                        $itemDTO->setImagem_item($itemFetch['imagem_item']);
+                        $itemDTO->setQtd_item($itemFetch['qtd_item']);
+                        $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
+                        $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
+                        $itemDTO->setFk_id_usuario($itemFetch['nome_usu']);             
+                        $itens[] = $itemFetch;
 
-                return $itemDTO;
+                        return $itemDTO;
 
-            } return $itens;
-        }else{
-            echo '<p>Nenhum Item adicionado ainda!</p>';
+                    } return $itens;
+                }else{
+                    echo '<p>Nenhum Item adicionado ainda!</p>';
+                }
+                }catch(PDOException $exc){
+                echo $exc->getMessage();
         }
+    }
+
+    public function obterItemCar($id_item){
+        try{
+            $sql = "SELECT i.*, ci.categoria_item, u.nome_usu, p.id_perfil FROM item i INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil WHERE i.id_item=? LIMIT 1";
+            $itemFetch = $this->pdo->prepare($sql);
+            $itemFetch->bindValue(1, $id_item);
+            $itemFetch->execute([$id_item]);
+
+            return $itemFetch;
         }catch(PDOException $exc){
         echo $exc->getMessage();
+        }
     }
-   }
 
    public function buscarPorID($id) {
     try {

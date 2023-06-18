@@ -30,4 +30,3 @@ if (isset($_SESSION['id_usuario']) && isset($_POST['carrinho_vazio'])) {
     header("Location:../view/todos_itens.php?msg=Usuário Não encontrado");
     exit;
 }
-

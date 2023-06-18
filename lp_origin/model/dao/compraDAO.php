@@ -9,27 +9,16 @@ class CompraDAO {
         $this->pdo = Conexao::getInstance();
     }
    
-    public function adicionarCompra(CompraDTO $compraDTO) {
+    public function adicionarCompra($id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil) {
         try {
-            $sql = "INSERT INTO compra (quant_compra, preco_compra, dt_hora_compra, status_compra, fk_id_carrinho,
-            fk_id_item, fk_id_usuario, fk_id_perfil) 
+            $sql = "INSERT INTO compra (quant_compra, preco_compra, dt_hora_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_usuario, fk_id_perfil) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $compraDTO->getQuant_compra());
-            $stmt->bindValue(2, $compraDTO->getPreco_compra());
-            $stmt->bindValue(3, $compraDTO->getDt_hora_compra());
-            $stmt->bindValue(4, $compraDTO->getStatus_compra());
-            $stmt->bindValue(5, $compraDTO->getFk_id_carrinho());
-            $stmt->bindValue(6, $compraDTO->getFk_id_item());
-            $stmt->bindValue(7, $compraDTO->getFk_id_usuario());
-            $stmt->bindValue(8, $compraDTO->getFk_id_perfil());
-    
-            $stmt->execute();
-            return true;
+            $compraFetch = $this->pdo->prepare($sql);
+            $compraFetch->execute([$id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil]);
+            return $compraFetch;
         } catch (PDOException $e) {
             echo "Erro ao adicionar a compra no banco de dados: " . $e->getMessage();
-            return false;
         }
     }
 
@@ -49,7 +38,6 @@ class CompraDAO {
                     $compraDTO->setPreco_compra($compraFetch['preco_compra']);
                     $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
                     $compraDTO->setStatus_compra($compraFetch['status_compra']);
-                    $compraDTO->setFk_id_carrinho($compraFetch['fk_id_carrinho']);
                     $compraDTO->setFk_id_item($compraFetch['fk_id_item']);
                     $compraDTO->setFk_id_usuario($compraFetch['id_usuario']);
                     $compraDTO->setFk_id_perfil($compraFetch['fk_id_perfil']);
@@ -60,6 +48,19 @@ class CompraDAO {
             } else {
                 echo '<p>Nenhuma Compra adicionada ainda!</p>';
             }
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+
+    public function cancelarPedido($id_carrinho) {
+        try {
+            $sql = "UPDATE compra SET status_compra=? WHERE id_compra=?";
+            $upCar = $this->pdo->prepare($sql);
+            $compraDTO = $upCar->execute(['Cancelada', $id_carrinho]);
+
+            return $compraDTO;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
@@ -97,7 +98,6 @@ class CompraDAO {
                 $compraDTO->setPreco_compra($compraFetch['preco_compra']);
                 $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
                 $compraDTO->setStatus_compra($compraFetch['status_compra']);
-                $compraDTO->setFk_id_carrinho($compraFetch['fk_id_carrinho']);
                 $compraDTO->setFk_id_item($compraFetch['fk_id_item']);
                 $compraDTO->setFk_id_usuario($compraFetch['id_usuario']);
                 $compraDTO->setFk_id_perfil($compraFetch['fk_id_perfil']);

@@ -94,7 +94,7 @@ if (isset($_SESSION["id_usuario"])) {
                 <form action="../control/esvaziar_car.php" method="POST">
                     <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');">
                 </form>
-                <a href="transacao.php?id_item=<?= $itemFetch['id_item'] ?>" class="btn">Comprar</a>
+                <button><a href="transacao.php" class="btn">Comprar</a></button>
             </div>
         <?php } ?>
     </section>

@@ -489,23 +489,17 @@ DROP TABLE IF EXISTS `cine_community`.`compra` ;
 CREATE TABLE IF NOT EXISTS `cine_community`.`compra` (
   `id_compra` INT NOT NULL AUTO_INCREMENT,
   `quant_compra` VARCHAR(45) NULL,
-  `fk_id_carrinho` INT(11) NOT NULL,
-  `fk_id_item` INT(11) NOT NULL,
-  `fk_id_usuario` INT(11) NOT NULL,
-  `fk_id_perfil` INT(11) NOT NULL,
   `preco_compra` VARCHAR(45) NULL,
   `dt_hora_compra` DATETIME NULL DEFAULT CURRENT_TIMESTAMP(),
   `status_compra` VARCHAR(45) NULL COMMENT 'Em progresso, Pendente, Concluída, Cancelada',
-  PRIMARY KEY (`id_compra`, `fk_id_carrinho`, `fk_id_item`, `fk_id_usuario`, `fk_id_perfil`),
-  INDEX `fk_compra_carrinho1_idx` (`fk_id_carrinho` ASC) ,
+  `tipo_pagamento` VARCHAR(45) NULL DEFAULT 'PIX' COMMENT 'PIX\\nCartão de Crédio\\nCartão de Débito\\nMercado Pago',
+  `fk_id_item` INT(11) NOT NULL,
+  `fk_id_usuario` INT(11) NOT NULL,
+  `fk_id_perfil` INT(11) NOT NULL,
+  PRIMARY KEY (`id_compra`, `fk_id_item`, `fk_id_usuario`, `fk_id_perfil`),
   INDEX `fk_compra_item1_idx` (`fk_id_item` ASC),
   INDEX `fk_compra_usuario1_idx` (`fk_id_usuario` ASC),
   INDEX `fk_compra_peril1_idx` (`fk_id_perfil` ASC),
-  CONSTRAINT `fk_compra_carrinho1`
-    FOREIGN KEY (`fk_id_carrinho`)
-    REFERENCES `cine_community`.`carrinho` (`id_carrinho`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_compra_item1`
     FOREIGN KEY (`fk_id_item`)
     REFERENCES `cine_community`.`item` (`id_item`)
@@ -537,7 +531,6 @@ CREATE TABLE IF NOT EXISTS `cine_community`.`transacao` (
   `tipo_pagamento_trans` VARCHAR(45) NULL DEFAULT 'PIX' COMMENT 'PIX\\nCartão de Crédio\\nCartão de Débito\\nMercado Pago',
   `qtd_trans` VARCHAR(2) NOT NULL DEFAULT '1',
   `fk_id_compra` INT NOT NULL,
-  `fk_id_carrinho` INT(11) NOT NULL,
   `fk_id_item` INT(11) NOT NULL,
   `fk_id_usuario` INT(11) NOT NULL,
   `fk_id_perfil` INT(11) NOT NULL,

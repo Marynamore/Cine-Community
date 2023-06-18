@@ -3,33 +3,24 @@
     require_once '../model/dao/UsuarioDAO.php';
     require_once '../model/dao/itemDAO.php';
     require_once '../model/dao/transacaoDAO.php';
+    require_once '../model/dao/carrinhoDAO.php';
 
     $transacaoDAO = new TransacaoDAO();
     $usuarioDAO = new UsuarioDAO();
     $itemDAO = new ItemDAO();
-
+    $carrinhoDAO = new CarrinhoDAO();
 
     if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
         $id_perfil = $_SESSION["id_perfil"];
         $id = $_SESSION["id_usuario"];
 
         $usuario = $usuarioDAO->encontraPorId($id);
-
-        if (isset($_GET['id_item'])) {
-            $id_item = $_GET['id_item'];
-        } else {
-            $id_item = '';
-            header('location:./todos_itens.php');
-        }
-
-        $itemFetch = $itemDAO->obterItemPorId($id_item);
-
     } else {
         echo "Usuário não encontrado.";
         exit;
     }
-    
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -81,40 +72,63 @@
         </div>
         <button><a href="../view/alterar_usuario.php" target="_blank">ALTERAR</a></button>
         <h2>Detalhes Produto:</h2>
+        <form action="" method="post">
         <div class="item-details">
             <div class="item-address">
-            <?php 
-                $grand_total = 0;
-            if ($itemFetch) {
-            ?>
-
-            <section id="product-details">
-                <div class="product">
-                    <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
-                </div>
-                <div class="product-info">
-                    <h2><?= $itemFetch->getNome_item() ?></h2>
-                    <?php
-                    if($id_perfil == 4){
-                    echo '<p>Quantidade: '.$itemFetch->getQtd_item().'</p>';
+                <?php 
+                    $total_itens = 0;
+                    if (isset($_GET['id_item'])) {
+                        $id_item = $_GET['id_item'];
+                    $itemFetch = $itemDAO->obterItemCarPorId($id_item);
+                    if ($itemFetch) {
+                ?>
+                <section id="product-details">
+                    <div class="product">
+                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">
+                    </div>
+                    <div class="product-info">
+                        <h2><?= $itemFetch->getNome_item() ?></h2>
+                        <?php
+                        if($id_perfil == 4){
+                            echo '<p>Quantidade: '.$itemFetch->getQtd_item().'</p>';
+                        }
+                        ?>
+                        <p><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item()?> x 1</p>
+                    </div>    
+                </section>
+                <?php 
                     }
-                    ?>
-                </div>    
+                    } else {
+                        $carrinhoData = $carrinhoDAO->obterItemCarPorUsuarioID($id);
+                        if ($carrinhoData) {
+                            foreach ($carrinhoData as $carrinhoFetch) {
+                                $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
+                                if ($itemFetch) {
+                                    $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item());
+
+                                    $total_itens += $sub_total;
+                                    ?>
+                                    <div>
+                                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>" style="width:5em;">
+                                        <h3><?= $itemFetch->getNome_item() ?></h3>
+                                        <div>
+                                            <p>
+                                                <i class="fas fa-brazilian-real-sign"></i> <?= $carrinhoFetch->getPreco() ?> x <?= $carrinhoFetch->getQtd_compra() ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } else {
+                                    echo '<p>Item não encontrado</p>';
+                                }
+                            }
+                        }
+                    } 
+                ?>
                 <div class="container">
                     <h2>VALOR TOTAL:</h2>
-                    <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $itemFetch->getPreco_item() ?></strong></h3>
+                    <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $total_itens ?></strong></h3>
                 </div>
-            </section>
-            <select id="opcoes">
-            <option value="">Selecione uma opção</option>
-            <option value="opcao1">Pix</option>
-            <option value="opcao2">Boleto</option>
-            <option value="opcao3">Cartão de crédito</option>
-            <option value="opcao4">Cartão de débito</option>
-            </select>
-            <a href="meus_pedidos.php?id_item=<?= $item["id_item"] ?>>"> <button class="close-button" onclick="mostrarModal('modal')">Finalizar Comprar</button></a>
-            <!-- <button class="close-button" onclick="mostrarModal('modal')">Finalizar Comprar</button> -->
-            <?php }?>
             </div>
         </div>
     </div>
@@ -163,6 +177,4 @@
 
 </body>
 </html>
-
-
 
