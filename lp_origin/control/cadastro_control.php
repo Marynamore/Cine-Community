@@ -26,7 +26,7 @@ if ($foto_usu['error'] === UPLOAD_ERR_OK){
     $caminho_temporario = $foto_usu['tmp_name'];
     $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
     move_uploaded_file($caminho_temporario, $caminho_destino);
-<<<<<<< HEAD
+
     
 $usuarioDTO = new UsuarioDTO();
 
@@ -61,39 +61,5 @@ if ($usuarioDAO) {
 }
 
  }
-=======
 
-
-    $usuarioDTO = new UsuarioDTO();
-    $usuarioDTO->setNome_usu($nome_usu);
-    $usuarioDTO->setNickname_usu($nickname_usu);
-    $usuarioDTO->setDt_de_nasci_usu($dt_de_nasci_usu);
-    $usuarioDTO->setGenero_usu($genero_usu);
-    $usuarioDTO->setEmail_usu($email_usu);
-    $usuarioDTO->setTelefone($telefone);
-    $usuarioDTO->setSenha_usu($senha_usu);
-    $usuarioDTO->setCpf_cnpj($cpf_cnpj);
-    $usuarioDTO->setEndereco($endereco);
-    $usuarioDTO->setNumero($numero);
-    $usuarioDTO->setComplemento($complemento);
-    $usuarioDTO->setBairro($bairro);
-    $usuarioDTO->setFoto_usu($nome_arquivo);
-    $usuarioDTO->setCidade($cidade);
-    $usuarioDTO->setCep($cep);
-    $usuarioDTO->setUf($uf);
-    $usuarioDTO->setFk_id_perfil($id_perfil);
-
-
-    $usuarioDAO = new UsuarioDAO();
-    $usuarioDAO->cadastrarUsuario($usuarioDTO);
-
-    if ($usuarioDAO) {
-        header("Location: ../view/login.php");
-        exit;
-    } else {
-        header("Location: ../view/cadastro.php");
-        exit;
-    }
-}
->>>>>>> bb144b624d00274acd895c50b50ba55621bfb76d
 ?>
