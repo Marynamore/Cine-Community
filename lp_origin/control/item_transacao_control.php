@@ -8,8 +8,8 @@ $carrinhoDAO = new CarrinhoDAO();
 $itemDAO = new ItemDAO();
 
 $method = isset($_POST['tipo_pagamento']) ? strip_tags($_POST['tipo_pagamento']) : '';
-$id_usuario = $_POST["id_usuario"];
-$id_perfil = $_POST['id_perfil'];
+$id_usuario = filter_input(INPUT_POST, 'id_usuario');
+$id_perfil = filter_input(INPUT_POST, 'id_perfil');
 $status_compra = "Pendente"; // Defina o status da compra
 $tipo_pagamento = strip_tags($_POST["tipo_pagamento"]);
 
@@ -42,11 +42,14 @@ if (isset($_GET['id_item']) && isset($_POST['tipo_pagamento'])) {
     } else {
         echo 'Carrinho vazio!';
     }
+    '<pre>';
+    var_dump($compraDAO);
+    '</pre>';
 }
-if ($compraFetch) {
-            header('Location: ../view/meus_pedidos.php');
-            exit(); // Adicione esta linha para interromper a execução do código restante
-        } else {
-            echo "<script>location.href='../view/todos_itens.php?erro=Erro ao criar transação';</script>";
-            exit(); // Adicione esta linha para interromper a execução do código restante
-        }
+// if ($compraFetch) {
+//             header('Location: ../view/meus_pedidos.php');
+//             exit(); // Adicione esta linha para interromper a execução do código restante
+//         } else {
+//             echo "<script>location.href='../view/todos_itens.php?erro=Erro ao criar transação';</script>";
+//             exit(); // Adicione esta linha para interromper a execução do código restante
+//         }

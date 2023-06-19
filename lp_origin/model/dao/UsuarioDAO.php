@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../conexao.php';
 require_once __DIR__ . '/../dto/UsuarioDTO.php';
 
-class UsuarioDAO
-{
+class UsuarioDAO 
+{    
 
     //Função para cadastrar os dados do usuario no Banco de Dados//
     public $pdo;
@@ -161,19 +161,39 @@ class UsuarioDAO
 
 
     public function excluirUsuarioById($id_usuario)
-    {
-        try {
-            $sql = "DELETE FROM usuario WHERE id_usuario=?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $id_usuario);
-            $stmt->execute();
+{
+    try {
+        // Excluir registros da tabela 'carrinho' relacionados ao usuário
+        $sqlCarrinho = "DELETE FROM carrinho WHERE fk_id_usuario=?";
+        $stmtCarrinho = $this->pdo->prepare($sqlCarrinho);
+        $stmtCarrinho->bindValue(1, $id_usuario);
+        $stmtCarrinho->execute();
 
-            return true;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-        }
+        // Excluir registros da tabela 'favorito' relacionados ao usuário
+        $sqlFavorito = "DELETE FROM favorito WHERE fk_id_usuario=?";
+        $stmtFavorito = $this->pdo->prepare($sqlFavorito);
+        $stmtFavorito->bindValue(1, $id_usuario);
+        $stmtFavorito->execute();
+
+        // Excluir registros da tabela 'resenha' relacionados ao usuário
+        $sqlResenha = "DELETE FROM resenha WHERE fk_id_usuario=?";
+        $stmtResenha = $this->pdo->prepare($sqlResenha);
+        $stmtResenha->bindValue(1, $id_usuario);
+        $stmtResenha->execute();
+
+        // Excluir o usuário da tabela 'usuario'
+        $sqlUsuario = "DELETE FROM usuario WHERE id_usuario=?";
+        $stmtUsuario = $this->pdo->prepare($sqlUsuario);
+        $stmtUsuario->bindValue(1, $id_usuario);
+        $stmtUsuario->execute();
+
+        return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
     }
+}
+
     public function dadosUsuario($id_usuario)
     {
         try {
@@ -259,43 +279,49 @@ class UsuarioDAO
         }
     }
 
-    public function encontraPorId($id){
-        try {
-            $sql = "SELECT * FROM usuario WHERE id_usuario=?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(1, $id);
-            $stmt->execute();
+    
 
-            if ($stmt->rowCount() > 0) {
-                $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+public function encontraPorId($id) {
+    
+    try {
+        $sql = "SELECT * FROM usuario WHERE id_usuario=?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
 
-                $usuarioDTO = new UsuarioDTO();
-                $usuarioDTO->setId_usuario($usuarioFetch["id_usuario"]);
-                $usuarioDTO->setNome_usu($usuarioFetch["nome_usu"]);
-                $usuarioDTO->setEmail_usu($usuarioFetch["email_usu"]);
-                $usuarioDTO->setSenha_usu($usuarioFetch["senha_usu"]);
-                $usuarioDTO->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
-                $usuarioDTO->setSituacao_usu($usuarioFetch["situacao_usu"]);
-                $usuarioDTO->setTelefone($usuarioFetch["telefone"]);
-                $usuarioDTO->setCpf_cnpj($usuarioFetch["cpf_cnpj"]);
-                $usuarioDTO->setEndereco($usuarioFetch["endereco"]);
-                $usuarioDTO->setNumero($usuarioFetch["numero"]);
-                $usuarioDTO->setComplemento($usuarioFetch["complemento"]);
-                $usuarioDTO->setBairro($usuarioFetch["bairro"]);
-                $usuarioDTO->setCidade($usuarioFetch["cidade"]);
-                $usuarioDTO->setFoto_usu($usuarioFetch["foto_usu"]);
-                $usuarioDTO->setCep($usuarioFetch["cep"]);
-                $usuarioDTO->setUf($usuarioFetch["uf"]);
+        if ($stmt->rowCount() > 0) {
+            $usuarioFetch = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                return $usuarioDTO;
-            }
-            return false;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            //die() = usado para parar a execução - retirar na versão de produção
-            die();
+            $usuarioDTO = new UsuarioDTO();
+            $usuarioDTO->setId_usuario($usuarioFetch["id_usuario"]);
+            $usuarioDTO->setNome_usu($usuarioFetch["nome_usu"]);
+            $usuarioDTO->setNickname_usu($usuarioFetch["nickname_usu"]);
+            $usuarioDTO->setGenero_usu($usuarioFetch["genero_usu"]);
+            $usuarioDTO->setDt_de_nasci_usu($usuarioFetch["dt_de_nasci_usu"]);
+            $usuarioDTO->setEmail_usu($usuarioFetch["email_usu"]);
+            $usuarioDTO->setSenha_usu($usuarioFetch["senha_usu"]);
+            $usuarioDTO->setfk_id_perfil($usuarioFetch["fk_id_perfil"]);
+            $usuarioDTO->setSituacao_usu($usuarioFetch["situacao_usu"]);
+            $usuarioDTO->setTelefone($usuarioFetch["telefone"]);
+            $usuarioDTO->setCpf_cnpj($usuarioFetch["cpf_cnpj"]);
+            $usuarioDTO->setEndereco($usuarioFetch["endereco"]);
+            $usuarioDTO->setNumero($usuarioFetch["numero"]);
+            $usuarioDTO->setComplemento($usuarioFetch["complemento"]);
+            $usuarioDTO->setBairro($usuarioFetch["bairro"]);
+            $usuarioDTO->setCidade($usuarioFetch["cidade"]);
+            $usuarioDTO->setFoto_usu($usuarioFetch["foto_usu"]);
+            $usuarioDTO->setCep($usuarioFetch["cep"]);
+            $usuarioDTO->setUf($usuarioFetch["uf"]);
+
+            return $usuarioDTO;
         }
+        
+        return false;
+    } catch (PDOException $e) {
+        throw $e;
     }
+}
+
 
 
     public function geraChaveAcesso(UsuarioDTO $usuarioDTO)
