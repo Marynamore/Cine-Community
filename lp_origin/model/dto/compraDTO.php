@@ -4,7 +4,7 @@
 class CompraDTO{
 // Adicionando os atributos para classe
     private $id_compra;
-    private $quant_compra;
+    private $qtd_compra;
     private $preco_compra;
     private $dt_hora_compra;
     private $status_compra;
@@ -17,8 +17,8 @@ class CompraDTO{
 public function getId_compra(){
     return $this->id_compra;
 }
-public function getQuant_compra(){
-    return $this->quant_compra;
+public function getQtd_compra(){
+    return $this->qtd_compra;
 }
 public function getPreco_compra(){
     return $this->preco_compra;
@@ -45,8 +45,8 @@ public function getFk_id_perfil() {
 public function setId_compra($id_compra) {
     $this->id_compra = $id_compra;
 }
-public function setQuant_compra($quant_compra) {
-    $this->quant_compra = $quant_compra;
+public function setQtd_compra($qtd_compra) {
+    $this->qtd_compra = $qtd_compra;
 }
 public function setDt_hora_compra($dt_hora_compra) {
     $this->dt_hora_compra = $dt_hora_compra;

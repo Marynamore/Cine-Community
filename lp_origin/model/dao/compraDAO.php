@@ -9,13 +9,13 @@ class CompraDAO {
         $this->pdo = Conexao::getInstance();
     }
    
-    public function adicionarCompra($id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil) {
+    public function adicionarCompra($id_usuario, $qtd_compra, $preco_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil) {
         try {
-            $sql = "INSERT INTO compra (fk_id_usuario, quant_compra, preco_compra, dt_hora_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_perfil) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO compra (fk_id_usuario, qtd_compra, preco_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_perfil) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
             
             $compraFetch = $this->pdo->prepare($sql);
-            $compraFetch->execute([$id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil]);
+            $compraFetch->execute([$id_usuario, $qtd_compra, $preco_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil]);
             return $compraFetch;
         } catch (PDOException $e) {
             echo "Erro ao adicionar a compra no banco de dados: " . $e->getMessage();
@@ -34,7 +34,7 @@ class CompraDAO {
                 while ($compraFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $compraDTO = new CompraDTO();
                     $compraDTO->setId_compra($compraFetch['id_compra']);
-                    $compraDTO->setQuant_compra($compraFetch['quant_compra']);
+                    $compraDTO->setQtd_compra($compraFetch['qtd_compra']);
                     $compraDTO->setPreco_compra($compraFetch['preco_compra']);
                     $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
                     $compraDTO->setStatus_compra($compraFetch['status_compra']);
@@ -94,7 +94,7 @@ class CompraDAO {
                 $compraFetch = $stmt->fetch(PDO::FETCH_ASSOC);
                 $compraDTO = new CompraDTO();
                 $compraDTO->setId_compra($compraFetch['id_compra']);
-                $compraDTO->setQuant_compra($compraFetch['quant_compra']);
+                $compraDTO->setQtd_compra($compraFetch['qtd_compra']);
                 $compraDTO->setPreco_compra($compraFetch['preco_compra']);
                 $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
                 $compraDTO->setStatus_compra($compraFetch['status_compra']);

@@ -518,7 +518,7 @@ DROP TABLE IF EXISTS `cine_community`.`compra` ;
 
 CREATE TABLE IF NOT EXISTS `cine_community`.`compra` (
   `id_compra` INT NOT NULL AUTO_INCREMENT,
-  `quant_compra` VARCHAR(45) NULL,
+  `qtd_compra` VARCHAR(45) NULL,
   `preco_compra` VARCHAR(45) NULL,
   `dt_hora_compra` DATETIME NULL DEFAULT CURRENT_TIMESTAMP(),
   `status_compra` VARCHAR(45) NULL COMMENT 'Em progresso, Pendente, Concluída, Cancelada',
