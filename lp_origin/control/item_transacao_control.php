@@ -7,40 +7,46 @@ $compraDAO = new CompraDAO();
 $carrinhoDAO = new CarrinhoDAO();
 $itemDAO = new ItemDAO();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $method = strip_tags($_POST['tipo_pagamento']);
-    $preco_item = strip_tags($_POST["preco_item"]);
-    $id_item = strip_tags($_POST["id_item"]);
-    $id_perfil = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
-    $id = $_POST["id_usuario"];
-    $qtd_compra = strip_tags($_POST["qtd_compra"]);
+$method = isset($_POST['tipo_pagamento']) ? strip_tags($_POST['tipo_pagamento']) : '';
+$id_usuario = $_POST["id_usuario"];
+$id_perfil = $_POST['id_perfil'];
+$status_compra = "Pendente"; // Defina o status da compra
+$tipo_pagamento = strip_tags($_POST["tipo_pagamento"]);
 
-    $carrinhoFetch = $carrinhoDAO->obterItemCarPorId($id, $id_perfil);
+if (isset($_GET['id_item']) && isset($_POST['tipo_pagamento'])) {
+    $itemFetch = $itemDAO->obterItemPorId($_GET['id_item']);
 
-    if (isset($_GET['id_item'])) {
-        $itemFetch = $itemDAO->obterItemPorId($_GET['id_item']);
+    if ($itemFetch) {
+        // Salvar a compra no banco de dados
+        $compraFetch = $compraDAO->adicionarCompra($id_usuario, $itemFetch['qtd_compra'], $itemFetch['preco'], $status_compra, $tipo_pagamento, $itemFetch['fk_id_item'], $id_perfil);
 
-        if ($itemFetch) {
-            // Salvar a compra no banco de dados
-            $compraFetch = $compraDAO->adicionarCompra($id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil);
-            header('location: ../view/meus_pedidos.php');
-        } else {
-            echo 'Algo deu errado!';
-        }
-    } elseif ($carrinhoFetch->rowCount() > 0) {
-        while ($carrinho = $carrinhoFetch->fetch(PDO::FETCH_ASSOC)) {
-            
-            // Salvar a compra no banco de dados
-            $compraFetch = $compraDAO->adicionarCompra($id_usuario, $quant_compra, $preco_compra, $dt_hora_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil);
-        }
-    }
-
-
-    if ($compraFetch) {
-        echo "<script>location.href='../view/meus_pedidos.php';</script>";
+        header('location: ../view/meus_pedidos.php');
     } else {
-        echo "<script>location.href='../view/transacao.php?erro=Erro ao criar transação';</script>";
+        echo "<script>location.href='../view/todos_itens.php?erro=Erro ao criar transação';</script>";
     }
 } else {
-    echo "<script>location.href='../view/detalhe_item.php?erro=Requisição inválida';</script>";
+    // Chama o método para obter os itens do carrinho
+    $carrinhoFetch = $carrinhoDAO->obterItemCarPorId($id_usuario, $id_perfil);
+
+    if ($carrinhoFetch) {
+        foreach ($carrinhoFetch as $carrinho) {
+            $itemFetch = $itemDAO->obterItemPorId($carrinho->getFk_id_item());
+
+            if ($itemFetch) {
+                // Salvar a compra no banco de dados
+                $compraFetch = $compraDAO->adicionarCompra($id_usuario, $carrinho->getQtd_compra(), $carrinho->getPreco(), $status_compra, $tipo_pagamento, $carrinho->getFk_id_item(), $id_perfil);
+            } else {
+                echo "<script>location.href='../view/todos_itens.php?erro=Erro ao criar transação';</script>";
+            }
+        }
+    } else {
+        echo 'Carrinho vazio!';
+    }
 }
+if ($compraFetch) {
+            header('Location: ../view/meus_pedidos.php');
+            exit(); // Adicione esta linha para interromper a execução do código restante
+        } else {
+            echo "<script>location.href='../view/todos_itens.php?erro=Erro ao criar transação';</script>";
+            exit(); // Adicione esta linha para interromper a execução do código restante
+        }

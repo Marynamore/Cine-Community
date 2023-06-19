@@ -259,8 +259,7 @@ class UsuarioDAO
         }
     }
 
-    public function encontraPorId($id)
-    {
+    public function encontraPorId($id){
         try {
             $sql = "SELECT * FROM usuario WHERE id_usuario=?";
             $stmt = $this->pdo->prepare($sql);

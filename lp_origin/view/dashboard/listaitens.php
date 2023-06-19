@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once '../../model/dao/itemDAO.php';
+
+$ItemDAO = new ItemDAO();
 
 $usuarioLogado = $_SESSION["nickname_usu"];
 $id_usuarioLogado = $_SESSION["id_usuario"];
@@ -25,10 +28,7 @@ if ($id_perfil == "colecionador") {
 
 <body>
     <?php
-    require_once '../../model/dao/ItemDAO.php';
-
-    $ItemDAO = new ItemDAO();
-    $itens = $ItemDAO->listarTodosItens();
+    $itens = $ItemDAO->listarTodosItensPorUsuario($id_usuarioLogado);
 
     ?>
     <a href="../dashboard/painel_colecionador.php">Voltar</a>
@@ -44,6 +44,7 @@ if ($id_perfil == "colecionador") {
                 <th>Quantidade de Itens</th>
                 <th>Categoria</th>
                 <th>Capa</th>
+                <th>Descrição</th>
                 <th>Ação</th>
             </tr>
         </thead>
@@ -56,6 +57,7 @@ if ($id_perfil == "colecionador") {
                     <td><?= $item["qtd_item"] ?></td>
                     <td><?= $item["categoria_item"] ?></td>
                     <td><?= $item["imagem_item"] ?></td>
+                    <td><?= $item["descricao_item"] ?></td>
                     <td>
                         <button class="editar">
                             <a href="../alterar_itens.php?id_item=<?= $item["id_item"] ?>" title="ALTERAR" class="editar">

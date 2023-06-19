@@ -14,32 +14,53 @@ if (isset($_SESSION["id_usuario"])) {
     $usuarioLogado = $_SESSION["nickname_usu"];
     $id_usuarioLogado = $_SESSION["id_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
+
+    $usuario = $usuarioDAO->encontraPorId($id_usuarioLogado);
+
 } else {
-    $usuarioLogado = "";
     header("Location: ../view/todos_itens.php?msg=Usuário não encontrado");
     exit();
 }
-
 ?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/transacao.css">
-    <link rel="stylesheet" href="../css/modal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <title>Detalhes da Transação</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/itensselecionado.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Detalhes da Transação</title>
 </head>
 <body>
-
+    <header class="header">
+        <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
+        <nav class="navbar" style="-i:1;">
+            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
+            <?php
+            if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
+                // echo '';
+                // print_r($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens']);
+                // echo '';
+                $total_itens = $carrinhoData['total_itens'];
+                $carrinho_itens = $carrinhoData['carrinho_itens'];
+                if (!empty($carrinho_itens)) {
+                foreach ($carrinho_itens as $carrinhoItem) {
+                    echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
+                }
+                }
+            } else {
+                echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
+            }
+            ?>
+            <a href="../view/todos_itens.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
+        </nav>
+    </header>
     <h2>Confira seus dados:</h2>
     <div class="container">
         <div class="item-details">
@@ -70,6 +91,9 @@ if (isset($_SESSION["id_usuario"])) {
                             if ($itemFetch) {
                     ?>
                     <input type="hidden" name="preco_item" value="<?= $itemFetch->getPreco_item() ?>">
+                    <input type="hidden" name="qtd_compra" value="1">
+                    <input type="hidden" name="id_perfil" value="<?= $id_perfil ?>">
+                    <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado ?>">
                     <section id="product-details">
                         <div class="product">
                             <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>">

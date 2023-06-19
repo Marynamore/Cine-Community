@@ -1,8 +1,8 @@
 <?php
 session_start();
+require_once "../model/dao/itemDAO.php";
+require_once "../model/dto/itemDTO.php";
 if ($_SESSION['id_perfil'] == 3) {
-    require_once "../model/dao/ItemDAO.php";
-    require_once "../model/dto/ItemDTO.php";
 
     $nome_item             = filter_input(INPUT_POST, 'nome_item');
     $descricao_item        = filter_input(INPUT_POST, 'descricao_item');

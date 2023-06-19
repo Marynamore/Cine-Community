@@ -50,7 +50,7 @@ $compras = $compraDAO->obterComprasPorUsuario($id_usuarioLogado);
          <p><i class="fas fa-calendar"></i><span><?= $compra->getDt_hora_compra()?></span></p>
          <img src="../assets/imagensprodutos/<?=$item['imagem_item']; ?>">
          <h3><?= $item['nome_item']; ?></h3>
-         <p><i class="fas fa-brazilian-real-sign"></i> <?= $compra->getPreco_compra() ?> x <?= $compra->getQuant_compra()?></p>
+         <p><i class="fas fa-brazilian-real-sign"></i> <?= $compra->getPreco_compra() ?> x <?= $compra->getQtd_compra()?></p>
          <p style="color:<?php if($compra->getStatus_compra() == 'Concluída'){echo 'green';}elseif($compra->getStatus_compra() == 'Cancelada'){echo 'red';}else{echo 'orange';}; ?>"><?= $compra->getStatus_compra(); ?></p>
       </a>
    </div>

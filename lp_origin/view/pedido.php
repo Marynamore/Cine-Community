@@ -50,14 +50,14 @@ if (isset($_GET['id_item'])) {
         foreach ($compras as $compra) {
             $item = $compraDAO->selecionarItem($compra->getFk_id_item());
 
-            $sub_total = ($compraFetch['preco_compra'] * $compraFetch['quant_compra']);
+            $sub_total = ($compraFetch['preco_compra'] * $compraFetch['qtd_compra']);
             $total_itens += $sub_total;
    ?>
    <div>
         <div>
             <p><i class="fas fa-calendar"></i><?= $compraFetch['dt_hora_compra']; ?></p>
             <img src="../assets/imagensprodutos/<?= $itemFetch['imagem_item']?>">
-            <p><i class="fas fa-brazilian-real-sign"></i><?= $compraFetch['preco_compra']; ?> x <?= $compraFetch['quant_compra']?></p>
+            <p><i class="fas fa-brazilian-real-sign"></i><?= $compraFetch['preco_compra']; ?> x <?= $compraFetch['qtd_compra']?></p>
             <h3><?= $itemFetch['nome_item']; ?></h3>
             <p>Valor Total : <span><i class="fas fa-brazilian-real-sign"></i><?= $total_itens?></span></p>
         </div>

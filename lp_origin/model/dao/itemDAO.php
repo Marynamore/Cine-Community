@@ -12,17 +12,17 @@ class ItemDAO{
 
     public function cadastrarItem(ItemDTO $itemDTO){
         try{
-            $sql = "INSERT INTO item (nome_item, descricao_item, preco_item, imagem_item, fk_id_categoria_item, fk_id_usuario, fk_id_perfil) VALUES (?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO item (nome_item, descricao_item, preco_item, qtd_item,imagem_item, fk_id_categoria_item, fk_id_usuario, fk_id_perfil) VALUES (?,?,?,?,?,?,?,?)";
             $cadItem = $this->pdo->prepare($sql); 
 
             $cadItem->bindValue(1, $itemDTO->getNome_item());
             $cadItem->bindValue(2, $itemDTO->getDescricao_item());
             $cadItem->bindValue(3, $itemDTO->getPreco_item());
-            $cadItem->bindValue(3, $itemDTO->getQtd_item());
-            $cadItem->bindValue(4, $itemDTO->getImagem_item());
-            $cadItem->bindValue(5, $itemDTO->getFk_id_categoria_item());
-            $cadItem->bindValue(6, $itemDTO->getFk_id_usuario());
-            $cadItem->bindValue(7, $itemDTO->getFk_id_perfil());
+            $cadItem->bindValue(4, $itemDTO->getQtd_item());
+            $cadItem->bindValue(5, $itemDTO->getImagem_item());
+            $cadItem->bindValue(6, $itemDTO->getFk_id_categoria_item());
+            $cadItem->bindValue(7, $itemDTO->getFk_id_usuario());
+            $cadItem->bindValue(8, $itemDTO->getFk_id_perfil());
 
             return $cadItem->execute();
         }catch(PDOException $exc){
@@ -96,6 +96,43 @@ class ItemDAO{
         }
         
     }
+
+    public function listarTodosItensPorUsuario($id_usuario){
+        try {
+            $sql = "SELECT i.id_item, i.imagem_item, i.nome_item, i.preco_item, i.qtd_item, i.descricao_item, ci.categoria_item, u.id_usuario, p.id_perfil 
+                    FROM item i 
+                    INNER JOIN categoria_item ci ON i.fk_id_categoria_item = ci.id_categoria_item 
+                    INNER JOIN usuario u ON i.fk_id_usuario = u.id_usuario 
+                    INNER JOIN perfil p ON i.fk_id_perfil = p.id_perfil 
+                    WHERE u.id_usuario = :id_usuario 
+                    ORDER BY id_item DESC";
+
+            $allItem = $this->pdo->prepare($sql);
+            $allItem->bindValue(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $allItem->execute();
+
+            $itens = array();
+            while ($itemFetch = $allItem->fetch(PDO::FETCH_ASSOC)) {
+                $itemDTO = new ItemDTO();
+                $itemDTO->setId_item($itemFetch['id_item']);
+                $itemDTO->setImagem_item($itemFetch['imagem_item']);
+                $itemDTO->setNome_item($itemFetch['nome_item']);
+                $itemDTO->setPreco_item($itemFetch['preco_item']);
+                $itemDTO->setQtd_item($itemFetch['qtd_item']);
+                $itemDTO->setFk_id_categoria_item($itemFetch['categoria_item']);
+                $itemDTO->setDescricao_item($itemFetch['descricao_item']);
+                $itemDTO->setFk_id_perfil($itemFetch['id_perfil']);
+                $itemDTO->setFk_id_usuario($itemFetch['id_usuario']);
+
+                $itens[] = $itemFetch;
+            }
+            return $itens;
+
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
 
     public function obterItemCarPorId($id_item){
         try{

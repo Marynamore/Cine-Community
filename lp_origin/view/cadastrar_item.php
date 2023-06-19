@@ -53,11 +53,11 @@ if (isset($_SESSION["id_usuario"])) {
 
                     <div class="inputBox">
                         <label for="qtd_item">Quantidade em Estoque:</label>
-                        <input placeholder="Quantidade em Estoque" type="text" name="qtd_item" id="qtd_item" required>
+                        <input type="number" name="qtd_item" placeholder="Quantidade em Estoque" required min="1" max="99" maxlength="2">
                     </div>
                     <div class="inputBox">
                         <label for="preco_item">Preço Item:</label>
-                        <input placeholder="Quantidade em Estoque" type="text" name="preco_item" id="preco_item" required>
+                        <input placeholder="100" type="text" name="preco_item" id="preco_item" required>
                         <span>Você receberá seu dinheiro na hora pagando, uma taxa de 4,99% por venda.</span>
                     </div>
                     <label for="fk_id_categoria_item">Categoria do Item:</label>

@@ -62,6 +62,9 @@ if ($itemFetch) {
           <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
           <?php
             if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
+              // echo '';
+              // print_r($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens']);
+              // echo '';
               $total_itens = $carrinhoData['total_itens'];
               $carrinho_itens = $carrinhoData['carrinho_itens'];
               if (!empty($carrinho_itens)) {
@@ -92,7 +95,7 @@ if ($itemFetch) {
             <input type="hidden" name="preco_item" value="<?= $itemFetch->getPreco_item() ?>"><br>
             <p>Preço Item: <i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?></p>
             <p>Quantidade em Estoque: <?= $itemFetch->getQtd_item() ?></p>
-            <input type="number" name="qtd_item" required min="1" value='<?= $itemFetch->getQtd_item() ?>' max="99" maxlength="2">
+            <p>Quantidade para Compra: <input type="number" name="qtd_compra" required min="1" max="99" maxlength="2"></p>
           </div><br>
           <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
           <a class="compraritem" href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>
