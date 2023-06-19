@@ -26,7 +26,7 @@ if (isset($_SESSION['id_perfil']) && ($_SESSION['id_perfil'] == 1 || $_SESSION['
 
     $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 
-        // Alterar o valor do perfil se for "Colecionador 3" ou "Usuário 4"
+    // Alterar o valor do perfil se for "Colecionador 3" ou "Usuário 4"
     if ($id_perfil == 3) {
         $id_perfil = 4;
     } elseif ($id_perfil == 4) {

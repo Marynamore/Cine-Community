@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "../model/dao/ItemDAO.php";
+require_once "../model/dao/itemDAO.php";
 
 if (isset($_GET["id_item"])) {
     $id_item = $_GET["id_item"];

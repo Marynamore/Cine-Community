@@ -61,6 +61,9 @@ $qtd_item = $item->getQtd_item();
                 <input type="text" name="nome_item" id="nome_item" placeholder="Item" value="<?= $nome_item; ?>"> <br> <br>
                 <label for="preco_item">Preço:</label>
                 <input type="text" name="preco_item" id="preco_item" placeholder="Preço" value="<?= $preco_item; ?>"><br><br>
+                <div class="form">
+                    <textarea name="descricao_item" cols="30" rows="10" placeholder="DEIXE AQUI SUA DESCRIÇÃO" required></textarea>
+                </div>
                 <label for="categoria_item">Categoria do Item:</label>
                 <select name="fk_id_categoria_item" id="categoria_item">
                     <option value="1" <?= ($fk_id_categoria_item == 1) ? 'selected' : ''; ?>>Livros e Revistas</option>

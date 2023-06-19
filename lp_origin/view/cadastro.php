@@ -44,7 +44,7 @@ if (isset($_SESSION["id_usuario"])) {
 
                     <div class="inputBox">
                         <label for="foto_usu">Foto de Perfil:</label>
-                        <input type="file" name="foto_usu" id="foto_usu">
+                        <input type="file" name="foto_usu" id="foto_usu" required>
                     </div>
                     <div class="inputBox">
                         <label for="nome_usu">Nome:</label>

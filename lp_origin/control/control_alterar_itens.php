@@ -6,10 +6,10 @@ if ($_SESSION['id_perfil'] == 3) {
 
     $id_item               = filter_input(INPUT_POST, 'id_item');
     $nome_item             = filter_input(INPUT_POST, 'nome_item');
-    $imagem_item           = $_FILES['imagem_item']['name']; // Acessando o arquivo enviado
+    $imagem_item           = $_FILES['imagem_item']['name']; 
     $preco_item            = filter_input(INPUT_POST, 'preco_item');
     $qtd_item              = filter_input(INPUT_POST, 'qtd_item');
-    $classificacao_item    = filter_input(INPUT_POST, 'classificacao_item');
+    $descricao_item    = filter_input(INPUT_POST, 'descricao_item');
     $id_categoria_item     = isset($_POST['fk_id_categoria_item']) ? $_POST['fk_id_categoria_item'] : null;
     $id_usuario            = isset($_POST['fk_id_usuario']) ? $_POST['fk_id_usuario'] : null;
     $id_perfil             = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
@@ -20,6 +20,7 @@ if ($_SESSION['id_perfil'] == 3) {
     $itemDTO->setNome_item($nome_item);
     $itemDTO->setImagem_item($imagem_item);
     $itemDTO->setPreco_item($preco_item);
+    $itemDTO->setDescricao_item($descricao_item);
     $itemDTO->setQtd_item($qtd_item);
     $itemDTO->setFk_id_categoria_item($id_categoria_item);
     $itemDTO->setFk_id_usuario($id_usuario);

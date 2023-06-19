@@ -42,7 +42,7 @@ if (isset($_SESSION["id_usuario"])) {
                 if($id_perfil == 3){
                     echo' <a href="cadastrar_item.php"><i class="fa-solid fa-pen-to-square"></i>Cadastrar Item</a>';
                     echo' <a href="./dashboard/painel_colecionador.php"><i class="fa-solid fa-user"></i>PAINEL COLECIONADOR</a>';
-                    echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+                    echo '<a class="border1" href="../control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                 }elseif ($id_perfil == 4) {
                     echo '<a href="meus_pedidos.php"><i class="fa-solid fa-bags-shopping"></i>Meus Pedidos</a>';
                     echo '<a href="todos_itens.php"><i class="fa-brands fa-product-hunt"></i>Itens</a>';
