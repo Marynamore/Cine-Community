@@ -73,7 +73,7 @@ if (isset($_SESSION['id_perfil']) && ($_SESSION['id_perfil'] == 1 || $_SESSION['
     } elseif ($_SESSION['id_perfil'] == 3) {
         header("Location: ../view/dashboard/painel_colecionador.php?msg=" . urlencode($msg));
     } elseif ($_SESSION['id_perfil'] == 4) {
-        header("Location: ../view/perfil_usuario.php?msg=" . urlencode($msg));
+        header("Location: ../index.php?msg=" . urlencode($msg));
     }
 } else {
     // Redirecionar para a página do administrador com mensagem de erro

@@ -101,6 +101,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
             <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
+            <a href="../cadastro.php"><i class="fa-solid fa-user"></i>Cadastra-se</a>
             <div class="search-box">
                 <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
                     <button onclick="searchData()">

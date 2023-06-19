@@ -274,5 +274,34 @@ public function buscarPorID($id) {
         echo $exc->getMessage();
     }
 }
+    
+public function obterFilmeId($id_filme)
+{
+    try {
+        $sql = "SELECT * FROM filme WHERE id_filme = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id_filme);
+        $stmt->execute();
+
+        $filme = null;
+
+        if ($stmt->rowCount() > 0) {
+            $filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC);
+            $filme = new FilmeDTO();
+            $filme->setId_filme($filmeFetch['id_filme']);
+            $filme->setNome_filme($filmeFetch['nome_filme']);
+            $filme->setFk_id_categoria_filme($filmeFetch['fk_id_categoria_filme']);
+            $filme->setCapa_filme($filmeFetch['capa_filme']);
+            // Defina outras propriedades do objeto FilmeDTO conforme necessário
+        }
+
+        return $filme;
+    } catch(PDOException $exc) {
+        echo $exc->getMessage();
+        return null;
+    }
+}
+
+
 
 }

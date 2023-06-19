@@ -41,7 +41,6 @@ class UsuarioDAO
                     situacao_usu, foto_usu, telefone, cpf_cnpj, endereco, numero, complemento, bairro, cidade, cep, uf, fk_id_perfil)  
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-
             $stmt->bindValue(1, $usuarioDTO->getNome_usu());
             $stmt->bindValue(2, $usuarioDTO->getNickname_usu());
             $stmt->bindValue(3, $usuarioDTO->getDt_de_nasci_usu());
@@ -89,7 +88,7 @@ class UsuarioDAO
 
     public function listarTodosUsuario() {
         try{
-            $sql = "SELECT * FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil ORDER BY id_usuario ";
+             $sql = "SELECT * FROM usuario u INNER JOIN perfil p ON u.fk_id_perfil = p.id_perfil ORDER BY id_usuario DESC ";
     
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
