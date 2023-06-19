@@ -9,7 +9,11 @@ if (isset($_SESSION["id_usuario"])) {
 } else {
     $usuarioLogado = "";
 }
-
+if (isset($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+    // Limpe a mensagem da sessão para que ela não seja exibida novamente na atualização da página
+    unset($_SESSION['msg']);
+}
 
 
 if (isset($_POST['nome_filme'])) {
@@ -43,6 +47,7 @@ if (isset($_POST['nome_filme'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
@@ -62,14 +67,14 @@ if (isset($_POST['nome_filme'])) {
                         <a class="search-btn">
                             <img class="loupe-blue" src="./assets/search.svg" alt="" width="25px" height="25px">
                             <button onclick="searchData()">
-                                <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg>
                             </button>
                         </a>
                     </div>
-                </form>    
-            
+                </form>
+
                 <a href="index.php"><i class="fa-solid fa-house"></i>INICIO</a>
                 <?php
                 if (!empty($usuarioLogado)) {
@@ -81,6 +86,7 @@ if (isset($_POST['nome_filme'])) {
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 3 || $id_perfil == 4) {
                         echo '<a href="./view/perfil_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
+                        echo '<a href="./view/filmefavorito.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-regular fa-camcorder"></i>Filmes Favoritos</a>';
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     }
                 } else {
@@ -95,7 +101,7 @@ if (isset($_POST['nome_filme'])) {
     </header>
     <section>
         <div class="box">
-        <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
+            <div class="box-image"><img src="./assets/banner/imagemsite.png"></div>
             <div class="box-image"><img src='./assets/banner/Banner loja virtual cosméticos black friday .png'></div>
             <div class="box-image"><img src="./assets/banner/avatar.jpeg"></div>
             <div class="box-image"><img src='./assets/banner/creed3.jpg'></div>
@@ -109,38 +115,62 @@ if (isset($_POST['nome_filme'])) {
     <div class="container-filme">
         <div class="container-galeria">
             <?php
-            require_once './model/dao/filmeDAO.php';
-            $FilmeDAO   = new FilmeDAO();
-            $filme      = $FilmeDAO->listarTodos();
-            $categorias = array();
-
-            // Obter todas as categorias dos filmes
-            foreach ($filme as $filmeFetch) {
-                $categoria = $filmeFetch['categoria_filme'];
-                if (!in_array($categoria, $categorias)) {
-                    $categorias[] = $categoria;
-                }
-            }
-
-            // Exibir os filmes agrupados por categoria
-            foreach ($categorias as $categoria) {
+          require_once './model/dao/FavoritoDAO.php';
+          require_once './model/dao/FilmeDAO.php';
+          
+          $filmeDAO = new FilmeDAO();
+          $favoritoDAO = new FavoritoDAO();
+          
+          $filmes = $filmeDAO->listarTodos();
+          $categorias = array();
+          
+          // Obter todas as categorias dos filmes
+          foreach ($filmes as $filmeFetch) {
+              $categoria = $filmeFetch['categoria_filme'];
+              if (!in_array($categoria, $categorias)) {
+                  $categorias[] = $categoria;
+              }
+          }
+          
+          // Exibir os filmes agrupados por categoria
+          foreach ($categorias as $categoria) {
+              echo '<div class="categoria">';
+              echo '<h2>' . $categoria . '</h2>';
+              echo '<div class="filme-carousel">';
+          
+              foreach ($filmes as $filmeFetch) {
+                  if ($filmeFetch['categoria_filme'] === $categoria) {
+                      $id_filme = $filmeFetch['id_filme'];
+                      $favoritoDTO = new FavoritoDTO();
+                      $favoritoDTO->setFk_id_filme($id_filme);
+                      $favoritoDTO->setFk_id_usuario($_SESSION['id_usuario']);
+                      $isFavorito = $favoritoDAO->verificarFavorito($favoritoDTO);
+                      ?>
+                      <div class="filme-item">
+                          <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme']; ?>"></a>
+                          <?php if ($isFavorito) { ?>
+                              <a href="./control/favoritar.php?id_filme=<?= $filmeFetch['id_filme']; ?>&remover=1" class="favorito">
+                                  <button><i class="fa fa-star" style="color: #0959e1;"></i></button>
+                              </a>
+                          <?php } else { ?>
+                              <a href="./control/favoritar.php?id_filme=<?= $filmeFetch['id_filme']; ?>" class="favorito">
+                                  <button><i class="fa fa-star" style="color: #ccc;"></i></button>
+                              </a>
+                          <?php } ?>
+                          <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme']; ?>">
+                              <img src="assets/<?= $filmeFetch['capa_filme']; ?>" alt="Capa do filme <?= $filmeFetch['nome_filme']; ?>">
+                          </a>
+                      </div>
+                  <?php
+                  }
+              }
+          
+              echo '</div>';
+              echo '</div>';
+          }
+          
+           
             ?>
-                <div class="categoria">
-                    <h2><?= $categoria ?></h2>
-                    <div class="filme-carousel">
-                        <?php foreach ($filme as $filmeFetch) {
-                            if ($filmeFetch['categoria_filme'] === $categoria) { ?>
-                                <div class="filme-item">
-                                    <a href="./view/filme_resenha.php?get_id=<?= $filmeFetch['id_filme']; ?>">
-                                        <a href="control/favoritar.php" class="favorito"><button><i class="fa-regular fa-star" style="color: #0959e1;"></i></button></a>   
-                                        <img src="assets/<?= $filmeFetch['capa_filme']; ?>" alt="Capa do filme <?= $filmeFetch['nome_filme']; ?>">
-                                    </a>
-                                </div>
-                        <?php }
-                        } ?>
-                    </div>
-                </div>
-            <?php } ?>
         </div>
     </div>
     <br>
@@ -215,6 +245,15 @@ if (isset($_POST['nome_filme'])) {
 
     <!-- Inclua o arquivo JavaScript do Slick Carousel -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+    <script>
+        function favoritarFilme(event) {
+            event.preventDefault();
+            const button = event.target;
+
+            // Adicione ou remova a classe 'favorito-ativo' para alterar a cor do ícone
+            button.classList.toggle('favorito-ativo');
+        }
+    </script>
 
 </body>
 

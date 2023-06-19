@@ -26,9 +26,9 @@ if ($foto_usu['error'] === UPLOAD_ERR_OK){
     $caminho_temporario = $foto_usu['tmp_name'];
     $caminho_destino = '../assets/pessoas/' . $nome_arquivo;
     move_uploaded_file($caminho_temporario, $caminho_destino);
-
-
+    
 $usuarioDTO = new UsuarioDTO();
+
 $usuarioDTO->setNome_usu($nome_usu);
 $usuarioDTO->setNickname_usu($nickname_usu);
 $usuarioDTO->setDt_de_nasci_usu($dt_de_nasci_usu);
@@ -47,6 +47,7 @@ $usuarioDTO->setCep($cep);
 $usuarioDTO->setUf($uf);
 $usuarioDTO->setFk_id_perfil($id_perfil);
 
+
 $usuarioDAO = new UsuarioDAO();
 $usuarioDAO->cadastrarUsuario($usuarioDTO);
 
@@ -57,5 +58,6 @@ if ($usuarioDAO) {
     header("Location: ../view/cadastro.php");
     exit;
 }
-}
+
+ }
 ?>

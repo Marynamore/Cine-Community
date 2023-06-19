@@ -321,6 +321,16 @@ section {
    font-size: 14px;
  }
 
+.favorito button{
+  
+transition: color 0.3s;
+   
+}
+   
+.favorito button.favorito-ativo {
+   color: gold;
+   
+}
 
  .checkout-btn {
    

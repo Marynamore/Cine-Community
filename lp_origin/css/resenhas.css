@@ -17,11 +17,6 @@ body{
     color: black;
 }  
 
-.favorito button{
-  display: flex;
-  flex: right;
-}
-
 .dados-filme{
     margin:none;
     margin-top: 30px;

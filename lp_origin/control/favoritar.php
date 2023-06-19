@@ -1,46 +1,63 @@
 <?php
-    session_start();
-    require_once '../model/dao/UsuarioDAO.php';
-    require_once '../model/dao/filmeDAO.php';
-    require_once '../model/dao/favoritoDAO.php';
-    
+session_start();
+require_once '../model/dao/UsuarioDAO.php';
+require_once '../model/dao/FilmeDAO.php';
+require_once '../model/dao/FavoritoDAO.php';
+require_once '../model/dto/FavoritoDTO.php';
 
-    $usuarioDAO = new UsuarioDAO();
-    $filmeDAO = new FilmeDAO();
-    $favoritoDAO = new FavoritoDAO();
+$usuarioDAO = new UsuarioDAO();
+$filmeDAO = new FilmeDAO();
+$favoritoDAO = new FavoritoDAO();
 
-    // Verifica se o usuário está logado
-    if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
-        $id_perfil = $_SESSION["id_perfil"];
-        $id_usuario = $_SESSION["id_usuario"];
+// Verifica se o usuário está logado
+if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
+    $id_perfil = $_SESSION["id_perfil"];
+    $id_usuario = $_SESSION["id_usuario"];
 
-        // Verifica se foi passado o ID do filme via GET
-        if (isset($_GET['id_filme'])) {
-            $id_filme = $_GET['id_filme'];
+    // Verifica se foi passado o ID do filme via GET
+    if (isset($_GET['id_filme'])) {
+        $id_filme = $_GET['id_filme'];
 
-            // Verifica se o filme existe
-            $filme = $filmeDAO->obterfilmePorId($id_filme);
+        // Verifica se o filme existe
+        $filme = $filmeDAO->obterFilmeId($id_filme);
 
-            if ($filme) {
-                // Verifica se o filme já está marcado como favorito pelo usuário
-                $favorito = $filmeDAO->verificarFavorito($id_filme, $id_usuario);
+        if ($filme) {
+            // Cria um objeto FavoritoDTO
+            $favoritoDTO = new FavoritoDTO();
+            $favoritoDTO->setFavorito(true);
+            $favoritoDTO->setFk_id_usuario($id_usuario);
+            $favoritoDTO->setFk_id_perfil($id_perfil);
+            $favoritoDTO->setFk_id_filme($id_filme);
 
-                if ($favorito) {
-                    // filme já está marcado como favorito, então desmarca
-                    $filmeDAO->removerFavorito($id_filme, $id_usuario);
-                    echo "filme removido dos favoritos.";
-                } else {
-                    // filme não está marcado como favorito, então marca
-                    $filmeDAO->marcarFavorito($id_filme, $id_usuario);
-                    echo "filme adicionado aos favoritos.";
-                }
+            // Verifica se o filme já está marcado como favorito pelo usuário
+            $favorito = $favoritoDAO->verificarFavorito($favoritoDTO);
+
+            if ($favorito) {
+                // Filme já está marcado como favorito, então desmarca
+                $favoritoDAO->removerFavorito($favoritoDTO);
+                $_SESSION['msg'] = "Filme removido dos favoritos.";
             } else {
-                echo "filme não encontrado.";
+                // Filme não está marcado como favorito, então marca
+                $favoritoDAO->marcarFavorito($favoritoDTO);
+                $_SESSION['msg'] = "Filme adicionado aos favoritos.";
             }
+
+            // Redireciona para a página inicial
+            header("Location: ../index.php");
+            exit();
         } else {
-            echo "ID do filme não fornecido.";
+            $_SESSION['msg'] = "Filme não encontrado.";
+            header("Location: ../index.php");
+            exit();
         }
     } else {
-        echo "Usuário não encontrado.";
+        $_SESSION['msg'] = "ID do filme não fornecido.";
+        header("Location: ../index.php");
+        exit();
     }
+} else {
+    $_SESSION['msg'] = "Usuário não encontrado.";
+    header("Location: ../index.php");
+    exit();
+}
 ?>
