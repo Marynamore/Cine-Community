@@ -10,7 +10,7 @@ $itemDAO = new ItemDAO();
 $method = isset($_POST['tipo_pagamento']) ? strip_tags($_POST['tipo_pagamento']) : '';
 $id_usuario = $_POST["id_usuario"];
 $id_perfil = $_POST['id_perfil'];
-$status_compra = "Pendente"; // Defina o status da compra
+$status_compra = "Em progresso"; // Defina o status da compra
 $tipo_pagamento = strip_tags($_POST["tipo_pagamento"]);
 
 if (isset($_GET['id_item']) && isset($_POST['tipo_pagamento'])) {

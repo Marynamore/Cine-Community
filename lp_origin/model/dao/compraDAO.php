@@ -90,20 +90,24 @@ class CompraDAO {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id_item]);  
 
+            $compras = array();
             if ($stmt->rowCount() > 0) {
-                $compraFetch = $stmt->fetch(PDO::FETCH_ASSOC);
-                $compraDTO = new CompraDTO();
-                $compraDTO->setId_compra($compraFetch['id_compra']);
-                $compraDTO->setQtd_compra($compraFetch['qtd_compra']);
-                $compraDTO->setPreco_compra($compraFetch['preco_compra']);
-                $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
-                $compraDTO->setStatus_compra($compraFetch['status_compra']);
-                $compraDTO->setFk_id_item($compraFetch['fk_id_item']);
-                $compraDTO->setFk_id_usuario($compraFetch['id_usuario']);
-                $compraDTO->setFk_id_perfil($compraFetch['fk_id_perfil']);
+                while ($compraFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                
+                    $compraDTO = new CompraDTO();
+                    $compraDTO->setId_compra($compraFetch['id_compra']);
+                    $compraDTO->setQtd_compra($compraFetch['qtd_compra']);
+                    $compraDTO->setPreco_compra($compraFetch['preco_compra']);
+                    $compraDTO->setDt_hora_compra($compraFetch['dt_hora_compra']);
+                    $compraDTO->setStatus_compra($compraFetch['status_compra']);
+                    $compraDTO->setFk_id_item($compraFetch['fk_id_item']);
+                    $compraDTO->setFk_id_usuario($compraFetch['id_usuario']);
+                    $compraDTO->setFk_id_perfil($compraFetch['fk_id_perfil']);
 
-                return $compraDTO;
-            } else {
+                    $compras[] = $compraFetch;
+                    
+                } return $compras;
+            }else {
                 echo '<p>Nenhuma Compra adicionada ainda!</p>';
             }
         } catch (PDOException $exc) {
@@ -111,20 +115,5 @@ class CompraDAO {
         }
     }
 
-    public function selecionarItem($id_item) {
-        try {
-            $sql = "SELECT * FROM item WHERE id_item=? LIMIT 1";
-            $preItem = $this->pdo->prepare($sql);
-            $preItem->bindValue(1, $id_item);
-            $preItem->execute();
-            $itemFetch = $preItem->fetch(PDO::FETCH_ASSOC);
-
-            if ($itemFetch) {
-                return $itemFetch;
-            }
-            return null;
-        } catch (PDOException $exc) {
-            echo $exc->getMessage();
-        }
-    }
 }
+
