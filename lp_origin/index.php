@@ -79,8 +79,8 @@ if (isset($_SESSION['msg'])) {
     <div class="container-filme">
         <div class="container-galeria">
             <?php
-          require_once './model/dao/FavoritoDAO.php';
-          require_once './model/dao/FilmeDAO.php';
+          require_once './model/dao/favoritoDAO.php';
+          require_once './model/dao/filmeDAO.php';
           
           $filmeDAO = new FilmeDAO();
           $favoritoDAO = new FavoritoDAO();

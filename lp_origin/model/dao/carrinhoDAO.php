@@ -9,36 +9,37 @@ class CarrinhoDAO {
         $this->pdo = Conexao::getInstance();
     }
 
-    public function countItemCarrinho($id_usuario) {
-        try {
-            $sql = "SELECT COUNT(*) AS total_itens FROM carrinho c 
-                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
-                    INNER JOIN item i ON c.fk_id_item = i.id_item
-                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
-                    WHERE u.id_usuario=?";
+public function countItemCarrinho($id_usuario) {
+    try {
+        $sql = "SELECT COUNT(*) AS total_itens FROM carrinho c 
+                INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
+                INNER JOIN item i ON c.fk_id_item = i.id_item
+                INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
+                WHERE u.id_usuario=?";
 
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id_usuario]);
-            $total_itens = $stmt->rowCount();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id_usuario]);
+        $total_itens = $stmt->fetchColumn();
 
-            $sql = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c 
-                    INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
-                    INNER JOIN item i ON c.fk_id_item = i.id_item
-                    INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
-                    WHERE u.id_usuario=?";
-                    
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id_usuario]);
-            $carrinho_itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT c.*, i.id_item, u.id_usuario, p.id_perfil FROM carrinho c 
+                INNER JOIN usuario u ON c.fk_id_usuario = u.id_usuario
+                INNER JOIN item i ON c.fk_id_item = i.id_item
+                INNER JOIN perfil p ON c.fk_id_perfil = p.id_perfil
+                WHERE u.id_usuario=?";
+                
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id_usuario]);
+        $carrinho_itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return [
-                'total_itens' => $total_itens,
-                'carrinho_itens' => $carrinho_itens
-            ];
-        } catch (PDOException $exc) {
-            echo $exc->getMessage();
-        }
+        return [
+            'total_itens' => $total_itens,
+            'carrinho_itens' => $carrinho_itens
+        ];
+    } catch (PDOException $exc) {
+        echo $exc->getMessage();
     }
+}
+
     
     public function adicionarItemCar($id_usuarioLogado, $id_item, $qtd_compra, $id_perfil) {
         try {
@@ -166,11 +167,11 @@ class CarrinhoDAO {
 
                     $carItens[] = $carrinhoDTO;
                 }
+                return $carItens;
             }
             return $carItens;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
-            return array(); // Retornar um array vazio em caso de erro
         }
     }
 

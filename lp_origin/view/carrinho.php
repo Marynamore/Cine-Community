@@ -37,17 +37,6 @@ if (isset($_SESSION["id_usuario"])) {
         <a href="index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
            <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
-          <?php
-            if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
-                $total_itens = $carrinhoData['total_itens'];
-                $carrinho_itens = $carrinhoData['carrinho_itens'];
-                if (empty($carrinho_itens)) {
-                    echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
-                }
-            } else {
-                echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
-            }
-          ?>
           <a href="../view/todos_itens.php"><i class="fa-solid fa-house"></i>Voltar</a>  
         </nav>
     </header>

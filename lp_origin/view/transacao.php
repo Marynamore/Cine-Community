@@ -42,16 +42,14 @@ if (isset($_SESSION["id_usuario"])) {
         <nav class="navbar" style="-i:1;">
             <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
             <?php
+            $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
             if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
-                // echo '';
-                // print_r($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens']);
-                // echo '';
                 $total_itens = $carrinhoData['total_itens'];
                 $carrinho_itens = $carrinhoData['carrinho_itens'];
                 if (!empty($carrinho_itens)) {
-                foreach ($carrinho_itens as $carrinhoItem) {
                     echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
-                }
+                } else {
+                    echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
                 }
             } else {
                 echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
@@ -112,7 +110,7 @@ if (isset($_SESSION["id_usuario"])) {
                             $carrinhoData = $carrinhoDAO->obterItemCarPorUsuarioID($_SESSION["id_usuario"]);
                             if ($carrinhoData) {
                                 foreach ($carrinhoData as $carrinhoFetch) {
-                                    $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
+                                    $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());                                  
                                     if ($itemFetch) {
                                         $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item());
                                         $total_itens += $sub_total;

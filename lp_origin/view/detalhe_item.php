@@ -60,20 +60,18 @@ if ($itemFetch) {
         <nav class="navbar" style="-i:1;">
           <a href="./view/alterar_usuario.php?id_usuario=<?= $id_usuarioLogado?>" onclick="funcPerfil()"><i class="fa-solid fa-user"></i><?= $_SESSION["nickname_usu"]; ?></a>
           <?php
-            if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
-              // echo '';
-              // print_r($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens']);
-              // echo '';
+          $carrinhoData = $carrinhoDAO->countItemCarrinho($id_usuarioLogado);
+          if (isset($carrinhoData['total_itens']) && isset($carrinhoData['carrinho_itens'])) {
               $total_itens = $carrinhoData['total_itens'];
               $carrinho_itens = $carrinhoData['carrinho_itens'];
               if (!empty($carrinho_itens)) {
-                foreach ($carrinho_itens as $carrinhoItem) {
-                    echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
-                }
+                  echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>' . $total_itens . '</span></a>';
+              } else {
+                  echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
               }
-            } else {
-                echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
-            }
+          } else {
+              echo '<a href="carrinho.php"><i class="fa-solid fa-cart-plus"></i>Carrinho<span>0</span></a>';
+          }
           ?>
           <a href="../view/todos_itens.php" style="-i:2;"><i class="fa-solid fa-house"></i>Voltar</a>
         </nav>
