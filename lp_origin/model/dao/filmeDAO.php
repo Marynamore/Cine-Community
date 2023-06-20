@@ -113,13 +113,13 @@ public function listarTodos(){
     }  
 }
 
-public function pesquisarFilmes(){
+public function pesquisarFilmes($nome_filme){
     try{
-        $sql = "SELECT f.*, c.categoria_filme, cn.canal_filme, p.perfil_usu, u.id_usuario FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario WHERE nome_filme=? LIKE nome_filme";
+        $sql = "SELECT f.*, c.categoria_filme, cn.canal_filme, p.perfil_usu, u.id_usuario FROM filme f INNER JOIN categoria_filme c ON f.fk_id_categoria_filme = c.id_categoria_filme INNER JOIN canal_filme cn ON f.fk_id_canal_filme = cn.id_canal_filme INNER JOIN perfil p ON f.fk_id_perfil = p.id_perfil INNER JOIN usuario u ON f.fk_id_usuario = u.id_usuario WHERE nome_filme LIKE ?";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, '%' . $nome_filme . '%');
-        $stmt->execute();   
+        $stmt->execute();
         $filmesDTO = array();
         while ($filmeFetch = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $FilmeDTO = new FilmeDTO();
@@ -127,13 +127,14 @@ public function pesquisarFilmes(){
             $FilmeDTO->setNome_filme($filmeFetch['nome_filme']);
             $FilmeDTO->setFk_id_categoria_filme($filmeFetch['categoria_filme']);
             $FilmeDTO->setCapa_filme($filmeFetch['capa_filme']);
-            $filmesDTO[] = $filmeFetch;
+            $filmesDTO[] = $FilmeDTO;
         } 
         return $filmesDTO;
-    }catch(PDOException $exc){
+    } catch(PDOException $exc){
         echo $exc->getMessage();
     }  
 }
+
 
 public function selecionarFilmesComCategoria($id_filme) {
     try{

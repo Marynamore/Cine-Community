@@ -24,10 +24,11 @@ if (isset($_SESSION["id_usuario"])) {
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/perfil_usuario.css">
-   
+    
 </head>
 <body>
 <button onclick="javascript:history.go(-1)" class="alterar">Voltar</button>
+<a class="alterar" href="./view/filmefavorito.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-regular fa-camcorder">Filmes Favoritos</i></a>
     <h2>Confira seus dados:</h2>
     <div class="container">
         <div class="item-details">

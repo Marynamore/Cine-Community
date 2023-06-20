@@ -16,27 +16,6 @@ if (isset($_SESSION['msg'])) {
 }
 
 
-if (isset($_POST['nome_filme'])) {
-    $nome_filme = $_POST['nome_filme'];
-    $lista = [];
-
-    $stmt = $pdo->prepare("SELECT * FROM filme WHERE nome_filme = :nome_filme");
-    $stmt->bindValue(':nome_filme', $nome_filme);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $stmt = $pdo->prepare("SELECT * FROM filme WHERE nome_filme LIKE :nome_filme");
-        $stmt->bindValue(':nome_filme', '%' . $nome_filme . '%');
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -61,20 +40,6 @@ if (isset($_POST['nome_filme'])) {
         <header class="header">
             <a href="index.php" class="logo"><img src="assets/logoinicio.png" alt="index.php"></a>
             <nav class="navbar">
-                <form action="./control/control_pesquisa.php" method="post">
-                    <div class="search-box">
-                        <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
-                        <a class="search-btn">
-                            <img class="loupe-blue" src="./assets/search.svg" alt="" width="25px" height="25px">
-                            <button onclick="searchData()">
-                                <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                </svg>
-                            </button>
-                        </a>
-                    </div>
-                </form>
-
                 <a href="index.php"><i class="fa-solid fa-house"></i>INICIO</a>
                 <?php
                 if (!empty($usuarioLogado)) {
@@ -86,7 +51,6 @@ if (isset($_POST['nome_filme'])) {
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 3 || $id_perfil == 4) {
                         echo '<a href="./view/perfil_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
-                        echo '<a href="./view/filmefavorito.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-regular fa-camcorder"></i>Filmes Favoritos</a>';
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     }
                 } else {

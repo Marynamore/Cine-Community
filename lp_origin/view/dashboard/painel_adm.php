@@ -9,24 +9,37 @@ if (isset($_SESSION["id_usuario"])) {
     $id_usuarioLogado = $_SESSION["id_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
 }
-if (isset($_POST['nome_usuario'])) {
-    $nome_usuario = $_POST['nome_usuario'];
+
+// Verifica se o formulário de pesquisa foi enviado
+@$nome_usu = $_POST["nome_usu"];
+require_once "../../model/conexao.php";
+$pdo = Conexao::getInstance();
+
+if ($nome_usu) {
     $lista = [];
 
-    $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usuario = :nome_usuario");
-    $stmt->bindValue(':nome_usuario', $nome_usuario);
+    $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usu = :nome_usu");
+    $stmt->bindValue(':nome_usu', $nome_usu);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
         $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usuario LIKE :nome_usuario");
-        $stmt->bindValue(':nome_usuario', '%' . $nome_usuario . '%');
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE nome_usu LIKE :nome_usu");
+        $stmt->bindValue(':nome_usu', '%' . $nome_usu . '%');
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
             $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
+} else {
+    // Lógica para listar todos os usuários caso não haja um nome_usu definido
+    $stmt = $pdo->prepare("SELECT * FROM usuario");
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
@@ -103,14 +116,12 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
             <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
             <a href="../cadastro.php"><i class="fa-solid fa-user"></i>Cadastra-se</a>
             <div class="search-box">
-                <input type="search" class="search-text" placeholder="Pesquisar..." id="pesquisar">
-                    <button onclick="searchData()">
-                        <svg class="loupe-white" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                            fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-                    </button>
+            <div class="search-box">
+</div>
+
+
+
+
             </div>
         </nav>
     </header>
@@ -165,7 +176,6 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                         <th>Categoria</th>
                         <th>Classificação</th>
                         <th>Capa</th>
-                        <!--            <th>Trailer</th>-->
                         <th>Canal</th>
                         <th>Ação</th>
 
@@ -205,53 +215,58 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         </div>
 
         <div class="conteudo" id="usuarios">
-    <h2>Usuários</h2>
-    <?php
-    require_once '../../model/dao/UsuarioDAO.php';
-    $UsuarioDAO = new UsuarioDAO();
+        <form action="" method="get" style="display: flex; justify-content: flex-end;">
+  <input type="search" class="search-text" placeholder="Pesquisar..." name="query" id="pesquisar">
+  <button type="submit" class="search-btn">
+    Pesquisar
+  </button>
+</form>
 
-    // if (isset($_GET["msg"])) {
-    //     echo "<center>" . $_GET["msg"] . "</center>";
-    // }
-    // if (isset($_GET["id_usuario"]))
-    $usuario = $UsuarioDAO->listarTodosUsuario();
-    ?>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Nickname</th>
-                <th>Data de Nascimento</th>
-                <th>Gênero</th>
-                <th>E-mail</th>
-                <th>Senha</th>
-                <th>Foto</th>
-                <th>Perfil</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($usuario as $usuarioFetch) { ?>
-                <tr>
-                    <td><?= $usuarioFetch["id_usuario"]?></td>
-                    <td><?= $usuarioFetch["nome_usu"]?></td>
-                    <td><?= $usuarioFetch["nickname_usu"]?></td>
-                    <td><?= $usuarioFetch["dt_de_nasci_usu"]?></td>
-                    <td><?= $usuarioFetch["genero_usu"]?></td>
-                    <td><?= $usuarioFetch["email_usu"]?></td>
-                    <td><?= $usuarioFetch["senha_usu"]?></td>
-                    <td><?= $usuarioFetch["foto_usu"]?></td>
-                    <td><?= $usuarioFetch["perfil_usu"]?></td>
-                    <td>
-                        <a href="../alterar_usuario.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
-                        <a href="../../control/excluir.php?id_usuario=<?= $usuarioFetch["id_usuario"]?>" title="EXCLUIR" onclick="return confirm('Deseja excluir esse usuário?')">Excluir <i class="fa fa-trash fa-lg"></i></a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+<h2>Usuários</h2>
+<?php
+require_once '../../model/dao/UsuarioDAO.php';
+$UsuarioDAO = new UsuarioDAO();
+
+$usuario = $UsuarioDAO->listarTodosUsuario();
+?>
+
+<table id="dataTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Nickname</th>
+      <th>Data de Nascimento</th>
+      <th>Gênero</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+      <th>Foto</th>
+      <th>Perfil</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($usuario as $usuarioFetch) { ?>
+      <tr>
+        <td><?= $usuarioFetch["id_usuario"] ?></td>
+        <td><?= $usuarioFetch["nome_usu"] ?></td>
+        <td><?= $usuarioFetch["nickname_usu"] ?></td>
+        <td><?= $usuarioFetch["dt_de_nasci_usu"] ?></td>
+        <td><?= $usuarioFetch["genero_usu"] ?></td>
+        <td><?= $usuarioFetch["email_usu"] ?></td>
+        <td><?= $usuarioFetch["telefone"] ?></td>
+        <td><?= $usuarioFetch["foto_usu"] ?></td>
+        <td><?= $usuarioFetch["perfil_usu"] ?></td>
+        <td>
+          <a href="../alterar_usuario.php?id_usuario=<?= $usuarioFetch["id_usuario"] ?>" title="ALTERAR">Alterar <i class="bi bi-pencil"></i></a>
+          <a href="../../control/excluir.php?id_usuario=<?= $usuarioFetch["id_usuario"] ?>" title="EXCLUIR" onclick="return confirm('Deseja excluir esse usuário?')">Excluir <i class="fa fa-trash fa-lg"></i></a>
+        </td>
+      </tr>
+    <?php } ?>
+  </tbody>
+</table>
 </div>
+
 
 
 
@@ -297,6 +312,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         // Caso não haja denúncias
         echo "<p>Nenhuma denúncia encontrada.</p>";
     }
+
     ?>
 </div>
 
@@ -309,6 +325,27 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         <button type="submit" style="display: none;"></button>
     </form>
 </body>
-<script src="../../js/searchadm.js"></script>
+<script>
+  document.getElementById('pesquisar').addEventListener('input', function() {
+    var searchValue = this.value.toLowerCase();
+    var table = document.getElementById('dataTable');
+    var rows = table.getElementsByTagName('tr');
 
+    for (var i = 0; i < rows.length; i++) {
+      var rowData = rows[i].getElementsByTagName('td');
+      var foundMatch = false;
+
+      for (var j = 0; j < rowData.length; j++) {
+        var cellData = rowData[j].textContent.toLowerCase();
+
+        if (cellData.indexOf(searchValue) > -1) {
+          foundMatch = true;
+          break;
+        }
+      }
+
+      rows[i].style.display = foundMatch ? '' : 'none';
+    }
+  });
+</script>
 </html>
