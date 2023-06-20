@@ -149,7 +149,7 @@ if (isset($_SESSION["id_usuario"])) {
             <option value="cc">Cartão de Crédito</option>
             <option value="cd">Cartão de Débito</option>
         </select>
-        
+        <input type="submit" value="Finalizar Compra">
     </div>
     </form>
 </div>

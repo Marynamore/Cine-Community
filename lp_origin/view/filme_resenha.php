@@ -20,7 +20,7 @@ if (isset($_SESSION["id_usuario"])) {
     $id_usuarioLogado = $_SESSION["id_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
 } else {
-    $usuarioLogado = "";
+    $id_usuarioLogado = "";
 }
 
 ?>
@@ -125,7 +125,7 @@ if (isset($_SESSION["id_usuario"])) {
             <div class="resenha">
                 <div class="titulo_res">
                     <?php
-                    if ($id_usuario == $resenha->getFk_id_usuario()) {
+                    if ($id_usuarioLogado == $resenha->getFk_id_usuario()) {
                         echo '<a href="./alterar_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha">Editar</a>';
                         echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm(\'Quer deletar essa Resenha?\');">Excluir</a>';
 
@@ -158,7 +158,7 @@ if (isset($_SESSION["id_usuario"])) {
 
 
                 </div>
-                <h4 <?php if ($resenha->getFK_id_usuario() == $id_usuario) ?>></h4>
+                <h4 <?php if ($resenha->getFK_id_usuario() == $id_usuarioLogado) ?>></h4>
                 <div>
                     <?php if (!empty($usuario)) { ?>
                         <img class='profile' src="../assets/pessoas/<?= $usuario['foto_usu']; ?>" alt="">

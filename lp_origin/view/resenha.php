@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../model/dao/UsuarioDAO.php';
 
 if (isset($_GET['get_id'])) {
     $get_id = $_GET['get_id'];
@@ -8,6 +9,19 @@ if (isset($_GET['get_id'])) {
     header('Location: ../index.php');
     exit();
 }
+
+$usuarioDAO = new UsuarioDAO();
+
+if (isset($_SESSION["id_usuario"])) {
+    $usuarioLogado = $_SESSION["nickname_usu"];
+    $id_usuarioLogado = $_SESSION["id_usuario"];
+    $id_perfil = $_SESSION["id_perfil"];
+} else {
+    $usuarioLogado = "";
+    header("Location: login.php?msg=Usuário não encontrado");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
