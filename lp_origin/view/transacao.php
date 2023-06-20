@@ -78,76 +78,81 @@ if (isset($_SESSION["id_usuario"])) {
                 </div>
             </div>
             <div class="item-detalhe">
-                <h2>Detalhes Item:</h2>
-                <?php 
-                    $total_itens = 0;
-                    if (isset($_GET['id_item'])) {
-                        $id_item = $_GET['id_item'];
-                        $itemFetch = $itemDAO->obterItemCarPorId($id_item);
-                        if ($itemFetch) {
-                ?>
-                <form action="../control/item_transacao_control.php" method="POST">
-                    <input type="hidden" name="preco_item" value="<?= $itemFetch->getPreco_item() ?>">
-                    <input type="hidden" name="qtd_compra" value="1">
-                    <input type="hidden" name="id_perfil" value="<?= $id_perfil ?>">
-                    <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado ?>">
-                    <div class="flex">
-                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>" class="image">
-                        <div>
-                            <h2><?= $itemFetch->getNome_item() ?></h2>
-                            <?php
-                            if($id_perfil == 4){
-                                echo '<p>Quantidade: '.$itemFetch->getQtd_item().'</p>';
-                            }
-                            ?>
-                            <p class="price"><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item()?> x 1</p>
-                        </div>    
-                    </div>
-                    <?php 
-                        }
-                    } else {
-                        if (isset($_SESSION["id_usuario"])) {
-                            $carrinhoData = $carrinhoDAO->obterItemCarPorUsuarioID($_SESSION["id_usuario"]);
-                            if ($carrinhoData) {
-                                foreach ($carrinhoData as $carrinhoFetch) {
-                                    $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());                                  
-                                    if ($itemFetch) {
-                                        $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item());
-                                        $total_itens += $sub_total;
-                                        ?>
-                    <div class="flex">
-                        <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>" class="image">
-                        <h3><?= $itemFetch->getNome_item() ?></h3>
-                        <div>
-                            <p class="price">
-                                <i class="fas fa-brazilian-real-sign"></i> <?= $carrinhoFetch->getPreco() ?> x <?= $carrinhoFetch->getQtd_compra() ?>
-                            </p>
-                        </div>
-                    </div>
-                    <?php
-                                    } else {
-                                        echo '<p>Item não encontrado</p>';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    ?>
-                    <div class="grand-total">
-                        <h3>VALOR TOTAL:</h3>
-                        <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $total_itens ?></strong></h3>
-                    </div>
+    <h2>Detalhes Item:</h2>
+    <?php
+    $total_itens = 0;
+
+    if (isset($_GET['id_item'])) {
+        $id_item = $_GET['id_item'];
+        $itemFetch = $itemDAO->obterItemCarPorId($id_item);
+
+        if ($itemFetch) {
+            ?>
+            <form action="../control/item_transacao_control.php" method="POST">
+                <input type="hidden" name="preco_item" value="<?= $itemFetch->getPreco_item() ?>">
+                <input type="hidden" name="qtd_compra" value="1">
+                <input type="hidden" name="id_perfil" value="<?= $id_perfil ?>">
+                <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado ?>">
+                <div class="flex">
+                    <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>" class="image">
                     <div>
-                        <select name="tipo_pagamento" id="">
-                            <option value="PIX">PIX</option>
-                            <option value="Boleto">Boleto</option>
-                            <option value="cc">Cartão de Crédito</option>
-                            <option value="cd">Cartão de Débito</option>
-                        </select>
-                        <input type="submit" value="Finalizar Compra">
+                        <h2><?= $itemFetch->getNome_item() ?></h2>
+                        <?php
+                        if ($id_perfil == 4) {
+                            echo '<p>Quantidade: ' . $itemFetch->getQtd_item() . '</p>';
+                        }
+                        ?>
+                        <p class="price"><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?> x 1</p>
                     </div>
-                </form>
-            </div>
+                </div>
+            <?php
+            }
+        }else {
+        if (isset($_SESSION["id_usuario"])) {
+            $carrinhoData = $carrinhoDAO->obterItemCarPorUsuarioID($_SESSION["id_usuario"]);
+
+            if ($carrinhoData) {
+                foreach ($carrinhoData as $carrinhoFetch) {
+                    $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
+
+                    if ($itemFetch) {
+                        $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item());
+                        $total_itens += $sub_total;
+                        ?>
+                        <div class="flex">
+                            <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>" class="image">
+                            <h3><?= $itemFetch->getNome_item() ?></h3>
+                            <div>
+                                <p class="price">
+                                    <i class="fas fa-brazilian-real-sign"></i> <?= $carrinhoFetch->getPreco() ?> x <?= $carrinhoFetch->getQtd_compra() ?>
+                                </p>
+                            </div>
+                        </div>
+                        <?php
+                    } else {
+                        echo '<p>Item não encontrado</p>';
+                    }
+                }
+            }
+        }
+    }
+    ?>
+    <div class="grand-total">
+        <h3>VALOR TOTAL:</h3>
+        <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $total_itens ?></strong></h3>
+    </div>
+    <div>
+        <select name="tipo_pagamento" id="">
+            <option value="">SELECIONA UMA FORMA DE PAGAMENTO</option>
+            <option value="PIX">PIX</option>
+            <option value="Boleto">Boleto</option>
+            <option value="cc">Cartão de Crédito</option>
+            <option value="cd">Cartão de Débito</option>
+        </select>
+        
+    </div>
+    </form>
+</div>
         </div>
     </section>
 </body>
