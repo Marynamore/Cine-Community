@@ -74,14 +74,15 @@ footer {
   text-align: center;
 }
 
-.compraritem{
+.compraritem, .submit{
   background-color: #08ef;
   text-decoration: none;
   padding: 5px;
   border-radius: 10px;
   color: #fff;
+  font-size: 20px;
 }
 
-.compraritem:hover{
+.compraritem:hover, .submit:hover{
   color: black;
 }

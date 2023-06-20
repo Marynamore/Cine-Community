@@ -94,7 +94,7 @@ if ($itemFetch) {
             <p>Quantidade em Estoque: <?= $itemFetch->getQtd_item() ?></p>
             <p>Quantidade para Compra: <input type="number" name="qtd_compra" required min="1" max="99" maxlength="2"></p>
           </div><br>
-          <input type="submit" name="item_adicionado" value="Adicionar" class="submit">
+          <input type="submit" name="item_adicionado" value="Adicionar Carrinho" class="submit">
           <a class="compraritem" href="transacao.php?id_item=<?= $itemFetch->getId_item() ?>">Comprar</a>
         </div>
       </section>

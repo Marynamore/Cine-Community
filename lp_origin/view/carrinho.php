@@ -63,7 +63,9 @@ if (isset($_SESSION["id_usuario"])) {
                                 <button type="submit" name="atualizar_car"class="fas fa-edit"></button>
                             </div>
                             <p class="sub-total">Subtotal: <span><i class="fas fa-brazilian-real-sign"></i> <?= $sub_total = ($carrinhoFetch->getQtd_compra() * $itemFetch->getPreco_item()); ?></span></p>
-                            <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');">
+                            <center>
+                            <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');" class="alterar_input">
+                            </center>
                         </form>
                         <?php
                         $total_itens += $sub_total;
@@ -81,9 +83,11 @@ if (isset($_SESSION["id_usuario"])) {
             <div class="total">
                 <p>Total Itens: <span><i class="fas fa-brazilian-real-sign"></i> <?= $total_itens; ?></span></p>
                 <form action="../control/esvaziar_car.php" method="POST">
-                    <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');">
+                    <center>
+                    <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');" class="alterar_input">
+                    <button><a href="transacao.php" class="alterar">Comprar</a></button>
+                    </center>
                 </form>
-                <button><a href="transacao.php" class="btn">Comprar</a></button>
             </div>
         <?php } ?>
     </section>

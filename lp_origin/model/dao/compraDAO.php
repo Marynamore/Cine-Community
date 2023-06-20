@@ -9,13 +9,13 @@ class CompraDAO {
         $this->pdo = Conexao::getInstance();
     }
    
-    public function adicionarCompra($id_usuario, $qtd_compra, $preco_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil) {
+    public function adicionarCompra($id_usuario, $qtd_compra, $preco_compra, $status_compra, $method, $id_item, $id_perfil) {
         try {
             $sql = "INSERT INTO compra (fk_id_usuario, qtd_compra, preco_compra, status_compra, tipo_pagamento, fk_id_item, fk_id_perfil) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";
             
             $compraFetch = $this->pdo->prepare($sql);
-            $compraFetch->execute([$id_usuario, $qtd_compra, $preco_compra, $status_compra, $tipo_pagamento, $id_item, $id_perfil]);
+            $compraFetch->execute([$id_usuario, $qtd_compra, $preco_compra, $status_compra, $method, $id_item, $id_perfil]);
             return $compraFetch;
         } catch (PDOException $e) {
             echo "Erro ao adicionar a compra no banco de dados: " . $e->getMessage();
@@ -116,4 +116,3 @@ class CompraDAO {
     }
 
 }
-

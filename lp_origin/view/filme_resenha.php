@@ -62,7 +62,7 @@ if (isset($_SESSION["id_usuario"])) {
     <header class="header">
         <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
-            <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
+            <a href="../index.php" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
             <?php
                 if (!empty($usuarioLogado)) {
                     if ($id_perfil == 3 || $id_perfil == 4) {

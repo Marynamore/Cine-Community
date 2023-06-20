@@ -88,7 +88,7 @@ $usuarioFetch = $usuarioDAO->dadosUsuarioPorId($id_perfil);
             <p class="grand-total">Valor Total : <span><i class="fas fa-brazilian-real-sign"></i><?= $total_itens?></span></p>
         </div>
       <div class="col">
-         <p>Informações do Colecionador</p>
+         <h2>Informações do Colecionador</h2>
          <p class="user"><i class="fas fa-user"></i><?= $usuarioFetch['nome_usu']?></p>
          <p class="user"><i class="fas fa-phone"></i><?= $usuarioFetch['telefone']?></p>
          <p class="user"><i class="fas fa-envelope"></i><?= $usuarioFetch['email_usu']?></p>
@@ -99,7 +99,7 @@ $usuarioFetch = $usuarioDAO->dadosUsuarioPorId($id_perfil);
             <a href="transacao.php?id_item=<?= $itemFetch->getId_item(); ?>" class="btn">Comprar Novamente</a>
          <?php }else{ ?>
          <form action="cancelar_pedido.php" method="POST">
-            <input type="submit" value="Cancelar Pedido" name="cancelar_pedido" onclick="return confirm('Deseja cancelar o pedido?')" class="delete-btn">
+            <input type="submit" value="Cancelar Pedido" name="cancelar_pedido" onclick="return confirm('Deseja cancelar o pedido?')" class="alterar_input">
          </form>
          <?php } ?>
       </div>

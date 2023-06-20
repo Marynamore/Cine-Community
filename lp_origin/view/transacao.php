@@ -74,7 +74,7 @@ if (isset($_SESSION["id_usuario"])) {
                     <p><strong>Cidade:</strong> <?= $usuario->getCidade()?></p>
                     <p><strong>CEP:</strong> <?= $usuario->getCep()?></p>
                     <p><strong>UF:</strong> <?= $usuario->getUF()?></p>
-                    <button><a href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" target="_blank">ALTERAR</a></button>
+                    <button><a href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>" class="alterar_input">ALTERAR</a></button>
                 </div>
             </div>
             <div class="item-detalhe">
@@ -99,7 +99,7 @@ if (isset($_SESSION["id_usuario"])) {
                         <h2><?= $itemFetch->getNome_item() ?></h2>
                         <?php
                         if ($id_perfil == 4) {
-                            echo '<p>Quantidade: ' . $itemFetch->getQtd_item() . '</p>';
+                            echo '<p class="price">Quantidade: ' . $itemFetch->getQtd_item() . '</p><br>';
                         }
                         ?>
                         <p class="price"><i class="fas fa-brazilian-real-sign"></i> <?= $itemFetch->getPreco_item() ?> x 1</p>
@@ -120,8 +120,8 @@ if (isset($_SESSION["id_usuario"])) {
                         $total_itens += $sub_total;
                         ?>
                         <div class="flex">
+                            <p class="h2"><?= $itemFetch->getNome_item() ?></p>
                             <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item() ?>" class="image">
-                            <h3><?= $itemFetch->getNome_item() ?></h3>
                             <div>
                                 <p class="price">
                                     <i class="fas fa-brazilian-real-sign"></i> <?= $carrinhoFetch->getPreco() ?> x <?= $carrinhoFetch->getQtd_compra() ?>
@@ -142,14 +142,14 @@ if (isset($_SESSION["id_usuario"])) {
         <h3><i class="fas fa-brazilian-real-sign"></i> <strong><?= $total_itens ?></strong></h3>
     </div>
     <div>
-        <select name="tipo_pagamento" id="">
-            <option value="">SELECIONA UMA FORMA DE PAGAMENTO</option>
+        <select name="tipo_pagamento" class="select">
+            <option value="">FORMA DE PAGAMENTO</option>
             <option value="PIX">PIX</option>
             <option value="Boleto">Boleto</option>
             <option value="cc">Cartão de Crédito</option>
             <option value="cd">Cartão de Débito</option>
         </select>
-        <input type="submit" value="Finalizar Compra">
+        <input type="submit" value="Finalizar Compra" class="alterar_input">
     </div>
     </form>
 </div>
