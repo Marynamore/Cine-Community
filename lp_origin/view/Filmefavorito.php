@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once '../model/dao/UsuarioDAO.php';
-require_once '../model/dao/FilmeDAO.php';
-require_once '../model/dao/FavoritoDAO.php';
+require_once '../model/dao/filmeDAO.php';
+require_once '../model/dao/favoritoDAO.php';
 
 if (isset($_GET['get_id'])) {
     $get_id = $_GET['get_id'];

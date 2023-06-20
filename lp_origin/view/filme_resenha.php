@@ -15,8 +15,14 @@ $FilmeDAO = new FilmeDAO();
 $ResenhaDAO = new ResenhaDAO();
 $UsuarioDAO = new UsuarioDAO();
 
-$nickname_usu = isset($_SESSION["nickname_usu"]) ? $_SESSION["nickname_usu"] : '';
-$id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
+if (isset($_SESSION["id_usuario"])) {
+    $usuarioLogado = $_SESSION["nickname_usu"];
+    $id_usuarioLogado = $_SESSION["id_usuario"];
+    $id_perfil = $_SESSION["id_perfil"];
+} else {
+    $usuarioLogado = "";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -57,8 +63,17 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
         <a href="../index.php" class="logo"><img src="../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">
             <a href="#" style="-i:2;"><i class="fa-solid fa-house"></i>INICIO</a>
-            <a href="../view/cadastro.php" style="-i:3;"><i class="fa-solid fa-user"></i>CADASTRO</a>
-            <a href="../view/login.php" style="-i:4;"><i class="fa-solid fa-user"></i><?= $nickname_usu; ?></a>
+            <?php
+                if (!empty($usuarioLogado)) {
+                    if ($id_perfil == 3 || $id_perfil == 4) {
+                        echo '<a href="./view/perfil_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
+                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+                    }
+                } else {
+                    echo '<a href="./view/cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
+                    echo '<a href="./view/login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
+                }
+                ?>
         </nav>
     </header>
     <div id="all">
