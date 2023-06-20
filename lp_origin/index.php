@@ -58,7 +58,6 @@ if (isset($_SESSION['msg'])) {
                     echo '<a href="./view/login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
                 }
                 ?>
-                <!-- Resto do conteúdo -->
     </div>
     </nav>
 

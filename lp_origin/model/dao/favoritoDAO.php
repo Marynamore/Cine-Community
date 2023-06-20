@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../conexao.php';
-require_once __DIR__ . '/../dto/FavoritoDTO.php';
+require_once __DIR__ . '/../dto/favoritoDTO.php';
 
 class FavoritoDAO {
     private $pdo;
@@ -10,8 +10,7 @@ class FavoritoDAO {
         $this->pdo = Conexao::getInstance();
     }
 
-    public function verificarFavorito(FavoritoDTO $favoritoDTO)
-{
+    public function verificarFavorito(FavoritoDTO $favoritoDTO){
     try {
         $id_usuario = $favoritoDTO->getFk_id_usuario();
         $id_filme = $favoritoDTO->getFk_id_filme();

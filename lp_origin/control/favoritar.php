@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once '../model/dao/UsuarioDAO.php';
-require_once '../model/dao/FilmeDAO.php';
-require_once '../model/dao/FavoritoDAO.php';
-require_once '../model/dto/FavoritoDTO.php';
+require_once '../model/dao/filmeDAO.php';
+require_once '../model/dao/favoritoDAO.php';
+require_once '../model/dto/favoritoDTO.php';
 
 $usuarioDAO = new UsuarioDAO();
 $filmeDAO = new FilmeDAO();
@@ -43,7 +43,7 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
             }
 
             // Redireciona para a página inicial
-            header("Location: ../index.php");
+            header("Location: ../view/Filmefavorito.php");
             exit();
         } else {
             $_SESSION['msg'] = "Filme não encontrado.";
