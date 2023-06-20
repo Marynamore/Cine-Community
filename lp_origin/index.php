@@ -143,7 +143,12 @@ if (isset($_POST['nome_filme'])) {
                       $id_filme = $filmeFetch['id_filme'];
                       $favoritoDTO = new FavoritoDTO();
                       $favoritoDTO->setFk_id_filme($id_filme);
-                      $favoritoDTO->setFk_id_usuario($_SESSION['id_usuario']);
+                      if (isset($_SESSION['id_usuario'])) {
+                        $favoritoDTO->setFk_id_usuario($_SESSION['id_usuario']);
+                    } else {
+                        // Defina um valor padrão ou faça outra ação apropriada
+                        $favoritoDTO->setFk_id_usuario(0); // Por exemplo, 0 indica que o usuário não está logado
+                    }
                       $isFavorito = $favoritoDAO->verificarFavorito($favoritoDTO);
                       ?>
                       <div class="filme-item">

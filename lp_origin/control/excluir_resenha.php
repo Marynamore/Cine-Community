@@ -10,5 +10,5 @@ $msg = ($retorno) ? "Resenha excluído com sucesso!" : "Erro ao excluir a Resenh
     $msg = "ID do Resenha não fornecido";
 }
 
-header("Location: ../view/filme_resenha.php?msg=" . urlencode($msg));
+header("Location: ../index.php?msg=" . urlencode($msg));
 

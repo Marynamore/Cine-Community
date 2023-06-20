@@ -112,7 +112,8 @@ $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '';
                     <?php
                     if ($id_usuario == $resenha->getFk_id_usuario()) {
                         echo '<a href="./alterar_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha">Editar</a>';
-                        echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm("Deseja esvaziar o seu carrinho?");">Excluir</a>';
+                        echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm(\'Quer deletar essa Resenha?\');">Excluir</a>';
+
                     }
                     ?>
                     <button class="modal-link" onclick="openModal('modal-denunciar', <?php echo $resenha->getId_resenha(); ?>)">

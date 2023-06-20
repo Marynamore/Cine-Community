@@ -5,7 +5,7 @@ require_once '../model/dao/UsuarioDAO.php';
 
 $usuarioDAO = new UsuarioDAO();
 
-if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
+if (isset($_SESSION["id_usuario"])) {
     $id_perfil = $_SESSION["id_perfil"];
     $id = $_SESSION["id_usuario"];
 
@@ -39,12 +39,11 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
                     <?php } ?>
                     <p><strong>Nome:</strong> <?= $usuario->getNome_usu() ?></p>
                     <p><strong>Nickname:</strong> <?= $usuario->getNickname_usu() ?></p>
-                    <p><strong>Genero:</strong> <?= $usuario->getGenero_usu() ?></p>
+                    <p><strong>Gênero:</strong> <?= $usuario->getGenero_usu() ?></p>
                     <p><strong>Data de Nascimento:</strong> <?= $usuario->getDt_de_nasci_usu() ?></p>
                     <p><strong>Telefone:</strong> <?= $usuario->getTelefone() ?></p>
                     <p><strong>Email:</strong> <?= $usuario->getEmail_usu() ?></p>
                     <p><strong>CPF ou CNPJ:</strong> <?= $usuario->getCpf_cnpj() ?></p>
-                    <p><strong>Telefone:</strong> <?= $usuario->getTelefone() ?></p>
                 </fieldset>
                 <fieldset>
                     <legend>Endereço</legend>
@@ -57,7 +56,8 @@ if (isset($_SESSION["id_usuario"]) && $_SESSION["id_usuario"] !== null) {
                     <p><strong>UF:</strong> <?= $usuario->getUF() ?></p>
                 </fieldset>
                 <button><a class="alterar" href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>">ALTERAR</a></button>
-                <button><a class="alterar" href="../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>">EXCLUIR</a></button>
+                <button><a class="alterar" href="../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>" onclick="return confirm('Tem certeza de que deseja excluir o usuário?')">EXCLUIR</a></button>
+
             </div>
         </div>
     </div>
