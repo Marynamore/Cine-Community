@@ -21,20 +21,40 @@ if (isset($_SESSION["id_usuario"])) {
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="../css/stylecadastrar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cadastrar</title>
-    <script>
-        function funCad() {
-            alert("Seu Cadastro foi concluído com sucesso.");
-        }
-    </script>
-
-
 </head>
 
 <body>
     <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
     <center>
         <div class="container">
+            <?php
+                # Verifica se existe uma mensagem de erro enviada via GET
+                if (isset($_GET['error'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao cadastrar Usuario!',
+                            text: '<?= $_GET['error'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                # Verifica se existe uma mensagem de sucesso enviada via GET
+                elseif (isset($_GET['success'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Usuário cadastrado com sucesso!',
+                            text: '<?= $_GET['success'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                ?>
             <form id="contact" action="../control/cadastro_control.php" method="post" enctype="multipart/form-data">
                 <h3>Cadastro</h3>
 

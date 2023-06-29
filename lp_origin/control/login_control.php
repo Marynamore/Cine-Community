@@ -31,3 +31,4 @@ if (!empty($usuarioLogado)) {
     header("Location:../index.php?msg=Usuário e/ou senha inválidos");
     exit;
 }
+

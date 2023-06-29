@@ -43,11 +43,38 @@ $qtd_item = $item->getQtd_item();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/formulariofilme.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Alterar item</title>
 </head>
 
 <body>
     <button onclick="javascript:history.go(-1)" class="botao">Voltar</button>
+    <?php
+                # Verifica se existe uma mensagem de erro enviada via GET
+                if (isset($_GET['error'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao Alterar Item!',
+                            text: '<?= $_GET['error'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                # Verifica se existe uma mensagem de sucesso enviada via GET
+                elseif (isset($_GET['success'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Item Alterado com sucesso!',
+                            text: '<?= $_GET['success'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                ?>
     <h1>Alterar item</h1>
     <center>
         <div class="container">

@@ -21,6 +21,7 @@ if ($id_perfil == "moderador") {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../css/formulariofilme.css">
     </head>
     <title>Cadastrar filme</title>
@@ -28,6 +29,32 @@ if ($id_perfil == "moderador") {
 <a href="../view/dashboard/painel_moderador.php"><input type="submit" value="Voltar"></a>
 <h1>Cadastrar filme</h1>
 <div class="container">
+<?php
+                # Verifica se existe uma mensagem de erro enviada via GET
+                if (isset($_GET['error'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao cadastrar Filme!',
+                            text: '<?= $_GET['error'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                # Verifica se existe uma mensagem de sucesso enviada via GET
+                elseif (isset($_GET['success'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Filme cadastrado com sucesso!',
+                            text: '<?= $_GET['success'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                ?>
     <form action="../control/control_filme.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="fk_id_usuario" value="<?= $id_usuario; ?>">
         <input type="hidden" name="fk_id_perfil" value="<?= $id_perfil; ?>">

@@ -15,6 +15,7 @@ if (isset($_SESSION["id_usuario"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/stylecadastrar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Alterar usuário</title>
 </head>
 
@@ -32,6 +33,32 @@ if (isset($_SESSION["id_usuario"])) {
         if ($usuario != null) {
     ?>
           <button class="botao"><a href="../index.php">Voltar</a></button>
+          <?php
+                # Verifica se existe uma mensagem de erro enviada via GET
+                if (isset($_GET['error'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao Alterar Usuario!',
+                            text: '<?= $_GET['error'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                # Verifica se existe uma mensagem de sucesso enviada via GET
+                elseif (isset($_GET['success'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Usuário Alterado com sucesso!',
+                            text: '<?= $_GET['success'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                ?>
             <center>
                 <h1>Alterar usuário</h1>
                 <form action="../control/control_alterar_usuario.php" method="POST">

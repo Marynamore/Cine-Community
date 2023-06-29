@@ -44,6 +44,7 @@ if ($get_id) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/formulariofilme.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Alterar filme</title>
 </head>
 
@@ -52,6 +53,32 @@ if ($get_id) {
     <h1>Alterar filme</h1>
     <center>
     <div class="container">
+    <?php
+                # Verifica se existe uma mensagem de erro enviada via GET
+                if (isset($_GET['error'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao Alterar Usuario!',
+                            text: '<?= $_GET['error'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                # Verifica se existe uma mensagem de sucesso enviada via GET
+                elseif (isset($_GET['success'])) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Usuário Alterado com sucesso!',
+                            text: '<?= $_GET['success'] ?>',
+                        });
+                    </script>
+                <?php
+                }
+                ?>
         <form action="../control/control_alterar_filme.php" method="post">
             <input type="hidden" name="id_filme" value="<?= $id_filme; ?>">
             <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado; ?>">

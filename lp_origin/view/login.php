@@ -10,9 +10,37 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Login - Cine Community </title>
 </head>
 <body>
+    <?php
+        # Verifica se existe uma mensagem de erro enviada via GET
+        if (isset($_GET['error'])) {
+        ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    text: '<?= $_GET['error'] ?>',
+                });
+            </script>
+        <?php
+        }
+        # Verifica se existe uma mensagem de sucesso enviada via GET
+        elseif (isset($_GET['success'])) {
+        ?>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso',
+                    text: '<?= $_GET['success'] ?>',
+                });
+            </script>
+        <?php
+        }
+        ?>
+
     <header class="header" >
         <a href="../index.php" class="logo"><img src="../assets/logologin.png" alt="index.php"></a>
         <nav class="navbar" style="-i:1;">

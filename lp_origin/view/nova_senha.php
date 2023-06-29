@@ -13,6 +13,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="16x16" href="../DecoLivre/lp/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../DecoLivre/lp/site.webmanifest">
     <link rel="stylesheet" href="../../lp/css/styleLogin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cine Community|Nova Senha</title>
 </head>
 <body>

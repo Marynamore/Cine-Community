@@ -24,7 +24,7 @@ if (isset($_SESSION["id_usuario"])) {
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/perfil_usuario.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <button onclick="javascript:history.go(-1)" class="alterar">Voltar</button>

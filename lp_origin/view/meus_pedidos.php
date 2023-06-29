@@ -35,6 +35,7 @@ $compras = $compraDAO->obterComprasPorUsuario($id_usuarioLogado);
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Meus Pedidos</title>
     <link rel="stylesheet" href="../css/pedidos.css">
 </head>
