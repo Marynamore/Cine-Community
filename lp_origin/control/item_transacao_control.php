@@ -42,9 +42,6 @@ if (isset($_GET['id_item']) && isset($_POST['tipo_pagamento'])) {
     } else {
         echo 'Carrinho vazio!';
     }
-    '<pre>';
-    var_dump($compraDAO);
-    '</pre>';
 }
 if ($compraFetch) {
         header('Location: ../view/meus_pedidos.php');
