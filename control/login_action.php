@@ -22,12 +22,13 @@ if (!empty($usuarioLogado)) {
     $id_perfil = $_SESSION['id_perfil'];
 
     if (in_array($id_perfil, [2, 3, 4])) {
-        header('Location:../index.php');
-        exit();
+        header('Location:../index.php?msg=success&action=login');
+        exit;
     } elseif(in_array($id_perfil, [1])) {
-        header('Location:../view/dashboard/painel_adm.php');
+        header('Location:../view/dashboard/painel_adm.php?msg=success&action=login');
+        exit;
     }
 } else {
-    header("Location:../index.php?msg=Usuário e/ou senha inválidos");
+    header("Location:../index.php?msg=error&action=login");
     exit;
 }

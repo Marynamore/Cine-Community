@@ -1,4 +1,5 @@
 <?php
+
 require_once "../model/dao/filmeDAO.php";
 $id_filme = $_GET["id"];
 $FilmeDAO = new FilmeDAO();

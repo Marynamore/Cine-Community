@@ -30,12 +30,17 @@ $ResenhaDTO->setId_resenha($id_resenha);
 
 
 $resenhaDAO = new ResenhaDAO();
-    $success = $resenhaDAO->alterarResenha($ResenhaDTO);
+$success = $resenhaDAO->alterarResenha($ResenhaDTO);
 
-    if ($success) {
-        $msg = "Resenha alterado com sucesso!";
+if ($success) {
+    if($id_perfil = $_SESSION["id_perfil"]){
+        header("Location: ../view/filme_resenha.php?msg=success&action=alterarRes");
+        exit;
     } else {
-        $msg = "Erro ao alterar a resenha";
+        header("Location: ../view/filme_resenha.php?msg=error&action=alterarRes");
+        exit;
     }
-
-header("Location: ../view/filme_resenha.php?msg=" . urlencode($msg));
+}else {
+    header("Location: ../view/filme_resenha.php?msg=error&action=alterarRes");
+    exit;
+}

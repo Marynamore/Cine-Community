@@ -20,7 +20,8 @@ $cep = filter_input(INPUT_POST, 'cep');
 $uf = filter_input(INPUT_POST, 'uf');
 $id_perfil = isset($_POST['fk_id_perfil']) ? $_POST['fk_id_perfil'] : null;
 $foto_usu = $_FILES['foto_usu'];
-// Verifica se o campo de upload de arquivo foi enviado e se não há erros
+
+
 if ($foto_usu['error'] === UPLOAD_ERR_OK){
     $nome_arquivo = $foto_usu['name'];
     $caminho_temporario = $foto_usu['tmp_name'];
@@ -29,7 +30,6 @@ if ($foto_usu['error'] === UPLOAD_ERR_OK){
 
     
 $usuarioDTO = new UsuarioDTO();
-
 $usuarioDTO->setNome_usu($nome_usu);
 $usuarioDTO->setNickname_usu($nickname_usu);
 $usuarioDTO->setDt_de_nasci_usu($dt_de_nasci_usu);
@@ -50,16 +50,23 @@ $usuarioDTO->setFk_id_perfil($id_perfil);
 
 
 $usuarioDAO = new UsuarioDAO();
-$usuarioDAO->cadastrarUsuario($usuarioDTO);
+$cadastro_success = $usuarioDAO->cadastrarUsuario($usuarioDTO);
 
-if ($usuarioDAO) {
-    header("Location: ../view/login.php");
-    exit;
+if ($cadastro_success) {
+    $id_perfil = $_SESSION["id_perfil"];
+
+    if (in_array($id_perfil, [2, 3])) {
+        header("location:../index.php?msg=success&action=cadastro");
+        exit;
+    } elseif (in_array($id_perfil, [1])) {
+        header("location:../view/dashboard_adm.php?msg=success&action=cadastro");
+        exit;
+    }
 } else {
-    header("Location: ../view/cadastro.php");
+    header("Location: ../view/cadastro.php?msg=error&action=cadastro");
     exit;
 }
 
- }
+}
 
 ?>
