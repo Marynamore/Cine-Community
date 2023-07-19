@@ -18,14 +18,21 @@ if (!empty($usuarioLogado)) {
     $_SESSION['id_perfil'] = $usuarioLogado['fk_id_perfil'];
 
 
-
     $id_perfil = $_SESSION['id_perfil'];
 
-    if (in_array($id_perfil, [2, 3, 4])) {
-        header('Location:../index.php?msg=success&action=login');
+    if (in_array($id_perfil, [1])) {
+        header("location:../view/dashboard/painel_adm.php?msg=success&action=login");
         exit;
-    } elseif(in_array($id_perfil, [1])) {
-        header('Location:../view/dashboard/painel_adm.php?msg=success&action=login');
+    } elseif (in_array($id_perfil, [2])) {
+        header("location:../view/dashboard/painel_moderador.php?msg=success&action=login");
+        exit;
+    } elseif (in_array($id_perfil, [3])){
+        header("location:../view/dashboard/painel_colecionador.php?msg=success&action=login");
+    } elseif (in_array($id_perfil, [4])){
+        header("location:../index.php?msg=success&action=login");
+        exit;
+    }else{
+        header("Location: ../view/cadastro.php?msg=warning&action=login");
         exit;
     }
 } else {

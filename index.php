@@ -98,11 +98,11 @@ if (isset($_SESSION["id_usuario"])) {
                     if ($_GET['action'] === 'perfil') {
                         $mensagem = 'OPS! É necessário fazer Login';
                     } elseif ($_GET['action'] === 'alterar') {
-                        $mensagem = 'OPS! Erro ao altera Usuário!';
+                        $mensagem = 'OPS! Algo deu errado ao altera Usuário!';
                     } elseif ($_GET['action'] === 'cadastro') {
-                        $mensagem = 'OPS! Erro ao cadastar Usuário!';
+                        $mensagem = 'OPS! Algo deu errado ao cadastar Usuário!';
                     }elseif ($_GET['action'] === 'excluir') {
-                        $mensagem = 'OPS! Erro ao excluir Usuário!';
+                        $mensagem = 'OPS! Algo deu errado ao excluir Usuário!';
                     } else {
                         // Valor não esperado em $_GET['msg']
                         $tipo = 'error';

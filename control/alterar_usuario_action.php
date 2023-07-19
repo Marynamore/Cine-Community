@@ -58,10 +58,10 @@ if ($foto_usu['error'] === UPLOAD_ERR_OK){
     $UsuarioDTO->setFk_id_perfil($id_perfil);
     
     $UsuarioDAO = new UsuarioDAO();
-    $success = $UsuarioDAO->alterarUsuario($UsuarioDTO);
+    $caminho = $UsuarioDAO->alterarUsuario($UsuarioDTO);
 
 
-    if ($success) {
+    if ($caminho) {
         $id_perfil = $_SESSION["id_perfil"];
 
         if(in_array($id_perfil,[1])){
@@ -72,12 +72,17 @@ if ($foto_usu['error'] === UPLOAD_ERR_OK){
             exit;
         } elseif (in_array($id_perfil,[3])) {
             header("Location: ../view/dashboard/painel_colecionador.php?msg=success&action=alterar");
+            exit;
         } elseif (in_array($id_perfil,[4])) {
             header("Location: ../index.php?msg=success&action=alterar");
+            exit;
         }
+    }else{
+        header("location:../index.php?msg=warning&action=alterar");
+        exit;
     }
 }
 } else {
-    // Redirecionar para a página do administrador com mensagem de erro
-    header("location:../view/dashboard/listausuarioadm.php?msg=error&action=alterar");
+    header("location:../index.php?msg=error&action=alterar");
+    exit;
 }
