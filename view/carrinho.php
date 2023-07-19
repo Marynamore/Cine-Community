@@ -52,7 +52,7 @@ if (isset($_SESSION["id_usuario"])) {
                     $itemFetch = $itemDAO->obterItemCarPorId($carrinhoFetch->getFk_id_item());
                     if ($itemFetch) {
                         ?>
-                        <form action="../control/deleta_atualiza.php" method="POST" class="item-box">
+                        <form action="../control/excluir_atualizar_car.php" method="POST" class="item-box">
                             <input type="hidden" name="id_carrinho" value="<?= $carrinhoFetch->getId_carrinho() ?>">
                             <input type="hidden" name="dt_hora_car" value="<?= date('d-m-y H:i:s');?>">
                             <img src="../assets/imagensprodutos/<?= $itemFetch->getImagem_item()?>" class="image">

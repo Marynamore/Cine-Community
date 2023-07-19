@@ -52,7 +52,7 @@ if ($get_id) {
     <h1>Alterar filme</h1>
     <center>
     <div class="container">
-        <form action="../control/control_alterar_filme.php" method="post">
+        <form action="../control/alterar_filme_action.php" method="post">
             <input type="hidden" name="id_filme" value="<?= $id_filme; ?>">
             <input type="hidden" name="id_usuario" value="<?= $id_usuarioLogado; ?>">
             <input type="hidden" name="id_perfil" value="<?= $id_perfil; ?>">

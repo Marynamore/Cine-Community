@@ -43,7 +43,7 @@ if (isset($_SESSION["id_usuario"])) {
     <center>
         <section class="container">
             <h1>RESENHA</h1>
-            <form action="../control/resenha_control.php" method="post">
+            <form action="../control/cadastro_resenha_action.php" method="post">
                 <br>
                 <h2>TÍTULO</h2>
                 <input type="text" name="titulo_res" class="titulo" required>

@@ -98,7 +98,7 @@ $usuarioFetch = $usuarioDAO->dadosUsuarioPorId($id_perfil);
          <?php if($compraFetch['status_compra'] == 'Cancelada'){ ?>
             <a href="transacao.php?id_item=<?= $itemFetch->getId_item(); ?>" class="btn">Comprar Novamente</a>
          <?php }else{ ?>
-         <form action="cancelar_pedido.php" method="POST">
+         <form action="cancelar_pedido_action.php" method="POST">
             <input type="submit" value="Cancelar Pedido" name="cancelar_pedido" onclick="return confirm('Deseja cancelar o pedido?')" class="alterar_input">
          </form>
          <?php } ?>

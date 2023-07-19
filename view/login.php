@@ -29,7 +29,7 @@
             <h1>As melhores resenhas da comunidade estão aqui!</h1>
           <img src="../assets/pngwing.com.png" class="left-login-image" alt="Cadastro">
         </div>
-        <form action="../control/login_control.php" method="post">
+        <form action="../control/login_action.php" method="post">
             <div class="right-login">
                 <div class="card-login">
                 <br>

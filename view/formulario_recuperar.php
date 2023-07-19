@@ -19,7 +19,7 @@ session_start()
 <center>
     
 <div class="main-login">
-    <form action="../control/recuperarsenha.php" method="POST" class="card-login">
+    <form action="../control/recuperar_senha.php" method="POST" class="card-login">
         <h1 class="titulo">Recuperar Senha</h1>
         <div class="textfield">
             <?php

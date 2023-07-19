@@ -4,8 +4,6 @@ session_start();
 require_once '../model/dto/carrinhoDTO.php';
 require_once '../model/dao/carrinhoDAO.php';
 
-$carrinhoDAO = new CarrinhoDAO();
-
 if (isset($_SESSION['id_usuario']) && isset($_POST['item_adicionado'])) {
     $id_usuario = $_SESSION['id_usuario'];
     $id_item    = $_POST['id_item'];
@@ -18,6 +16,7 @@ if (isset($_SESSION['id_usuario']) && isset($_POST['item_adicionado'])) {
     $carrinhoDTO->setFk_id_perfil($id_perfil);
     $carrinhoDTO->setFk_id_item($id_item);
 
+    $carrinhoDAO = new CarrinhoDAO();
     $message = $carrinhoDAO->adicionarItemCar($id_usuario, $id_item, $qtd_compra, $id_perfil,$preco);
 
     if ($message === 'Item Adicionado ao Carrinho') {

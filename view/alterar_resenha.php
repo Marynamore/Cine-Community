@@ -54,7 +54,7 @@ if ($id_resenha) {
     <center>
         <section class="container">
             <h1>ALTERAR RESENHA</h1>
-            <form action="../control/alterar_resenha.php" method="post">
+            <form action="../control/alterar_resenha_action.php" method="post">
                 <br>
                 <h2>TÍTULO</h2>
                 <input type="text" name="titulo_res" class="titulo" value="<?= $titulo_res ?>">

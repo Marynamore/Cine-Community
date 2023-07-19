@@ -51,7 +51,7 @@ $qtd_item = $item->getQtd_item();
     <h1>Alterar item</h1>
     <center>
         <div class="container">
-            <form action="../control/control_alterar_itens.php" method="post" enctype="multipart/form-data">
+            <form action="../control/alterar_itens_action.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id_item" value="<?= $id_item; ?>">
                 <input type="hidden" name="fk_id_usuario" value="<?= $id_usuarioLogado; ?>">
                 <input type="hidden" name="fk_id_perfil" value="<?= $id_perfil; ?>">

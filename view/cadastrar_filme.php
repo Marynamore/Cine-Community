@@ -28,7 +28,7 @@ if ($id_perfil == "moderador") {
 <a href="../view/dashboard/painel_moderador.php"><input type="submit" value="Voltar"></a>
 <h1>Cadastrar filme</h1>
 <div class="container">
-    <form action="../control/control_filme.php" method="post" enctype="multipart/form-data">
+    <form action="../control/cadastro_filme_action.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="fk_id_usuario" value="<?= $id_usuario; ?>">
         <input type="hidden" name="fk_id_perfil" value="<?= $id_perfil; ?>">
         <fieldset>
