@@ -109,7 +109,7 @@ if (isset($_SESSION["id_usuario"])) {
 <section class="resenha">
     <div class="titulo">
         <h1>Resenhas:</h1>
-        <a href="resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
+        <a href="cadastrar_resenha.php?get_id=<?= $get_id; ?>" class="criar_resenha">Criar Resenha</a>
         <input type="hidden" name="fk_id_perfil" id="Usuario" value="4">
         <input type="hidden" name="fk_id_usuario" value="<?= $id_usuario; ?>">
     </div>
@@ -127,7 +127,7 @@ if (isset($_SESSION["id_usuario"])) {
                     <?php
                     if ($id_usuarioLogado == $resenha->getFk_id_usuario()) {
                         echo '<a href="./alterar_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha">Editar</a>';
-                        echo '<a href="../control/excluir_resenha.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm(\'Quer deletar essa Resenha?\');">Excluir</a>';
+                        echo '<a href="../control/excluir_resenha_action.php?id_resenha=' . $resenha->getId_resenha() . '" class="edicao_resenha" onclick="return confirm(\'Quer deletar essa Resenha?\');">Excluir</a>';
 
                     }
                     ?>

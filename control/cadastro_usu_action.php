@@ -74,7 +74,7 @@ if ($cadastrando) {
         header("location:../index.php?msg=success&action=cadastro");
         exit;
     }else{
-        header("Location: ../view/cadastro.php?msg=warning&action=cadastro");
+        header("Location: ../view/login.php?msg=warning&action=cadastro");
         exit;
     }
 } else {
