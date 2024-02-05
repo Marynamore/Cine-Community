@@ -57,7 +57,7 @@ if (isset($_SESSION["id_usuario"])) {
                     <p><strong>UF:</strong> <?= $usuario->getUF() ?></p>
                 </fieldset>
                 <button><a class="alterar" href="./alterar_usuario.php?id_usuario=<?= $usuario->getId_usuario() ?>">ALTERAR</a></button>
-                <button><a class="alterar" href="../control/excluir.php?id_usuario=<?= $usuario->getId_usuario() ?>" onclick="return confirm('Tem certeza de que deseja excluir o usuário?')">EXCLUIR</a></button>
+                <button><a class="alterar" href="../control/excluir_usuario_action.php?id_usuario=<?= $usuario->getId_usuario() ?>" onclick="return confirm('Tem certeza de que deseja excluir o usuário?')">EXCLUIR</a></button>
 
             </div>
         </div>

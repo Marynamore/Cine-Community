@@ -64,13 +64,13 @@ if (isset($_SESSION["id_usuario"])) {
                         echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 2) {
                         echo '<a href="./view/dashboard/painel_moderador.php"><i class="fa-solid fa-users"></i> PAINEL MODERADOR</a>';
-                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+                        echo '<a class="border1" href="./control/sair_usu_action.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     } elseif ($id_perfil == 3 || $id_perfil == 4) {
                         echo '<a href="./view/perfil_usuario.php?id_usuario=' . $id_usuarioLogado . '" onclick="funcPerfil()"><i class="fa-solid fa-user"></i>' . $usuarioLogado . '</a>';
-                        echo '<a class="border1" href="./control/control_sair.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
+                        echo '<a class="border1" href="./control/sair_usu_action.php" class="item_menu"><i class="fa-solid fa-right-from-bracket"></i>SAIR</a>';
                     }
                 } else {
-                    echo '<a href="./view/cadastro.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
+                    echo '<a href="./view/cadastro_usu.php"><i class="fa-solid fa-user"></i>CADASTRO</a>';
                     echo '<a href="./view/login.php"><i class="fa-solid fa-user"></i>LOGIN</a>';
                 }
                 ?>

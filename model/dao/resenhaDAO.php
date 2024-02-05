@@ -133,7 +133,7 @@ public function excluirResenhaById($id_resenha){
         }
     }
     
-    public function denunciarResenha($id_resenha, $denuncia_res) {
+    public function denunciarResenha($id_resenha, $denuncia_res, $fk_id_usuario) {
         try {
             $sql = "UPDATE resenha SET denuncia_res = denuncia_res + 1 WHERE id_resenha = ?";
             $stmt = $this->pdo->prepare($sql);
@@ -141,10 +141,11 @@ public function excluirResenhaById($id_resenha){
             $stmt->execute();
     
             // Inserir a denúncia na tabela de denúncias
-            $sqlDenuncia = "INSERT INTO resenha (id_resenha, denuncia_res) VALUES (?, ?)";
+            $sqlDenuncia = "INSERT INTO resenha (id_resenha, denuncia_res, fk_id_usuario) VALUES (?, ?, ?)";
             $stmtDenuncia = $this->pdo->prepare($sqlDenuncia);
-            $stmtDenuncia->bindValue(1, $id_resenha);
+            $stmtDenuncia->bindValue(1, $id_resenha); 
             $stmtDenuncia->bindValue(2, $denuncia_res);
+            $stmtDenuncia->bindValue(3, $fk_id_usuario);
             $stmtDenuncia->execute();
     
             // Chamar a função para enviar a notificação de denúncia para o administrador
@@ -177,8 +178,8 @@ public function excluirResenhaById($id_resenha){
                 $ResenhaDTO->setDt_hora_res($resenhaFetch['dt_hora_res']);
                 $ResenhaDTO->setDenuncia_res($resenhaFetch['denuncia_res']);
                 $ResenhaDTO->setSituacao_res($resenhaFetch['situacao_res']);
-                $ResenhaDTO->setFk_id_usuario($resenhaFetch['fk_id_usuario']);
-                $ResenhaDTO->setFk_id_perfil($resenhaFetch['fk_id_perfil']);
+                $ResenhaDTO->setFk_id_usuario($resenhaFetch['id_usuario']);
+                $ResenhaDTO->setFk_id_perfil($resenhaFetch['id_perfil']);
                 
                 $denuncias[] = $ResenhaDTO;
             }

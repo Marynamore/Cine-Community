@@ -114,7 +114,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
         <a href="../../index.php" class="logo"><img src="../../assets/logoinicio.png" alt="index.php"></a>
         <nav class="navbar">
             <a href="../../index.php"><i class="fa-solid fa-house"></i>Voltar</a>
-            <a href="../cadastro.php"><i class="fa-solid fa-user"></i>Cadastra-se</a>
+            <a href="../cadastro_usu.php"><i class="fa-solid fa-user"></i>Cadastra-se</a>
             <div class="search-box">
             <div class="search-box">
 </div>
@@ -197,7 +197,7 @@ $paginaInicial = isset($_SESSION['pagina_inicial']) ? $_SESSION['pagina_inicial'
                         <td>
                             <a href="../alterar_filme.php?get_id=<?=$filmeFetch["id_filme"]?>" title="ALTERAR"
                                 class="editar"> Alterar<i class="bi bi-pencil"></i></a>
-                            <a href="../../control/excluir_filme.php?id_filme=<?= $filmeFetch["id_filme"] ?>"
+                            <a href="../../control/excluir_filme_action.php?id_filme=<?= $filmeFetch["id_filme"] ?>"
                                 title="EXCLUIR" onclick="return confirm('Deseja excluir esse filme?')">Excluir<i class="fa fa-trash fa-lg"></i></a>
 
                         </td>
