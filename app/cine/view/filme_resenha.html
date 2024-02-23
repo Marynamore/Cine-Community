@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../public/css/style_index.css">
+    <title>Cine Community</title>
+</head>
+
+<body>
+    <div id="all">
+        <header>
+            <div class="header__logo">
+                <img src="../../../public/assets/free Delivery.png" alt="">
+            </div>
+            <div class="header__menu">
+                <nav class="header__menu--left">
+                    <div class="header__menu--input">
+                        <input type="text" name="movie-name" id="movie-name" placeholder="Digite algum filme para pesquisar...">
+                        <img src="../../../public/assets/avaliacao/search-icon.svg" alt="Ícone de pesquisa" class="searchIcon">
+                    </div>
+                </nav>
+                <nav class="header__menu--right">
+                    <a href=""><i class="fas fa-house"></i>Inicio</a>
+                    <a href="" class="header__user">
+                        <img src="./assets/pessoas/pic-1.png" alt="Avatar usuário">
+                    </a>
+                    <a href=""><i class="fas fa-sort-down"></i>Sair</a>
+                    <a href=""><i class="fas fa-user"></i>Cadastrar</a>
+                    <a href=""><i class="fas fa-user"></i>Login</a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="info__filmes">
+                <div class="trailer__container">
+                    <div class="trailer__overlay">
+                        <iframe width="560" height="315" src="URL_DO_SEU_TRAILER" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="info__filme">
+                    <img src="../assets/" alt="" class="poster">
+                    <div class="info__filme--right"> 
+                        <h1>Nome Filme</h1>
+                        <h3>Lançamento: Data de lançando</h3>
+                        <h3>Duração: Duração Filme</h3>
+                        <h3>Categoria: Fk_categoria_filme</h3>
+                        <h3>Classificação indicativa: Classificação Filme</h3>
+                        <h3>Canal: Fk_canal_filme</h3>
+                        <h3>Sinopse: Sinopse Filme</h3>
+                    </div>
+                </div>
+            </section>
+            <section class="view__resenha">
+                <div class="resenha__container">
+                    <h1>Resenhas:</h1>
+                    <div class="resenha__wrapper">
+                        <div class="resenha__criar">
+                            <button id="btnAbrirModalResenha">Escrever Resenha</button>
+                        </div>
+
+                        <!-- Modal para criar resenha -->
+                        <div class="overlay"></div>
+                        <div id="modalResenha" class="modal">
+                            <div class="modal__content">
+                                <span class="fechar-modal" onclick="fecharModal('modalResenha')">&times;</span>
+                                <form action="cadastrar_resenha.php" method="post">
+                                    <label for="titulo_res">Título da Resenha:</label>
+                                    <input type="text" name="titulo_res" id="titulo_res" required>
+                                    <label for="descricao_res">Descrição:</label>
+                                    <textarea name="descricao_res" id="descricao_res" required></textarea>
+                                    <button type="submit" class="button">Enviar Resenha</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="resenha__denuncia">
+                            <button id="btnAbrirModalDenuncia">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Modal para denunciar resenha -->
+                        <div class="overlay"></div>
+                        <div id="modalDenuncia" class="modal">
+                            <div class="modal__content">
+                                <span class="fechar-modal" onclick="fecharModal('modalDenuncia')">&times;</span>
+                                <form action="../control/control_denuncia.php" method="post" id="form-denunciar">
+                                    <label for="">Denunciar</label>
+                                    <input type="hidden" name="id_resenha" value="id_resenha">
+                                    <input type="hidden" name="fk_id_usuario" value="id_usuario">
+                                    <input type="text" name="titulo_res" placeholder="Titulo da resenha" value="titulo res">
+                                    <label for="">Motivo:</label>
+                                    <input type="text" name="denuncia_res" placeholder="Motivo">
+                                    <button class="button">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="view__container">
+                    <div class="view__resenha--usu">
+                        <h4>FK_id_usuario() == id_usuarioLogado</h4>
+                        <div class="resenha__info--usu">
+                            <img src="./assets/pessoas/pic-1.png" alt="Avatar usuário">
+                            <h3>Nome_usu</h3>
+                            <div>
+                                <p>nome_usu</p>
+                                <span>Dt_hora_res</span>
+                            </div>
+                        </div>
+                        <button id="like">
+                            <div class="curtir__resenha">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.4 5.25C5.61914 5.25 3.25 7.3293 3.25 10.0298C3.25 11.8927 4.12235 13.4612 5.27849 14.7604C6.43066 16.0552 7.91714 17.142 9.26097 18.0516L11.5796 19.6211C11.8335 19.793 12.1665 19.793 12.4204 19.6211L14.739 18.0516C16.0829 17.142 17.5693 16.0552 18.7215 14.7604C19.8777 13.4612 20.75 11.8927 20.75 10.0298C20.75 7.3293 18.3809 5.25 15.6 5.25C14.1665 5.25 12.9052 5.92214 12 6.79183C11.0948 5.92214 9.83347 5.25 8.4 5.25Z" fill="black" />
+                                </svg>
+                                Curtir
+                            </div>
+                            <div class="number" id="number">0</div>
+                        </button>
+                        <h3>Titulo_res</h3>
+                        <p>Descricao_res</p>
+                        <div class="resenha__actions">
+                            <button><a href="./alterar_resenha.php">Editar</a></button>
+                            <button><a href="../control/excluir_resenha_action.php" onclick="return confirm('Quer deletar essa Resenha?');">Excluir
+                            </a></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../../public/js/javaModal.js"></script>
+    <!-- Inclua o arquivo JavaScript do jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Inclua o arquivo JavaScript do Slick Carousel -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+</body>
+</html>

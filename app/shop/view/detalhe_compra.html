@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../public/css/style_shop.css">
+    <title>Document</title>
+</head>
+<body>
+<div div="all">
+   <header class="header">
+      <div class="header__logo">
+         <img src="../../../public/assets/free Delivery.png" alt="">
+      </div>
+      <div class="header__menu">
+         <div class="header__menu--left">
+               <nav>
+                  <div class="header__menu--input">
+                     <input type="text" name="movie-name" id="movie-name" placeholder="Digite algum filme para pesquisar...">
+                     <img src="../../../public/assets/avaliacao/search-icon.svg" alt="Ícone de pesquisa" class="searchIcon">
+                  </div>
+                  <a href="">Inicio</a>
+                  <a href="">Filmes</a>
+               </nav>
+         </div>
+         <div class="header__menu--right">
+               <nav>
+                  <a href=""><i class="fas fa-bell"></i></a>
+                  <a href="" class="header__user">
+                  <img src="public/assets/pessoas/pic-1.png" alt="Avatar usuário" />
+                     <i class="fas fa-sort-down"></i>
+                  </a>
+               </nav>
+         </div>
+      </div>
+   </header>
+   <main class="details">
+      <h1>Detalhe Pedido</h1>
+      <section class="details__container">
+         <div class="details__item">
+            <div class="details__item--left">
+               <p><i class="fas fa-calendar"></i>Data da Compra</p>
+               <img src="" class="image">
+               <p class="price"><i class="fas fa-brazilian-real-sign"></i>Preço compra x Quantidade compra</p>
+               <h3>Nome Item</h3>
+               <p class="grand-total">Valor Total : <span><i class="fas fa-brazilian-real-sign"></i>Total Itens</span></p>
+            </div>
+            <div class="details__item--right">
+               <h2>Informações do Colecionador</h2>
+               <p class="user"><i class="fas fa-user"></i>Nome Usuario</p>
+               <p class="user"><i class="fas fa-phone"></i>Telefone</p>
+               <p class="user"><i class="fas fa-envelope"></i>Email</p>
+               <p class="user"><i class="fas fa-map-marker-alt"></i>Endereço</p>
+               <p>STATUS</p>
+               <p class="status" style="color: yellow">
+               </p>
+               <div class="details_compra">
+                  <a href="transacao.php" class="btn">Comprar Novamente</a>
+                  <form action="cancelar_pedido_action.php" method="POST">
+                     <input type="submit" value="Cancelar Pedido" name="cancelar_pedido" onclick="return confirm('Deseja cancelar o pedido?')" class="alterar_input">
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+   </main>
+</div>
+</body>
+</html>

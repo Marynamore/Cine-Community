@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style_shop.css">
+    <title>Document</title>
+</head>
+<body>
+<div id="all">
+    <header class="header">
+        <div class="header__logo">
+            <img src="../../../public/assets/free Delivery.png" alt="">
+        </div>
+        <div class="header__menu">
+            <div class="header__menu--left">
+                <nav>
+                    <div class="header__menu--input">
+                        <input type="text" name="movie-name" id="movie-name" placeholder="Digite algum filme para pesquisar...">
+                        <img src="../../../public/assets/avaliacao/search-icon.svg" alt="Ícone de pesquisa" class="searchIcon">
+                    </div>
+                    <a href="">Inicio</a>
+                    <a href="">Filmes</a>
+                </nav>
+            </div>
+            <div class="header__menu--right">
+                <nav>
+                    <a href=""><i class="fas fa-bell"></i></a>
+                    <a href="" class="header__user">
+                    <img src="public/assets/pessoas/pic-1.png" alt="Avatar usuário" />
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="item__details">
+            <div class="item__details--flex">
+                <div class="item__details--dados">
+                    <h2>Confira seus dados:</h2>
+                    <p><strong>Nome:</strong></p>
+                    <p><strong>Email:</strong></p>
+                    <p><strong>CPF ou CNPJ:</strong></p>
+                    <p><strong>Telefone:</strong></p>
+                    <p><strong>Endereço:</strong></p>
+                    <p><strong>Nº:</strong></p>
+                    <p><strong>Complemento:</strong></p>
+                    <p><strong>Bairro:</strong></p>
+                    <p><strong>Cidade:</strong></p>
+                    <p><strong>CEP:</strong></p>
+                    <p><strong>UF:</strong></p>
+                    <button>
+                        <a href="" class="alterar_input">ALTERAR</a>
+                    </button>
+                </div>
+            </div>
+            <div class="item__details--item">
+                <h2>Detalhes Item:</h2>
+                <form action="" method="post">
+                    <input type="hidden" name="preco_item" value="">
+                    <input type="hidden" name="qtd_compra" value="1">
+                    <input type="hidden" name="id_perfil" value="">
+                    <input type="hidden" name="id_usuario" value="">
+<!--
+                    <div class="item__details--flex">
+                        <img src="" class="image">
+                        <div>
+                            <h2>Nome IMG</h2>
+                            <p class="price">Quantidade:</p>
+                            <p class="price">
+                                <i class="fas fa-brazilian-real-sign"></i> x 1
+                            </p>
+                        </div>
+                    </div>
+-->
+                    <div class="item__details--flex">
+                        <p class="h2">Nome IMG</p>
+                        <img src="" class="image">
+                        <div>
+                            <p class="price">
+                                <i class="fas fa-brazilian-real-sign"></i> x Carrinho Quantidade de compra
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grand-total">
+                        <h3>VALOR TOTAL:</h3>
+                        <h3><i class="fas fa-brazilian-real-sign"></i> <strong></strong></h3>
+                    </div>
+                    <div>
+                        <select name="tipo_pagamento" class="select">
+                            <option value="">FORMA DE PAGAMENTO</option>
+                            <option value="PIX">PIX</option>
+                            <option value="Boleto">Boleto</option>
+                            <option value="cc">Cartão de Crédito</option>
+                            <option value="cd">Cartão de Débito</option>
+                        </select>
+                        <input type="submit" value="Finalizar Compra" class="alterar_input">
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,506 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Raleway&family=Roboto&display=swap');
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+
+:root {
+  --background-color: #1f242d;
+  --border-color: #08ef;
+  --terceary-color: #17162E;
+  --text-color: #fff;
+  --text-title-color: #e5e5e5e5;
+  --accent-color: red; 
+  --button-color: #3373d3;
+
+  --text-title: 'Raleway', sans-serif;
+  --text-body: 'Roboto', sans-serif;
+  --text-paragraph: 'Open Sans', sans-serif;
+  --text-highlighted: 'Poppins', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#all{
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+
+button{
+  background-color: var(--button-color);
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+h1, h2{
+  color: var(--text-title-color);
+  font-size: 18px;
+  line-height: 17px;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+/* === Header | Navegação === */
+header {
+  display: flex;
+  align-items: center;
+}
+
+header .header__logo{
+  margin: 0 4rem;
+}
+
+
+header .header__logo img{
+  width: 5.8rem;
+  cursor: pointer;
+}
+
+header .header__menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+header .header__menu nav {
+  display: flex;
+  align-items: center;
+}
+
+header .header__menu nav a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.9rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+header .header__menu .header__menu--left .header__menu--input{
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+header .header__menu .header__menu--left .header__menu--input input{
+  padding: 0.5rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+header .header__menu .header__menu--left .header__menu--input img{
+  cursor: pointer;
+}
+
+header .header__menu--left nav a:hover{
+  color: var(--text-color);
+}
+
+header .header__menu--right{
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+header .header__menu--right nav a{
+  padding-right: 1.2rem;
+}
+
+header .header__menu--right .header__user {
+  display: flex;
+  align-items: center;
+}
+
+header .header__menu--right .header__user img{
+  width: 3rem;
+  margin-right: 0.5rem;
+  border-radius: 25px;
+}
+
+/* === Trilho com animação e efeito slider=== */
+
+section.category{
+  height: auto;
+}
+
+section.category .category__title{
+  color: var(--text-title-color);
+  font-size: 18px;
+  line-height: 17px;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+section.category .category__wrapper{
+  display: flex; 
+  overflow: hidden;
+}
+
+section.category .category__wrapper .filme__carousel, section.category .category__wrapper .item__carousel{
+  width: 100%;
+  margin: 0 -10px; /* Remove margens negativas para evitar quebras de linha */
+  position: relative;
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+section.category .category__wrapper .filme__carousel .filme__item{
+  background-color: var(--text-color);
+  border-radius: .5em;
+  border: .1em solid rgba(0,0,0,.3);
+  padding: 0 10px;
+  margin: 0;
+  text-align: center;
+  overflow-x: hidden;
+  transition: 250ms all;
+}
+
+section.category .category__wrapper .filme__carousel .filme__item a, section.category .category__wrapper .item a{
+  text-decoration: none;
+}
+
+section.category .category__wrapper .filme__carousel .filme__item .animation:hover, section.category .category__wrapper .item__carousel .item .animation:hover{
+  margin: 0 40px;
+  transform: scale(1.15);
+}
+
+section.category .category__wrapper .filme__carousel .filme__item img, section.category .category__wrapper .item img{
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+}
+
+section.category .category__wrapper .filme__carousel .arrow__btn, section.category .category__wrapper .item__carousel .arrow__btn{
+  position: absolute;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 6em;
+  background-color: rgb(0, 0, 0);
+  width: 80px;
+  padding: 15px;
+  text-align: center;
+  z-index: 1;
+}
+
+section.category .category__wrapper .filme__carousel .arrow__btn i, section.category .category__wrapper .item__carousel .arrow__btn i{
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.637);
+}
+
+section.category .category__wrapper .filme__carousel .arrow__btn i:hover{
+  color: var(--text-color);
+  transform: scale(1.1);
+}
+
+section.category .category__wrapper .filme__carousel .arrow__btn:nth-of-type(1),section.category .category__wrapper .item__carousel .arrow__btn:nth-of-type(1){
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background: linear-gradient(
+    -90deg,
+    rgba(0, 0, 0, 0) 0%,
+    var(--background-color) 100%
+  );
+}
+
+section.category .category__wrapper .filme__carousel .arrow__btn:nth-of-type(2), section.category .category__wrapper .item__carousel .arrow__btn:nth-of-type(2){
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    var(--background-color) 100%
+  );
+}
+
+section.sessaocompras{
+  font-family: Arial, sans-serif;
+  background-color:#1f242d ;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+section.sessaocompras .compras{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px; 
+}
+
+section.sessaocompras .compras .product-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+section.sessaocompras .compras .product-list .product-item{
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  border: 1px solid #08ef;
+  border-radius: 20px;
+  padding: 20px;
+  background-color:#1f242d;
+}
+
+
+
+/* === Footer === */
+footer {
+  margin-top: 6rem;
+}
+
+.social__links {
+  height: 25px;
+  width: 50%;
+}
+
+.social__links i {
+  font-size: 22px;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+.link__content {
+  margin: 20px;
+  color: grey;
+}
+
+.link__content--info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5em;
+}
+
+.link__content--info ul {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  padding: initial;
+}
+
+.link__content--info ul li {
+  list-style: none;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.link__content--info ul li:hover {
+  text-decoration: underline;
+}
+
+.link__content--service {
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.link__content--service-code {
+  background: 0 0;
+  color: grey;
+  border: solid 1px grey;
+  padding: 0.5rem;
+}
+
+.link_content--service-code:hover {
+  color: white;
+  border: solid 1px white;
+}
+
+.link__content--copyright {
+  font-size: 11px;
+  margin-bottom: 15px;
+  padding: 1rem 4px;
+}
+
+/* Resenha | Filmes */
+
+#all {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  padding: 20px;
+}
+
+section.info__filmes {
+  position: relative;
+}
+
+section.info__filmes .trailer__container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 25%; /* Aspect ratio 16:9 for responsive iframe */
+}
+
+section.info__filmes .trailer__container .trailer__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.info__filmes .trailer__container .trailer__overlay iframe {
+  width: 80%;
+  height: 80%;
+}
+
+section.info__filmes .info__filme {
+  display: flex;
+  margin-top: -10%; /* Ajuste para sobrepor o vídeo */
+  z-index: 1; 
+  gap: 20px;
+  color: var(--text-color);
+  box-shadow: 0 0 10px var(--border-color);
+  border-radius:10px;
+  margin-bottom: 10px;
+}
+
+section.info__filmes .info__filme  img.poster {
+  width: 200px;
+  height: auto;
+  margin-right: 20px;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper, div.view__container .view__resenha--usu .resenha__actions{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  display: none;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 80px;
+  border-radius: 15px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content span.fechar-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content form input {
+  padding: 15px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content form .button {
+  background-color: #3373d3;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+section.view__resenha .resenha__container .resenha__wrapper .modal .modal__content form .button:hover, section.view__resenha div.view__container .view__resenha--usu .resenha__actions button:hover {
+  background-color: #33bbd3;
+  cursor: pointer;
+  opacity: 1;
+}
+
+section.view__resenha .view__container{
+  box-shadow: 0 0 10px var(--border-color);
+  padding: 10px;
+  color: var(--text-color);
+  border-radius: 10px;
+  position: relative;
+}
+
+section.view__resenha .view__container .resenha__info--usu{
+  display: flex;
+  align-items: center;
+}
+
+section.view__resenha .view__container .resenha__info--usu img{
+  height: 3rem;
+  width: 3rem;
+  border-radius: 25%;
+  object-fit: cover;
+}
+
+section.view__resenha .view__container .curtir__resenha{
+  position: absolute;
+  top: 0; right: 0;
+  z-index: 10;
+}
+
+div.view__container .view__resenha--usu .resenha__actions button a{
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+div.view__container .view__resenha--usu .resenha__actions{
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}

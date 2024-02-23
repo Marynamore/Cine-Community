@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../public/css/style_shop.css">
+    <title>Cine Community</title>
+</head>
+<body>
+<div id="all">
+    <header class="header">
+        <div class="header__logo">
+            <img src="../../../public/assets/free Delivery.png" alt="">
+        </div>
+        <div class="header__menu">
+            <div class="header__menu--left">
+                <nav>
+                    <div class="header__menu--input">
+                        <input type="text" name="movie-name" id="movie-name" placeholder="Digite algum filme para pesquisar...">
+                        <img src="../../../public/assets/avaliacao/search-icon.svg" alt="Ícone de pesquisa" class="searchIcon">
+                    </div>
+                    <a href="">Inicio</a>
+                    <a href="">Filmes</a>
+                </nav>
+            </div>
+            <div class="header__menu--right">
+                <nav>
+                    <a href=""><i class="fas fa-bell"></i></a>
+                    <a href="" class="header__user">
+                    <img src="public/assets/pessoas/pic-1.png" alt="Avatar usuário" />
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="itens">
+            <h1>Carrinho de Compra</h1>
+            <div class="pedido-container">
+                <form action="../control/excluir_atualizar_car.php" method="POST" class="item-box">
+                    <input type="hidden" name="id_carrinho" value="">
+                    <input type="hidden" name="dt_hora_car" value="">
+                    <img src="" class="image">
+                    <h3 class="name">Nome Item</h3>
+                    <div class="flex">
+                        <p class="price"><i class="fas fa-brazilian-real-sign"></i>Preço</p>
+                        <input type="number" name="qtd_compra" required min="1" value="" max="99" maxlength="2" class="qtd">
+                        <button type="submit" name="atualizar_car" class="fas fa-edit"></button>
+                    </div>
+                    <p class="sub-total">Subtotal: <br><span><i class="fas fa-brazilian-real-sign"></i>Quantidade Compra * Preço Item</span></p>
+                    <center>
+                    <input type="submit" value="Delete" name="deletar_item" onclick="return confirm('Quer deletar este item?');" class="alterar_input">
+                    </center>
+                </form>
+            </div>
+            <div class="total">
+                <p>Total Itens: <span><i class="fas fa-brazilian-real-sign"></i> Total Itens</span></p>
+                <form action="../control/esvaziar_car.php" method="POST">
+                    <center>
+                    <input type="submit" value="Esvaziar Carrinho" name="carrinho_vazio" onclick="return confirm('Deseja esvaziar o seu carrinho?');" class="alterar_input">
+                    <button><a href="detalhe_transacao.html" class="alterar">Comprar Agora</a></button>
+                    </center>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

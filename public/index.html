@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style_index.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Cine Community</title>
+</head>
+
+<body>
+<div id="all">
+    <header>
+        <div class="header__logo">
+            <img src="./assets/free Delivery.png" alt="">
+        </div>
+        <div class="header__menu">
+            <nav class="header__menu--left">
+                <div class="header__menu--input">
+                    <input type="text" name="movie-name" id="movie-name" placeholder="Digite algum filme para pesquisar...">
+                    <img src="./assets/avaliacao/search-icon.svg" alt="Ícone de pesquisa" class="searchIcon">
+                </div>
+            </nav>
+            <nav class="header__menu--right">
+                <a href="index.html"><i class="fas fa-house"></i>Inicio</a>
+                <a href="../app/user/view/cadastro_usu.php"><i class="fas fa-user"></i>Cadastrar</a>
+                <a href="index_shop.html"><i class="fas fa-user-tag"></i>Colecionadores</a>
+                <a href="#"><i class="fas fa-users"></i>Sobre Nós</a>
+                <a href=""><i class="fas fa-bell"></i>Notificação</a>
+                <a href="../app/user/view/perfil_usuario.php" class="header__user">
+                    <img src="./assets/pessoas/pic-1.png" alt="Avatar usuário">
+                </a>
+                <a href="../app/user/control/sair_usu_action.php"><i class="fas fa-sort-down"></i> Sair</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="category" id="category1">
+            <h2 class="category__title">Minha Lista</h2>
+            <div class="category__wrapper">
+                <div class="filme__carousel active" data-category="category1">
+                    <a href="#" class="arrow__btn prev" id="prevLink1"><i class="fas fa-angle-left"></i></a>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <a href="#" class="arrow__btn next" id="nextLink1"><i class="fas fas fa-angle-right"></i></a>
+                </div>
+            </div>
+        </section>
+        <section class="category" id="category2">
+            <h2 class="category__title">Outra Lista</h2>
+            <div class="category__wrapper">
+                <div class="filme__carousel active" data-category="category2">
+                    <a href="#" class="arrow__btn prev" id="prevLink2"><i class="fas fa-angle-left"></i></a>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <a href="#" class="arrow__btn next" id="nextLink2"><i class="fas fa-angle-right"></i></a>
+                </div>
+            </div>
+        </section>
+        <section class="category" id="category3">
+            <h2 class="category__title">Outra Lista</h2>
+            <div class="category__wrapper">
+                <section class="filme__carousel active" data-category="category3">
+                    <a href="#" class="arrow__btn prev" id="prevLink3"><i class="fas fa-angle-left"></i></a>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <div class="filme__item animation">
+                        <a href="../app/cine/view/filme_resenha.html">
+                            <img src="./assets/avaliacao/heart-fill.svg" alt="BoJack Horseman">
+                            <p>Nome Filme</p>
+                            <button><i class="fas fa-star"></i></button>
+                        </a>
+                    </div>
+                    <a href="#" class="arrow__btn next" id="nextLink3"><i class="fas fa-angle-right"></i></a>
+                </section>
+            </div>
+        </section>
+        <section class="sessaocompras">
+            <div class="compras">
+                <h1>Compre e/ou Venda Itens Colecionáveis</h1><br>
+                <p>Encontre os itens mais raros e exclusivos para completar sua coleção. Nosso site oferece uma ampla variedade de itens colecionáveis. Explore a nossa seleção e participe da comunidade de colecionadores!</p>
+
+                <div class="product-list">
+                    <div class="product-item">
+                        <img src="../lp_origin/assets/boneco-coringa.jpg" alt="Produto 1">
+                        <div class="title">Produto 1</div>
+                        <div class="price">$10.00</div>
+                        <div class="description">Descrição do Produto 1</div>
+                    </div>
+
+                    <div class="product-item">
+                        <img src="../lp_origin/assets/bonecojason.webp" alt="Produto 2">
+                        <div class="title">Produto 2</div>
+                        <div class="price">$15.00</div>
+                        <div class="description">Descrição do Produto 2</div>
+                    </div>
+
+                    <div class="product-item">
+                        <img src="../lp_origin/assets/bonecorambo.webp" alt="Produto 3">
+                        <div class="title">Produto 3</div>
+                        <div class="price">$20.00</div>
+                        <div class="description">Descrição do Produto 3</div>
+                    </div>
+
+                </div>
+            </div>
+            <button>
+                <a href="../lp_origin/view/todos_itens.php" class="checkout-btn">Explorar Itens</a>
+            </button>
+        </section>
+    </main>
+    <footer>
+        <div class="social__links">
+          <i class="fa-brands fa-facebook-f"></i>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-twitter"></i>
+          <i class="fa-brands fa-youtube"></i>
+        </div>
+
+        <div class="link__content">
+          <div class="link__content--info">
+            <ul>
+              <li>Idioma e legendas</li>
+              <li>Imprensa</li>
+              <li>Privacidade</li>
+              <li>Entre em contato</li>
+            </ul>
+            <ul>
+              <li>Audiodescrição</li>
+              <li>Relações com investidores</li>
+              <li>Avisos legais</li>
+            </ul>
+            <ul>
+              <li>Centro de ajuda</li>
+              <li>Carreiras</li>
+              <li>Preferência de cookies</li>
+            </ul>
+            <ul>
+              <li>Cartão pré-pago</li>
+              <li>Termos de uso</li>
+              <li>informações corporativas</li>
+            </ul>
+          </div>
+          <div class="link__content--service">
+            <button class="link__content--service-code">Código do serviço</button>
+          </div>
+          <div class="link__content--copyright">
+            <span>© 2023 Cine Community, Inc.&nbsp;&nbsp;&lrm;</span>
+          </div>     
+        </div>   
+    </footer>
+</div>
+<script src="js/javaCarrossel.js"></script>
+<!-- Inclua o arquivo JavaScript do jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Inclua o arquivo JavaScript do Slick Carousel -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+</body>
+</html>
